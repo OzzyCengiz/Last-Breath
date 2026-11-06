@@ -1,0 +1,463 @@
+{
+  "app": {
+    "title": "LAST BREATH",
+    "subtitle": "SAHA TERMİNALİ // REV 0.1"
+  },
+  "menu": {
+    "kicker": "ACİL DURUM YAYINI // HAYATTA KALMA TERMİNALİ",
+    "lore": "Şebeke çöküşü +14 ay. Kısa dalga röleleri tüm kıtalarda susuyor. Kalorini idareli kullan, geçilebilir koridorları haritalandır, bir sığınak kur ve nefes almaya devam et.",
+    "active_transmission": "AKTİF HAYATTA KALAN SİNYALİ BULUNDU",
+    "charted_sectors": "{count} bölge haritalandı",
+    "new_expedition_title": "YENİ SEFER YAPILANDIRMASI",
+    "no_save_title": "YENİ HAYATTA KALAN PROTOKOLÜ",
+    "no_save_desc": "Sektörde kayıtlı aktif hayatta kalan sinyali bulunamadı. Kıyamet sonrası harabelerde hayatta kalma mücadelenizi başlatmak için yeni bir sefer kaydı oluşturun.",
+    "select_archetype": "1. UZMANLIK GEÇMİŞİNİ SEÇ",
+    "select_sector": "2. BAŞLANGIÇ SEKTÖRÜNÜ SEÇ",
+    "footer_hint": "TÜM İLERLEME YEREL TERMİNALE OTOMATİK KAYDEDİLİR",
+    "action": {
+      "continue": "KAYITLI SEFERE DEVAM ET",
+      "start_new": "SEKTÖRE İNİŞ YAP",
+      "open_menu": "ANA MENÜ",
+      "new_game": "YENİ SEFERE BAŞLA →",
+      "create_character": "YENİ HAYATTA KALAN OLUŞTUR →",
+      "back_to_menu": "← ANA MENÜ"
+    },
+    "archetype": {
+      "scavenger": {
+        "name": "Keşifçi / İzci",
+        "desc": "Kurye çantası, pusula, ekstra erzak ve Sv.1 Keşif & Yağmalama uzmanlığı ile başlar."
+      },
+      "medic": {
+        "name": "Saha Sıhhiyecisi",
+        "desc": "Travma kiti, antibiyotik, kimyasal panço ve Sv.1 Saha Tıbbı uzmanlığı ile başlar."
+      },
+      "engineer": {
+        "name": "Hurda Mühendisi",
+        "desc": "Levye, çelik plaka, bakır tel ve Sv.1 Hurda Mühendisliği uzmanlığı ile başlar."
+      },
+      "veteran": {
+        "name": "Kordon Muhafızı",
+        "desc": "Pala, korumalı deri ceket, askeri kumanya (MRE) ve Sv.1 Yakın Çatışma ile başlar."
+      }
+    }
+  },
+  "character": {
+    "create_title": "HAYATTA KALAN KAYDI // YENİ SEFER",
+    "create_subtitle": "ACİL DURUM PROTOKOLÜ AKTİF. SAHA GÖREVLİSİ KİMLİĞİNİ, BİYOMETRİK VERİLERİNİ VE İNİŞ SEKTÖRÜNÜ BELİRLEYİN.",
+    "default_name": "Kazazede",
+    "callsign_kicker": "ÇAĞRI KODU // KİMLİK",
+    "steps": {
+      "identity": "1. KİMLİK & MİZAÇ",
+      "archetype": "2. GEÇMİŞ & KİT",
+      "sector": "3. İNİŞ SEKTÖRÜ",
+      "summary": "4. ÖZET & BAŞLAT"
+    },
+    "step_subtitle": {
+      "1": "Adım 1/4: Çağrı kodunuzu, yaşınızı, kan grubunuzu ve hayatta kalma mizacınızı belirleyin.",
+      "2": "Adım 2/4: Kıyamet öncesi uzmanlık geçmişinizi ve başlangıç ekipman kitinizi seçin.",
+      "3": "Adım 3/4: Hayatta kalma operasyonuna başlayacağınız ilk iniş sektörünü seçin.",
+      "4": "Adım 4/4: Saha kimlik dosyanızı gözden geçirin ve seferi başlatın."
+    },
+    "label": {
+      "identity": "1. SAHA GÖREVLİSİ KİMLİĞİ VE BİYOMETRİ",
+      "name": "ÇAĞRI KODU / İSİM",
+      "age": "YAŞ",
+      "blood": "KAN GRUBU",
+      "trait": "HAYATTA KALMA MİZACI",
+      "archetype": "2. UZMANLIK GEÇMİŞİ VE EKİPMAN",
+      "sector": "3. BAŞLANGIÇ İNİŞ SEKTÖRÜ",
+      "dossier_preview": "SAHA KİMLİK DOSYASI // CANLI ÖNİZLEME"
+    },
+    "placeholder": {
+      "name": "İsim veya çağrı kodu girin..."
+    },
+    "action": {
+      "random_name": "⚄ RASTGELE",
+      "deploy": "SEKTÖRE İNİŞ YAP // SEFERİ BAŞLAT",
+      "back": "← SİNYALE GERİ DÖN",
+      "back_to_menu": "← ANA MENÜ",
+      "next": "SONRAKİ ADIM →",
+      "prev": "← ÖNCEKİ ADIM"
+    },
+    "age_bracket": {
+      "young": "Genç (18–25) // Yüksek Kondisyon & Hızlı Enerji Yenilenmesi",
+      "prime": "Olgun (26–40) // Dengeli Metanet & Çeviklik",
+      "veteran": "Kıdemli (41–65) // Hayatta Kalma Tecrübesi & Ekstra Toplama Bilgisi"
+    }
+  },
+  "trait": {
+    "stoic": {
+      "name": "Soğukkanlı",
+      "desc": "Acı ve travmaya yüksek direnç; ağır fiziksel hasar ve kanamalarda panik ve enerji kaybını düşürür."
+    },
+    "night_owl": {
+      "name": "Gece Kuşu",
+      "desc": "Gece operasyonlarında yüksek dikkat ve duyusal avantaj; karanlıkta keşif yaparken yön şaşırmayı önler."
+    },
+    "fast_metabolism": {
+      "name": "Hızlı İyileşme",
+      "desc": "Güvenli sığınaklarda dinlenirken ve uyurken %25 daha hızlı doğal sağlık yenilenmesi."
+    },
+    "hoarder": {
+      "name": "İstifçi",
+      "desc": "Çanta istifleme ve dengeleme ustası; azami taşıma kapasitesini kalıcı olarak +2.5 kg artırır."
+    },
+    "iron_stomach": {
+      "name": "Demir Mide",
+      "desc": "Sağlam sindirim bağışıklığı; bozuk gıdalardan ve arıtılmamış sulardan enfeksiyon kapma riskini %50 düşürür."
+    }
+  },
+  "loot": {
+    "title": {
+      "scavenge_found": "KEŞİF & ARAMA // KAYNAKLAR BULUNDU",
+      "scavenge_empty": "KEŞİF & ARAMA // SEKTÖR BOŞ",
+      "combat_victory": "TEHDİT ETKİSİZ // SAVAŞ GANİMETİ",
+      "combat_scavenge": "ÇATIŞMA İÇİ YAĞMALAMA // HIZLI BULGU",
+      "survey_result": "BÖLGE GÖZLEMİ // TAMAMLANDI",
+      "rest_result": "SAHA İSTİRAHATİ // DURUM RAPORU"
+    },
+    "desc": {
+      "scavenge_found": "{location} sektöründeki arama sonucunda aşağıdaki kaynaklar bulundu. Çantanıza almak istediklerinizi seçin:",
+      "scavenge_empty": "{location} sektöründe yapılan detaylı aramada işe yarar bir şey bulunamadı. Bölgedeki hurda ve erzak tükenmiş olabilir.",
+      "combat_victory": "{enemy} etkisiz hale getirildi (+{xp} XP). Hedefin üzerinden aşağıdaki ganimetler ele geçirildi:",
+      "combat_scavenge": "Çatışma sırasında düşmanın dikkatinden kaçarak şu ganimet ele geçirildi:",
+      "survey": "Yüksek bir gözetleme noktasından yapılan taramada {count} yeni komşu koridor ve sektör haritalandı.",
+      "survey_empty": "Gözlem tamamlandı. Bu noktadan haritalanmamış yeni bir sektör tespit edilemedi.",
+      "rest": "{hours} saat güvenli şekilde dinlenildi. Yaşamsal fonksiyonlar dengelendi ve enerji toplandı."
+    },
+    "load_status": "Çanta Yükü: {current} / {max} kg (+{selected} kg seçildi)",
+    "overload_warning": "⚠ UYARI: Seçilen eşyalar azami çanta taşıma kapasitenizi aşıyor!",
+    "no_items": "Toplanabilecek bir eşya bulunamadı.",
+    "action": {
+      "take_all": "TÜMÜNÜ AL",
+      "take_selected": "SEÇİLENLERİ AL ({count})",
+      "leave_all": "YERDE BIRAK",
+      "close": "ANLADIM // DEVAM ET"
+    }
+  },
+  "hud": {
+    "day": "GÜN {day}",
+    "day_short": "G{day}",
+    "daylight": "GÜNDÜZ",
+    "night": "GECE",
+    "new_run": "YENİ SEFER",
+    "confirm_reset": "Mevcut seferi bırakıp ana menüden yeni bir sefer başlatmak istiyor musunuz?",
+    "tab": {
+      "map": "HARİTA",
+      "map_short": "HARİTA",
+      "inventory": "ÇANTA & EKİPMAN",
+      "inventory_short": "ÇANTA",
+      "craft": "ÜRETİM & ÜS",
+      "craft_short": "ÜRETİM",
+      "status": "BİYOTARAMA",
+      "status_short": "BİYO",
+      "log": "SAHA KAYDI",
+      "log_short": "GÜNLÜK"
+    },
+    "pill": {
+      "health": "CAN",
+      "satiety": "KAL",
+      "hydration": "SU",
+      "energy": "DAY"
+    }
+  },
+  "status": {
+    "section": {
+      "vitals": "BİYOMETRİK DEĞERLER",
+      "conditions": "AKTİF TRAVMA & ENFEKSİYON",
+      "readout": "ÇATIŞMA & DONANIM TELEMETRİSİ",
+      "skills": "HAYATTA KALMA UZMANLIKLARI"
+    },
+    "vital": {
+      "health": "BÜTÜNLÜK",
+      "satiety": "KALORİ",
+      "hydration": "SU SEVİYESİ",
+      "energy": "DAYANIKLILIK"
+    },
+    "band": {
+      "fine": "NORMAL",
+      "low": "DÜŞÜK",
+      "critical": "KRİTİK",
+      "depleted": "TÜKENDİ"
+    },
+    "no_ailments": "Aktif kanama, sistemik enfeksiyon veya kas-iskelet travması tespit edilmedi.",
+    "readout": {
+      "weapon": "Kuşanılan Silah",
+      "combat_rating": "Taktik Çatışma Gücü",
+      "armor": "Zırh / Koruma Değeri",
+      "scavenge_bonus": "Arama Verimliliği",
+      "travel_bonus": "Yürüyüş Hızı"
+    }
+  },
+  "ailment": {
+    "bleeding": {
+      "name": "Açık Kanama",
+      "desc": "Her saat düzenli kan kaybı. Şok başlamadan önce bandaj veya ilk yardım kiti uygulayın.",
+      "severity": "DERECE {severity}"
+    },
+    "infection": {
+      "name": "Sistemik Enfeksiyon",
+      "desc": "Bakteri yükü artıyor. İleri aşamalarda antiseptik veya antibiyotik gerekir."
+    },
+    "sprain": {
+      "name": "Bağ Burkulması",
+      "desc": "İyileşene kadar bölgeler arası yürüyüş hızını düşürür.",
+      "remaining": "{hours}sa kaldı"
+    }
+  },
+  "skill": {
+    "level_short": "SV {level}",
+    "max_level": "MAKS",
+    "foraging": {
+      "name": "Keşif & Yağmalama",
+      "desc": "Yıkıntılardan bulunan ganimet miktarını ve tehlikelerden kaçınma şansını artırır."
+    },
+    "medical": {
+      "name": "Saha Tıbbı",
+      "desc": "Tedavi ve iyileşme etkisini güçlendirir; doğal kan pıhtılaşma şansını artırır."
+    },
+    "engineering": {
+      "name": "Hurda Mühendisliği",
+      "desc": "Araç sökümü, tamirat ve mekanik engelleri aşma başarısını yükseltir."
+    },
+    "marksmanship": {
+      "name": "Yakın Çatışma & Silahlar",
+      "desc": "Düşman karşılaşmalarında taktik çatışma gücünü artırır."
+    }
+  },
+  "inventory": {
+    "weight": "YÜK",
+    "slots": "SLOT",
+    "overloaded_notice": "AŞIRI YÜK — Seyahat %30 yavaşlar ve dayanıklılık tüketimi %35 artar.",
+    "unarmed": "Silahsız",
+    "no_ammo": "Mermisiz",
+    "slot_empty": "— BOŞ —",
+    "empty": "Bu kategoride eşya yok.",
+    "ground_empty": "Bu bölgede yerde bırakılmış eşya yok.",
+    "section": {
+      "equipped": "KUŞANILAN EKİPMAN",
+      "pack": "SIRT ÇANTASI",
+      "ground": "YERDEKİ ZULA"
+    },
+    "slot": {
+      "weapon": "SİLAH",
+      "body": "GÖVDE",
+      "pack": "ÇANTA"
+    },
+    "category": {
+      "all": "TÜMÜ",
+      "supplies": "ERZAK",
+      "medical": "TIBBİ",
+      "weapons": "SİLAH",
+      "scrap": "HURDA",
+      "gear": "TEÇHİZAT"
+    },
+    "action": {
+      "use": "KULLAN",
+      "equip": "KUŞAN",
+      "unequip": "ÇIKAR",
+      "drop": "BIRAK",
+      "take": "AL"
+    }
+  },
+  "map": {
+    "current_sector": "MEVCUT SEKTÖR",
+    "selected_sector": "SEÇİLİ HEDEF SEKTÖR",
+    "no_direct_corridor": "Mevcut sektörden doğrudan geçiş koridoru yok",
+    "coords": "WGS84 KONUM",
+    "threat_level": "TEHLİKE DÜZEYİ",
+    "scavenge_yield": "SEKTÖR REZERVİ",
+    "find_chance": "bulma",
+    "risk": "RİSK",
+    "visited_badge": "HARİTALANDI",
+    "section": {
+      "routes": "BAĞLANTILI KORİDORLAR"
+    },
+    "mode": {
+      "road": "KARA YOLU",
+      "sea": "DENİZ YOLU"
+    },
+    "action": {
+      "scavenge": "BÖLGEYİ YAĞMALA (1–1.5sa)",
+      "patrol": "DÜŞMAN ARA / ÇATIŞ (15dk)",
+      "survey": "ÇEVREYİ KEŞFET (45dk)",
+      "rest_hours": "DİNLEN {hours}sa",
+      "travel": "İLERLE"
+    },
+    "control": {
+      "zoom_in": "Yakınlaştır",
+      "zoom_out": "Uzaklaştır",
+      "center": "Karaktere odakla",
+      "world": "Dünya görünümü"
+    }
+  },
+  "location": {
+    "istanbul": "İstanbul",
+    "ankara": "Ankara",
+    "athens": "Atina",
+    "sofia": "Sofya",
+    "bucharest": "Bükreş",
+    "kyiv": "Kiev",
+    "vienna": "Viyana",
+    "berlin": "Berlin",
+    "paris": "Paris",
+    "london": "Londra",
+    "madrid": "Madrid",
+    "lisbon": "Lizbon",
+    "reykjavik": "Reykjavik",
+    "moscow": "Moskova",
+    "tbilisi": "Tiflis",
+    "tehran": "Tahran",
+    "beirut": "Beyrut",
+    "tangier": "Tanca",
+    "cairo": "Kahire",
+    "khartoum": "Hartum",
+    "addis_ababa": "Addis Ababa",
+    "nairobi": "Nairobi",
+    "timbuktu": "Timbuktu",
+    "dakar": "Dakar",
+    "lagos": "Lagos",
+    "kinshasa": "Kinşasa",
+    "johannesburg": "Johannesburg",
+    "cape_town": "Cape Town",
+    "karachi": "Karaçi",
+    "delhi": "Yeni Delhi",
+    "mumbai": "Mumbai",
+    "almaty": "Almatı",
+    "novosibirsk": "Novosibirsk",
+    "ulaanbaatar": "Ulanbatur",
+    "beijing": "Pekin",
+    "shanghai": "Şanghay",
+    "seoul": "Seul",
+    "tokyo": "Tokyo",
+    "vladivostok": "Vladivostok",
+    "anadyr": "Anadır",
+    "bangkok": "Bangkok",
+    "kuala_lumpur": "Kuala Lumpur",
+    "jakarta": "Cakarta",
+    "darwin": "Darwin",
+    "alice_springs": "Alice Springs",
+    "sydney": "Sidney",
+    "auckland": "Auckland",
+    "nome": "Nome",
+    "anchorage": "Anchorage",
+    "vancouver": "Vancouver",
+    "san_francisco": "San Francisco",
+    "los_angeles": "Los Angeles",
+    "denver": "Denver",
+    "chicago": "Chicago",
+    "new_york": "New York",
+    "montreal": "Montreal",
+    "st_johns": "St. John's",
+    "nuuk": "Nuuk",
+    "houston": "Houston",
+    "mexico_city": "Mexico City",
+    "panama_city": "Panama City",
+    "bogota": "Bogota",
+    "lima": "Lima",
+    "manaus": "Manaus",
+    "recife": "Recife",
+    "sao_paulo": "São Paulo",
+    "buenos_aires": "Buenos Aires",
+    "santiago": "Santiago",
+    "ushuaia": "Ushuaia"
+  },
+  "biome": {
+    "urban": "METROPOL YIKINTISI",
+    "suburban": "KENAR MAHALLE",
+    "industrial": "SANAYİ BÖLGESİ",
+    "rural": "KIRSAL ALAN",
+    "coastal": "LİMAN HATTI",
+    "forest": "ORMANLIK",
+    "wasteland": "ÇORAK TOPRAK",
+    "arctic": "BUZUL HATTI",
+    "military": "ASKERİ KORDON"
+  },
+  "enemy": {
+    "feral_hound": {
+      "name": "Kuduz Yaban Köpeği",
+      "desc": "Enkazların arasından dişlerini göstererek atılan aç yırtıcı."
+    },
+    "raider_scout": {
+      "name": "Otoyol Yağmacısı",
+      "desc": "Çentikli pala ve kaynaklı hurda zırh kuşanmış saldırgan izci."
+    },
+    "plague_stalker": {
+      "name": "Enfekte Bölge Avcısı",
+      "desc": "Septik kirle kaplı, ne yaptığını bilmeden saldıran enfekte."
+    },
+    "cordon_deserter": {
+      "name": "Kaçak Kordon Askeri",
+      "desc": "Yıpranmış balistik yelekli, silahlı eski karantina askeri."
+    }
+  },
+  "combat": {
+    "kicker": "TAKTİK ÇATIŞMA",
+    "round": "TUR {round}",
+    "enemy_hp": "DÜŞMAN BÜTÜNLÜĞÜ",
+    "scavenge_tag": "Çatışma başı 1×",
+    "enemy_appeared": "TEMAS: {name} hızla yaklaşıyor!",
+    "player_hit": "{name} hedefine {dmg} hasar verdin.",
+    "player_missed": "{name} hedefine saldırın ıskaladı.",
+    "enemy_hit": "{name} sana {dmg} travma hasarı verdi!",
+    "enemy_missed": "{name} saldırısından sıyrıldın.",
+    "victory": "{name} etkisiz hale getirildi.",
+    "fled_success": "Teması kesip {name} tehdidinden uzaklaştın.",
+    "fled_failed": "{name} karşısında geri çekilemedin!",
+    "action": {
+      "strike": "Taktik Saldırı",
+      "aimed": "Nişanlı / Güçlü Atış",
+      "scavenge": "Çatışma Ortasında Yağmala",
+      "flee": "Teması Kes & Kaç"
+    }
+  },
+  "crafting": {
+    "station": "TEZGAH",
+    "section": {
+      "recipes": "ÜRETİM & ŞEMALAR"
+    },
+    "tier": {
+      "0": "EL İŞÇİLİĞİ",
+      "1": "TEZGAH I",
+      "2": "TORNA II"
+    },
+    "action": {
+      "craft": "ÜRET"
+    }
+  },
+  "base": {
+    "location_label": "KURULU SIĞINAK",
+    "integrity": "SAVUNMA",
+    "none_established": "Henüz kalıcı bir sığınak kurulmadı. Tezgah ve depo inşa etmek için mevcut sektörü sahiplenin.",
+    "storage_empty": "Sığınak deposu boş.",
+    "section": {
+      "outpost": "SIĞINAK ALTYAPISI",
+      "storage": "SIĞINAK DEPOSU"
+    },
+    "action": {
+      "establish": "{location} BÖLGESİNDE SIĞINAK KUR",
+      "relocate": "SIĞINAĞI {location} BÖLGESİNE TAŞI",
+      "upgrade": "İNŞA ET / GELİŞTİR",
+      "repair": "ÇEVREYİ ONAR (1× Çelik Plaka)"
+    }
+  },
+  "structure": {
+    "workbench": {
+      "name": "Saha Çalışma Tezgahı",
+      "desc": "Bu sığınakta Seviye I ve Seviye II üretim şemalarını açar."
+    },
+    "rain_catcher": {
+      "name": "Yağmur Suyu Yoğuşturucu",
+      "desc": "Zamanla sığınak deposuna otomatik temiz su biriktirir."
+    },
+    "barricade": {
+      "name": "Çelik & Demir Barikat",
+      "desc": "Sığınak çevresini gece baskınlarına karşı güçlendirir."
+    },
+    "med_cot": {
+      "name": "Steril Revir Yatağı",
+      "desc": "Sığınakta dinlenirken can yenilenmesini hızlandırır."
+    }
+  }
+}
+

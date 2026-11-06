@@ -1,0 +1,256 @@
+.map-stage {
+  position: relative;
+  flex: 0 0 240px;
+  background: var(--bg-ocean);
+  border-bottom: 1px solid var(--line-mid);
+  overflow: hidden;
+  user-select: none;
+  touch-action: none;
+}
+
+@media (min-width: 1024px) {
+  .map-stage {
+    flex: 0 0 46%;
+    min-height: 220px;
+  }
+}
+
+.world-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+}
+
+.world-svg:active {
+  cursor: grabbing;
+}
+
+.world-svg .landmass {
+  fill: var(--bg-land);
+  stroke: #2c392e;
+  stroke-width: 0.35;
+  cursor: pointer;
+  transition: fill 150ms ease;
+}
+
+.world-svg .landmass:hover {
+  fill: #243026;
+}
+
+.world-svg .landmass.is-charted {
+  fill: var(--bg-land-charted);
+  stroke: #445847;
+}
+
+.world-svg .landmass.is-selected-country {
+  stroke: var(--amber-dim);
+  stroke-width: 0.65;
+}
+
+.map-route {
+  stroke: #495d4c;
+  stroke-width: 1.1;
+  stroke-dasharray: 2.5 2;
+  pointer-events: none;
+}
+
+.map-route.is-sea {
+  stroke: #3f6d70;
+  stroke-dasharray: 1.2 2.4;
+}
+
+.map-route.is-selected {
+  stroke: var(--amber);
+  stroke-width: 1.7;
+  stroke-dasharray: none;
+}
+
+.map-node {
+  cursor: pointer;
+}
+
+.map-node .node-hit-area {
+  fill: transparent;
+  pointer-events: all;
+}
+
+.map-node .node-dot {
+  fill: var(--ink-secondary);
+  stroke: var(--bg-void);
+  stroke-width: 0.9;
+}
+
+.map-node.vis-visited .node-dot {
+  fill: var(--olive);
+}
+
+.map-node.is-current .node-dot {
+  fill: var(--amber);
+}
+
+.map-node .node-reticle {
+  fill: none;
+  stroke: var(--amber);
+  stroke-width: 0.9;
+  stroke-dasharray: 2 1.5;
+}
+
+.map-node .node-pulse {
+  fill: rgba(217, 155, 56, 0.16);
+  stroke: rgba(217, 155, 56, 0.55);
+  stroke-width: 0.6;
+}
+
+.map-node .node-label {
+  fill: var(--ink-secondary);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  paint-order: stroke;
+  stroke: var(--bg-void);
+  stroke-width: 2.2px;
+  pointer-events: none;
+}
+
+.map-node.is-current .node-label,
+.map-node.is-selected .node-label {
+  fill: var(--amber);
+  font-weight: 700;
+}
+
+.map-controls {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 5;
+}
+
+.map-ctrl-btn {
+  width: 28px;
+  height: 26px;
+  background: rgba(14, 18, 15, 0.88);
+  border: 1px solid var(--line-mid);
+  color: var(--ink-primary);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.map-ctrl-btn:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+/* Full-Screen Encounter & Tactical Combat Overlay */
+.encounter-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 10, 8, 0.86);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow-y: auto;
+  z-index: 82;
+}
+
+.encounter-overlay[hidden] {
+  display: none;
+}
+
+.encounter-card {
+  width: 100%;
+  max-width: 460px;
+  background: var(--bg-panel);
+  border: 1px solid var(--amber);
+  padding: 14px 16px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.75);
+}
+
+.encounter-kicker {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--amber);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.encounter-title {
+  font-size: 15px;
+  color: var(--ink-primary);
+  margin-bottom: 8px;
+}
+
+.encounter-text {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--ink-secondary);
+  margin-bottom: 12px;
+}
+
+.encounter-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.encounter-choice-btn {
+  justify-content: space-between;
+  text-align: left;
+  padding: 8px 10px;
+}
+
+.choice-odds {
+  font-size: 10px;
+  color: var(--amber);
+  padding: 1px 5px;
+  border: 1px solid var(--amber-dim);
+  background: rgba(217, 155, 56, 0.08);
+}
+
+@media (max-width: 640px) {
+  .map-stage {
+    flex: 0 0 250px;
+    max-height: 42dvh;
+  }
+
+  .map-controls {
+    top: 6px;
+    right: 6px;
+    gap: 5px;
+  }
+
+  .map-ctrl-btn {
+    width: 36px;
+    height: 34px;
+    font-size: 15px;
+  }
+
+  .encounter-overlay {
+    padding: 8px;
+    align-items: flex-end;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .encounter-card {
+    max-width: 100%;
+    padding: 12px;
+    max-height: calc(100dvh - 20px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .encounter-choices {
+    gap: 8px;
+  }
+
+  .encounter-choice-btn {
+    min-height: 44px;
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+}
+
+

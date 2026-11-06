@@ -1,0 +1,899 @@
+{
+  "app": {
+    "title": "LAST BREATH",
+    "subtitle": "FIELD TERMINAL // REV 0.1"
+  },
+  "menu": {
+    "kicker": "EMERGENCY BROADCAST // SURVIVAL TERMINAL",
+    "lore": "Grid collapse +14 months. Shortwave relays are failing across every continent. Ration your calories, chart passable corridors, fortify an outpost, and keep breathing.",
+    "active_transmission": "ACTIVE SURVIVOR SIGNAL DETECTED",
+    "charted_sectors": "{count} sectors charted",
+    "new_expedition_title": "CONFIGURE NEW EXPEDITION",
+    "no_save_title": "SURVIVOR RECON PROTOCOL",
+    "no_save_desc": "No active survivor signals detected in this sector. Register your identity, customize your background, and begin your post-apocalyptic journey.",
+    "select_archetype": "1. SELECT SURVIVOR BACKGROUND",
+    "select_sector": "2. SELECT STARTING SECTOR",
+    "footer_hint": "ALL PROGRESS AUTOSAVED TO LOCAL TERMINAL",
+    "action": {
+      "continue": "RESUME TRANSMISSION",
+      "start_new": "DEPLOY INTO SECTOR",
+      "open_menu": "MAIN MENU",
+      "new_game": "START NEW EXPEDITION →",
+      "create_character": "CREATE SURVIVOR EXPEDITION →",
+      "back_to_menu": "← MAIN MENU"
+    },
+    "archetype": {
+      "scavenger": {
+        "name": "Recon Scavenger",
+        "desc": "Starts with a courier duffel, lensatic compass, extra rations, and Lv.1 Recon & Scavenging."
+      },
+      "medic": {
+        "name": "Field Medic",
+        "desc": "Starts with a trauma kit, antibiotics, chemical poncho, and Lv.1 Field Medicine."
+      },
+      "engineer": {
+        "name": "Salvage Engineer",
+        "desc": "Starts with a forged wrecking bar, steel plates, wiring, and Lv.1 Salvage Engineering."
+      },
+      "veteran": {
+        "name": "Cordon Veteran",
+        "desc": "Starts with a weighted machete, riding jacket, military rations, and Lv.1 Close Quarters."
+      }
+    }
+  },
+  "character": {
+    "create_title": "SURVIVOR REGISTRATION // NEW EXPEDITION",
+    "create_subtitle": "EMERGENCY PROTOCOL ACTIVE. CONFIGURE OPERATIVE IDENTITY, BIOMETRICS, AND DEPLOYMENT SECTOR.",
+    "default_name": "Survivor",
+    "callsign_kicker": "CALLSIGN // ID",
+    "steps": {
+      "identity": "1. IDENTITY & TRAITS",
+      "archetype": "2. BACKGROUND & KIT",
+      "sector": "3. DROP SECTOR",
+      "summary": "4. DOSSIER & DEPLOY"
+    },
+    "step_subtitle": {
+      "1": "Step 1/4: Enter operative callsign, age, blood type, and primary survival disposition.",
+      "2": "Step 2/4: Select pre-collapse professional background and starting equipment kit.",
+      "3": "Step 3/4: Choose the insertion sector to commence survival operations.",
+      "4": "Step 4/4: Review survivor field dossier and initiate deployment."
+    },
+    "label": {
+      "identity": "1. OPERATIVE IDENTITY & BIOMETRICS",
+      "name": "OPERATIVE CALLSIGN / NAME",
+      "age": "AGE",
+      "blood": "BLOOD TYPE",
+      "trait": "SURVIVOR TRAIT",
+      "archetype": "2. SURVIVOR BACKGROUND & LOADOUT",
+      "sector": "3. INITIAL DROP SECTOR",
+      "dossier_preview": "OPERATIVE FIELD DOSSIER // REAL-TIME PREVIEW"
+    },
+    "placeholder": {
+      "name": "Enter operative callsign..."
+    },
+    "action": {
+      "random_name": "⚄ RANDOM",
+      "deploy": "DEPLOY INTO SECTOR // COMMENCE RUN",
+      "back": "← BACK TO SIGNAL",
+      "back_to_menu": "← MAIN MENU",
+      "next": "NEXT STEP →",
+      "prev": "← PREVIOUS STEP"
+    },
+    "age_bracket": {
+      "young": "Youth (18–25) // High Stamina & Rapid Recovery",
+      "prime": "Prime (26–40) // Balanced Resilience & Composure",
+      "veteran": "Veteran (41–65) // Survival Instincts & Resourcefulness"
+    }
+  },
+  "trait": {
+    "stoic": {
+      "name": "Stoic",
+      "desc": "High pain threshold; reduces panic and vitality loss from severe physical trauma."
+    },
+    "night_owl": {
+      "name": "Night Owl",
+      "desc": "Heightened sensory clarity during darkness; avoids nighttime disorientation."
+    },
+    "fast_metabolism": {
+      "name": "Fast Metabolism",
+      "desc": "+25% faster natural health regeneration when resting in safe structures."
+    },
+    "hoarder": {
+      "name": "Hoarder",
+      "desc": "Master of efficient pack storage; permanently expands carrying capacity by +2.5 kg."
+    },
+    "iron_stomach": {
+      "name": "Iron Stomach",
+      "desc": "Robust gastrointestinal immunity; halves infection risk from stale food and untreated water."
+    }
+  },
+  "loot": {
+    "title": {
+      "scavenge_found": "RECON & SALVAGE // SUPPLIES FOUND",
+      "scavenge_empty": "RECON & SALVAGE // SECTOR EMPTY",
+      "combat_victory": "THREAT ELIMINATED // SPOILS OF WAR",
+      "combat_scavenge": "MID-COMBAT SALVAGE // CACHE ACQUIRED",
+      "survey_result": "SECTOR RECONNAISSANCE // COMPLETE",
+      "rest_result": "FIELD REST // STATUS REPORT"
+    },
+    "desc": {
+      "scavenge_found": "Scavenging in {location} yielded the following resources. Select which items to pack into your inventory:",
+      "scavenge_empty": "Thorough search in {location} found nothing of immediate use. The local scrap deposits may be depleted.",
+      "combat_victory": "{enemy} was neutralized (+{xp} XP). The following items were recovered from the hostile:",
+      "combat_scavenge": "You swiftly scavenged {enemy} while dodging. Found:",
+      "survey": "High-ground observation successfully charted {count} new neighboring corridors and waypoints.",
+      "survey_empty": "Observation complete. No new uncharted sectors could be spotted from this vantage.",
+      "rest": "Rested securely for {hours} hours. Vital signs stabilized and energy reserves replenished."
+    },
+    "load_status": "Pack Capacity: {current} / {max} kg (+{selected} kg selected)",
+    "overload_warning": "⚠ WARNING: Selected items exceed your pack carrying limit!",
+    "no_items": "No collectible items discovered.",
+    "action": {
+      "take_all": "TAKE ALL",
+      "take_selected": "PACK SELECTED ({count})",
+      "leave_all": "LEAVE ON GROUND",
+      "close": "ACKNOWLEDGE // CONTINUE"
+    }
+  },
+  "hud": {
+    "day": "DAY {day}",
+    "day_short": "D{day}",
+    "daylight": "DAYLIGHT",
+    "night": "NIGHTFALL",
+    "new_run": "NEW EXPEDITION",
+    "confirm_reset": "Abandon current survivor and start a new expedition?",
+    "tab": {
+      "map": "SECTOR MAP",
+      "map_short": "MAP",
+      "inventory": "PACK & GEAR",
+      "inventory_short": "PACK",
+      "craft": "CRAFT & BASE",
+      "craft_short": "CRAFT",
+      "status": "BIOSCAN",
+      "status_short": "BIO",
+      "log": "FIELD LOG",
+      "log_short": "LOG"
+    },
+    "pill": {
+      "health": "HP",
+      "satiety": "KCAL",
+      "hydration": "H2O",
+      "energy": "STAM"
+    }
+  },
+  "status": {
+    "section": {
+      "vitals": "BIOMETRIC VITALS",
+      "conditions": "ACTIVE TRAUMA & PATHOGENS",
+      "readout": "COMBAT & RIG TELEMETRY",
+      "skills": "SURVIVAL PROFICIENCIES"
+    },
+    "vital": {
+      "health": "INTEGRITY",
+      "satiety": "CALORIES",
+      "hydration": "HYDRATION",
+      "energy": "STAMINA"
+    },
+    "band": {
+      "fine": "NOMINAL",
+      "low": "DEGRADED",
+      "critical": "CRITICAL",
+      "depleted": "FAILING"
+    },
+    "no_ailments": "No acute bleeding, systemic infection, or musculoskeletal trauma detected.",
+    "readout": {
+      "weapon": "Equipped Sidearm / Melee",
+      "combat_rating": "Tactical Rating",
+      "armor": "Ballistic / Slash Rating",
+      "scavenge_bonus": "Search Efficiency",
+      "travel_bonus": "Overland Pace"
+    }
+  },
+  "ailment": {
+    "bleeding": {
+      "name": "Laceration Hemorrhage",
+      "desc": "Steady blood loss each hour. Apply bandages or a field kit before shock sets in.",
+      "severity": "GRADE {severity}"
+    },
+    "infection": {
+      "name": "Systemic Sepsis",
+      "desc": "Bacterial load climbing. Early stage can be fought off if well-fed; advanced stages require antiseptic or antibiotics."
+    },
+    "sprain": {
+      "name": "Torn Ligament",
+      "desc": "Slows overland travel significantly until splinted or rested.",
+      "remaining": "{hours}h rem"
+    }
+  },
+  "skill": {
+    "level_short": "LVL {level}",
+    "max_level": "MAX",
+    "foraging": {
+      "name": "Recon & Scavenging",
+      "desc": "Increases salvage yield from ruins and improves evasion across collapsed terrain."
+    },
+    "medical": {
+      "name": "Field Medicine",
+      "desc": "Amplifies healing and treatment potency; raises natural wound clotting odds."
+    },
+    "engineering": {
+      "name": "Salvage Engineering",
+      "desc": "Improves vehicle stripping, jury-rigging, and mechanical hazard resolution."
+    },
+    "marksmanship": {
+      "name": "Close Quarters & Arms",
+      "desc": "Raises tactical combat rating in hostile encounters."
+    }
+  },
+  "inventory": {
+    "weight": "LOAD",
+    "slots": "SLOTS",
+    "overloaded_notice": "OVERBURDENED — Overland travel slowed by 30% and stamina drain increased by 35%.",
+    "unarmed": "Unarmed",
+    "no_ammo": "Dry / No Rounds",
+    "slot_empty": "— EMPTY —",
+    "empty": "No items in this category.",
+    "ground_empty": "Nothing left on the ground at this sector.",
+    "section": {
+      "equipped": "WORN RIG & LOADOUT",
+      "pack": "CARRIED INVENTORY",
+      "ground": "LOCAL CACHE"
+    },
+    "slot": {
+      "weapon": "PRIMARY",
+      "body": "TORSO",
+      "pack": "PACK"
+    },
+    "category": {
+      "all": "ALL",
+      "supplies": "RATIONS",
+      "medical": "MEDICAL",
+      "weapons": "ARMS",
+      "scrap": "SALVAGE",
+      "gear": "RIGGING"
+    },
+    "action": {
+      "use": "USE",
+      "equip": "EQUIP",
+      "unequip": "STOW",
+      "drop": "DROP",
+      "take": "TAKE"
+    }
+  },
+  "map": {
+    "current_sector": "CURRENT ANCHOR",
+    "selected_sector": "TARGET SECTOR",
+    "no_direct_corridor": "No direct route from current anchor",
+    "coords": "WGS84 GRID",
+    "threat_level": "HOSTILITY INDEX",
+    "scavenge_yield": "SECTOR RESERVES",
+    "find_chance": "hit",
+    "risk": "RISK",
+    "visited_badge": "CHARTED",
+    "section": {
+      "routes": "CONNECTED CORRIDORS"
+    },
+    "mode": {
+      "road": "OVERLAND",
+      "sea": "MARITIME"
+    },
+    "action": {
+      "scavenge": "SCAVENGE SECTOR (1–1.5h)",
+      "patrol": "ENGAGE HOSTILES (15m)",
+      "survey": "RECON PERIMETER (45m)",
+      "rest_hours": "BIVOUAC {hours}h",
+      "travel": "MARCH"
+    },
+    "control": {
+      "zoom_in": "Zoom in",
+      "zoom_out": "Zoom out",
+      "center": "Center on survivor",
+      "world": "World view"
+    }
+  },
+  "biome": {
+    "urban": "METROPOLIS RUINS",
+    "suburban": "OUTER SPRAWL",
+    "industrial": "HEAVY INDUSTRY",
+    "rural": "HINTERLAND",
+    "coastal": "LITTORAL PORT",
+    "forest": "TIMBERLAND",
+    "wasteland": "ARID SCORCH",
+    "arctic": "PERMAFROST",
+    "military": "CORDON ZONE"
+  },
+  "location": {
+    "istanbul": "Istanbul",
+    "ankara": "Ankara",
+    "athens": "Athens",
+    "sofia": "Sofia",
+    "bucharest": "Bucharest",
+    "kyiv": "Kyiv",
+    "vienna": "Vienna",
+    "berlin": "Berlin",
+    "paris": "Paris",
+    "london": "London",
+    "madrid": "Madrid",
+    "lisbon": "Lisbon",
+    "reykjavik": "Reykjavik",
+    "moscow": "Moscow",
+    "tbilisi": "Tbilisi",
+    "tehran": "Tehran",
+    "beirut": "Beirut",
+    "tangier": "Tangier",
+    "cairo": "Cairo",
+    "khartoum": "Khartoum",
+    "addis_ababa": "Addis Ababa",
+    "nairobi": "Nairobi",
+    "timbuktu": "Timbuktu",
+    "dakar": "Dakar",
+    "lagos": "Lagos",
+    "kinshasa": "Kinshasa",
+    "johannesburg": "Johannesburg",
+    "cape_town": "Cape Town",
+    "karachi": "Karachi",
+    "delhi": "Delhi",
+    "mumbai": "Mumbai",
+    "almaty": "Almaty",
+    "novosibirsk": "Novosibirsk",
+    "ulaanbaatar": "Ulaanbaatar",
+    "beijing": "Beijing",
+    "shanghai": "Shanghai",
+    "seoul": "Seoul",
+    "tokyo": "Tokyo",
+    "vladivostok": "Vladivostok",
+    "anadyr": "Anadyr",
+    "bangkok": "Bangkok",
+    "kuala_lumpur": "Kuala Lumpur",
+    "jakarta": "Jakarta",
+    "darwin": "Darwin",
+    "alice_springs": "Alice Springs",
+    "sydney": "Sydney",
+    "auckland": "Auckland",
+    "nome": "Nome",
+    "anchorage": "Anchorage",
+    "vancouver": "Vancouver",
+    "san_francisco": "San Francisco",
+    "los_angeles": "Los Angeles",
+    "denver": "Denver",
+    "chicago": "Chicago",
+    "new_york": "New York",
+    "montreal": "Montreal",
+    "st_johns": "St. John's",
+    "nuuk": "Nuuk",
+    "houston": "Houston",
+    "mexico_city": "Mexico City",
+    "panama_city": "Panama City",
+    "bogota": "Bogotá",
+    "lima": "Lima",
+    "manaus": "Manaus",
+    "recife": "Recife",
+    "sao_paulo": "São Paulo",
+    "buenos_aires": "Buenos Aires",
+    "santiago": "Santiago",
+    "ushuaia": "Ushuaia"
+  },
+  "item": {
+    "canned_beans": {
+      "name": "Tin of Navy Beans",
+      "desc": "Dented steel can of salted beans in brine. Heavy, dependable calories."
+    },
+    "jerky": {
+      "name": "Smoked Venison Strips",
+      "desc": "Dry cured meat. Keeps forever, leaves your mouth parched."
+    },
+    "mre": {
+      "name": "Sealed Field Ration (MRE)",
+      "desc": "Military-grade retort pouch with flameless heater and electrolyte pack."
+    },
+    "energy_bar": {
+      "name": "Compressed Oat Bar",
+      "desc": "Dense glucose and fat brick salvaged from an emergency kit."
+    },
+    "bottled_water": {
+      "name": "Sealed Water Bottle",
+      "desc": "Half-liter of clean, pre-collapse municipal water."
+    },
+    "dirty_water": {
+      "name": "Brackish Runoff",
+      "desc": "Cloudy water collected from cisterns. Quenches thirst at pathogen risk."
+    },
+    "instant_coffee": {
+      "name": "Freeze-Dried Coffee Packet",
+      "desc": "Chewed dry or stirred into cold water to stave off exhaustion."
+    },
+    "bandage": {
+      "name": "Sterile Gauze Roll",
+      "desc": "Tightly woven pressure dressing that staunches active bleeding."
+    },
+    "antiseptic": {
+      "name": "Iodine Tincture",
+      "desc": "Stinging topical wash that scrubs down developing infections."
+    },
+    "antibiotics": {
+      "name": "Broad-Spectrum Capsules",
+      "desc": "Blister pack of ciprofloxacin. Purges systemic bacterial sepsis."
+    },
+    "painkillers": {
+      "name": "Analgesic Tablets",
+      "desc": "Numbs musculoskeletal pain and restores short-term stamina."
+    },
+    "first_aid_kit": {
+      "name": "Trauma Field Kit",
+      "desc": "Hemostatic gauze, sutures, and staples. Restores integrity and halts bleeding."
+    },
+    "kitchen_knife": {
+      "name": "Full-Tang Chef Knife",
+      "desc": "Carbon-steel blade wrapped in cord. Better than bare knuckles."
+    },
+    "crowbar": {
+      "name": "Forged Wrecking Bar",
+      "desc": "Pries locked trunks (+12% search chance) and cracks skulls."
+    },
+    "machete": {
+      "name": "Weighted Brush Machete",
+      "desc": "Long agricultural blade suited for close quarters."
+    },
+    "fire_axe": {
+      "name": "Municipal Fire Axe",
+      "desc": "Fiberglass-handled breaching axe (+8% search chance, high impact)."
+    },
+    "hunting_rifle": {
+      "name": "Bolt-Action .308 Rifle",
+      "desc": "Long-range rifle. Requires .308 cartridges to fire at full rating."
+    },
+    "rifle_rounds": {
+      "name": ".308 Brass Cartridges",
+      "desc": "Boxed centerfire ammunition for bolt-action rifles."
+    },
+    "scrap_metal": {
+      "name": "Sheared Steel Plate",
+      "desc": "Salvaged structural metal for fortifications and toolsmithing."
+    },
+    "copper_wire": {
+      "name": "Spool of Copper Wire",
+      "desc": "Stripped windings used in traps, radios, and repairs."
+    },
+    "electronics": {
+      "name": "Salvaged Circuitry",
+      "desc": "Intact relays, capacitors, and logic boards."
+    },
+    "cloth_rags": {
+      "name": "Torn Canvas Strips",
+      "desc": "Cleanable fabric scraps for bindings and filters."
+    },
+    "duct_tape": {
+      "name": "Industrial Cloth Tape",
+      "desc": "Reinforced adhesive roll that holds the post-collapse world together."
+    },
+    "duffel_bag": {
+      "name": "Canvas Courier Duffel",
+      "desc": "Slung over one shoulder (+6 kg capacity, +3 slots)."
+    },
+    "hiking_pack": {
+      "name": "Internal-Frame Trekker Pack",
+      "desc": "Distributes weight across the hips (+12 kg capacity, +5 slots)."
+    },
+    "military_rucksack": {
+      "name": "MOLLE Patrol Rucksack",
+      "desc": "Heavy expedition rig (+18 kg capacity, +8 slots)."
+    },
+    "leather_jacket": {
+      "name": "Abrasion Riding Jacket",
+      "desc": "Thick cowhide that turns teeth and rusty shards (+1 armor)."
+    },
+    "hazmat_poncho": {
+      "name": "Polymer Chemical Poncho",
+      "desc": "Heat-sealed seams shed caustic fallout and acid rain."
+    },
+    "riot_vest": {
+      "name": "Plated Riot Harness",
+      "desc": "Polycarbonate trauma plates over ballistic weave (+3 armor)."
+    },
+    "flashlight": {
+      "name": "Dynamo Angle Torch",
+      "desc": "Hand-cranked beam that cuts night travel risk and aids indoor searches (+4%)."
+    },
+    "compass": {
+      "name": "Liquid Lensatic Compass",
+      "desc": "Keeps true bearing across dead highways (+8% overland pace)."
+    }
+  },
+  "encounter": {
+    "kicker": "FIELD CONTACT",
+    "check": {
+      "combat": "Combat",
+      "gear": "Hazmat"
+    },
+    "abandoned_car": {
+      "title": "Jackknifed Convoy Sedan",
+      "text": "A dust-choked sedan sits wedged against a jersey barrier. The trunk latch is sprung and the wiring harness hangs below the dash.",
+      "choice": {
+        "search": "Ransack the glovebox and trunk (30m)",
+        "strip": "Strip alternator and copper harness",
+        "leave": "Keep moving along the shoulder"
+      },
+      "outcome": {
+        "search": "You pry open the trunk and rake through scattered emergency supplies.",
+        "strip_success": "You cleanly sever the harness and pull intact electronics from the dash.",
+        "strip_failure": "A rusted bracket snaps under tension and slices across your forearm.",
+        "leave": "You bypass the wreck without breaking stride."
+      }
+    },
+    "feral_dogs": {
+      "title": "Starved Pack on the Ridge",
+      "text": "Three rib-thin hounds fan out across the rubble ahead, hackles raised and jaws flecked with foam.",
+      "choice": {
+        "stand": "Hold ground and drive them off",
+        "feed": "Toss a ration to break their focus",
+        "flee": "Scramble over the masonry wall"
+      },
+      "outcome": {
+        "stand_success": "A decisive strike drops the lead hound; the pack scatters into the drainage ditch.",
+        "stand_failure": "Teeth sink into your calf before you wrench free and club them back.",
+        "feed": "The pack snaps over the thrown food while you slip two blocks downwind.",
+        "flee_success": "You vault the rebar wall and lose them through a collapsed courtyard.",
+        "flee_failure": "Loose brick gives way under your boot; the pack mauls your leg as you pull free."
+      }
+    },
+    "raider_toll": {
+      "title": "Barricade Checkpoint",
+      "text": "Armed scavengers step out from behind a burned bus, demanding rations for safe passage through the interchange.",
+      "choice": {
+        "pay": "Hand over two rations of food or water",
+        "fight": "Break through the barricade by force",
+        "barter": "Offer to repair their jammed generator"
+      },
+      "outcome": {
+        "pay": "They weigh your pouches, wave you through the wire, and watch until you clear the block.",
+        "fight_success": "You drop the point man and strip his rig before the others retreat into the smoke.",
+        "fight_failure": "Buckshot and shrapnel tear into your side as you fight your way clear.",
+        "barter_success": "You clean the fouled injector; impressed, they toss you two oat bars and wave you on.",
+        "barter_failure": "Your fix backfires in a shower of sparks. They beat you with rifle butts before shoving you out."
+      }
+    },
+    "collapsed_overpass": {
+      "title": "Pancaked Highway Span",
+      "text": "Concrete slabs block the main corridor, leaving a treacherous tangle of rebar or a long detour around the basin.",
+      "choice": {
+        "climb": "Pick a route straight over the slabs",
+        "detour": "Circle around the industrial perimeter (2–3h)"
+      },
+      "outcome": {
+        "climb_success": "You test each slab and crest the rubble without losing time.",
+        "climb_failure": "A slab shifts underfoot, wrenching your ankle as you slide down the scree.",
+        "detour": "You spend hours skirting flooded underpasses before rejoining the route."
+      }
+    },
+    "acid_rain": {
+      "title": "Sulfa Squall on the Horizon",
+      "text": "Yellow-gray clouds bruise the sky and the first oily drops hiss against rusted sheet metal.",
+      "choice": {
+        "shelter": "Wait out the squall under a concrete culvert",
+        "push_on": "Pull up your collar and march through it"
+      },
+      "outcome": {
+        "shelter": "You huddle beneath concrete until the caustic runoff subsides.",
+        "push_on_success": "Your sealed poncho sheds the acidic downpour without a burn.",
+        "push_on_failure": "Caustic rain soaks through your sleeves, blistering exposed skin."
+      }
+    },
+    "supply_cache": {
+      "title": "Tripwire Civil-Defense Locker",
+      "text": "Behind a false basement wall sits a stenciled relief crate — wired to a makeshift spring gun.",
+      "choice": {
+        "open": "Disarm the wire and crack the crate",
+        "leave": "Back away slowly and leave it"
+      },
+      "outcome": {
+        "open_success": "You crimp the tension wire and lift the lid on untouched emergency stock.",
+        "open_failure": "The wire slips — a rusted bolt fires across your thigh before the latch gives.",
+        "leave": "You mark the cellar on your mental map and leave the trap untouched."
+      }
+    },
+    "rusted_debris": {
+      "title": "Shifting Steel Joists",
+      "text": "A promising storeroom lies pinned beneath a groaned web of corroded roof trusses.",
+      "choice": {
+        "careful": "Shore the beam andworm through carefully",
+        "force": "Wrench the sheet metal clear by brute force"
+      },
+      "outcome": {
+        "careful_success": "You slip beneath the truss and clear the passage without disturbing the load.",
+        "careful_failure": "Jagged flashing drops from the ceiling, raking across your shoulder.",
+        "force": "You tear free a slab of steel plate at the cost of scraped knuckles."
+      }
+    },
+    "storm_at_sea": {
+      "title": "Cross-Swell Squall",
+      "text": "Black swells hammer the hull and freezing spray floods the bilge halfway across the strait.",
+      "choice": {
+        "ride_out": "Lash the tiller and ride out the squall",
+        "turn_back": "Come about and run back for the departure port"
+      },
+      "outcome": {
+        "ride_out_success": "You keep the bow quartering the waves until the squall breaks.",
+        "ride_out_failure": "A breaking crest slams the gunwale, washing gear overboard and bruising your ribs.",
+        "turn_back": "You fight the rudder hard over and limp back to shore."
+      }
+    },
+    "lone_survivor": {
+      "title": "Feverish Courier by the Tracks",
+      "text": "A gaunt courier sits propped against a signal box, clutching an empty canteen and a medic pouch.",
+      "choice": {
+        "share": "Spare a ration or bottle of water",
+        "ignore": "Give a wide berth and keep walking"
+      },
+      "outcome": {
+        "share": "Grateful, they press a handful of medical supplies into your palm before parting ways.",
+        "ignore": "You keep your hand on your weapon and pass without a word."
+      }
+    },
+    "night_prowler": {
+      "title": "Footsteps Outside the Bivouac",
+      "text": "Gravel crunches in the dark just beyond your shelter doorway; someone is testing the latch.",
+      "choice": {
+        "confront": "Lunging into the doorway with weapon raised",
+        "hide": "Kill your light and slip into the crawlspace"
+      },
+      "outcome": {
+        "confront_success": "You catch the intruder off-balance and drive them scrambling into the alley.",
+        "confront_failure": "A blade flashes in the dark, catching your ribs before the prowler bolts.",
+        "hide_success": "The prowler sweeps the empty room and moves on empty-handed.",
+        "hide_failure": "You stay hidden, but they snatch a pouch from the floor on their way out."
+      }
+    },
+    "radio_static": {
+      "title": "Shortwave Carrier Burst",
+      "text": "A solarrepeater atop a utility pole clicks to life, broadcasting automated weather beacons from distant sectors.",
+      "choice": {
+        "listen": "Log the coordinates from the carrier loop (30m)",
+        "ignore": "Save the daylight and move on"
+      },
+      "outcome": {
+        "listen": "You copy down grid bearings for distant transit hubs before the carrier fades.",
+        "ignore": "You leave the repeater clicking into the wind."
+      }
+    }
+  },
+  "log": {
+    "boot": {
+      "awakened": "Cold static clears. You check your straps in the ruins of {location}."
+    },
+    "vital": {
+      "health": {
+        "low": "Your vision narrows; blood and bruising slow every movement.",
+        "critical": "Integrity critical — another hard hit will put you under.",
+        "depleted": "Your body gives out."
+      },
+      "satiety": {
+        "low": "Hunger gnaws at your stomach.",
+        "critical": "Severe caloric deficit; muscle tremor setting in.",
+        "depleted": "Starvation is consuming your tissue."
+      },
+      "hydration": {
+        "low": "Your tongue is dry and cracked.",
+        "critical": "Severe dehydration — dizziness and kidney ache.",
+        "depleted": "Organ failure from dehydration imminent."
+      },
+      "energy": {
+        "low": "Fatigue weighs down your boots.",
+        "critical": "Stamina nearly spent; every step drags.",
+        "depleted": "Complete exhaustion — you are stumbling on sheer reflex."
+      }
+    },
+    "ailment": {
+      "bleeding": {
+        "gained": "Fresh laceration — you are bleeding.",
+        "worse": "Hemorrhage worsens as the wound tears open.",
+        "stopped": "The bleeding finally clots on its own.",
+        "cured": "Dressing applied; hemorrhage staunched.",
+        "treated": "Pressure dressing slows the bleeding."
+      },
+      "infection": {
+        "gained": "Contamination detected — early wound infection.",
+        "worse": "Bacterial load spikes inside the wound.",
+        "symptomatic": "Fever and chills take hold as sepsis turns symptomatic.",
+        "severe": "Delirium and septic shock setting in!",
+        "cleared": "Your immune system clears the lingering infection.",
+        "cured": "Antibiotics purge the systemic infection.",
+        "treated": "Antiseptic wash drives the infection back."
+      },
+      "sprain": {
+        "gained": "Ligament wrenched — overland pace reduced.",
+        "worse": "The sprained joint swells further.",
+        "healed": "The sprained ligament has stabilized.",
+        "cured": "Joint pain subsides completely.",
+        "treated": "Analgesics dull the sprain."
+      }
+    },
+    "effect": {
+      "vital_up": "{vital} +{amount}%.",
+      "vital_down": "{vital} -{amount}%.",
+      "healed": "Restored +{amount}% physical integrity.",
+      "damaged": "Sustained -{amount}% trauma.",
+      "time_lost": "Spent {minutes} minutes."
+    },
+    "skill": {
+      "level_up": "{skill} proficiency advanced to level {level}."
+    },
+    "inventory": {
+      "gained": {
+        "one": "Recovered {item} (×{count}).",
+        "other": "Recovered {item} (×{count})."
+      },
+      "left_behind": "Pack full — left {item} (×{count}) on the ground.",
+      "used": "Used {item}.",
+      "dropped": "Dropped {item} (×{count}).",
+      "picked_up": "Stowed {item} (×{count}).",
+      "equipped": "Equipped {item}.",
+      "unequipped": "Stowed {item} into pack.",
+      "lost": "Lost {item} (×{count}).",
+      "nothing_to_lose": "Nothing in your pack could be taken."
+    },
+    "travel": {
+      "departed": "Departed {origin} toward {destination} ({km} km).",
+      "arrived": "Reached {destination}.",
+      "discovered": "Charted new sector: {destination}.",
+      "aborted": "Retreated back to {origin}."
+    },
+    "scavenge": {
+      "started": "Combing the ruins of {location} for salvage...",
+      "empty": "Picked through collapsed structures in {location} and came up empty."
+    },
+    "survey": {
+      "revealed": {
+        "one": "Recon identified {count} unmapped corridor.",
+        "other": "Recon identified {count} unmapped corridors."
+      },
+      "signal_node": "Radio beacon plotted: {location}.",
+      "nothing": "Perimeters around {location} are already fully charted."
+    },
+    "rest": {
+      "started": "Barricaded a corner in {location} for {hours}h of rest.",
+      "finished": "Rose after {hours}h of uninterrupted rest."
+    },
+    "encounter": {
+      "triggered": "CONTACT: {title}"
+    },
+    "crafting": {
+      "crafted": "Fabricated {item} (×{count})."
+    },
+    "base": {
+      "established": "Established fortified outpost at {location}.",
+      "upgraded": "Constructed {structure} (Level {level}).",
+      "repaired": "Reinforced outpost perimeter (+25% integrity).",
+      "stored": "Locked {item} (×{count}) in outpost cache.",
+      "water_collected": "Rainwater collector filtered ×{count} clean water into outpost storage."
+    }
+  },
+  "enemy": {
+    "feral_hound": {
+      "name": "Rabid Feral Hound",
+      "desc": "Gaunt, scarred pack predator lunging through the rubble with bared fangs."
+    },
+    "raider_scout": {
+      "name": "Highway Scavenger Raider",
+      "desc": "Outrider armed with a notched machete and welded scrap armor."
+    },
+    "plague_stalker": {
+      "name": "Fevered Zone Stalker",
+      "desc": "Delirious carrier coated in septic grime, lashing out blindly."
+    },
+    "cordon_deserter": {
+      "name": "Rogue Cordon Deserter",
+      "desc": "Former perimeter trooper in battered ballistic rig carrying a service weapon."
+    }
+  },
+  "combat": {
+    "kicker": "TACTICAL ENGAGEMENT",
+    "round": "ROUND {round}",
+    "enemy_hp": "HOSTILE INTEGRITY",
+    "scavenge_tag": "1× per fight",
+    "enemy_appeared": "HOSTILE CONTACT: {name} closes distance!",
+    "player_hit": "Struck {name} for {dmg} damage.",
+    "player_missed": "Your strike against {name} missed.",
+    "enemy_hit": "{name} struck you for {dmg} trauma!",
+    "enemy_missed": "Evaded attack from {name}.",
+    "victory": "Neutralized {name}.",
+    "fled_success": "Broke contact and slipped away from {name}.",
+    "fled_failed": "Failed to break contact with {name}!",
+    "action": {
+      "strike": "Tactical Strike",
+      "aimed": "Precision / Aimed Burst",
+      "scavenge": "Scavenge Mid-Fight",
+      "flee": "Break Contact & Flee"
+    }
+  },
+  "crafting": {
+    "station": "WORKBENCH",
+    "section": {
+      "recipes": "FABRICATION & SCHEMATICS"
+    },
+    "tier": {
+      "0": "HANDCRAFT",
+      "1": "WORKBENCH I",
+      "2": "MACHINIST II"
+    },
+    "action": {
+      "craft": "CRAFT"
+    }
+  },
+  "base": {
+    "location_label": "ESTABLISHED OUTPOST",
+    "integrity": "PERIMETER",
+    "none_established": "No permanent outpost established. Claim your current sector to build workstations and storage.",
+    "storage_empty": "Outpost storage locker is empty.",
+    "section": {
+      "outpost": "OUTPOST INFRASTRUCTURE",
+      "storage": "OUTPOST STOCKPILE"
+    },
+    "action": {
+      "establish": "CLAIM OUTPOST AT {location}",
+      "relocate": "RELOCATE OUTPOST TO {location}",
+      "upgrade": "BUILD / UPGRADE",
+      "repair": "REINFORCE PERIMETER (1× Steel Plate)"
+    }
+  },
+  "structure": {
+    "workbench": {
+      "name": "Field Workbench",
+      "desc": "Unlocks Tier I and Tier II fabrication schematics at this outpost."
+    },
+    "rain_catcher": {
+      "name": "Atmospheric Condenser & Tarp",
+      "desc": "Passively filters clean water into the outpost stockpile over time."
+    },
+    "barricade": {
+      "name": "Rebar & Sheet-Metal Barricade",
+      "desc": "Fortifies the shelter perimeter against night prowlers and raids."
+    },
+    "med_cot": {
+      "name": "Sterile Field Cot",
+      "desc": "Accelerates physical integrity recovery while resting at the outpost."
+    }
+  },
+  "reject": {
+    "dead": "Signal lost — survivor is deceased.",
+    "in_encounter": "Resolve the active field contact first.",
+    "in_combat": "Resolve the active combat engagement first.",
+    "no_combat": "No active combat engagement.",
+    "already_scavenged": "Already scavenged during this engagement.",
+    "workbench_tier": "Requires a higher-tier Workbench at your current outpost.",
+    "missing_materials": "Insufficient components in your pack.",
+    "already_outpost": "Outpost is already established at this sector.",
+    "not_at_outpost": "You must be stationed at your outpost for this action.",
+    "max_level": "Structure is already at maximum level.",
+    "integrity_full": "Outpost perimeter is already at 100% integrity.",
+    "not_usable": "That item cannot be consumed or applied directly.",
+    "not_equippable": "That item cannot be equipped.",
+    "missing_item": "Item is no longer in your pack.",
+    "nothing_to_treat": "No active condition requires that treatment right now.",
+    "no_room_to_swap": "Not enough pack space to swap equipment.",
+    "pack_too_small": "Remove items from your pack before unequipping it.",
+    "slot_empty": "Nothing is equipped in that slot.",
+    "no_room": "No free inventory slots remaining.",
+    "too_heavy": "Exceeds maximum carry weight limit.",
+    "unknown_node": "Unknown sector coordinate.",
+    "already_here": "Already stationed at this sector.",
+    "no_route": "No passable corridor connects directly to that sector.",
+    "invalid_duration": "Invalid rest duration.",
+    "no_encounter": "No active encounter.",
+    "invalid_choice": "Invalid tactical option."
+  },
+  "death": {
+    "title": "SIGNAL TERMINATED",
+    "cause": {
+      "starvation": "Succumbed to prolonged starvation.",
+      "dehydration": "Collapsed from systemic dehydration.",
+      "exhaustion": "Heart failed under total exhaustion.",
+      "bleeding": "Exsanguinated from untreated lacerations.",
+      "infection": "Consumed by untreated septic shock.",
+      "acid": "Chemical burns from caustic fallout proved fatal.",
+      "drowning": "Swallowed by storm swells in open water.",
+      "wounds": "Fell to cumulative trauma in the field."
+    },
+    "summary": "Survived {days} days across {nodes} charted sectors. Final transmission logged at {location}."
+  }
+}
+

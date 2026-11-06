@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Last Breath — Post-Collapse Field Terminal</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230e120f'/%3E%3Ccircle cx='8' cy='8' r='4' fill='%23d99b38'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="./css/main.css" />
+  <link rel="stylesheet" href="./css/layout.css" />
+  <link rel="stylesheet" href="./css/components/map.css" />
+  <link rel="stylesheet" href="./css/components/panels.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="top-bar">
+      <div class="top-bar-row">
+        <div class="brand-cluster">
+          <h1 class="brand-title" data-i18n="app.title">LAST BREATH</h1>
+          <span class="brand-sub" data-i18n="app.subtitle">FIELD TERMINAL // REV 0.1</span>
+        </div>
+
+        <div class="hud-telemetry">
+          <div class="hud-clock-cluster">
+            <span id="hud-name" class="hud-survivor-tag">SURVIVOR</span>
+            <span>·</span>
+            <span id="hud-day">DAY 1</span>
+            <span>·</span>
+            <span id="hud-clock">06:00</span>
+            <span id="hud-phase" class="hud-phase-badge">DAYLIGHT</span>
+            <span>·</span>
+            <span id="hud-location" class="hud-sector-tag">Istanbul</span>
+          </div>
+        </div>
+
+        <div class="hud-controls">
+          <button id="btn-locale-toggle" type="button" class="btn btn-ghost btn-icon btn-locale" aria-label="Language / Dil" title="Language / Dil">
+            <svg class="icon-globe" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <span id="locale-indicator" class="locale-indicator">TR</span>
+          </button>
+          <button id="btn-open-menu" type="button" class="btn btn-ghost btn-xs" data-i18n="menu.action.open_menu">
+            MAIN MENU
+          </button>
+          <button id="btn-new-run" type="button" class="btn btn-ghost btn-xs" data-i18n="hud.new_run">
+            NEW EXPEDITION
+          </button>
+        </div>
+      </div>
+
+      <div id="hud-vitals-strip" class="hud-vitals-strip">
+        <span class="hud-vital-pill" data-vital="health">
+          <span class="pill-key" data-i18n="hud.pill.health">HP</span>
+          <strong class="pill-val">100%</strong>
+        </span>
+        <span class="hud-vital-pill" data-vital="satiety">
+          <span class="pill-key" data-i18n="hud.pill.satiety">KCAL</span>
+          <strong class="pill-val">70%</strong>
+        </span>
+        <span class="hud-vital-pill" data-vital="hydration">
+          <span class="pill-key" data-i18n="hud.pill.hydration">H2O</span>
+          <strong class="pill-val">65%</strong>
+        </span>
+        <span class="hud-vital-pill" data-vital="energy">
+          <span class="pill-key" data-i18n="hud.pill.energy">STAM</span>
+          <strong class="pill-val">85%</strong>
+        </span>
+      </div>
+    </header>
+
+    <main class="deck-grid">
+      <!-- Left Column (Desktop) / Tab 4 (Mobile): Bioscan & Proficiencies -->
+      <section class="deck-pane pane-status" data-tab-panel="status">
+        <header class="pane-header">
+          <span data-i18n="hud.tab.status">BIOSCAN</span>
+        </header>
+        <div id="status-root" class="pane-scroll"></div>
+      </section>
+
+      <!-- Center Top (Desktop) / Tab 1 (Mobile): World Map & Local Sector Operations -->
+      <section class="deck-pane pane-map is-active-panel" data-tab-panel="map">
+        <header class="pane-header">
+          <span data-i18n="hud.tab.map">SECTOR MAP</span>
+        </header>
+        <div id="map-viewport" class="map-stage">
+          <div class="map-controls">
+            <button
+              id="map-zoom-in"
+              type="button"
+              class="map-ctrl-btn"
+              data-i18n-attr="title:map.control.zoom_in"
+            >+</button>
+            <button
+              id="map-zoom-out"
+              type="button"
+              class="map-ctrl-btn"
+              data-i18n-attr="title:map.control.zoom_out"
+            >−</button>
+            <button
+              id="map-center"
+              type="button"
+              class="map-ctrl-btn"
+              data-i18n-attr="title:map.control.center"
+            >⌖</button>
+            <button
+              id="map-world"
+              type="button"
+              class="map-ctrl-btn"
+              data-i18n-attr="title:map.control.world"
+            >🌐</button>
+          </div>
+        </div>
+        <div id="map-dossier" class="pane-scroll"></div>
+      </section>
+
+      <!-- Center Bottom (Desktop) / Tab 5 (Mobile): Chronological Field Log -->
+      <section class="deck-pane pane-log" data-tab-panel="log">
+        <header class="pane-header">
+          <span data-i18n="hud.tab.log">FIELD LOG</span>
+        </header>
+        <div class="pane-scroll">
+          <ul id="log-list" class="log-stream"></ul>
+        </div>
+      </section>
+
+      <!-- Right Column Tab 1 (Desktop) / Tab 2 (Mobile): Inventory & Equipment -->
+      <section class="deck-pane pane-inventory" data-tab-panel="inventory">
+        <header class="pane-header">
+          <span data-i18n="hud.tab.inventory">PACK &amp; GEAR</span>
+          <div class="pane-tab-switcher">
+            <button type="button" class="pane-switch-btn is-active" data-right-tab="inventory" data-i18n="hud.tab.inventory">PACK &amp; GEAR</button>
+            <button type="button" class="pane-switch-btn" data-right-tab="craft" data-i18n="hud.tab.craft">CRAFT &amp; BASE</button>
+          </div>
+        </header>
+        <div id="inventory-root" class="pane-scroll"></div>
+      </section>
+
+      <!-- Right Column Tab 2 (Desktop) / Tab 3 (Mobile): Crafting & Base Outpost -->
+      <section class="deck-pane pane-craft is-desktop-right-hidden" data-tab-panel="craft">
+        <header class="pane-header">
+          <span data-i18n="hud.tab.craft">CRAFT &amp; BASE</span>
+          <div class="pane-tab-switcher">
+            <button type="button" class="pane-switch-btn" data-right-tab="inventory" data-i18n="hud.tab.inventory">PACK &amp; GEAR</button>
+            <button type="button" class="pane-switch-btn is-active" data-right-tab="craft" data-i18n="hud.tab.craft">CRAFT &amp; BASE</button>
+          </div>
+        </header>
+        <div id="craft-root" class="pane-scroll"></div>
+      </section>
+    </main>
+
+    <nav class="mobile-nav" aria-label="Primary Panels">
+      <button type="button" class="mobile-tab-btn is-active" data-tab-target="map">
+        <span class="tab-glyph">⌖</span>
+        <span class="tab-label" data-i18n="hud.tab.map_short">MAP</span>
+      </button>
+      <button type="button" class="mobile-tab-btn" data-tab-target="inventory">
+        <span class="tab-glyph">▤</span>
+        <span class="tab-label" data-i18n="hud.tab.inventory_short">PACK</span>
+      </button>
+      <button type="button" class="mobile-tab-btn" data-tab-target="craft">
+        <span class="tab-glyph">⚒</span>
+        <span class="tab-label" data-i18n="hud.tab.craft_short">CRAFT</span>
+      </button>
+      <button type="button" class="mobile-tab-btn" data-tab-target="status">
+        <span class="tab-glyph">✚</span>
+        <span class="tab-label" data-i18n="hud.tab.status_short">BIO</span>
+      </button>
+      <button type="button" class="mobile-tab-btn" data-tab-target="log">
+        <span class="tab-glyph">📜</span>
+        <span class="tab-label" data-i18n="hud.tab.log_short">LOG</span>
+      </button>
+    </nav>
+  </div>
+
+  <div id="main-menu" class="main-menu-overlay" hidden></div>
+
+  <div id="action-modal" class="action-modal-overlay" hidden></div>
+
+  <div id="encounter-host" class="encounter-overlay" hidden></div>
+
+  <div id="toast-banner" class="toast-banner" role="status" aria-live="polite"></div>
+
+  <div id="death-modal" class="modal-backdrop" hidden>
+    <div class="modal-card">
+      <h2 class="modal-title" data-i18n="death.title">SIGNAL TERMINATED</h2>
+      <p id="death-cause" class="tone-bad"></p>
+      <p id="death-summary" class="muted-note"></p>
+      <button id="btn-death-restart" type="button" class="btn btn-accent" data-i18n="hud.new_run">
+        NEW EXPEDITION
+      </button>
+    </div>
+  </div>
+
+  <script defer src="./dist/app.bundle.js?v=4"></script>
+</body>
+</html>
