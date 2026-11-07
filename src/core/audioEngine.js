@@ -599,6 +599,125 @@ class AudioEngine {
     noise.start(t);
     noise.stop(t + dur + 0.01);
   }
+
+  /**
+   * Synthesizes procedural vehicle starter crank and engine ignition roar.
+   */
+  playEngineIgnition(volume = 0.4) {
+    const ctx = this.#getContext();
+    if (!ctx || this.#isMuted) return;
+
+    const t = ctx.currentTime;
+
+    // 1. Starter motor chug pulses (3 starter clicks)
+    for (let i = 0; i < 3; i++) {
+      const clickTime = t + i * 0.12;
+      const starterOsc = ctx.createOscillator();
+      starterOsc.type = 'square';
+      starterOsc.frequency.setValueAtTime(45 + i * 5, clickTime);
+
+      const starterGain = ctx.createGain();
+      starterGain.gain.setValueAtTime(volume * 0.25, clickTime);
+      starterGain.gain.exponentialRampToValueAtTime(0.001, clickTime + 0.08);
+
+      starterOsc.connect(starterGain);
+      starterGain.connect(this.#crtFilter);
+      starterOsc.start(clickTime);
+      starterOsc.stop(clickTime + 0.09);
+    }
+
+    // 2. Engine catch and low-frequency rumble
+    const catchTime = t + 0.4;
+    const rumbleOsc = ctx.createOscillator();
+    rumbleOsc.type = 'sawtooth';
+    rumbleOsc.frequency.setValueAtTime(65, catchTime);
+    rumbleOsc.frequency.linearRampToValueAtTime(80, catchTime + 0.3);
+    rumbleOsc.frequency.exponentialRampToValueAtTime(52, catchTime + 1.2);
+
+    const rumbleFilter = ctx.createBiquadFilter();
+    rumbleFilter.type = 'lowpass';
+    rumbleFilter.frequency.setValueAtTime(220, catchTime);
+    rumbleFilter.Q.value = 2.0;
+
+    const rumbleGain = ctx.createGain();
+    rumbleGain.gain.setValueAtTime(0.001, catchTime);
+    rumbleGain.gain.exponentialRampToValueAtTime(volume * 0.5, catchTime + 0.15);
+    rumbleGain.gain.exponentialRampToValueAtTime(0.001, catchTime + 1.2);
+
+    rumbleOsc.connect(rumbleFilter);
+    rumbleFilter.connect(rumbleGain);
+    rumbleGain.connect(this.#crtFilter);
+
+    rumbleOsc.start(catchTime);
+    rumbleOsc.stop(catchTime + 1.25);
+  }
+
+  /**
+   * Synthesizes procedural engine throttle rev.
+   */
+  playEngineRev(volume = 0.35) {
+    const ctx = this.#getContext();
+    if (!ctx || this.#isMuted) return;
+
+    const t = ctx.currentTime;
+    const revOsc = ctx.createOscillator();
+    revOsc.type = 'sawtooth';
+    revOsc.frequency.setValueAtTime(55, t);
+    revOsc.frequency.exponentialRampToValueAtTime(140, t + 0.4);
+    revOsc.frequency.exponentialRampToValueAtTime(50, t + 1.0);
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(280, t);
+    filter.frequency.exponentialRampToValueAtTime(500, t + 0.4);
+    filter.frequency.exponentialRampToValueAtTime(200, t + 1.0);
+
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(volume * 0.2, t);
+    gain.gain.exponentialRampToValueAtTime(volume * 0.45, t + 0.35);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 1.05);
+
+    revOsc.connect(filter);
+    filter.connect(gain);
+    gain.connect(this.#crtFilter);
+
+    revOsc.start(t);
+    revOsc.stop(t + 1.1);
+  }
+
+  /**
+   * Synthesizes a retro 4-note ascending celebratory arpeggio for achievement unlocks.
+   */
+  playAchievementChime(volume = 0.35) {
+    const ctx = this.#getContext();
+    if (!ctx || this.#isMuted) return;
+
+    const t = ctx.currentTime;
+    const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+
+    notes.forEach((freq, idx) => {
+      const noteTime = t + idx * 0.11;
+      const osc = ctx.createOscillator();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, noteTime);
+
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(3200, noteTime);
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.001, noteTime);
+      gain.gain.linearRampToValueAtTime(volume * 0.4, noteTime + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, noteTime + 0.32);
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(this.#crtFilter);
+
+      osc.start(noteTime);
+      osc.stop(noteTime + 0.35);
+    });
+  }
 }
 
 // Export singleton instance as default and class for custom instances

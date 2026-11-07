@@ -1,6 +1,7 @@
 import { RECIPES, getRecipe } from '../../data/recipes.js';
 import { activeWorkbenchTier, canAffordCost } from '../base/index.js';
 import { grantItems } from '../inventory/index.js';
+import { codexManager } from '../../core/codexManager.js';
 import { ref } from '../../i18n/i18n.js';
 
 export function canCraftRecipe(state, recipeId) {
@@ -43,6 +44,7 @@ export const craftingModule = {
         store.commit('inventory/remove', { itemId, qty });
       }
       store.commit('crafting/recordCraft');
+      codexManager.trackCareer('totalCraftsDone', 1);
 
       const { itemId, qty } = recipe.output;
       engine.log('log.crafting.crafted', {

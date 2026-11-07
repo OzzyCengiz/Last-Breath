@@ -6,6 +6,7 @@ import {
   addItem, addToGround, countItem, equipItem, matchingStacks, removeFromGround, removeItem, unequipSlot,
 } from './inventoryModel.js';
 import { rollLoot } from './loot.js';
+import { codexManager } from '../../core/codexManager.js';
 
 const EQUIP_MINUTES = 5;
 const itemName = (itemId) => ref(`item.${itemId}.name`);
@@ -74,6 +75,14 @@ function registerInventoryActions(engine) {
 
     store.commit('inventory/remove', { itemId, qty: 1 });
     engine.log('log.inventory.used', { item: itemName(itemId) });
+
+    if (item.category === 'medical') {
+      codexManager.trackCareer('totalMedicalTreatments', 1);
+      if (itemId.includes('tourniquet') || itemId.includes('splint') || itemId.includes('chest_seal') || itemId.includes('ciprofloxacin')) {
+        codexManager.unlockAchievement('trauma_surgeon');
+      }
+    }
+
     effects.apply(item.use.effects, ctx, { kind: 'item', itemId });
     engine.advanceTime(item.use.minutes);
     return { ok: true };

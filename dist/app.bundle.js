@@ -33,6 +33,8 @@
       "desc_load_game": "Browse expedition save slots (10 Slots) and resume.",
       "desc_settings": "Configure audio, language, CRT monitor scanlines, and preferences.",
       "desc_exit": "Safely terminate current session and exit the game.",
+      "codex_memorial": "EXPEDITION CODEX & MEMORIAL",
+      "desc_codex_memorial": "Review fallen survivor epitaphs, career statistics, achievement medals, and field lore.",
       "install_app": "INSTALL APP (PWA)",
       "desc_install_app": "Install to your device for offline fullscreen play."
     },
@@ -78,13 +80,18 @@
     "premium": {
       "title": "SURVIVOR PREMIUM EDITION",
       "kicker": "EXCLUSIVE CLEARANCE LEVEL",
-      "desc": "Break the limits of the wasteland. Unlock 8 additional save slots, multi-expedition management, and veteran survival perks.",
-      "feature_1": "10 Full Independent Save Slots (2 Free + 8 Premium)",
-      "feature_2": "Seamless Multi-Survivor Run Management",
-      "feature_3": "Exclusive Wasteland Veteran Badges & UI Themes",
-      "feature_4": "Advanced Offline Journal Export & Local Backups",
-      "unlock_btn": "ENABLE PREMIUM (TRY FREE)",
+      "desc": "Break the limits of the wasteland. Remove all ads, unlock all 10 save slots, and claim instant emergency supply drops.",
+      "active_badge": "👑 LIFETIME PREMIUM ACTIVE // All ads disabled, 10 save slots unlocked.",
+      "feature_1": "Completely Ad-Free Experience (Zero commercial breaks)",
+      "feature_2": "All 10 Save Slots Unlocked (Full multi-expedition management)",
+      "feature_3": "Instant Emergency Supply Drops (Rations & water without watching ads)",
+      "feature_4": "Gold VIP Survivor Badge & Lifetime Meta Support",
+      "unlock_btn": "ACTIVATE PREMIUM (TEST MODE)",
       "revoke_btn": "DISABLE PREMIUM (TEST LOCKED MODE)",
+      "promo_label": "HAVE A LICENSE / PROMO CODE?",
+      "promo_submit": "REDEEM CODE",
+      "promo_success": "✓ Code verified! Lifetime Premium activated.",
+      "promo_invalid": "✗ Invalid code. Try: VIP-SURVIVOR",
       "close": "CLOSE",
       "active_notice": "Survivor Premium license is active on this device."
     },
@@ -233,6 +240,7 @@
       "hydration": "H2O",
       "energy": "STAM"
     },
+    "codex": "CODEX",
     "install_app": "INSTALL"
   },
   "status": {
@@ -559,6 +567,14 @@
     "duct_tape": {
       "name": "Industrial Duct Tape",
       "desc": "Heavy-duty adhesive cloth roll. The backbone of improvised field repairs."
+    },
+    "spark_plug_set": {
+      "name": "Salvaged Spark Plug Set",
+      "desc": "Set of ceramic electrode plugs salvaged from automotive engines. Critical for vehicle ignition restoration."
+    },
+    "fuel_siphon_hose": {
+      "name": "Fuel Siphon Hose",
+      "desc": "Flexible PVC hose with manual primer squeeze bulb. Enables siphoning fuel from abandoned vehicle wrecks."
     },
     "duffel_bag": {
       "name": "Canvas Duffel Bag",
@@ -2926,26 +2942,88 @@
     "cordon_deserter": {
       "name": "Rogue Cordon Deserter",
       "desc": "Former perimeter trooper in battered ballistic rig carrying a service weapon."
+    },
+    "marauder_marksman": {
+      "name": "Ash Marauder Sniper",
+      "desc": "Concealed sharpshooter armed with a high-caliber scoped rifle tracking movements."
+    },
+    "iron_guard_sentinel": {
+      "name": "Iron Guard Shock Sentinel",
+      "desc": "Heavily armored bunker shock-trooper enforcing shoot-to-kill perimeter isolation."
     }
   },
   "combat": {
     "kicker": "TACTICAL ENGAGEMENT",
     "round": "ROUND {round}",
     "enemy_hp": "HOSTILE INTEGRITY",
+    "player_cover": "Cover",
+    "enemy_cover": "Hostile Cover",
     "scavenge_tag": "1× per fight",
-    "enemy_appeared": "HOSTILE CONTACT: {name} closes distance!",
+    "tag_immobilize": "Immobilize · -3 STAM",
+    "tag_disarm": "Disarm · -3 STAM",
+    "spare_tag": "Claim Loot · +Karma",
+    "execute_tag": "Loot Body · Ruthless",
+    "targeted_fire": "Targeted Ballistics",
+    "maneuvers": "Tactical Maneuvers",
+    "surrender_banner": "⚠ {name} HAS SURRENDERED // WEAPON DROPPED",
+    "jammed_banner": "⚠ WEAPON JAMMED // CLEAR CHAMBER TO FIRE",
+    "enemy_appeared": "HOSTILE CONTACT: {name} detected!",
     "player_hit": "Struck {name} for {dmg} damage.",
-    "player_missed": "Your strike against {name} missed.",
+    "player_missed": "Your attack against {name} missed.",
+    "headshot_crit": "CRITICAL HEADSHOT! Struck {name} in the skull for {dmg} trauma!",
+    "leg_fractured": "Direct hit fractured the leg of {name} ({dmg} dmg)! Hostile immobilized.",
+    "arm_disarmed": "Struck {name} in the weapon arm ({dmg} dmg)! Hostile disarmed.",
     "enemy_hit": "{name} struck you for {dmg} trauma!",
     "enemy_missed": "Evaded attack from {name}.",
     "victory": "Neutralized {name}.",
     "fled_success": "Broke contact and slipped away from {name}.",
     "fled_failed": "Failed to break contact with {name}!",
+    "enemy_surrendered": "{name} drops their weapon and falls to their knees, begging for mercy!",
+    "enemy_routed": "Broken morale! {name} panics and flees into the wasteland.",
+    "enemy_spared": "Disarmed {name} peacefully and claimed their supplies.",
+    "enemy_executed": "Executed {name} at point-blank range.",
+    "player_advanced": "Advanced forward, closing range to {range}.",
+    "player_retreated": "Fell back to long distance, opening range to {range}.",
+    "player_took_cover": "Dived behind {cover}!",
+    "jam_cleared": "Racked the bolt and cleared the jammed chamber.",
+    "weapon_jammed": "CLICK! {weapon} suffered a mechanical feed jam!",
+    "weapon_is_jammed_prompt": "Weapon is jammed! Clear the chamber before firing.",
+    "enemy_advanced": "{name} charged forward, closing distance to {range}!",
+    "enemy_crippled_cannot_advance": "{name} attempts to charge but collapses on a fractured leg!",
+    "enemy_took_cover": "{name} dove behind tactical cover!",
+    "range": {
+      "melee": "Melee Contact (<5m)",
+      "close": "Close Quarters (15m)",
+      "medium": "Medium Range (40m)",
+      "long": "Long Distance (85m)",
+      "extreme": "Extreme Distance (150m)"
+    },
+    "cover": {
+      "none": "Exposed (0%)",
+      "light": "Light Cover (-30% Dmg)",
+      "heavy": "Fortified (-60% Dmg)"
+    },
+    "zone": {
+      "head": "Cranial / Head",
+      "torso": "Torso / Vitals",
+      "legs": "Legs / Knees",
+      "arms": "Arms / Hands"
+    },
+    "status": {
+      "leg_crippled": "Immobilized",
+      "disarmed": "Disarmed"
+    },
     "action": {
-      "strike": "Tactical Strike",
-      "aimed": "Precision / Aimed Burst",
+      "strike": "Center Mass Strike",
+      "aimed": "Precision Aimed Burst",
       "scavenge": "Scavenge Mid-Fight",
-      "flee": "Break Contact & Flee"
+      "flee": "Break Contact & Flee",
+      "take_cover": "Take Cover",
+      "advance": "Advance",
+      "retreat": "Fall Back",
+      "clear_jam": "Clear Jam",
+      "spare": "Spare & Disarm",
+      "execute": "Execute"
     }
   },
   "crafting": {
@@ -3036,7 +3114,8 @@
       "drowning": "Swallowed by storm swells in open water.",
       "wounds": "Fell to cumulative trauma in the field."
     },
-    "summary": "Survived {days} days across {nodes} charted sectors. Final transmission logged at {location}."
+    "summary": "Survived {days} days across {nodes} charted sectors. Final transmission logged at {location}.",
+    "action_memorial": "🪦 MEMORIAL LOG"
   },
   "faction": {
     "title": "WASTELAND FACTIONS & DIPLOMACY",
@@ -3078,6 +3157,40 @@
     "flashlight_on": "Tactical light switched ON. Visibility increased, but light signature visible to raiders!",
     "flashlight_off": "Tactical light switched OFF. Stepping into the shadows."
   },
+  "barter": {
+    "kicker": "COMMODITY EXCHANGE",
+    "action_open": "Trade / Barter",
+    "player_offered_val": "Your Offer Value",
+    "merchant_demanded_val": "Demanded Value",
+    "status_balanced": "TRADE ACCEPTABLE",
+    "status_insufficient": "INSUFFICIENT VALUE (+{diff} pts needed)",
+    "player_empty": "No tradeable commodities in pack.",
+    "col_player": "SURVIVOR PACK (OFFER TRAY)",
+    "col_merchant": "MERCHANT WARES",
+    "action_haggle": "Haggle (-18% Discount)",
+    "haggle_done": "Haggled",
+    "action_cancel": "Cancel / Step Away",
+    "action_confirm": "Execute Barter",
+    "haggle_success": "Smooth negotiation! The merchant agrees to an 18% discount on their wares.",
+    "haggle_failed": "Aggressive haggling offended the merchant! They tacked on a 10% stubborn surcharge.",
+    "trade_completed": "Barter sealed! Exchanged {playerVal} pts of goods for {merchantVal} pts of supplies.",
+    "insufficient_value": "The merchant shakes their head: 'Not enough value on the table, survivor.'",
+    "refused_standing": "{faction} sentinels turn you away at gunpoint: 'Your standing is too low for trade.'",
+    "merchant": {
+      "nomad_caravan": {
+        "name": "Nomad Guild Caravan Peddler",
+        "desc": "A sun-weathered trader sitting atop a cart lined with water purification and field medicine."
+      },
+      "iron_guard_quartermaster": {
+        "name": "Iron Guard Logistics Quartermaster",
+        "desc": "A rigid officer behind reinforced blast-glass trading military ordnance for raw salvage."
+      },
+      "wasteland_peddler": {
+        "name": "Fringe Wasteland Scavenger",
+        "desc": "A hunched scavenger surrounded by scavenged wiring, lead sheets, and jury-rigged tools."
+      }
+    }
+  },
   "pwa": {
     "install_title": "INSTALL APP (PWA)",
     "install_desc": "Add Last Breath to your home screen for fullscreen, zero lag, and offline play.",
@@ -3089,6 +3202,168 @@
     "ios_guide_step3": "3. Tap 'Add' in the top right. The game will be installed!",
     "installed_success": "App installed successfully! Ready for offline play.",
     "close": "CLOSE"
+  },
+  "vehicle": {
+    "action_inspect": "Vehicle & Caravan",
+    "label": {
+      "sector": "Sector",
+      "trunk_load": "Trunk Load",
+      "pack_inventory": "Survivor Pack",
+      "trunk_inventory": "Vehicle Trunk",
+      "pack_empty": "No items in pack.",
+      "trunk_empty": "Cargo trunk is empty."
+    },
+    "status": {
+      "operational": "OPERATIONAL",
+      "abandoned": "ABANDONED WRECK",
+      "driving": "DRIVING",
+      "missing": "MISSING"
+    },
+    "action": {
+      "mount": "Start Engine (Mount)",
+      "dismount": "Turn Off Engine (Dismount)",
+      "install": "Install Component",
+      "siphon": "Siphon Fuel from Wreck",
+      "repair_scrap": "Patch Body (Scrap Metal)",
+      "repair_oil": "Top Up Lubricant (Motor Oil)",
+      "to_trunk": "To Trunk",
+      "to_pack": "To Pack"
+    },
+    "spec": {
+      "speed": "Transit Speed",
+      "noise": "Hazard Noise",
+      "shelter": "Cabin Shelter"
+    },
+    "gauge": {
+      "fuel": "Fuel Tank",
+      "condition": "Engine Condition"
+    },
+    "section": {
+      "restoration": "Component Salvage & Restoration",
+      "maintenance": "Field Maintenance & Refueling",
+      "cargo_bay": "Cargo Hold & Pack Logistics"
+    },
+    "enduro": {
+      "name": "Enduro 250cc Recon Motorcycle",
+      "desc": "Light, agile single-track runner built for navigating rubble-choked ruins and mountain trails."
+    },
+    "uaz": {
+      "name": "UAZ-469 Military Utility 4x4",
+      "desc": "Iconic Soviet all-terrain utility vehicle. Rugged mechanicals and sealed cabin protect against corrosive rain and cold."
+    },
+    "ural": {
+      "name": "Ural-4320 Armored Mobile Caravan",
+      "desc": "Massive 6x6 heavy diesel carrier converted into an armored expedition fortress. Huge cargo hold and unmatched crew shelter."
+    },
+    "log": {
+      "mounted": "Engine purrs to life! You take the wheel of the {vehicle}.",
+      "dismounted": "Engine switched off. You step down from the {vehicle} on foot.",
+      "part_installed": "Installed component into chassis. ({remaining} more needed).",
+      "fully_restored": "Chassis fully restored and tuned! The vehicle is ready for expedition travel.",
+      "refueled": "Poured +{added}L of fuel into the tank. Current level: {total}L.",
+      "repaired": "Condition restored by +{gain}%. Current integrity: {condition}%.",
+      "siphoned": "Siphoned +{siphoned}L of fuel from abandoned roadside wrecks into the tank!",
+      "no_fuel": "The engine sputters dry! Tank is empty.",
+      "not_ready": "The vehicle is missing critical components and cannot start.",
+      "cannot_cross_water": "Wheeled overland vehicles cannot cross open sea waters!"
+    },
+    "reject": {
+      "invalid_vehicle": "Vehicle not found.",
+      "insufficient_fuel": "Insufficient fuel for journey.",
+      "trunk_full": "Vehicle trunk is overloaded!",
+      "part_not_in_inventory": "Required component not found in inventory."
+    }
+  },
+  "codex": {
+    "title": "EXPEDITION CODEX & MEMORIAL",
+    "toast_unlocked": "ACHIEVEMENT UNLOCKED",
+    "tab": {
+      "memorial": "Memorial Graveyard",
+      "achievements": "Achievements",
+      "career": "Career Telemetry",
+      "lore": "Field Manual & Lore"
+    },
+    "label": {
+      "rank": "Career Rank",
+      "achievements": "Achievements Unlocked",
+      "days_survived": "days survived",
+      "sectors": "sectors charted",
+      "kills": "enemies neutralized",
+      "locked": "CLASSIFIED / LOCKED",
+      "career_standing": "SURVIVOR REPUTATION TIER",
+      "days": "days"
+    },
+    "rank": {
+      "tier_1": "Greenhorn Refugee",
+      "desc_1": "Freshly awakened survivor taking tentative first steps through the ruins.",
+      "tier_2": "Wasteland Wanderer",
+      "desc_2": "Tested traveler who has endured combat, starvation, and toxic storms.",
+      "tier_3": "Eurasian Steppe Wolf",
+      "desc_3": "Hardened veteran who navigates trade corridors, repairs engines, and survives lethal ambushes.",
+      "tier_4": "Expedition Commander",
+      "desc_4": "Elite survivor commanding overland caravans and commanding high standing with factions.",
+      "tier_5": "Legend of the Last Breath",
+      "desc_5": "A mythical survivor whose name is whispered across every bunker and radio frequency."
+    },
+    "memorial": {
+      "intro_text": "A solemn registry of every survivor who drew their last breath in the wasteland. Their names, achievements, and final hours are etched into this terminal memory.",
+      "empty_title": "No Fallen Survivors Yet",
+      "empty_desc": "Every survivor in this expedition line is currently alive. When a character perishes, their memorial will be recorded here forever."
+    },
+    "stats": {
+      "total_expeditions": "Expeditions Launched",
+      "total_days": "Cumulative Survival Time",
+      "total_km": "Total Distance Covered",
+      "total_sectors": "Sectors Charted",
+      "enemies_neutralized": "Enemies Neutralized",
+      "enemies_spared": "Enemies Spared & Disarmed",
+      "barter_volume": "Total Commodity Barter Value",
+      "vehicles_restored": "Expedition Vehicles Restored",
+      "fuel_siphoned": "Fuel Siphoned from Wrecks",
+      "crafts_done": "Crafted Field Recipes"
+    },
+    "ach": {
+      "first_blood": { "title": "First Contact", "desc": "Neutralize an enemy in tactical combat." },
+      "pacifist_mercy": { "title": "Law of Mercy", "desc": "Spare a surrendered enemy instead of executing them." },
+      "trauma_surgeon": { "title": "Combat Medic", "desc": "Treat severe trauma using a CAT tourniquet or SAM splint." },
+      "mechanic_maestro": { "title": "Wreck Engineer", "desc": "Fully restore an abandoned expedition vehicle with all components." },
+      "silk_road_tycoon": { "title": "Silk Road Tycoon", "desc": "Execute a barter transaction valued over 200 trade points." },
+      "nomad_ally": { "title": "Nomad Kinship", "desc": "Reach +30 standing (Allied) with the Nomad Guild." },
+      "iron_discipline": { "title": "Iron Discipline", "desc": "Reach +30 standing (Allied) with the Iron Guard military." },
+      "acid_survivor": { "title": "Chemical Veteran", "desc": "Weather a corrosive acid storm or radiation ash front without taking damage." },
+      "eurasian_nomad": { "title": "Eurasian Nomad", "desc": "Chart and visit 10 different geographic sectors on the world map." },
+      "endurance_champion": { "title": "Iron Will", "desc": "Survive for more than 10 full days in the post-apocalyptic wasteland." },
+      "fuel_siphoner": { "title": "Fuel Siphoner", "desc": "Siphon vehicle fuel from roadside wrecks using a siphon hose." },
+      "outpost_pioneer": { "title": "Outpost Pioneer", "desc": "Establish a forward outpost base in a sector." },
+      "master_scavenger": { "title": "Master Scavenger", "desc": "Scavenge over 50 items and supplies from ruins." },
+      "sniper_doctrine": { "title": "Dead-Eye", "desc": "Land a lethal targeted head shot from long range with a firearm." }
+    },
+    "lore_cat": {
+      "factions": "Wasteland Factions",
+      "tactics": "Survival Tactics & Field Medicine",
+      "vehicles": "Overland Vehicles & Logistics"
+    },
+    "lore": {
+      "cleared": "DECLASSIFIED",
+      "iron_guard": { "title": "Iron Guard Command Structure", "desc": "Remnants of pre-collapse military forces sealed inside subterranean bunkers. Driven by rigid protocol and high-tech weaponry, they enforce quarantine and trade military ordnance for raw industrial scrap." },
+      "nomad_guild": { "title": "Nomad Guild Trade Caravans", "desc": "An expansive confederation of merchant clans and scavengers who traverse ancient Silk Road corridors with water purification convoys and camel/draft caravans." },
+      "ash_marauders": { "title": "Ash Marauder Doctrine", "desc": "Desperate raiders and scavenger renegades who claim viaduct checkpoints and choke points, extorting passing travelers with toll barriers and ambush raiding." },
+      "trauma_tccc": { "title": "Tactical Combat Casualty Care (TCCC)", "desc": "Post-collapse medical doctrine prioritizing rapid bleeding control with CAT Tourniquets, needle decompression for tension pneumothorax, and fracture stabilization using SAM splints." },
+      "weather_extremes": { "title": "Atmospheric Toxicity Profiles", "desc": "Industrial ruins emit corrosive acid rain capable of melting skin and synthetic gear, while radioactive ash fronts require sealed NBC respirators and enclosed cabin shelters." },
+      "vehicle_overland": { "title": "Expedition Motorization Protocol", "desc": "Motorized overland transit provides 3x-4.5x speed advantages and immense trunk cargo capacity, but combustion engine noise heavily attracts marauders and roving beasts." }
+    }
+  },
+  "ad": {
+    "action_airdrop": "Distress Airdrop (Rewarded)",
+    "airdrop": {
+      "title": "EMERGENCY SUPPLY AIRDROP",
+      "desc": "A supply drone drops a sealed canister at {location}, packed with emergency rations, potable water, and medical bandages."
+    },
+    "log": {
+      "reward_granted": "Emergency airdrop canister deployed! Supplies have landed at your coordinates.",
+      "reward_granted_vip": "👑 VIP ACCESS: Emergency airdrop delivered instantly without commercial delay!",
+      "dismissed": "Emergency broadcast interrupted. Supply drop aborted."
+    }
   }
 };
   globalThis.__LAST_BREATH_TR__ = {
@@ -3123,6 +3398,8 @@
       "desc_load_game": "Kaydedilmiş sefer yuvalarını (10 Slot) görüntüle ve devam et.",
       "desc_settings": "Ses, dil, CRT ekran paraziti ve sistem ayarlarını yapılandır.",
       "desc_exit": "Mevcut oturumu sonlandır ve oyundan çık.",
+      "codex_memorial": "SEFER DEFTERİ & ANIT",
+      "desc_codex_memorial": "Hayatta kalanların anıt mezarını, başarımları, kümülatif istatistikleri ve saha istihbaratını incele.",
       "install_app": "UYGULAMAYI YÜKLE (PWA)",
       "desc_install_app": "Cihazınıza yükleyerek çevrimdışı ve tam ekran oynayın."
     },
@@ -3167,14 +3444,19 @@
     },
     "premium": {
       "title": "SURVIVOR PREMIUM SÜRÜMÜ",
-      "kicker": "ÖZEL ERİŞİM DÜZEYİ",
-      "desc": "Çorak topraklarda sınırları kaldırın. Survivor Premium ile 8 ekstra kayıt yuvası ve profesyonel hayatta kalma araçlarının kilidini açın.",
-      "feature_1": "10 Adet Bağımsız Kayıt Yuvası (2 Ücretsiz + 8 Premium)",
-      "feature_2": "Kesintisiz Çoklu Karakter ve Sefer Yönetimi",
-      "feature_3": "Özel Kıyamet Gazisi Profil Rozetleri ve Arayüz Temaları",
-      "feature_4": "Gelişmiş Çevrimdışı Sefer Günlüğü ve Veri Yedekleme",
-      "unlock_btn": "PREMIUM'U ETKİNLEŞTİR (ÜCRETSİZ DENE)",
+      "kicker": "ÖZEL VIP ERİŞİM DÜZEYİ",
+      "desc": "Çorak topraklarda sınırları kaldırın. Tüm reklamları devre dışı bırakın, 10 kayıt yuvasının tümünü sınırsız açın ve acil yardım sandıklarına anında ulaşın.",
+      "active_badge": "👑 ÖMÜR BOYU PREMIUM ETKİN // Tüm reklamlar kaldırıldı, 10 yuva açık.",
+      "feature_1": "Tamamen Reklamsız Kesintisiz Deneyim (Sıfır reklam beklemesi)",
+      "feature_2": "10 Adet Bağımsız Kayıt Yuvası (Tüm yuvalar sınırsız açık)",
+      "feature_3": "Anında Acil Durum Erzak Yardımı (Reklamsız tayın, su ve bandaj)",
+      "feature_4": "Altın VIP Rozeti & Kalıcı Meta-Destek",
+      "unlock_btn": "PREMIUM'U ETKİNLEŞTİR (TEST MODU)",
       "revoke_btn": "PREMIUM'U KALDIR (KİLİTLİ MODU TEST ET)",
+      "promo_label": "LİSANS VEYA PROMOSYON KODUNUZ VAR MI?",
+      "promo_submit": "KODU DOĞRULA",
+      "promo_success": "✓ Kod onaylandı! Ömür Boyu Premium hesabınız aktifleştirildi.",
+      "promo_invalid": "✗ Geçersiz kod. Test kodu: VIP-SURVIVOR",
       "close": "KAPAT",
       "active_notice": "Survivor Premium lisansı bu cihazda başarıyla aktifleştirildi."
     },
@@ -3323,6 +3605,7 @@
       "hydration": "SU",
       "energy": "DAY"
     },
+    "codex": "KODEKS",
     "install_app": "YÜKLE"
   },
   "status": {
@@ -3573,26 +3856,88 @@
     "cordon_deserter": {
       "name": "Kaçak Kordon Askeri",
       "desc": "Yıpranmış balistik yelekli, silahlı eski karantina askeri."
+    },
+    "marauder_marksman": {
+      "name": "Kül Yağmacısı Keskin Nişancı",
+      "desc": "Dürbünlü yüksek kalibreli tüfekle hareketleri izleyen gizlenmiş nişancı."
+    },
+    "iron_guard_sentinel": {
+      "name": "Demir Muhafız Şok Nöbetçisi",
+      "desc": "Görüldüğü yerde vur emri uygulayan, ağır zırhlı sığınak hücum askeri."
     }
   },
   "combat": {
     "kicker": "TAKTİK ÇATIŞMA",
     "round": "TUR {round}",
     "enemy_hp": "DÜŞMAN BÜTÜNLÜĞÜ",
+    "player_cover": "Siper Durumu",
+    "enemy_cover": "Düşman Siperi",
     "scavenge_tag": "Çatışma başı 1×",
-    "enemy_appeared": "TEMAS: {name} hızla yaklaşıyor!",
+    "tag_immobilize": "Hareketsiz Bırak · -3 DAY",
+    "tag_disarm": "Silahsızlandır · -3 DAY",
+    "spare_tag": "Ganimeti Al · +Karma",
+    "execute_tag": "İnfaz Et · Acımasız",
+    "targeted_fire": "Hedefli Balistik Atışlar",
+    "maneuvers": "Taktik Manevralar",
+    "surrender_banner": "⚠ {name} TESLİM OLDU // SİLAHINI BIRAKTI",
+    "jammed_banner": "⚠ SİLAH TUTUKLUK YAPTI // MEKANİZMAYI TEMİZLEYİN",
+    "enemy_appeared": "DÜŞMAN TEMASI: {name} tespit edildi!",
     "player_hit": "{name} hedefine {dmg} hasar verdin.",
     "player_missed": "{name} hedefine saldırın ıskaladı.",
+    "headshot_crit": "ÖLÜMCÜL KAFATASI VURUŞU! {name} kafasından {dmg} travma aldı!",
+    "leg_fractured": "İsabetli atış {name} bacağını kırdı ({dmg} hasar)! Düşman hareketsiz kaldı.",
+    "arm_disarmed": "{name} silah kolundan vuruldu ({dmg} hasar)! Silahını düşürdü.",
     "enemy_hit": "{name} sana {dmg} travma hasarı verdi!",
     "enemy_missed": "{name} saldırısından sıyrıldın.",
     "victory": "{name} etkisiz hale getirildi.",
     "fled_success": "Teması kesip {name} tehdidinden uzaklaştın.",
     "fled_failed": "{name} karşısında geri çekilemedin!",
+    "enemy_surrendered": "{name} silahını fırlatıp dizlerinin üzerine çöktü ve merhamet diliyor!",
+    "enemy_routed": "Moral çöktü! {name} panik içinde çorak topraklara kaçtı.",
+    "enemy_spared": "{name} bağışlanıp silahsızlandırıldı ve teçhizatı ele geçirildi.",
+    "enemy_executed": "{name} yakın mesafeden infaz edildi.",
+    "player_advanced": "İleri atılarak mesafeyi kapattın: {range}.",
+    "player_retreated": "Geriye çekilerek menzili açtın: {range}.",
+    "player_took_cover": "{cover} arkasına siper aldın!",
+    "jam_cleared": "Mekanizma çekilip sıkışan kovan temizlendi.",
+    "weapon_jammed": "KLİK! {weapon} mekanizması besleme hatası verip tutukluk yaptı!",
+    "weapon_is_jammed_prompt": "Silah tutukluk yaptı! Ateş etmeden önce mekanizmayı temizleyin.",
+    "enemy_advanced": "{name} hızla hücuma geçerek aradaki mesafeyi kapattı: {range}!",
+    "enemy_crippled_cannot_advance": "{name} hücum etmeye çalıştı ancak kırık bacağının üzerine çöktü!",
+    "enemy_took_cover": "{name} taktiksel siper arkasına daldı!",
+    "range": {
+      "melee": "Göğüs Göğüse (<5m)",
+      "close": "Yakın Mesafe (15m)",
+      "medium": "Orta Menzil (40m)",
+      "long": "Uzak Mesafe (85m)",
+      "extreme": "Aşırı Uzak (150m)"
+    },
+    "cover": {
+      "none": "Açıkta (%0)",
+      "light": "Hafif Siper (-%30 Hasar)",
+      "heavy": "Tahkimat (-%60 Hasar)"
+    },
+    "zone": {
+      "head": "Kafatası / Baş",
+      "torso": "Gövde / Yaşamsal",
+      "legs": "Bacaklar / Diz",
+      "arms": "Kollar / Eller"
+    },
+    "status": {
+      "leg_crippled": "Hareketsiz",
+      "disarmed": "Silahsız"
+    },
     "action": {
-      "strike": "Taktik Saldırı",
-      "aimed": "Nişanlı / Güçlü Atış",
+      "strike": "Gövdeye Saldırı",
+      "aimed": "Hassas Nişanlı Atış",
       "scavenge": "Çatışma Ortasında Yağmala",
-      "flee": "Teması Kes & Kaç"
+      "flee": "Teması Kes & Kaç",
+      "take_cover": "Siper Al",
+      "advance": "Yaklaş",
+      "retreat": "Geri Çekil",
+      "clear_jam": "Tutukluğu Gider",
+      "spare": "Affet & Silahsızlandır",
+      "execute": "İnfaz Et"
     }
   },
   "crafting": {
@@ -3735,6 +4080,14 @@
     "duct_tape": {
       "name": "Endüstriyel Koli Bandı",
       "desc": "Ağır hizmet tipi yapışkan bant rulosu. Saha tamiratlarının vazgeçilmezi."
+    },
+    "spark_plug_set": {
+      "name": "Hurda Buji Takımı",
+      "desc": "Otomobil motorlarından sökülmüş seramik elektrotlu bujiler. Taşıt ateşleme sistemi için kritiktir."
+    },
+    "fuel_siphon_hose": {
+      "name": "Yakıt Sifon Hortumu",
+      "desc": "Manuel emme pompalı esnek PVC hortum. Terkedilmiş araç enkazlarından benzin veya dizel çekmeyi sağlar."
     },
     "duffel_bag": {
       "name": "Kanvas Kurye Çantası",
@@ -5809,6 +6162,40 @@
     "flashlight_on": "Fener AÇIK. Arama hızı arttı ancak ışık hüzmesi yağmacıların dikkatini çekiyor!",
     "flashlight_off": "Fener KAPALI. Gölgelerin içine adım atılıyor."
   },
+  "barter": {
+    "kicker": "MAL TAKAS MASASI",
+    "action_open": "Tüccar ile Takas",
+    "player_offered_val": "Senin Teklif Değerin",
+    "merchant_demanded_val": "İstenen Mal Değeri",
+    "status_balanced": "ANLAŞMA KABUL EDİLEBİLİR",
+    "status_insufficient": "YETERSİZ DEĞER (+{diff} puan gerekli)",
+    "player_empty": "Çantada takas edilecek eşya bulunmuyor.",
+    "col_player": "HAYATTA KALAN ÇANTASI (TEKLİF)",
+    "col_merchant": "TÜCCAR ENVANTERİ",
+    "action_haggle": "Pazarlık Yap (-%18 İndirim)",
+    "haggle_done": "Pazarlık Yapıldı",
+    "action_cancel": "Vazgeç / Ayrıl",
+    "action_confirm": "Takası Tamamla",
+    "haggle_success": "Usta işi pazarlık! Tüccar mallarında %18 indirimi kabul etti.",
+    "haggle_failed": "Sert pazarlık tüccarı kızdırdı! Fiyatlara %10 inat zammı koydu.",
+    "trade_completed": "Takas tamamlandı! {playerVal} puanlık eşya verilip {merchantVal} puanlık erzak alındı.",
+    "insufficient_value": "Tüccar başını salladı: 'Masadaki mallar yetersiz, yabancı.'",
+    "refused_standing": "{faction} muhafızları namlu doğrulttu: 'İtibarın ticaret için çok düşük.'",
+    "merchant": {
+      "nomad_caravan": {
+        "name": "Göçebe Loncası Kervan Tüccarı",
+        "desc": "Su arıtma tabletleri ve saha tıbbı gereçleriyle dolu bir kervanın başında bekleyen tecrübeli tüccar."
+      },
+      "iron_guard_quartermaster": {
+        "name": "Demir Muhafız Levazım Subayı",
+        "desc": "Zırhlı camın arkasından hurda karşılığı askeri mühimmat takas eden disiplinli levazım subayı."
+      },
+      "wasteland_peddler": {
+        "name": "Çorak Arazi Başıboş Hurdacı",
+        "desc": "Bakır kablolar, kurşun plakalar ve derme çatma aletlerle dolu çuvalının başında bekleyen bir hurdacı."
+      }
+    }
+  },
   "pwa": {
     "install_title": "UYGULAMAYI YÜKLE (PWA)",
     "install_desc": "Last Breath'i ana ekranınıza ekleyerek tam ekran, sıfır gecikme ve çevrimdışı oynayın.",
@@ -5879,6 +6266,183 @@
       "started": "{location} harabelerinde erzak ve hurda aranıyor...",
       "empty": "{location} içindeki yıkıntılar tarandı ancak işe yarar bir şey bulunamadı.",
       "field_log": "[ELE GEÇİRİLEN SAHA KAYDI] {text}"
+    }
+  },
+  "vehicle": {
+    "action_inspect": "Taşıt & Karavan",
+    "label": {
+      "sector": "Sektör",
+      "trunk_load": "Bagaj Yükü",
+      "pack_inventory": "Hayatta Kalan Çantası",
+      "trunk_inventory": "Taşıt Bagajı",
+      "pack_empty": "Çantada eşya yok.",
+      "trunk_empty": "Taşıt bagajı boş."
+    },
+    "status": {
+      "operational": "ÇALIŞIR DURUMDA",
+      "abandoned": "TERKEDİLMİŞ ENKAZ",
+      "driving": "SÜRÜLÜYOR",
+      "missing": "EKSİK"
+    },
+    "action": {
+      "mount": "Kontağı Çalıştır (Bin)",
+      "dismount": "Kontağı Kapat (İn)",
+      "install": "Parçayı Tak",
+      "siphon": "Enkazdan Yakıt Sifonla",
+      "repair_scrap": "Gövdeyi Onar (Hurda)",
+      "repair_oil": "Yağ Seviyesini Tamamla (Motor Yağı)",
+      "to_trunk": "Bagaja Koy",
+      "to_pack": "Çantaya Al"
+    },
+    "spec": {
+      "speed": "İntikal Hızı",
+      "noise": "Motor Gürültüsü",
+      "shelter": "Kabini Korunaklı"
+    },
+    "gauge": {
+      "fuel": "Yakıt Deposu",
+      "condition": "Motor Sağlığı"
+    },
+    "section": {
+      "restoration": "Parça Montajı ve Restorasyon",
+      "maintenance": "Saha Bakımı ve İkmal",
+      "cargo_bay": "Bagaj Yükleme ve Çanta Yönetimi"
+    },
+    "enduro": {
+      "name": "Enduro 250cc Keşif Motosikleti",
+      "desc": "Harabe sokaklar ve dağ patikalarını hızla aşmak için tasarlanmış hafif, kıvrak tek izli keşif aracı."
+    },
+    "uaz": {
+      "name": "UAZ-469 Askeri Arazi Taşıtı",
+      "desc": "Klasik Sovyet 4x4 arazi taşıtı. Mekanik sağlamlığı ve kapalı kabini asit yağmuru ve dondurucu soğuğa karşı tam koruma sağlar."
+    },
+    "ural": {
+      "name": "Ural-4320 Ağır Zırhlı Mobil Karavan",
+      "desc": "Zırhlı seyyar bir kaleye dönüştürülmüş 6x6 ağır dizel nakliye devi. Devasa bagaj hacmi ve eşsiz mürettebat koruması sunar."
+    },
+    "log": {
+      "mounted": "Motor kükreyerek çalıştı! {vehicle} direksiyonuna geçtiniz.",
+      "dismounted": "Kontak kapatıldı. {vehicle} taşıtından yaya olarak indiniz.",
+      "part_installed": "Parça gövdeye monte edildi. ({remaining} parça daha gerekiyor).",
+      "fully_restored": "Araç restorasyonu tamamlandı! Taşıt uzun yolculuklara hazır.",
+      "refueled": "Depoya +{added}L yakıt dolduruldu. Mevcut seviye: {total}L.",
+      "repaired": "Araç gövdesi +%{gain} onarıldı. Durum: %{condition}.",
+      "siphoned": "Yol kenarındaki enkazdan depoya +{siphoned}L yakıt sifonlandı!",
+      "no_fuel": "Motor yakıtsızlıktan tekleme yapıp durdu! Yakıt deposu boş.",
+      "not_ready": "Taşıtın kritik parçaları eksik, çalıştırılamıyor.",
+      "cannot_cross_water": "Tekerlekli kara taşıtları deniz yolunu aşamaz!"
+    },
+    "reject": {
+      "invalid_vehicle": "Taşıt bulunamadı.",
+      "insufficient_fuel": "Yolculuk için yetersiz yakıt.",
+      "trunk_full": "Taşıt bagajı azami taşıma sınırında!",
+      "part_not_in_inventory": "Gerekli parça envanterde yok."
+    }
+  },
+  "death": {
+    "title": "SİNYAL KESİLDİ",
+    "cause": {
+      "starvation": "Uzun süren açlığa yenik düştü.",
+      "dehydration": "Sistemik susuzluktan yere yığıldı.",
+      "exhaustion": "Aşırı bitkinlik ve yorgunluktan kalbi durdu.",
+      "bleeding": "Tedavi edilmeyen derin kan kaybından öldü.",
+      "infection": "Enfeksiyon ve septik şok sonucu can verdi.",
+      "acid": "Aşındırıcı asit yanıkları ölümcül oldu.",
+      "drowning": "Açık denizin fırtınalı dalgalarında kayboldu.",
+      "wounds": "Ağır muharebe travmasına ve yaralarına yenik düştü."
+    },
+    "summary": "{nodes} sektör haritalandıktan sonra {days} gün hayatta kalındı. Son telsiz sinyali {location} harabelerinden alındı.",
+    "action_memorial": "🪦 ANIT MEZAR & SEFER DEFTERİ"
+  },
+  "codex": {
+    "title": "SEFER DEFTERİ, ANIT & KODEKS",
+    "toast_unlocked": "BAŞARIM AÇILDI",
+    "tab": {
+      "memorial": "Anıt Mezar",
+      "achievements": "Başarımlar",
+      "career": "Kümülatif Telemetri",
+      "lore": "Saha El Kitabı & İstihbarat"
+    },
+    "label": {
+      "rank": "Hayatta Kalma Rütbesi",
+      "achievements": "Başarım Açıldı",
+      "days_survived": "gün hayatta kalındı",
+      "sectors": "sektör haritalandı",
+      "kills": "düşman etkisiz hale getirildi",
+      "locked": "GİZLİ / KİLİTLİ",
+      "career_standing": "HAYATTA KALAN İTİBAR DERECESİ",
+      "days": "gün"
+    },
+    "rank": {
+      "tier_1": "Acemi Mülteci",
+      "desc_1": "Kıyamet sonrası harabelere henüz ilk adımlarını atan tecrübesiz mülteci.",
+      "tier_2": "Çorak Arazi Seyyahı",
+      "desc_2": "Çatışma, açlık ve asit fırtınalarını bizzat tatmış dayanıklı gezgin.",
+      "tier_3": "Avrasya Bozkır Kurdu",
+      "desc_3": "Ticaret yollarını bilen, motor onaran ve ölümcül pusuları bertaraf eden çetin gazi.",
+      "tier_4": "Sefer Kolu Komutanı",
+      "desc_4": "Karavanlara liderlik eden ve hizipler nezdinde yüksek itibara sahip usta hayatta kalan.",
+      "tier_5": "Son Nefes Efsanesi",
+      "desc_5": "Adı sığınak duvarlarına kazınmış, tüm Avrasya telsiz frekanslarında efsaneleşen kurtarıcı."
+    },
+    "memorial": {
+      "intro_text": "Avrasya harabelerinde son nefesini veren tüm hayatta kalanların anıt defteri. İsimleri, başarıları ve son anları terminal hafızasında sonsuza dek yaşayacak.",
+      "empty_title": "Henüz Can Veren Hayatta Kalan Yok",
+      "empty_desc": "Bu sefer hattındaki tüm hayatta kalanlar şu anda hayatta. Bir karakter can verdiğinde, hatırası sonsuza dek buraya kaydedilecek."
+    },
+    "stats": {
+      "total_expeditions": "Başlatılan Toplam Sefer",
+      "total_days": "Toplam Hayatta Kalınan Süre",
+      "total_km": "Kat Edilen Toplam Mesafe",
+      "total_sectors": "Haritalanan Toplam Sektör",
+      "enemies_neutralized": "Etkisiz Hale Getirilen Düşman",
+      "enemies_spared": "Affedilen / Bağışlanan Düşman",
+      "barter_volume": "Kümülatif Mal Takas Hacmi",
+      "vehicles_restored": "Restore Edilen Arazi Taşıtı",
+      "fuel_siphoned": "Enkazlardan Sifonlanan Yakıt",
+      "crafts_done": "Tamamlanan Saha Üretimleri"
+    },
+    "ach": {
+      "first_blood": { "title": "İlk Temas", "desc": "Taktiksel çatışmada bir düşmanı etkisiz hale getir." },
+      "pacifist_mercy": { "title": "Merhamet Yasası", "desc": "Teslim olan silahlı bir yağmacıyı öldürmek yerine affedip serbest bırak." },
+      "trauma_surgeon": { "title": "Saha Cerrahı", "desc": "Arteryel kanamayı CAT turnikesi ile durdur ve kırık bir uzvu SAM ateliyle sabitle." },
+      "mechanic_maestro": { "title": "Enkaz Mühendisi", "desc": "Terkedilmiş bir askeri veya arazi taşıtını tüm parçalarını toplayarak restore et." },
+      "silk_road_tycoon": { "title": "İpek Yolu Taciri", "desc": "Tek seferde tüccarlarla 200 değer puanının üzerinde başarılı takas gerçekleştir." },
+      "nomad_ally": { "title": "Bozkır Kardeşliği", "desc": "Göçebe Loncası (Nomad Guild) ile itibarını +30 (Müttefik) seviyesine yükselt." },
+      "iron_discipline": { "title": "Demir Disiplin", "desc": "Demir Muhafızlar (Iron Guard) ile itibarını +30 seviyesine yükselt." },
+      "acid_survivor": { "title": "Kimyasal Gazisi", "desc": "Aşındırıcı asit yağmuru veya radyasyon kül fırtınasını hasar almadan atlat." },
+      "eurasian_nomad": { "title": "Avrasya Seyyahı", "desc": "Harita üzerinde 10 farklı sektörü keşfet ve ayak bas." },
+      "endurance_champion": { "title": "Demir İrade", "desc": "Acımasız kıyamet sonrasında 10 günden fazla hayatta kal." },
+      "fuel_siphoner": { "title": "Yakıt Korsanı", "desc": "Sifon hortumu kullanarak terkedilmiş araç enkazlarından yakıt çek." },
+      "outpost_pioneer": { "title": "İlk Tahkimat", "desc": "Bir sektöre ilk ileri karakol üssünü inşa et." },
+      "master_scavenger": { "title": "Usta Yağmacı", "desc": "Harabelerden toplamda 50'den fazla kaynak ve eşya topla." },
+      "sniper_doctrine": { "title": "Keskin Nişancı", "desc": "Ateşli silahla uzaktan tek vuruşta kritik kafa hasarı ver." }
+    },
+    "lore_cat": {
+      "factions": "Kıyamet Hizipleri",
+      "tactics": "Saha Taktikleri & Travma Tıbbı",
+      "vehicles": "Arazi Taşıtları & İntikal"
+    },
+    "lore": {
+      "cleared": "GİZLİLİK KALDIRILDI",
+      "iron_guard": { "title": "Demir Muhafız Komuta Yapısı", "desc": "Yeraltı askeri sığınaklarında mühürlenmiş kıyamet öncesi nizam ordusu kalıntıları. Katı protokoller ve yüksek teknolojili silahlarla donanmış olup harabelerde karantinayı uygular ve hurda karşılığı mühimmat sağlarlar." },
+      "nomad_guild": { "title": "Göçebe Loncası Ticaret Kervanları", "desc": "Tarihi İpek Yolu güzergahlarını su arıtma konvoyları ve deve/yük kervanlarıyla kat eden tecrübeli tüccar klanları ve gezgin hurdacılar birliği." },
+      "ash_marauders": { "title": "Kül Yağmacıları Doktrini", "desc": "Viyadükleri ve stratejik boğazları kesen, seyyahları haraç barikatlarıyla soyan ve pusu kuran acımasız harabe çeteleri." },
+      "trauma_tccc": { "title": "Taktik Muharebe Yaralı Bakımı (TCCC)", "desc": "Kıyamet şartlarında hayatta kalmak için CAT turnikelerle acil kanama durdurma, göğüs dekompresyonu ve SAM atelleriyle kırık sabitleme doktrini." },
+      "weather_extremes": { "title": "Atmosferik Toksisite Profilleri", "desc": "Sanayi enkazlarından yükselen aşındırıcı asit yağmurları teni ve kıyafetleri eritirken; radyoaktif kül fırtınaları NBC gaz maskeleri veya kapalı araç kabinleri gerektirir." },
+      "vehicle_overland": { "title": "Motorlu İntikal ve Lojistik Protokolü", "desc": "Motorlu araçlar 3x-4.5x hız avantajı ve yüzlerce kiloluk bagaj kapasitesi sunar; ancak içten yanmalı motor gürültüsü yağmacıları ve yaratıkları hızla çeker." }
+    }
+  },
+  "ad": {
+    "action_airdrop": "Acil İkmal Sandığı (Ödüllü)",
+    "airdrop": {
+      "title": "ACİL DURUM İKMAL SANDIĞI",
+      "desc": "Telsiz çağrınız üzerine koordinatlarınıza bir drone tarafından acil tayın, temiz su ve sargı bezi içeren mühürlü bir paraşüt sandığı indirildi."
+    },
+    "log": {
+      "reward_granted": "Acil durum yardım sandığı başarıyla ulaştı! Malzemeler envantere eklendi.",
+      "reward_granted_vip": "👑 VIP ERİŞİM: Acil erzak sandığı reklamsız ve anında teslim edildi!",
+      "dismissed": "Yayın yarıda kesildi. İkmal çağrısı iptal edildi."
     }
   }
 };
@@ -15147,6 +15711,26 @@ const ITEMS = {
       "slot": "weapon",
       "power": 4
     }
+  },
+  "spark_plug_set": {
+    "category": "scrap",
+    "weight": 0.45,
+    "stack": 4,
+    "glyph": "*",
+    "tags": [
+      "crafting",
+      "vehicle_part"
+    ]
+  },
+  "fuel_siphon_hose": {
+    "category": "gear",
+    "weight": 0.35,
+    "stack": 1,
+    "glyph": "~",
+    "tags": [
+      "tool",
+      "vehicle_tool"
+    ]
   }
 };
 
@@ -15422,7 +16006,1105 @@ function rollLoot(rng, tableId, rolls = 1) {
 
 
 
+  // --- src/core/audioEngine.js ---
+/**
+ * Last Breath // Procedural Retro-Terminal Audio Synthesis Engine
+ * Zero external dependencies. Zero audio asset files.
+ * Native Web Audio API procedural synthesis.
+ */
+
+class AudioEngine {
+  #ctx = null;
+  #masterGain = null;
+  #crtFilter = null;
+  #humOsc = null;
+  #humGain = null;
+  #noiseBuffer = null;
+  #isMuted = false;
+  #volume = 0.7;
+  #unlocked = false;
+  #geigerInterval = null;
+  #heartbeatInterval = null;
+
+  constructor() {
+    this.#setupAutoplayUnlock();
+  }
+
+  /* =========================================================================
+     Lifecycle & Autoplay Management
+     ========================================================================= */
+
+  /**
+   * Lazily initializes and returns the Web Audio context.
+   */
+  #getContext() {
+    if (!this.#ctx && typeof window !== 'undefined') {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (AudioContextClass) {
+        this.#ctx = new AudioContextClass();
+        this.#initMasterChain();
+      }
+    }
+    if (this.#ctx && this.#ctx.state === 'suspended' && this.#unlocked) {
+      this.#ctx.resume().catch(() => {});
+    }
+    return this.#ctx;
+  }
+
+  /**
+   * Builds the master signal routing chain:
+   * [Source Nodes] ──► [CRT Warmer Filter] ──► [Master Gain] ──► [Destination]
+   */
+  #initMasterChain() {
+    if (!this.#ctx) return;
+
+    // Warm CRT low-pass filter (cuts harsh >12kHz frequencies like vintage monitor speakers)
+    this.#crtFilter = this.#ctx.createBiquadFilter();
+    this.#crtFilter.type = 'lowpass';
+    this.#crtFilter.frequency.value = 11500;
+    this.#crtFilter.Q.value = 0.7;
+
+    // Master Volume Gain
+    this.#masterGain = this.#ctx.createGain();
+    this.#masterGain.gain.value = this.#isMuted ? 0 : this.#volume;
+
+    this.#crtFilter.connect(this.#masterGain);
+    this.#masterGain.connect(this.#ctx.destination);
+
+    // Generate reusable 2-second white noise buffer
+    this.#noiseBuffer = this.#createNoiseBuffer(2.0);
+  }
+
+  /**
+   * Sets up one-time window listeners to satisfy browser autoplay policies on first gesture.
+   */
+  #setupAutoplayUnlock() {
+    if (typeof window === 'undefined') return;
+
+    const unlock = () => {
+      this.#unlocked = true;
+      const ctx = this.#getContext();
+      if (ctx && ctx.state === 'suspended') {
+        ctx.resume().catch(() => {});
+      }
+      window.removeEventListener('pointerdown', unlock);
+      window.removeEventListener('keydown', unlock);
+      window.removeEventListener('touchstart', unlock);
+    };
+
+    window.addEventListener('pointerdown', unlock, { passive: true });
+    window.addEventListener('keydown', unlock, { passive: true });
+    window.addEventListener('touchstart', unlock, { passive: true });
+  }
+
+  /**
+   * Creates a monophonic white noise AudioBuffer for procedural percussive / ballistic bursts.
+   */
+  #createNoiseBuffer(seconds = 2.0) {
+    if (!this.#ctx) return null;
+    const sampleRate = this.#ctx.sampleRate;
+    const bufferSize = sampleRate * seconds;
+    const buffer = this.#ctx.createBuffer(1, bufferSize, sampleRate);
+    const data = buffer.getChannelData(0);
+
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = Math.random() * 2 - 1;
+    }
+    return buffer;
+  }
+
+  /* =========================================================================
+     Master Controls & CRT Monitor Hum
+     ========================================================================= */
+
+  /**
+   * Sets master audio gain (0.0 to 1.0).
+   */
+  setMasterVolume(val) {
+    this.#volume = Math.max(0, Math.min(1, val));
+    if (this.#masterGain && !this.#isMuted && this.#ctx) {
+      this.#masterGain.gain.setValueAtTime(this.#volume, this.#ctx.currentTime);
+    }
+  }
+
+  /**
+   * Toggles master mute state.
+   */
+  toggleMute() {
+    this.#isMuted = !this.#isMuted;
+    if (this.#masterGain && this.#ctx) {
+      const target = this.#isMuted ? 0 : this.#volume;
+      this.#masterGain.gain.setValueAtTime(target, this.#ctx.currentTime);
+    }
+    return this.#isMuted;
+  }
+
+  get isMuted() {
+    return this.#isMuted;
+  }
+
+  get volume() {
+    return this.#volume;
+  }
+
+  /**
+   * Enables or disables an authentic 50Hz CRT analog transformer ground hum.
+   */
+  enableCrtHum(enable = true, humLevel = 0.015) {
+    const ctx = this.#getContext();
+    if (!ctx) return;
+
+    if (!enable) {
+      if (this.#humOsc) {
+        this.#humOsc.stop();
+        this.#humOsc.disconnect();
+        this.#humOsc = null;
+      }
+      if (this.#humGain) {
+        this.#humGain.disconnect();
+        this.#humGain = null;
+      }
+      return;
+    }
+
+    if (this.#humOsc) return; // already active
+
+    this.#humOsc = ctx.createOscillator();
+    this.#humOsc.type = 'sawtooth';
+    this.#humOsc.frequency.value = 50; // European 50Hz mains hum
+
+    // Lowpass filter to muffle the hum into a deep chassis vibration
+    const humFilter = ctx.createBiquadFilter();
+    humFilter.type = 'lowpass';
+    humFilter.frequency.value = 95;
+
+    this.#humGain = ctx.createGain();
+    this.#humGain.gain.value = humLevel;
+
+    this.#humOsc.connect(humFilter);
+    humFilter.connect(this.#humGain);
+    this.#humGain.connect(this.#crtFilter);
+
+    this.#humOsc.start();
+  }
+
+  /* =========================================================================
+     Procedural Sound Effects
+     ========================================================================= */
+
+  /**
+   * Synthesizes a crisp retro terminal switch / keyboard click.
+   * Dual-stage impulse: Micro-burst noise click followed by an ultra-fast frequency blip.
+   * @param {number} [pitchMultiplier=1.0] - Pitch scaling (0.7 to 1.5).
+   * @param {number} [volume=0.35] - Local amplitude.
+   */
+  playTerminalClick(pitchMultiplier = 1.0, volume = 0.35) {
+    const ctx = this.#getContext();
+    if (!ctx || this.#isMuted) return;
+
+    const t = ctx.currentTime;
+
+    // Stage 1: Sharp mechanical micro-transient (filtered white noise)
+    if (this.#noiseBuffer) {
+      const noise = ctx.createBufferSource();
+      noise.buffer = this.#noiseBuffer;
+
+      const noiseFilter = ctx.createBiquadFilter();
+      noiseFilter.type = 'bandpass';
+      noiseFilter.frequency.setValueAtTime(3200 * pitchMultiplier, t);
+      noiseFilter.Q.value = 3.0;
+
+      const noiseGain = ctx.createGain();
+      noiseGain.gain.setValueAtTime(volume * 0.45, t);
+      noiseGain.gain.exponentialRampToValueAtTime(0.001, t + 0.018);
+
+      noise.connect(noiseFilter);
+      noiseFilter.connect(noiseGain);
+      noiseGain.connect(this.#crtFilter);
+
+      noise.start(t);
+      noise.stop(t + 0.02);
+    }
+
+    // Stage 2: Tactile relay frequency blip (fast downward pitch sweep)
+    const osc = ctx.createOscillator();
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(1400 * pitchMultiplier, t);
+    osc.frequency.exponentialRampToValueAtTime(350 * pitchMultiplier, t + 0.022);
+
+    const oscGain = ctx.createGain();
+    oscGain.gain.setValueAtTime(volume * 0.25, t);
+    oscGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.025);
+
+    osc.connect(oscGain);
+    oscGain.connect(this.#crtFilter);
+
+    osc.start(t);
+    osc.stop(t + 0.028);
+  }
+
+  /**
+   * Synthesizes an authentic Geiger-Müller radiation ionization discharge tick.
+   * Short, dry, irregular electrical pulse.
+   * @param {number} [intensity=0.5] - Radiation intensity factor (0.0 to 1.0).
+   * @param {number} [volume=0.4] - Local amplitude.
+   */
+  playGeigerTick(intensity = 0.5, volume = 0.4) {
+    const ctx = this.#getContext();
+    if (!ctx || this.#isMuted || !this.#noiseBuffer) return;
+
+    const t = ctx.currentTime;
+    // Micro-jitter in frequency and amplitude to reflect natural isotopic decay
+    const jitter = (Math.random() - 0.5) * 0.3;
+    const dur = 0.003 + Math.random() * 0.003;
+
+    const noise = ctx.createBufferSource();
+    noise.buffer = this.#noiseBuffer;
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime((2800 + jitter * 800), t);
+    filter.Q.value = 4.5;
+
+    const gain = ctx.createGain();
+    const peak = Math.max(0.1, Math.min(1, volume * (0.6 + intensity * 0.4)));
+    gain.gain.setValueAtTime(peak, t);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+
+    noise.connect(filter);
+    filter.connect(gain);
+    gain.connect(this.#crtFilter);
+
+    noise.start(t);
+    noise.stop(t + dur + 0.001);
+  }
+
+  /**
+   * Starts a continuous, randomized Geiger counter audio stream calibrated to dosage (mSv/h).
+   * @param {number} dosage - Radiation dosage (e.g. 0 to 50 mSv).
+   */
+  startGeigerStream(dosage = 10) {
+    this.stopGeigerStream();
+    if (dosage <= 0.5) return;
+
+    const normalized = Math.min(1.0, dosage / 40);
+    // Average interval between clicks: 400ms at background down to 25ms at lethal dose
+    const meanInterval = Math.max(25, 420 - normalized * 380);
+
+    const scheduleNext = () => {
+      this.playGeigerTick(normalized);
+      const nextDelay = meanInterval * (0.4 + Math.random() * 1.2);
+      this.#geigerInterval = setTimeout(scheduleNext, nextDelay);
+    };
+
+    scheduleNext();
+  }
+
+  /**
+   * Stops the continuous Geiger stream.
+   */
+  stopGeigerStream() {
+    if (this.#geigerInterval) {
+      clearTimeout(this.#geigerInterval);
+      this.#geigerInterval = null;
+    }
+  }
+
+  /**
+   * Synthesizes a visceral sub-bass double-pulse heartbeat ("lub-dub").
+   * Triggered when health or telemetry drops into critical band (<20%).
+   * @param {number} [bpm=60] - Heart rate in beats per minute.
+   * @param {number} [volume=0.75] - Local amplitude.
+   */
+  playHeartbeat(bpm = 60, volume = 0.75) {
+    const ctx = this.#getContext();
+    if (!ctx || this.#isMuted) return;
+
+    const t = ctx.currentTime;
+
+    // Helper to generate a single ventricular contraction thump
+    const playThump = (startTime, startFreq, endFreq, dur, amp) => {
+      const osc = ctx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(startFreq, startTime);
+      osc.frequency.exponentialRampToValueAtTime(endFreq, startTime + dur);
+
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(110, startTime);
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.001, startTime);
+      gain.gain.linearRampToValueAtTime(amp * volume, startTime + 0.015);
+      gain.gain.exponentialRampToValueAtTime(0.0001, startTime + dur);
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(this.#crtFilter);
+
+      osc.start(startTime);
+      osc.stop(startTime + dur + 0.01);
+    };
+
+    // First sound: S1 "Lub" (atrio-ventricular closure)
+    playThump(t, 58, 38, 0.14, 0.9);
+
+    // Second sound: S2 "Dub" (aortic/pulmonary closure, ~130ms later, slightly higher pitch)
+    playThump(t + 0.13, 76, 44, 0.11, 0.65);
+  }
+
+  /**
+   * Starts or stops automatic looping heartbeat when survivor is in critical status.
+   */
+  setCriticalHeartbeat(active = true, bpm = 75) {
+    if (!active) {
+      if (this.#heartbeatInterval) {
+        clearInterval(this.#heartbeatInterval);
+        this.#heartbeatInterval = null;
+      }
+      return;
+    }
+
+    if (this.#heartbeatInterval) return;
+
+    const intervalMs = (60 / bpm) * 1000;
+    this.playHeartbeat(bpm);
+    this.#heartbeatInterval = setInterval(() => {
+      this.playHeartbeat(bpm);
+    }, intervalMs);
+  }
+
+  /**
+   * Synthesizes procedural ballistic gunshots for distinct weapon calibers.
+   * Features a sharp supersonic shockwave crack, heavy pressure body thump, and reverberant tail.
+   * @param {string} caliberType - '9mm', '12g' (shotgun), or '556' (rifle).
+   * @param {number} [volume=0.85] - Local amplitude.
+   */
+  playGunshot(caliberType = '9mm', volume = 0.85) {
+    const ctx = this.#getContext();
+    if (!ctx || this.#isMuted || !this.#noiseBuffer) return;
+
+    const t = ctx.currentTime;
+    const norm = String(caliberType).toLowerCase();
+
+    // Configuration profile per ballistic family
+    const configs = {
+      '9mm': {
+        crackFreq: 2200,
+        crackDur: 0.035,
+        bodyStartFreq: 260,
+        bodyEndFreq: 48,
+        bodyDur: 0.09,
+        tailDur: 0.38,
+        tailCutoff: 1400,
+      },
+      '12g': {
+        crackFreq: 1100,
+        crackDur: 0.08,
+        bodyStartFreq: 140,
+        bodyEndFreq: 30,
+        bodyDur: 0.22,
+        tailDur: 0.75,
+        tailCutoff: 900,
+      },
+      '556': {
+        crackFreq: 4200,
+        crackDur: 0.022,
+        bodyStartFreq: 450,
+        bodyEndFreq: 65,
+        bodyDur: 0.07,
+        tailDur: 0.48,
+        tailCutoff: 2100,
+      },
+    };
+
+    // Match caliber aliases
+    const cfg = norm.includes('12') || norm.includes('shotgun')
+      ? configs['12g']
+      : (norm.includes('556') || norm.includes('rifle') || norm.includes('762') ? configs['556'] : configs['9mm']);
+
+    // 1. Initial Supersonic Crack / Muzzle Blast (Filtered Noise Burst)
+    const crackSource = ctx.createBufferSource();
+    crackSource.buffer = this.#noiseBuffer;
+
+    const crackFilter = ctx.createBiquadFilter();
+    crackFilter.type = 'highpass';
+    crackFilter.frequency.setValueAtTime(cfg.crackFreq, t);
+
+    const crackGain = ctx.createGain();
+    crackGain.gain.setValueAtTime(volume * 0.95, t);
+    crackGain.gain.exponentialRampToValueAtTime(0.001, t + cfg.crackDur);
+
+    crackSource.connect(crackFilter);
+    crackFilter.connect(crackGain);
+    crackGain.connect(this.#crtFilter);
+
+    crackSource.start(t);
+    crackSource.stop(t + cfg.crackDur + 0.01);
+
+    // 2. Kinetic Body Thump (Pitch-dropping low-end oscillator)
+    const bodyOsc = ctx.createOscillator();
+    bodyOsc.type = 'triangle';
+    bodyOsc.frequency.setValueAtTime(cfg.bodyStartFreq, t);
+    bodyOsc.frequency.exponentialRampToValueAtTime(cfg.bodyEndFreq, t + cfg.bodyDur);
+
+    const bodyGain = ctx.createGain();
+    bodyGain.gain.setValueAtTime(volume * 0.8, t);
+    bodyGain.gain.exponentialRampToValueAtTime(0.001, t + cfg.bodyDur);
+
+    bodyOsc.connect(bodyGain);
+    bodyGain.connect(this.#crtFilter);
+
+    bodyOsc.start(t);
+    bodyOsc.stop(t + cfg.bodyDur + 0.01);
+
+    // 3. Reverberant Atmospheric Decay Tail
+    const tailSource = ctx.createBufferSource();
+    tailSource.buffer = this.#noiseBuffer;
+
+    const tailFilter = ctx.createBiquadFilter();
+    tailFilter.type = 'lowpass';
+    tailFilter.frequency.setValueAtTime(cfg.tailCutoff, t);
+    tailFilter.frequency.linearRampToValueAtTime(200, t + cfg.tailDur);
+
+    const tailGain = ctx.createGain();
+    tailGain.gain.setValueAtTime(volume * 0.4, t + 0.02);
+    tailGain.gain.exponentialRampToValueAtTime(0.0001, t + cfg.tailDur);
+
+    tailSource.connect(tailFilter);
+    tailFilter.connect(tailGain);
+    tailGain.connect(this.#crtFilter);
+
+    tailSource.start(t + 0.01);
+    tailSource.stop(t + cfg.tailDur + 0.02);
+  }
+
+  /**
+   * Synthesizes an authentic CRT analog phosphor terminal power-up whine.
+   * Includes high-voltage flyback transformer sweep (2.5kHz -> 15.6kHz) and degauss relay thump.
+   * @param {number} [volume=0.6] - Local amplitude.
+   */
+  playTerminalBoot(volume = 0.6) {
+    const ctx = this.#getContext();
+    if (!ctx || this.#isMuted) return;
+
+    const t = ctx.currentTime;
+    const dur = 1.1;
+
+    // 1. High-Voltage Flyback Transformer Sweep (Rising whine)
+    const whineOsc = ctx.createOscillator();
+    whineOsc.type = 'sine';
+    whineOsc.frequency.setValueAtTime(2200, t);
+    whineOsc.frequency.exponentialRampToValueAtTime(15625, t + 0.8); // 15.625kHz line rate
+
+    const whineGain = ctx.createGain();
+    whineGain.gain.setValueAtTime(0.001, t);
+    whineGain.gain.linearRampToValueAtTime(volume * 0.22, t + 0.4);
+    whineGain.gain.exponentialRampToValueAtTime(0.001, t + dur);
+
+    whineOsc.connect(whineGain);
+    whineGain.connect(this.#masterGain); // bypass lowpass to retain 15.6kHz whine
+
+    whineOsc.start(t);
+    whineOsc.stop(t + dur + 0.05);
+
+    // 2. Heavy Degauss Coil Thump at t + 0.15s
+    const degaussOsc = ctx.createOscillator();
+    degaussOsc.type = 'sine';
+    degaussOsc.frequency.setValueAtTime(95, t + 0.12);
+    degaussOsc.frequency.exponentialRampToValueAtTime(32, t + 0.45);
+
+    const degaussGain = ctx.createGain();
+    degaussGain.gain.setValueAtTime(0.001, t + 0.12);
+    degaussGain.gain.linearRampToValueAtTime(volume * 0.7, t + 0.15);
+    degaussGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.55);
+
+    degaussOsc.connect(degaussGain);
+    degaussGain.connect(this.#crtFilter);
+
+    degaussOsc.start(t + 0.12);
+    degaussOsc.stop(t + 0.6);
+
+    // 3. Phosphor Static Bloom (Muffled soft noise swell)
+    if (this.#noiseBuffer) {
+      const staticSource = ctx.createBufferSource();
+      staticSource.buffer = this.#noiseBuffer;
+
+      const staticFilter = ctx.createBiquadFilter();
+      staticFilter.type = 'bandpass';
+      staticFilter.frequency.setValueAtTime(1600, t);
+      staticFilter.Q.value = 1.2;
+
+      const staticGain = ctx.createGain();
+      staticGain.gain.setValueAtTime(0.001, t);
+      staticGain.gain.linearRampToValueAtTime(volume * 0.25, t + 0.3);
+      staticGain.gain.exponentialRampToValueAtTime(0.001, t + 0.9);
+
+      staticSource.connect(staticFilter);
+      staticFilter.connect(staticGain);
+      staticGain.connect(this.#crtFilter);
+
+      staticSource.start(t);
+      staticSource.stop(t + 0.95);
+    }
+  }
+
+  /**
+   * Synthesizes an emergency warning klaxon or DEFCON alert tone.
+   * @param {number} [freq=880] - Alert pitch in Hz.
+   * @param {number} [duration=0.3] - Tone length.
+   */
+  playWarningAlarm(freq = 880, duration = 0.3, volume = 0.5) {
+    const ctx = this.#getContext();
+    if (!ctx || this.#isMuted) return;
+
+    const t = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(freq, t);
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(1800, t);
+
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(volume * 0.4, t);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + duration);
+
+    osc.connect(filter);
+    filter.connect(gain);
+    gain.connect(this.#crtFilter);
+
+    osc.start(t);
+    osc.stop(t + duration + 0.01);
+  }
+
+  /**
+   * Synthesizes tactical equipment rustle (for inventory movement / gear equipping).
+   */
+  playGearRustle(volume = 0.25) {
+    const ctx = this.#getContext();
+    if (!ctx || this.#isMuted || !this.#noiseBuffer) return;
+
+    const t = ctx.currentTime;
+    const dur = 0.08;
+
+    const noise = ctx.createBufferSource();
+    noise.buffer = this.#noiseBuffer;
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(950, t);
+    filter.Q.value = 1.8;
+
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(volume * 0.35, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + dur);
+
+    noise.connect(filter);
+    filter.connect(gain);
+    gain.connect(this.#crtFilter);
+
+    noise.start(t);
+    noise.stop(t + dur + 0.01);
+  }
+
+  /**
+   * Synthesizes procedural vehicle starter crank and engine ignition roar.
+   */
+  playEngineIgnition(volume = 0.4) {
+    const ctx = this.#getContext();
+    if (!ctx || this.#isMuted) return;
+
+    const t = ctx.currentTime;
+
+    // 1. Starter motor chug pulses (3 starter clicks)
+    for (let i = 0; i < 3; i++) {
+      const clickTime = t + i * 0.12;
+      const starterOsc = ctx.createOscillator();
+      starterOsc.type = 'square';
+      starterOsc.frequency.setValueAtTime(45 + i * 5, clickTime);
+
+      const starterGain = ctx.createGain();
+      starterGain.gain.setValueAtTime(volume * 0.25, clickTime);
+      starterGain.gain.exponentialRampToValueAtTime(0.001, clickTime + 0.08);
+
+      starterOsc.connect(starterGain);
+      starterGain.connect(this.#crtFilter);
+      starterOsc.start(clickTime);
+      starterOsc.stop(clickTime + 0.09);
+    }
+
+    // 2. Engine catch and low-frequency rumble
+    const catchTime = t + 0.4;
+    const rumbleOsc = ctx.createOscillator();
+    rumbleOsc.type = 'sawtooth';
+    rumbleOsc.frequency.setValueAtTime(65, catchTime);
+    rumbleOsc.frequency.linearRampToValueAtTime(80, catchTime + 0.3);
+    rumbleOsc.frequency.exponentialRampToValueAtTime(52, catchTime + 1.2);
+
+    const rumbleFilter = ctx.createBiquadFilter();
+    rumbleFilter.type = 'lowpass';
+    rumbleFilter.frequency.setValueAtTime(220, catchTime);
+    rumbleFilter.Q.value = 2.0;
+
+    const rumbleGain = ctx.createGain();
+    rumbleGain.gain.setValueAtTime(0.001, catchTime);
+    rumbleGain.gain.exponentialRampToValueAtTime(volume * 0.5, catchTime + 0.15);
+    rumbleGain.gain.exponentialRampToValueAtTime(0.001, catchTime + 1.2);
+
+    rumbleOsc.connect(rumbleFilter);
+    rumbleFilter.connect(rumbleGain);
+    rumbleGain.connect(this.#crtFilter);
+
+    rumbleOsc.start(catchTime);
+    rumbleOsc.stop(catchTime + 1.25);
+  }
+
+  /**
+   * Synthesizes procedural engine throttle rev.
+   */
+  playEngineRev(volume = 0.35) {
+    const ctx = this.#getContext();
+    if (!ctx || this.#isMuted) return;
+
+    const t = ctx.currentTime;
+    const revOsc = ctx.createOscillator();
+    revOsc.type = 'sawtooth';
+    revOsc.frequency.setValueAtTime(55, t);
+    revOsc.frequency.exponentialRampToValueAtTime(140, t + 0.4);
+    revOsc.frequency.exponentialRampToValueAtTime(50, t + 1.0);
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(280, t);
+    filter.frequency.exponentialRampToValueAtTime(500, t + 0.4);
+    filter.frequency.exponentialRampToValueAtTime(200, t + 1.0);
+
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(volume * 0.2, t);
+    gain.gain.exponentialRampToValueAtTime(volume * 0.45, t + 0.35);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 1.05);
+
+    revOsc.connect(filter);
+    filter.connect(gain);
+    gain.connect(this.#crtFilter);
+
+    revOsc.start(t);
+    revOsc.stop(t + 1.1);
+  }
+
+  /**
+   * Synthesizes a retro 4-note ascending celebratory arpeggio for achievement unlocks.
+   */
+  playAchievementChime(volume = 0.35) {
+    const ctx = this.#getContext();
+    if (!ctx || this.#isMuted) return;
+
+    const t = ctx.currentTime;
+    const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+
+    notes.forEach((freq, idx) => {
+      const noteTime = t + idx * 0.11;
+      const osc = ctx.createOscillator();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, noteTime);
+
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(3200, noteTime);
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.001, noteTime);
+      gain.gain.linearRampToValueAtTime(volume * 0.4, noteTime + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, noteTime + 0.32);
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(this.#crtFilter);
+
+      osc.start(noteTime);
+      osc.stop(noteTime + 0.35);
+    });
+  }
+}
+
+// Export singleton instance as default and class for custom instances
+const audioEngine = new AudioEngine();
+
+
+
+
+  // --- src/core/codexManager.js ---
+/**
+ * Last Breath // Codex, Permadeath Memorial & Career Statistics Manager
+ * Zero external dependencies. Persistent meta-progression across permadeath runs.
+ * Governs fallen survivors memorial graveyard, career milestones, achievements,
+ * and classified post-collapse field dossiers.
+ */
+
+
+
+const STORAGE_KEY = 'lastbreath_codex_v1';
+
+const ACHIEVEMENTS_CATALOG = {
+  first_blood: {
+    id: 'first_blood',
+    icon: '⚔️',
+    titleKey: 'codex.ach.first_blood.title',
+    descKey: 'codex.ach.first_blood.desc',
+  },
+  pacifist_mercy: {
+    id: 'pacifist_mercy',
+    icon: '🕊️',
+    titleKey: 'codex.ach.pacifist_mercy.title',
+    descKey: 'codex.ach.pacifist_mercy.desc',
+  },
+  trauma_surgeon: {
+    id: 'trauma_surgeon',
+    icon: '🩹',
+    titleKey: 'codex.ach.trauma_surgeon.title',
+    descKey: 'codex.ach.trauma_surgeon.desc',
+  },
+  mechanic_maestro: {
+    id: 'mechanic_maestro',
+    icon: '🔧',
+    titleKey: 'codex.ach.mechanic_maestro.title',
+    descKey: 'codex.ach.mechanic_maestro.desc',
+  },
+  silk_road_tycoon: {
+    id: 'silk_road_tycoon',
+    icon: '⚖️',
+    titleKey: 'codex.ach.silk_road_tycoon.title',
+    descKey: 'codex.ach.silk_road_tycoon.desc',
+  },
+  nomad_ally: {
+    id: 'nomad_ally',
+    icon: '🤝',
+    titleKey: 'codex.ach.nomad_ally.title',
+    descKey: 'codex.ach.nomad_ally.desc',
+  },
+  iron_discipline: {
+    id: 'iron_discipline',
+    icon: '🛡️',
+    titleKey: 'codex.ach.iron_discipline.title',
+    descKey: 'codex.ach.iron_discipline.desc',
+  },
+  acid_survivor: {
+    id: 'acid_survivor',
+    icon: '☣️',
+    titleKey: 'codex.ach.acid_survivor.title',
+    descKey: 'codex.ach.acid_survivor.desc',
+  },
+  eurasian_nomad: {
+    id: 'eurasian_nomad',
+    icon: '🧭',
+    titleKey: 'codex.ach.eurasian_nomad.title',
+    descKey: 'codex.ach.eurasian_nomad.desc',
+  },
+  endurance_champion: {
+    id: 'endurance_champion',
+    icon: '⏳',
+    titleKey: 'codex.ach.endurance_champion.title',
+    descKey: 'codex.ach.endurance_champion.desc',
+  },
+  fuel_siphoner: {
+    id: 'fuel_siphoner',
+    icon: '⛽',
+    titleKey: 'codex.ach.fuel_siphoner.title',
+    descKey: 'codex.ach.fuel_siphoner.desc',
+  },
+  outpost_pioneer: {
+    id: 'outpost_pioneer',
+    icon: '⛺',
+    titleKey: 'codex.ach.outpost_pioneer.title',
+    descKey: 'codex.ach.outpost_pioneer.desc',
+  },
+  master_scavenger: {
+    id: 'master_scavenger',
+    icon: '🎒',
+    titleKey: 'codex.ach.master_scavenger.title',
+    descKey: 'codex.ach.master_scavenger.desc',
+  },
+  sniper_doctrine: {
+    id: 'sniper_doctrine',
+    icon: '🎯',
+    titleKey: 'codex.ach.sniper_doctrine.title',
+    descKey: 'codex.ach.sniper_doctrine.desc',
+  },
+};
+
+const LORE_CODEX_CATALOG = {
+  iron_guard: {
+    id: 'iron_guard',
+    category: 'factions',
+    glyph: '🛡️',
+    titleKey: 'codex.lore.iron_guard.title',
+    descKey: 'codex.lore.iron_guard.desc',
+  },
+  nomad_guild: {
+    id: 'nomad_guild',
+    category: 'factions',
+    glyph: '🐫',
+    titleKey: 'codex.lore.nomad_guild.title',
+    descKey: 'codex.lore.nomad_guild.desc',
+  },
+  ash_marauders: {
+    id: 'ash_marauders',
+    category: 'factions',
+    glyph: '💀',
+    titleKey: 'codex.lore.ash_marauders.title',
+    descKey: 'codex.lore.ash_marauders.desc',
+  },
+  trauma_tccc: {
+    id: 'trauma_tccc',
+    category: 'tactics',
+    glyph: '🩸',
+    titleKey: 'codex.lore.trauma_tccc.title',
+    descKey: 'codex.lore.trauma_tccc.desc',
+  },
+  weather_extremes: {
+    id: 'weather_extremes',
+    category: 'tactics',
+    glyph: '⛈️',
+    titleKey: 'codex.lore.weather_extremes.title',
+    descKey: 'codex.lore.weather_extremes.desc',
+  },
+  vehicle_overland: {
+    id: 'vehicle_overland',
+    category: 'vehicles',
+    glyph: '🚙',
+    titleKey: 'codex.lore.vehicle_overland.title',
+    descKey: 'codex.lore.vehicle_overland.desc',
+  },
+};
+
+class CodexManager {
+  #storage;
+  #bus;
+  #data;
+
+  constructor({ bus = null, storage = globalThis.localStorage } = {}) {
+    this.#bus = bus;
+    this.#storage = storage;
+    this.#data = this.#load();
+  }
+
+  setBus(bus) {
+    this.#bus = bus;
+  }
+
+  #getDefaultData() {
+    return {
+      memorial: [],
+      career: {
+        totalDaysSurvived: 0,
+        totalExpeditions: 0,
+        totalKmTraveled: 0,
+        totalSectorsVisited: 0,
+        totalEnemiesDefeated: 0,
+        totalEnemiesSpared: 0,
+        totalBarterValue: 0,
+        totalVehiclesRestored: 0,
+        totalCraftsDone: 0,
+        totalFuelSiphoned: 0,
+        totalScavenges: 0,
+        totalMedicalTreatments: 0,
+      },
+      achievements: {},
+      unlockedCodex: ['iron_guard', 'nomad_guild', 'trauma_tccc', 'weather_extremes'],
+    };
+  }
+
+  #load() {
+    try {
+      const raw = this.#storage?.getItem(STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        return {
+          ...this.#getDefaultData(),
+          ...parsed,
+          career: { ...this.#getDefaultData().career, ...(parsed.career || {}) },
+          achievements: { ...(parsed.achievements || {}) },
+          unlockedCodex: Array.isArray(parsed.unlockedCodex) ? parsed.unlockedCodex : this.#getDefaultData().unlockedCodex,
+          memorial: Array.isArray(parsed.memorial) ? parsed.memorial : [],
+        };
+      }
+    } catch (e) {
+      console.warn('[codex] failed to load codex storage', e);
+    }
+    return this.#getDefaultData();
+  }
+
+  #save() {
+    try {
+      this.#storage?.setItem(STORAGE_KEY, JSON.stringify(this.#data));
+    } catch (e) {
+      console.warn('[codex] failed to write codex storage', e);
+    }
+  }
+
+  get memorial() {
+    return this.#data.memorial;
+  }
+
+  get career() {
+    return this.#data.career;
+  }
+
+  get achievements() {
+    return this.#data.achievements;
+  }
+
+  get unlockedCodex() {
+    return this.#data.unlockedCodex;
+  }
+
+  /**
+   * Records a fallen survivor to the permanent memorial log upon death.
+   */
+  recordFallenSurvivor(state) {
+    if (!state?.player) return null;
+
+    const days = Math.max(0.1, Math.round(((state.player.diedAt ?? state.time?.minutes ?? 0) / 1440) * 10) / 10);
+    const visitedNodes = Object.values(state.world?.nodes || {}).filter((n) => n.visited).length;
+
+    const record = {
+      id: `memorial_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+      name: state.player.name || 'Bilinmeyen Hayatta Kalan',
+      age: state.player.age || 28,
+      archetype: state.player.archetype || 'scavenger',
+      bloodType: state.player.bloodType || 'A+',
+      trait: state.player.trait || 'stoic',
+      startingLocation: 'istanbul',
+      deathLocation: state.world?.currentNodeId || 'istanbul',
+      causeOfDeath: state.player.causeOfDeath || 'wounds',
+      diedAtTimestamp: Date.now(),
+      daysSurvived: days,
+      sectorsVisited: visitedNodes,
+      enemiesNeutralized: state.combat?.totalEnemiesDefeated || 0,
+      barterVolume: state.economy?.totalBarterVolume || 0,
+      kmTraveled: state.world?.totalKmTraveled || 0,
+      vehiclesRestored: state.vehicles?.fleet ? Object.values(state.vehicles.fleet).filter((v) => v.restored).length : 0,
+      epitaph: this.#generateEpitaph(state.player.name, state.player.causeOfDeath, state.world?.currentNodeId),
+    };
+
+    // Update cumulative career statistics
+    this.#data.career.totalExpeditions += 1;
+    this.#data.career.totalDaysSurvived = Math.round((this.#data.career.totalDaysSurvived + days) * 10) / 10;
+    this.#data.career.totalSectorsVisited += visitedNodes;
+
+    // Check endurance milestone
+    if (days >= 10) {
+      this.unlockAchievement('endurance_champion');
+    }
+
+    // Prepend to memorial (latest death at top, capped at 40 records)
+    this.#data.memorial.unshift(record);
+    if (this.#data.memorial.length > 40) {
+      this.#data.memorial.pop();
+    }
+
+    this.#save();
+    return record;
+  }
+
+  #generateEpitaph(name, cause, location) {
+    const epitaphs = {
+      blood_loss: `${name}, ${location} harabelerinde kan kaybı ve şok içinde son nefesini verdi.`,
+      hypothermia: `${name}, dondurucu kıyamet kışında soğuğa yenik düştü.`,
+      radiation: `${name}, ölümcül radyoaktif kül fırtınasının ortasında yığıldı.`,
+      starvation: `${name}, açlık ve bitkinlik içinde harabelerde sessizliğe gömüldü.`,
+      dehydration: `${name}, kavurucu susuzluk içinde bir damla suya hasret kalarak can verdi.`,
+      acid_burns: `${name}, zehirli asit yağmurunda kimyasal yanıklarla can verdi.`,
+      wounds: `${name}, çatışma yaralarına yenik düşerek toprağa karıştı.`,
+    };
+    return epitaphs[cause] || `${name}, Avrasya harabelerinde hayata gözlerini yumdu.`;
+  }
+
+  /**
+   * Tracks incremental career statistics across active gameplay.
+   */
+  trackCareer(statName, delta = 1) {
+    if (this.#data.career[statName] !== undefined) {
+      this.#data.career[statName] = Math.round((this.#data.career[statName] + delta) * 10) / 10;
+      this.#save();
+    }
+  }
+
+  /**
+   * Evaluates and unlocks an achievement permanently.
+   */
+  unlockAchievement(achId) {
+    if (!ACHIEVEMENTS_CATALOG[achId]) return false;
+    if (this.#data.achievements[achId]) return false; // Already unlocked
+
+    this.#data.achievements[achId] = {
+      unlockedAt: Date.now(),
+    };
+    this.#save();
+
+    // Trigger audio & broadcast notification event
+    audioEngine.playAchievementChime();
+    if (this.#bus) {
+      this.#bus.emit('codex:achievement_unlocked', {
+        id: achId,
+        catalog: ACHIEVEMENTS_CATALOG[achId],
+      });
+    }
+
+    return true;
+  }
+
+  /**
+   * Unlocks a classified field codex entry.
+   */
+  unlockCodexEntry(entryId) {
+    if (!LORE_CODEX_CATALOG[entryId]) return false;
+    if (this.#data.unlockedCodex.includes(entryId)) return false;
+
+    this.#data.unlockedCodex.push(entryId);
+    this.#save();
+    return true;
+  }
+
+  /**
+   * Calculates overall survivor reputation rank based on career metrics.
+   */
+  getSurvivalRank() {
+    const days = this.#data.career.totalDaysSurvived;
+    const achCount = Object.keys(this.#data.achievements).length;
+
+    if (days >= 50 || achCount >= 10) {
+      return { tier: 5, rankKey: 'codex.rank.tier_5', glyph: '👑' };
+    }
+    if (days >= 25 || achCount >= 7) {
+      return { tier: 4, rankKey: 'codex.rank.tier_4', glyph: '🎖️' };
+    }
+    if (days >= 10 || achCount >= 4) {
+      return { tier: 3, rankKey: 'codex.rank.tier_3', glyph: '⚔️' };
+    }
+    if (days >= 3 || achCount >= 1) {
+      return { tier: 2, rankKey: 'codex.rank.tier_2', glyph: '🐺' };
+    }
+    return { tier: 1, rankKey: 'codex.rank.tier_1', glyph: '🏕️' };
+  }
+
+  /**
+   * Resets all memorial and career records (wiping history).
+   */
+  clearAll() {
+    this.#data = this.#getDefaultData();
+    this.#save();
+  }
+}
+
+const codexManager = new CodexManager();
+
+
+
   // --- src/modules/inventory/index.js ---
+
 
 
 
@@ -15497,6 +17179,14 @@ function registerInventoryActions(engine) {
 
     store.commit('inventory/remove', { itemId, qty: 1 });
     engine.log('log.inventory.used', { item: itemName(itemId) });
+
+    if (item.category === 'medical') {
+      codexManager.trackCareer('totalMedicalTreatments', 1);
+      if (itemId.includes('tourniquet') || itemId.includes('splint') || itemId.includes('chest_seal') || itemId.includes('ciprofloxacin')) {
+        codexManager.unlockAchievement('trauma_surgeon');
+      }
+    }
+
     effects.apply(item.use.effects, ctx, { kind: 'item', itemId });
     engine.advanceTime(item.use.minutes);
     return { ok: true };
@@ -17350,6 +19040,11 @@ class WeatherEngine {
    * Checks if survivor has equipped gear that provides full waterproof/chemical acid shielding.
    */
   static hasAcidProtection(state) {
+    const mountedId = state?.vehicles?.mountedVehicleId;
+    if (mountedId === 'uaz_469_jeep' || mountedId === 'ural_4320_caravan') {
+      return true; // Enclosed armored vehicle cabin provides 100% barrier
+    }
+
     const bodyGear = state?.inventory?.equipment?.body;
     if (!bodyGear) return false;
     const protectiveItems = [
@@ -17365,6 +19060,11 @@ class WeatherEngine {
    * Checks if survivor has equipped an airtight respirator or gas mask against toxic ash particulate.
    */
   static hasAshProtection(state) {
+    const mountedId = state?.vehicles?.mountedVehicleId;
+    if (mountedId === 'uaz_469_jeep' || mountedId === 'ural_4320_caravan') {
+      return true; // Sealed vehicle cabin filters atmospheric particulate
+    }
+
     const headGear = state?.inventory?.equipment?.head;
     const bodyGear = state?.inventory?.equipment?.body;
     const gasMasks = [
@@ -17386,6 +19086,11 @@ class WeatherEngine {
    * Calculates thermal insulation value (0 to 100) provided by clothing and gear.
    */
   static getThermalInsulation(state) {
+    const mountedId = state?.vehicles?.mountedVehicleId;
+    if (mountedId === 'uaz_469_jeep' || mountedId === 'ural_4320_caravan') {
+      return 90; // Heated cabin insulation
+    }
+
     let insulation = 10; // Baseline street clothes
     const body = state?.inventory?.equipment?.body;
     if (body) {
@@ -17403,6 +19108,10 @@ class WeatherEngine {
    * Checks if survivor is in proximity to an active heat source (camp stove or outpost).
    */
   static hasActiveHeatSource(state, activity) {
+    const mountedId = state?.vehicles?.mountedVehicleId;
+    if (activity === 'rest' && (mountedId === 'uaz_469_jeep' || mountedId === 'ural_4320_caravan')) {
+      return true; // Vehicle heater / insulated interior
+    }
     if (activity === 'rest' && (safeCount(state?.inventory, 'folding_camp_wood_stove') > 0 || state?.base?.outpostNodeId === state?.world?.currentNodeId)) {
       return true;
     }
@@ -17642,7 +19351,428 @@ class WeatherEngine {
 }
 
 
+  // --- src/modules/vehicles/vehicleEngine.js ---
+/**
+ * Last Breath // Vehicles & Overland Travel Simulation Engine
+ * Zero-dependency Vanilla JS simulation governing abandoned vehicle restoration,
+ * component salvage, field siphoning, fuel telemetry, cargo trunk management,
+ * and high-speed overland transit mechanics.
+ */
+
+
+
+
+const VEHICLE_CATALOG = {
+  enduro_recon_bike: {
+    id: 'enduro_recon_bike',
+    nameKey: 'vehicle.enduro.name',
+    descKey: 'vehicle.enduro.desc',
+    glyph: '🏍️',
+    fuelType: 'gasoline',
+    fuelCapacity: 15, // Liters
+    fuelLitersPer100Km: 1.8,
+    trunkCapacityKg: 45, // kg
+    speedMultiplier: 0.30, // 3.3x speed (cuts travel time by 70%)
+    noiseRiskMultiplier: 1.6, // +60% encounter hazard
+    cabinShelter: false, // exposed rider
+    armorReduction: 0.0,
+    startNodeId: 'ankara',
+    partsRequired: [
+      { itemId: 'car_battery_lead_acid', qty: 1, alternates: ['car_battery_12v_lead_acid'] },
+      { itemId: 'spark_plug_set', qty: 1, alternates: ['scrap_metal'] },
+      { itemId: 'motor_oil_10w40_bottle', qty: 1, alternates: ['motor_oil_synthetic_10w40'] },
+      { itemId: 'gasoline_fuel_canister_5l', qty: 1, initialFuel: 5 },
+    ],
+  },
+
+  uaz_469_jeep: {
+    id: 'uaz_469_jeep',
+    nameKey: 'vehicle.uaz.name',
+    descKey: 'vehicle.uaz.desc',
+    glyph: '🚙',
+    fuelType: 'gasoline',
+    fuelCapacity: 55, // Liters
+    fuelLitersPer100Km: 3.8,
+    trunkCapacityKg: 220, // kg
+    speedMultiplier: 0.22, // 4.5x speed (cuts travel time by 78%)
+    noiseRiskMultiplier: 2.2, // +120% encounter hazard
+    cabinShelter: true, // Sealed cabin protects from acid rain, cold front & ash fog
+    armorReduction: 0.15, // 15% ambush defense
+    startNodeId: 'istanbul',
+    partsRequired: [
+      { itemId: 'car_battery_lead_acid', qty: 1, alternates: ['car_battery_12v_lead_acid'] },
+      { itemId: 'motor_oil_10w40_bottle', qty: 2, alternates: ['motor_oil_synthetic_10w40'] },
+      { itemId: 'spark_plug_set', qty: 1, alternates: ['scrap_metal'] },
+      { itemId: 'copper_wire', qty: 3, alternates: ['steel_wire_galvanized'] },
+      { itemId: 'gasoline_fuel_canister_5l', qty: 1, initialFuel: 5 },
+    ],
+  },
+
+  ural_4320_caravan: {
+    id: 'ural_4320_caravan',
+    nameKey: 'vehicle.ural.name',
+    descKey: 'vehicle.ural.desc',
+    glyph: '🚛',
+    fuelType: 'diesel',
+    fuelCapacity: 160, // Liters
+    fuelLitersPer100Km: 7.2,
+    trunkCapacityKg: 650, // kg
+    speedMultiplier: 0.35, // 2.8x speed
+    noiseRiskMultiplier: 2.8, // +180% raider ambush attraction
+    cabinShelter: true, // Heavy mobile fortress
+    armorReduction: 0.40, // 40% ballistic damage reduction
+    startNodeId: 'kyiv',
+    partsRequired: [
+      { itemId: 'car_battery_12v_lead_acid', qty: 2, alternates: ['car_battery_lead_acid'] },
+      { itemId: 'diesel_fuel_canister_10l', qty: 1, alternates: ['diesel_fuel_canister_5l'], initialFuel: 10 },
+      { itemId: 'motor_oil_10w40_bottle', qty: 3, alternates: ['motor_oil_synthetic_10w40'] },
+      { itemId: 'scrap_iron_plates', qty: 4, alternates: ['scrap_metal'] },
+      { itemId: 'copper_wire', qty: 4, alternates: ['steel_wire_galvanized'] },
+    ],
+  },
+};
+
+class VehicleEngine {
+  /**
+   * Generates initial reactive state for the vehicles module.
+   */
+  static getInitialState() {
+    const fleet = {};
+    for (const [vId, def] of Object.entries(VEHICLE_CATALOG)) {
+      const installedParts = {};
+      for (const req of def.partsRequired) {
+        installedParts[req.itemId] = 0;
+      }
+      fleet[vId] = {
+        id: vId,
+        nodeId: def.startNodeId,
+        restored: false,
+        condition: vId === 'enduro_recon_bike' ? 30 : (vId === 'uaz_469_jeep' ? 20 : 15),
+        fuelLiters: 0,
+        maxFuel: def.fuelCapacity,
+        installedParts,
+        cargo: [], // [{ itemId, qty }]
+      };
+    }
+
+    return {
+      mountedVehicleId: null,
+      activeModalVehicleId: null,
+      fleet,
+    };
+  }
+
+  /**
+   * Retrieves definition from catalog.
+   */
+  static getDef(vehicleId) {
+    return VEHICLE_CATALOG[vehicleId] || null;
+  }
+
+  /**
+   * Retrieves active vehicle instance in fleet.
+   */
+  static getVehicle(state, vehicleId) {
+    return state?.vehicles?.fleet?.[vehicleId] || null;
+  }
+
+  /**
+   * Returns the vehicle currently mounted by player, if any.
+   */
+  static getMountedVehicle(state) {
+    const vId = state?.vehicles?.mountedVehicleId;
+    if (!vId) return null;
+    const vehicle = state?.vehicles?.fleet?.[vId];
+    if (!vehicle) return null;
+    return {
+      vehicle,
+      def: VEHICLE_CATALOG[vId],
+    };
+  }
+
+  /**
+   * Returns list of vehicles parked in a given sector.
+   */
+  static getVehiclesInSector(state, nodeId) {
+    if (!state?.vehicles?.fleet) return [];
+    return Object.values(state.vehicles.fleet).filter((v) => v.nodeId === nodeId);
+  }
+
+  /**
+   * Checks if all required parts have been installed.
+   */
+  static checkRestoration(vehicle, def) {
+    if (vehicle.restored) return true;
+    for (const req of def.partsRequired) {
+      const installed = vehicle.installedParts?.[req.itemId] || 0;
+      if (installed < req.qty) return false;
+    }
+    return true;
+  }
+
+  /**
+   * Checks if player has any compatible item for a specific vehicle part requirement.
+   */
+  static findAvailablePartInInventory(inventory, req) {
+    if (!inventory || !Array.isArray(inventory.stacks)) return null;
+    if (countItem(inventory, req.itemId) >= 1) {
+      return req.itemId;
+    }
+    if (Array.isArray(req.alternates)) {
+      for (const altId of req.alternates) {
+        if (countItem(inventory, altId) >= 1) {
+          return altId;
+        }
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Calculates total weight of all cargo stored in vehicle trunk.
+   */
+  static getCargoWeight(vehicle) {
+    if (!vehicle?.cargo || !Array.isArray(vehicle.cargo)) return 0;
+    let total = 0;
+    for (const { itemId, qty } of vehicle.cargo) {
+      const item = getItem(itemId);
+      if (item && item.weight) {
+        total += item.weight * qty;
+      }
+    }
+    return Math.round(total * 100) / 100;
+  }
+
+  /**
+   * Calculates fuel requirement for a journey of given distance in km.
+   */
+  static calculateJourneyFuel(def, km) {
+    if (!def) return 0;
+    const liters = (km / 100) * def.fuelLitersPer100Km;
+    return Math.max(0.5, Math.round(liters * 10) / 10);
+  }
+
+  /**
+   * Checks whether vehicle can make a journey over the specified km.
+   */
+  static canMakeJourney(vehicle, def, km) {
+    if (!vehicle || !def || !vehicle.restored) {
+      return { canTravel: false, reason: 'vehicle_not_operational' };
+    }
+    if (vehicle.condition <= 0) {
+      return { canTravel: false, reason: 'engine_broken_down' };
+    }
+    const needed = this.calculateJourneyFuel(def, km);
+    if (vehicle.fuelLiters < needed) {
+      return { canTravel: false, reason: 'insufficient_fuel', needed, current: vehicle.fuelLiters };
+    }
+    return { canTravel: true, needed, current: vehicle.fuelLiters };
+  }
+
+  /**
+   * Installs a part from player inventory into the vehicle.
+   */
+  static installPart(state, vehicleId, reqItemId) {
+    const vehicle = state?.vehicles?.fleet?.[vehicleId];
+    const def = VEHICLE_CATALOG[vehicleId];
+    if (!vehicle || !def) return { ok: false, reason: 'invalid_vehicle' };
+
+    const req = def.partsRequired.find((r) => r.itemId === reqItemId);
+    if (!req) return { ok: false, reason: 'invalid_requirement' };
+
+    const currentInstalled = vehicle.installedParts?.[req.itemId] || 0;
+    if (currentInstalled >= req.qty) {
+      return { ok: false, reason: 'requirement_already_fulfilled' };
+    }
+
+    const availablePartId = this.findAvailablePartInInventory(state.inventory, req);
+    if (!availablePartId) {
+      return { ok: false, reason: 'part_not_in_inventory' };
+    }
+
+    // Consume from inventory
+    const remResult = removeItem(state.inventory, availablePartId, 1);
+    if (!remResult.removed) return { ok: false, reason: 'failed_to_consume' };
+    state.inventory = remResult.inventory;
+
+    // Record installation
+    vehicle.installedParts[req.itemId] = currentInstalled + 1;
+    vehicle.condition = Math.min(100, vehicle.condition + 15);
+
+    // Initial fuel if part was a fuel canister
+    if (req.initialFuel) {
+      vehicle.fuelLiters = Math.min(vehicle.maxFuel, vehicle.fuelLiters + req.initialFuel);
+    }
+
+    // Check full restoration
+    const restoredNow = this.checkRestoration(vehicle, def);
+    if (restoredNow && !vehicle.restored) {
+      vehicle.restored = true;
+      vehicle.condition = 100;
+      if (vehicle.fuelLiters <= 0) vehicle.fuelLiters = 5;
+    }
+
+    return {
+      ok: true,
+      restored: vehicle.restored,
+      installedItem: availablePartId,
+      remainingNeed: Math.max(0, req.qty - vehicle.installedParts[req.itemId]),
+    };
+  }
+
+  /**
+   * Refuels the vehicle using a compatible canister in inventory.
+   */
+  static refuel(state, vehicleId, canisterItemId) {
+    const vehicle = state?.vehicles?.fleet?.[vehicleId];
+    const def = VEHICLE_CATALOG[vehicleId];
+    if (!vehicle || !def) return { ok: false, reason: 'invalid_vehicle' };
+
+    const fuelVolumes = {
+      gasoline_fuel_canister_5l: { type: 'gasoline', liters: 5 },
+      diesel_fuel_canister_5l: { type: 'diesel', liters: 5 },
+      diesel_fuel_canister_10l: { type: 'diesel', liters: 10 },
+      kerosene_fuel_canister: { type: 'gasoline', liters: 3 }, // Emergency low-efficiency blend
+    };
+
+    const fuelSpec = fuelVolumes[canisterItemId];
+    if (!fuelSpec) return { ok: false, reason: 'unrecognized_fuel_item' };
+    if (fuelSpec.type !== def.fuelType) {
+      return { ok: false, reason: 'fuel_type_mismatch', required: def.fuelType };
+    }
+
+    if (countItem(state.inventory, canisterItemId) < 1) {
+      return { ok: false, reason: 'canister_not_owned' };
+    }
+
+    if (vehicle.fuelLiters >= vehicle.maxFuel) {
+      return { ok: false, reason: 'tank_already_full' };
+    }
+
+    const remResult = removeItem(state.inventory, canisterItemId, 1);
+    if (!remResult.removed) return { ok: false, reason: 'failed_to_consume' };
+    state.inventory = remResult.inventory;
+
+    const added = Math.min(vehicle.maxFuel - vehicle.fuelLiters, fuelSpec.liters);
+    vehicle.fuelLiters = Math.round((vehicle.fuelLiters + added) * 10) / 10;
+
+    return { ok: true, addedLiters: added, currentFuel: vehicle.fuelLiters };
+  }
+
+  /**
+   * Repairs vehicle engine condition using scrap metal, tools, or motor oil.
+   */
+  static repairCondition(state, vehicleId, repairItemId) {
+    const vehicle = state?.vehicles?.fleet?.[vehicleId];
+    if (!vehicle) return { ok: false, reason: 'invalid_vehicle' };
+    if (vehicle.condition >= 100) return { ok: false, reason: 'already_pristine' };
+
+    const repairValues = {
+      scrap_metal: 10,
+      scrap_iron_plates: 20,
+      motor_oil_10w40_bottle: 25,
+      motor_oil_synthetic_10w40: 35,
+      duct_tape: 8,
+    };
+
+    const gain = repairValues[repairItemId];
+    if (!gain) return { ok: false, reason: 'not_a_repair_item' };
+
+    if (countItem(state.inventory, repairItemId) < 1) {
+      return { ok: false, reason: 'item_not_owned' };
+    }
+
+    const rem = removeItem(state.inventory, repairItemId, 1);
+    if (!rem.removed) return { ok: false, reason: 'failed_to_consume' };
+    state.inventory = rem.inventory;
+
+    vehicle.condition = Math.min(100, vehicle.condition + gain);
+    return { ok: true, gain, condition: vehicle.condition };
+  }
+
+  /**
+   * Transfers an item from player's pack into vehicle's trunk.
+   */
+  static transferToCargo(state, vehicleId, itemId, qty = 1) {
+    const vehicle = state?.vehicles?.fleet?.[vehicleId];
+    const def = VEHICLE_CATALOG[vehicleId];
+    if (!vehicle || !def) return { ok: false, reason: 'invalid_vehicle' };
+
+    const owned = countItem(state.inventory, itemId);
+    if (owned < qty) return { ok: false, reason: 'insufficient_quantity' };
+
+    const item = getItem(itemId);
+    const weightPerItem = item?.weight || 0.1;
+    const currentWeight = this.getCargoWeight(vehicle);
+    if (currentWeight + (weightPerItem * qty) > def.trunkCapacityKg) {
+      return { ok: false, reason: 'trunk_full', max: def.trunkCapacityKg, current: currentWeight };
+    }
+
+    const rem = removeItem(state.inventory, itemId, qty);
+    if (!rem.removed) return { ok: false, reason: 'failed_to_remove' };
+    state.inventory = rem.inventory;
+
+    // Add to vehicle cargo stacks
+    const existing = vehicle.cargo.find((s) => s.itemId === itemId);
+    if (existing) {
+      existing.qty += qty;
+    } else {
+      vehicle.cargo.push({ itemId, qty });
+    }
+
+    return { ok: true, itemId, qty };
+  }
+
+  /**
+   * Transfers an item from vehicle's trunk into player's pack.
+   */
+  static transferToPack(state, vehicleId, itemId, qty = 1) {
+    const vehicle = state?.vehicles?.fleet?.[vehicleId];
+    if (!vehicle) return { ok: false, reason: 'invalid_vehicle' };
+
+    const cargoStack = vehicle.cargo.find((s) => s.itemId === itemId);
+    if (!cargoStack || cargoStack.qty < qty) {
+      return { ok: false, reason: 'insufficient_cargo_quantity' };
+    }
+
+    const addRes = addItem(state.inventory, itemId, qty);
+    state.inventory = addRes.inventory;
+
+    cargoStack.qty -= qty;
+    if (cargoStack.qty <= 0) {
+      vehicle.cargo = vehicle.cargo.filter((s) => s.itemId !== itemId);
+    }
+
+    return { ok: true, itemId, qty };
+  }
+
+  /**
+   * Siphons fuel from abandoned roadside wrecks into a canister or directly to vehicle.
+   */
+  static siphonFuel(state, vehicleId) {
+    const vehicle = state?.vehicles?.fleet?.[vehicleId];
+    const def = VEHICLE_CATALOG[vehicleId];
+    if (!vehicle || !def) return { ok: false, reason: 'invalid_vehicle' };
+
+    const hasHose = countItem(state.inventory, 'fuel_siphon_hose') > 0;
+    if (!hasHose) return { ok: false, reason: 'no_siphon_hose' };
+
+    if (vehicle.fuelLiters >= vehicle.maxFuel) {
+      return { ok: false, reason: 'tank_full' };
+    }
+
+    // Siphon 2.5 to 5.0 liters
+    const siphoned = Math.min(vehicle.maxFuel - vehicle.fuelLiters, 3.5);
+    vehicle.fuelLiters = Math.round((vehicle.fuelLiters + siphoned) * 10) / 10;
+
+    return { ok: true, siphonedLiters: siphoned, currentFuel: vehicle.fuelLiters };
+  }
+}
+
+
+
   // --- src/modules/map/mapGraph.js ---
+
 
 
 
@@ -17730,11 +19860,29 @@ function estimateJourney(state, fromId, toId) {
     roundToMinutes, nightRiskMultiplier, seaRiskBonus, maxEncounterChance,
   } = BALANCE.travel;
 
+  const mountedId = state?.vehicles?.mountedVehicleId;
+  const mountedVehicle = mountedId ? state?.vehicles?.fleet?.[mountedId] : null;
+  const vehicleDef = mountedId ? VEHICLE_CATALOG[mountedId] : null;
+  const isDriving = Boolean(
+    mountedVehicle &&
+    mountedVehicle.restored &&
+    mountedVehicle.fuelLiters > 0 &&
+    mountedVehicle.condition > 0 &&
+    route.mode !== 'sea'
+  );
+
   let hours = (baseHours + route.km / kmPerHour) * biome.travelTime;
-  if (route.mode === 'sea') hours *= seaTimeMultiplier;
-  if (isOverloaded(state)) hours *= BALANCE.inventory.overloadTravelPenalty;
-  hours *= statusTravelMultiplier(state);
-  hours *= Math.max(0.75, 1 - passiveBonus(state, 'travelSpeed'));
+  if (route.mode === 'sea') {
+    hours *= seaTimeMultiplier;
+  }
+
+  if (isDriving && vehicleDef) {
+    hours *= vehicleDef.speedMultiplier;
+  } else {
+    if (isOverloaded(state)) hours *= BALANCE.inventory.overloadTravelPenalty;
+    hours *= statusTravelMultiplier(state);
+    hours *= Math.max(0.75, 1 - passiveBonus(state, 'travelSpeed'));
+  }
 
   const totalMinutes = Math.max(
     roundToMinutes,
@@ -17749,7 +19897,16 @@ function estimateJourney(state, fromId, toId) {
   }
   const envMods = WeatherEngine.getStealthAndVisibilityModifiers(state);
   risk *= envMods.encounterRiskMultiplier;
+
+  if (isDriving && vehicleDef) {
+    risk *= vehicleDef.noiseRiskMultiplier;
+  }
+
   risk = Math.min(maxEncounterChance, Math.max(0.05, risk));
+
+  const fuelNeeded = isDriving && vehicleDef
+    ? VehicleEngine.calculateJourneyFuel(vehicleDef, route.km)
+    : 0;
 
   return {
     fromId,
@@ -17760,6 +19917,9 @@ function estimateJourney(state, fromId, toId) {
     segments,
     risk,
     destination,
+    isDriving,
+    vehicleId: isDriving ? mountedId : null,
+    fuelNeeded,
   };
 }
 
@@ -17786,6 +19946,8 @@ function scavengeProfile(state, nodeId = state.world.currentNodeId) {
  * Zero-dependency Vanilla JS module managing faction standings (-100 to +100),
  * reputation ripple matrices, economic discount multipliers, and encounter modifications.
  */
+
+
 
 const FACTION_IDS = {
   IRON_GUARD: 'iron_guard',
@@ -17964,6 +20126,11 @@ class FactionManager {
     const newTier = this.getTier(newStanding);
 
     state.factions.standings[factionId] = newStanding;
+
+    if (newStanding >= 30) {
+      if (factionId === FACTION_IDS.NOMAD_GUILD) codexManager.unlockAchievement('nomad_ally');
+      if (factionId === FACTION_IDS.IRON_GUARD) codexManager.unlockAchievement('iron_discipline');
+    }
 
     const tierShifts = [];
     if (oldTier.id !== newTier.id) {
@@ -18212,7 +20379,363 @@ function consumeCombatAmmo(store, check) {
 
 
 
+  // --- src/core/adManager.js ---
+/**
+ * Last Breath // Google AdSense (H5 Games Ads) & In-Game Monetization Engine
+ * Publisher ID: pub-6006298574044898 (ca-pub-6006298574044898)
+ * Governs interstitial ads, rewarded supply drops, premium ad-blocking bypass,
+ * URL payment callbacks, and promo/license key verification.
+ */
+
+
+
+const ADSENSE_CLIENT_ID = 'ca-pub-6006298574044898';
+
+const VALID_PROMO_CODES = [
+  'LASTBREATH-PREMIUM-2026',
+  'VIP-SURVIVOR',
+  'SON-NEFES-VIP',
+  'PREMIUM2026',
+  'DEV-UNLOCK',
+];
+
+class AdManager {
+  #saveManager = null;
+  #bus = null;
+  #initialized = false;
+  #isAdActive = false;
+
+  constructor() {
+    this.#checkUrlCallbacks();
+  }
+
+  /**
+   * Initializes AdManager with engine store and saveManager dependencies.
+   */
+  init({ saveManager, bus }) {
+    this.#saveManager = saveManager;
+    this.#bus = bus;
+    this.#initialized = true;
+
+    // Configure Google H5 adBreak if available in global scope
+    if (typeof window !== 'undefined' && typeof window.adConfig === 'function') {
+      try {
+        window.adConfig({
+          preloadAdBreaks: 'on',
+          sound: 'on',
+        });
+      } catch (e) {
+        console.warn('[AdManager] adConfig initialization notice:', e);
+      }
+    }
+  }
+
+  /**
+   * Detects payment gateway returns via URL search parameters (e.g., ?premium=true or ?premium_success=true).
+   */
+  #checkUrlCallbacks() {
+    if (typeof window === 'undefined' || !window.location) return;
+
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const isSuccess = urlParams.has('premium') || urlParams.has('premium_success') || urlParams.get('status') === 'success';
+
+      if (isSuccess) {
+        if (this.#saveManager) {
+          this.#saveManager.setPremium(true);
+        } else {
+          // Fallback direct storage access if called before init
+          try {
+            window.localStorage?.setItem('lastbreath.is_premium', 'true');
+          } catch {}
+        }
+
+        // Clean up URL parameters cleanly without refreshing
+        const cleanUrl = window.location.pathname + window.location.hash;
+        window.history.replaceState({}, document.title, cleanUrl);
+
+        // Show celebratory notification after dom load
+        setTimeout(() => {
+          this.#showToast('👑 PREMIUM AKTİF! Tüm Reklamlar Kaldırıldı & 10 Yuva Açıldı.');
+          audioEngine.playAchievementChime();
+        }, 1200);
+      }
+    } catch (e) {
+      console.warn('[AdManager] URL callback check notice:', e);
+    }
+  }
+
+  /**
+   * Checks whether the active player has Lifetime Premium unlocked.
+   */
+  isPremium() {
+    return Boolean(this.#saveManager?.isPremium());
+  }
+
+  /**
+   * Triggers an Interstitial Ad (e.g., upon character death or between expeditions).
+   * If player has Premium, the ad is instantly bypassed with zero delay.
+   */
+  showInterstitial({ name = 'expedition_break', onComplete } = {}) {
+    if (this.isPremium()) {
+      if (onComplete) onComplete({ shown: false, reason: 'premium_user' });
+      return Promise.resolve({ shown: false, reason: 'premium_user' });
+    }
+
+    return new Promise((resolve) => {
+      let resolved = false;
+      const finish = (result) => {
+        if (resolved) return;
+        resolved = true;
+        this.#isAdActive = false;
+        if (onComplete) onComplete(result);
+        resolve(result);
+      };
+
+      // 1. Check if official Google H5 adBreak API is present
+      if (typeof window !== 'undefined' && typeof window.adBreak === 'function') {
+        this.#isAdActive = true;
+        try {
+          window.adBreak({
+            type: 'next',
+            name,
+            beforeAd: () => {
+              this.#muteGameAudio(true);
+            },
+            afterAd: () => {
+              this.#muteGameAudio(false);
+            },
+            adBreakDone: (placementInfo) => {
+              this.#muteGameAudio(false);
+              finish({ shown: true, placementInfo });
+            },
+          });
+
+          // Safety timeout in case ad blocker stops adBreakDone callback
+          setTimeout(() => {
+            finish({ shown: false, reason: 'adblock_or_timeout' });
+          }, 8000);
+          return;
+        } catch (e) {
+          console.warn('[AdManager] adBreak error, falling back to simulated dialog:', e);
+        }
+      }
+
+      // 2. Fallback: In-Game CRT Sponsor Transmission Dialog
+      this.#showSimulatedAdModal({
+        type: 'interstitial',
+        durationSec: 3,
+        onDone: () => finish({ shown: true, simulated: true }),
+      });
+    });
+  }
+
+  /**
+   * Triggers an Optional Rewarded Ad (e.g., emergency radio airdrop for rations/water/bandages).
+   * If player has Premium, the reward is granted INSTANTLY without watching ads!
+   */
+  showRewarded({ name = 'emergency_airdrop', onReward, onDismiss } = {}) {
+    if (this.isPremium()) {
+      this.#showToast('👑 VIP ERİŞİM: Acil Erzak Sandığı Reklamsız Teslim Edildi!');
+      audioEngine.playAchievementChime();
+      if (onReward) onReward({ rewarded: true, adSkipped: true, reason: 'premium_user' });
+      return Promise.resolve({ rewarded: true, adSkipped: true });
+    }
+
+    return new Promise((resolve) => {
+      let rewarded = false;
+      let handled = false;
+
+      const finish = (result) => {
+        if (handled) return;
+        handled = true;
+        this.#isAdActive = false;
+        this.#muteGameAudio(false);
+
+        if (result.rewarded) {
+          if (onReward) onReward(result);
+        } else {
+          if (onDismiss) onDismiss(result);
+        }
+        resolve(result);
+      };
+
+      // 1. Google H5 adBreak rewarded flow
+      if (typeof window !== 'undefined' && typeof window.adBreak === 'function') {
+        this.#isAdActive = true;
+        try {
+          window.adBreak({
+            type: 'reward',
+            name,
+            beforeReward: (showAdFn) => {
+              this.#muteGameAudio(true);
+              showAdFn();
+            },
+            adDismissed: () => {
+              finish({ rewarded: false, reason: 'dismissed' });
+            },
+            adViewed: () => {
+              rewarded = true;
+              finish({ rewarded: true });
+            },
+            adBreakDone: () => {
+              if (!rewarded) {
+                finish({ rewarded: false, reason: 'uncompleted' });
+              }
+            },
+          });
+
+          // Safety timeout
+          setTimeout(() => {
+            if (!handled) {
+              finish({ rewarded: false, reason: 'timeout' });
+            }
+          }, 15000);
+          return;
+        } catch (e) {
+          console.warn('[AdManager] Rewarded adBreak failed, falling back:', e);
+        }
+      }
+
+      // 2. Fallback: In-Game CRT Sponsor Transmission Dialog (5 seconds)
+      this.#showSimulatedAdModal({
+        type: 'rewarded',
+        durationSec: 5,
+        onDone: () => finish({ rewarded: true, simulated: true }),
+        onCancel: () => finish({ rewarded: false, reason: 'user_cancelled' }),
+      });
+    });
+  }
+
+  /**
+   * Validates and activates a lifetime Premium license/promo code.
+   */
+  redeemPromoCode(code) {
+    if (!code || typeof code !== 'string') {
+      return { ok: false, reason: 'empty_code' };
+    }
+
+    const clean = code.trim().toUpperCase();
+    if (VALID_PROMO_CODES.includes(clean)) {
+      if (this.#saveManager) {
+        this.#saveManager.setPremium(true);
+      } else {
+        window.localStorage?.setItem('lastbreath.is_premium', 'true');
+      }
+
+      audioEngine.playAchievementChime();
+      this.#showToast('👑 LİSANS DOĞRULANDI! Premium Hesabınız Aktif Edildi.');
+      return { ok: true, code: clean };
+    }
+
+    return { ok: false, reason: 'invalid_code' };
+  }
+
+  /**
+   * Helper to mute/unmute audio engine during full-screen commercial playback.
+   */
+  #muteGameAudio(mute) {
+    try {
+      if (audioEngine) {
+        audioEngine.setMasterVolume(mute ? 0 : 0.7);
+      }
+    } catch {}
+  }
+
+  #showToast(text) {
+    if (typeof document === 'undefined') return;
+    const toast = document.getElementById('toast-banner');
+    if (!toast) return;
+    toast.textContent = text;
+    toast.classList.add('is-visible');
+    setTimeout(() => {
+      toast.classList.remove('is-visible');
+    }, 4500);
+  }
+
+  /**
+   * In-Game Retro CRT Sponsor Transmission Overlay.
+   * Acts as a bulletproof fallback when AdSense scripts are blocked by adblockers,
+   * offline environments, or domain pending verification.
+   */
+  #showSimulatedAdModal({ type = 'interstitial', durationSec = 3, onDone, onCancel }) {
+    let timeLeft = durationSec;
+    const isRewarded = type === 'rewarded';
+
+    const overlay = document.createElement('div');
+    overlay.className = 'ad-sponsor-overlay';
+
+    const dialog = document.createElement('div');
+    dialog.className = 'ad-sponsor-dialog modal-card';
+
+    dialog.innerHTML = `
+      <div class="ad-sponsor-header">
+        <span class="ad-sponsor-kicker">📡 SAHA SPONSOR YAYINI // ADSENSE SIMULATION</span>
+        <span class="ad-countdown-tag" id="ad-countdown-sec">${timeLeft}s</span>
+      </div>
+      <div class="ad-sponsor-body">
+        <h3 class="ad-sponsor-title">${isRewarded ? '🎁 ACİL YARDIM PARAŞÜTÜ HAZIRLANIYOR' : '📻 HARABE TELSİZ REKLAM ARASI'}</h3>
+        <p class="ad-sponsor-desc">
+          ${isRewarded
+            ? 'Telsiz operatörleri koordinatlarınıza acil durum erzak sandığı (Tayın, Su, Bandaj) ulaştırıyor. Lütfen yayını izleyin...'
+            : 'Sefer verileri yerel terminale senkronize ediliyor...'}
+        </p>
+        <div class="meter-track">
+          <div class="meter-fill tone-fill-accent" id="ad-progress-bar" style="width: 0%"></div>
+        </div>
+      </div>
+      <div class="ad-sponsor-actions">
+        ${isRewarded ? '<button type="button" class="btn btn-ghost btn-xs" id="ad-btn-cancel">İptal Et</button>' : ''}
+        <button type="button" class="btn btn-accent btn-xs" id="ad-btn-skip" disabled>LÜTFEN BEKLEYİN (${timeLeft}s)</button>
+      </div>
+    `;
+
+    overlay.appendChild(dialog);
+    document.body.appendChild(overlay);
+
+    const countdownEl = dialog.querySelector('#ad-countdown-sec');
+    const progressEl = dialog.querySelector('#ad-progress-bar');
+    const skipBtn = dialog.querySelector('#ad-btn-skip');
+    const cancelBtn = dialog.querySelector('#ad-btn-cancel');
+
+    if (cancelBtn) {
+      cancelBtn.addEventListener('click', () => {
+        clearInterval(timer);
+        overlay.remove();
+        if (onCancel) onCancel();
+      });
+    }
+
+    const timer = setInterval(() => {
+      timeLeft -= 1;
+      const pct = Math.round(((durationSec - timeLeft) / durationSec) * 100);
+      if (progressEl) progressEl.style.width = `${pct}%`;
+
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        if (countdownEl) countdownEl.textContent = '✓ TAMAMLANDI';
+        if (skipBtn) {
+          skipBtn.disabled = false;
+          skipBtn.textContent = isRewarded ? '🎁 ÖDÜLÜ AL VE DEVAM ET' : 'DEVAM ET →';
+          skipBtn.addEventListener('click', () => {
+            overlay.remove();
+            if (onDone) onDone();
+          });
+        }
+      } else {
+        if (countdownEl) countdownEl.textContent = `${timeLeft}s`;
+        if (skipBtn) skipBtn.textContent = `LÜTFEN BEKLEYİN (${timeLeft}s)`;
+      }
+    }, 1000);
+  }
+}
+
+const adManager = new AdManager();
+
+
   // --- src/modules/map/index.js ---
+
+
 
 
 
@@ -18307,10 +20830,20 @@ function startEncounter(ctx, { context, nodeId, mode = 'road', pendingTravel = n
  */
 function runTravelSegments(ctx, plan) {
   const { store, rng, engine } = ctx;
-  const { fromId, toId, mode, remainingMinutes, remainingSegments, risk } = plan;
+  const { fromId, toId, mode, remainingMinutes, remainingSegments, risk, isDriving, vehicleId, fuelNeeded, km } = plan;
 
   let minutesLeft = remainingMinutes;
   let segmentsLeft = remainingSegments;
+
+  // Consume fuel and update vehicle position if driving
+  if (isDriving && vehicleId) {
+    store.commit('vehicles/consumeFuel', { vehicleId, liters: fuelNeeded });
+    store.commit('vehicles/degradeCondition', {
+      vehicleId,
+      amount: Math.max(1, Math.round((km / 100) * 1.5)),
+    });
+    store.commit('vehicles/updateVehicleLocation', { vehicleId, nodeId: toId });
+  }
 
   while (segmentsLeft > 0 && store.state.player.alive) {
     const stepMinutes = Math.round(minutesLeft / segmentsLeft);
@@ -18334,6 +20867,8 @@ function runTravelSegments(ctx, plan) {
           remainingSegments: segmentsLeft,
           totalSegments: plan.totalSegments,
           risk,
+          isDriving,
+          vehicleId,
         },
       });
       if (interrupted) return;
@@ -18342,6 +20877,11 @@ function runTravelSegments(ctx, plan) {
 
   if (!store.state.player.alive) return;
   const firstVisit = store.commit('world/visitNode', toId);
+  codexManager.trackCareer('totalKmTraveled', km);
+  const visitedCount = Object.values(store.state.world.nodes).filter((node) => node.visited).length;
+  if (visitedCount >= 10) {
+    codexManager.unlockAchievement('eurasian_nomad');
+  }
   engine.log(
     firstVisit ? 'log.travel.discovered' : 'log.travel.arrived',
     { destination: locName(toId) },
@@ -18367,6 +20907,18 @@ function registerMapActions(engine, ctx) {
     if (!findRoute(fromId, toId)) return { ok: false, reason: 'reject.no_route' };
 
     const plan = estimateJourney(store.state, fromId, toId);
+
+    if (plan.isDriving) {
+      const vehicle = store.state.vehicles?.fleet?.[plan.vehicleId];
+      if (vehicle && vehicle.fuelLiters < plan.fuelNeeded) {
+        engine.log('vehicle.log.no_fuel', {}, 'warn');
+        return { ok: false, reason: 'reject.insufficient_fuel' };
+      }
+    } else if (store.state.vehicles?.mountedVehicleId && plan.mode === 'sea') {
+      engine.log('vehicle.log.cannot_cross_water', {}, 'warn');
+      return { ok: false, reason: 'reject.sea_cross' };
+    }
+
     engine.log('log.travel.departed', {
       origin: locName(fromId),
       destination: locName(toId),
@@ -18381,6 +20933,10 @@ function registerMapActions(engine, ctx) {
       remainingSegments: plan.segments,
       totalSegments: plan.segments,
       risk: plan.risk,
+      isDriving: plan.isDriving,
+      vehicleId: plan.vehicleId,
+      fuelNeeded: plan.fuelNeeded,
+      km: plan.km,
     });
     return { ok: true };
   });
@@ -18511,6 +21067,39 @@ function registerMapActions(engine, ctx) {
     return { ok: true };
   });
 
+  engine.registerAction('map/requestAirdrop', () => {
+    const nodeId = store.state.world.currentNodeId;
+    adManager.showRewarded({
+      name: 'emergency_supply_airdrop',
+      onReward: ({ adSkipped } = {}) => {
+        const supplies = [
+          { itemId: 'canned_beans', qty: 2 },
+          { itemId: 'bottled_water', qty: 2 },
+          { itemId: 'bandage', qty: 2 },
+        ];
+        engine.log(adSkipped ? 'ad.log.reward_granted_vip' : 'ad.log.reward_granted', {}, 'good');
+        engine.bus.emit('loot:modal', {
+          type: 'airdrop',
+          titleKey: 'ad.airdrop.title',
+          descKey: 'ad.airdrop.desc',
+          descParams: { location: locName(nodeId) },
+          items: supplies,
+          nodeId,
+          onConfirm: (taken, left) => {
+            for (const { itemId, qty } of taken) grantItems(ctx, itemId, qty);
+            for (const { itemId, qty } of left) {
+              store.commit('inventory/toGround', { nodeId, itemId, qty });
+            }
+          },
+        });
+      },
+      onDismiss: () => {
+        engine.log('ad.log.dismissed', {}, 'warn');
+      },
+    });
+    return { ok: true };
+  });
+
   engine.registerAction('encounter/choose', ({ choiceId }) => {
     const active = store.state.world.encounter;
     if (!active) return { ok: false, reason: 'reject.no_encounter' };
@@ -18608,13 +21197,17 @@ const ENEMIES = {
     hp: 22,
     damage: [4, 8],
     accuracy: 0.72,
-    evasion: 0.1,
+    evasion: 0.12,
     bleedChance: 0.35,
     infectChance: 0.25,
     xp: 12,
     lootTable: 'wasteland',
     biomes: ['rural', 'suburban', 'forest', 'wasteland', 'coastal'],
     minDanger: 1,
+    ranged: false,
+    preferredRange: 'melee',
+    morale: 80,
+    canSurrender: false, // Animals fight or route, cannot surrender
   },
   raider_scout: {
     hp: 32,
@@ -18627,6 +21220,10 @@ const ENEMIES = {
     lootTable: 'raider',
     biomes: ['urban', 'suburban', 'industrial', 'wasteland'],
     minDanger: 2,
+    ranged: true,
+    preferredRange: 'close',
+    morale: 65,
+    canSurrender: true,
   },
   plague_stalker: {
     hp: 28,
@@ -18639,6 +21236,10 @@ const ENEMIES = {
     lootTable: 'urban',
     biomes: ['urban', 'industrial', 'forest'],
     minDanger: 2,
+    ranged: false,
+    preferredRange: 'melee',
+    morale: 100, // Rabid biological vector, no fear
+    canSurrender: false,
   },
   cordon_deserter: {
     hp: 45,
@@ -18651,6 +21252,42 @@ const ENEMIES = {
     lootTable: 'military',
     biomes: ['military', 'urban', 'arctic'],
     minDanger: 3,
+    ranged: true,
+    preferredRange: 'medium',
+    morale: 85,
+    canSurrender: true,
+  },
+  marauder_marksman: {
+    hp: 36,
+    damage: [12, 20],
+    accuracy: 0.86,
+    evasion: 0.14,
+    bleedChance: 0.6,
+    infectChance: 0.0,
+    xp: 35,
+    lootTable: 'military',
+    biomes: ['wasteland', 'rural', 'industrial', 'military'],
+    minDanger: 3,
+    ranged: true,
+    preferredRange: 'long',
+    morale: 70,
+    canSurrender: true,
+  },
+  iron_guard_sentinel: {
+    hp: 60,
+    damage: [10, 18],
+    accuracy: 0.82,
+    evasion: 0.10,
+    bleedChance: 0.35,
+    infectChance: 0.0,
+    xp: 45,
+    lootTable: 'military',
+    biomes: ['military', 'urban', 'arctic'],
+    minDanger: 4,
+    ranged: true,
+    preferredRange: 'medium',
+    morale: 95,
+    canSurrender: false, // Fanatical bunker garrison
   },
 };
 
@@ -18662,617 +21299,328 @@ function getEnemy(enemyId) {
 
 
 
-  // --- src/core/audioEngine.js ---
+  // --- src/modules/combat/tacticalCombat.js ---
 /**
- * Last Breath // Procedural Retro-Terminal Audio Synthesis Engine
- * Zero external dependencies. Zero audio asset files.
- * Native Web Audio API procedural synthesis.
+ * Last Breath // Tactical Combat 2.0 Engine
+ * Governing range bands, physical cover, targeted anatomical shots,
+ * weapon ballistic profiles, weapon jamming, and dynamic enemy morale/surrender.
  */
 
-class AudioEngine {
-  #ctx = null;
-  #masterGain = null;
-  #crtFilter = null;
-  #humOsc = null;
-  #humGain = null;
-  #noiseBuffer = null;
-  #isMuted = false;
-  #volume = 0.7;
-  #unlocked = false;
-  #geigerInterval = null;
-  #heartbeatInterval = null;
 
-  constructor() {
-    this.#setupAutoplayUnlock();
-  }
 
-  /* =========================================================================
-     Lifecycle & Autoplay Management
-     ========================================================================= */
 
-  /**
-   * Lazily initializes and returns the Web Audio context.
-   */
-  #getContext() {
-    if (!this.#ctx && typeof window !== 'undefined') {
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      if (AudioContextClass) {
-        this.#ctx = new AudioContextClass();
-        this.#initMasterChain();
-      }
-    }
-    if (this.#ctx && this.#ctx.state === 'suspended' && this.#unlocked) {
-      this.#ctx.resume().catch(() => {});
-    }
-    return this.#ctx;
-  }
 
-  /**
-   * Builds the master signal routing chain:
-   * [Source Nodes] ──► [CRT Warmer Filter] ──► [Master Gain] ──► [Destination]
-   */
-  #initMasterChain() {
-    if (!this.#ctx) return;
+const RANGE_BANDS = ['melee', 'close', 'medium', 'long', 'extreme'];
 
-    // Warm CRT low-pass filter (cuts harsh >12kHz frequencies like vintage monitor speakers)
-    this.#crtFilter = this.#ctx.createBiquadFilter();
-    this.#crtFilter.type = 'lowpass';
-    this.#crtFilter.frequency.value = 11500;
-    this.#crtFilter.Q.value = 0.7;
+const RANGE_METERS = {
+  melee: '< 5m',
+  close: '15m',
+  medium: '40m',
+  long: '85m',
+  extreme: '150m',
+};
 
-    // Master Volume Gain
-    this.#masterGain = this.#ctx.createGain();
-    this.#masterGain.gain.value = this.#isMuted ? 0 : this.#volume;
+const COVER_LEVELS = {
+  NONE: 'none',
+  LIGHT: 'light',   // Car door, wooden crate, foliage: +20% evasion, -30% damage
+  HEAVY: 'heavy',   // Concrete barrier, bunker trench, brick wall: +40% evasion, -60% damage
+};
 
-    this.#crtFilter.connect(this.#masterGain);
-    this.#masterGain.connect(this.#ctx.destination);
+const TARGET_ZONES = {
+  HEAD: 'head',
+  TORSO: 'torso',
+  ARMS: 'arms',
+  LEGS: 'legs',
+};
 
-    // Generate reusable 2-second white noise buffer
-    this.#noiseBuffer = this.#createNoiseBuffer(2.0);
-  }
-
-  /**
-   * Sets up one-time window listeners to satisfy browser autoplay policies on first gesture.
-   */
-  #setupAutoplayUnlock() {
-    if (typeof window === 'undefined') return;
-
-    const unlock = () => {
-      this.#unlocked = true;
-      const ctx = this.#getContext();
-      if (ctx && ctx.state === 'suspended') {
-        ctx.resume().catch(() => {});
-      }
-      window.removeEventListener('pointerdown', unlock);
-      window.removeEventListener('keydown', unlock);
-      window.removeEventListener('touchstart', unlock);
+/**
+ * Infers ballistic range profile and optimal combat distances from a weapon item ID.
+ */
+function getWeaponRangeProfile(weaponId) {
+  if (!weaponId) {
+    return {
+      type: 'unarmed',
+      isFirearm: false,
+      optimal: ['melee'],
+      usable: ['melee'],
+      caliber: null,
+      jamRate: 0,
     };
-
-    window.addEventListener('pointerdown', unlock, { passive: true });
-    window.addEventListener('keydown', unlock, { passive: true });
-    window.addEventListener('touchstart', unlock, { passive: true });
   }
 
-  /**
-   * Creates a monophonic white noise AudioBuffer for procedural percussive / ballistic bursts.
-   */
-  #createNoiseBuffer(seconds = 2.0) {
-    if (!this.#ctx) return null;
-    const sampleRate = this.#ctx.sampleRate;
-    const bufferSize = sampleRate * seconds;
-    const buffer = this.#ctx.createBuffer(1, bufferSize, sampleRate);
-    const data = buffer.getChannelData(0);
+  const id = weaponId.toLowerCase();
+  const item = getItem(weaponId);
+  const ammo = item?.equip?.ammo;
+  const isFirearm = Boolean(ammo);
 
-    for (let i = 0; i < bufferSize; i++) {
-      data[i] = Math.random() * 2 - 1;
-    }
-    return buffer;
-  }
-
-  /* =========================================================================
-     Master Controls & CRT Monitor Hum
-     ========================================================================= */
-
-  /**
-   * Sets master audio gain (0.0 to 1.0).
-   */
-  setMasterVolume(val) {
-    this.#volume = Math.max(0, Math.min(1, val));
-    if (this.#masterGain && !this.#isMuted && this.#ctx) {
-      this.#masterGain.gain.setValueAtTime(this.#volume, this.#ctx.currentTime);
-    }
-  }
-
-  /**
-   * Toggles master mute state.
-   */
-  toggleMute() {
-    this.#isMuted = !this.#isMuted;
-    if (this.#masterGain && this.#ctx) {
-      const target = this.#isMuted ? 0 : this.#volume;
-      this.#masterGain.gain.setValueAtTime(target, this.#ctx.currentTime);
-    }
-    return this.#isMuted;
-  }
-
-  get isMuted() {
-    return this.#isMuted;
-  }
-
-  get volume() {
-    return this.#volume;
-  }
-
-  /**
-   * Enables or disables an authentic 50Hz CRT analog transformer ground hum.
-   */
-  enableCrtHum(enable = true, humLevel = 0.015) {
-    const ctx = this.#getContext();
-    if (!ctx) return;
-
-    if (!enable) {
-      if (this.#humOsc) {
-        this.#humOsc.stop();
-        this.#humOsc.disconnect();
-        this.#humOsc = null;
-      }
-      if (this.#humGain) {
-        this.#humGain.disconnect();
-        this.#humGain = null;
-      }
-      return;
-    }
-
-    if (this.#humOsc) return; // already active
-
-    this.#humOsc = ctx.createOscillator();
-    this.#humOsc.type = 'sawtooth';
-    this.#humOsc.frequency.value = 50; // European 50Hz mains hum
-
-    // Lowpass filter to muffle the hum into a deep chassis vibration
-    const humFilter = ctx.createBiquadFilter();
-    humFilter.type = 'lowpass';
-    humFilter.frequency.value = 95;
-
-    this.#humGain = ctx.createGain();
-    this.#humGain.gain.value = humLevel;
-
-    this.#humOsc.connect(humFilter);
-    humFilter.connect(this.#humGain);
-    this.#humGain.connect(this.#crtFilter);
-
-    this.#humOsc.start();
-  }
-
-  /* =========================================================================
-     Procedural Sound Effects
-     ========================================================================= */
-
-  /**
-   * Synthesizes a crisp retro terminal switch / keyboard click.
-   * Dual-stage impulse: Micro-burst noise click followed by an ultra-fast frequency blip.
-   * @param {number} [pitchMultiplier=1.0] - Pitch scaling (0.7 to 1.5).
-   * @param {number} [volume=0.35] - Local amplitude.
-   */
-  playTerminalClick(pitchMultiplier = 1.0, volume = 0.35) {
-    const ctx = this.#getContext();
-    if (!ctx || this.#isMuted) return;
-
-    const t = ctx.currentTime;
-
-    // Stage 1: Sharp mechanical micro-transient (filtered white noise)
-    if (this.#noiseBuffer) {
-      const noise = ctx.createBufferSource();
-      noise.buffer = this.#noiseBuffer;
-
-      const noiseFilter = ctx.createBiquadFilter();
-      noiseFilter.type = 'bandpass';
-      noiseFilter.frequency.setValueAtTime(3200 * pitchMultiplier, t);
-      noiseFilter.Q.value = 3.0;
-
-      const noiseGain = ctx.createGain();
-      noiseGain.gain.setValueAtTime(volume * 0.45, t);
-      noiseGain.gain.exponentialRampToValueAtTime(0.001, t + 0.018);
-
-      noise.connect(noiseFilter);
-      noiseFilter.connect(noiseGain);
-      noiseGain.connect(this.#crtFilter);
-
-      noise.start(t);
-      noise.stop(t + 0.02);
-    }
-
-    // Stage 2: Tactile relay frequency blip (fast downward pitch sweep)
-    const osc = ctx.createOscillator();
-    osc.type = 'square';
-    osc.frequency.setValueAtTime(1400 * pitchMultiplier, t);
-    osc.frequency.exponentialRampToValueAtTime(350 * pitchMultiplier, t + 0.022);
-
-    const oscGain = ctx.createGain();
-    oscGain.gain.setValueAtTime(volume * 0.25, t);
-    oscGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.025);
-
-    osc.connect(oscGain);
-    oscGain.connect(this.#crtFilter);
-
-    osc.start(t);
-    osc.stop(t + 0.028);
-  }
-
-  /**
-   * Synthesizes an authentic Geiger-Müller radiation ionization discharge tick.
-   * Short, dry, irregular electrical pulse.
-   * @param {number} [intensity=0.5] - Radiation intensity factor (0.0 to 1.0).
-   * @param {number} [volume=0.4] - Local amplitude.
-   */
-  playGeigerTick(intensity = 0.5, volume = 0.4) {
-    const ctx = this.#getContext();
-    if (!ctx || this.#isMuted || !this.#noiseBuffer) return;
-
-    const t = ctx.currentTime;
-    // Micro-jitter in frequency and amplitude to reflect natural isotopic decay
-    const jitter = (Math.random() - 0.5) * 0.3;
-    const dur = 0.003 + Math.random() * 0.003;
-
-    const noise = ctx.createBufferSource();
-    noise.buffer = this.#noiseBuffer;
-
-    const filter = ctx.createBiquadFilter();
-    filter.type = 'bandpass';
-    filter.frequency.setValueAtTime((2800 + jitter * 800), t);
-    filter.Q.value = 4.5;
-
-    const gain = ctx.createGain();
-    const peak = Math.max(0.1, Math.min(1, volume * (0.6 + intensity * 0.4)));
-    gain.gain.setValueAtTime(peak, t);
-    gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-
-    noise.connect(filter);
-    filter.connect(gain);
-    gain.connect(this.#crtFilter);
-
-    noise.start(t);
-    noise.stop(t + dur + 0.001);
-  }
-
-  /**
-   * Starts a continuous, randomized Geiger counter audio stream calibrated to dosage (mSv/h).
-   * @param {number} dosage - Radiation dosage (e.g. 0 to 50 mSv).
-   */
-  startGeigerStream(dosage = 10) {
-    this.stopGeigerStream();
-    if (dosage <= 0.5) return;
-
-    const normalized = Math.min(1.0, dosage / 40);
-    // Average interval between clicks: 400ms at background down to 25ms at lethal dose
-    const meanInterval = Math.max(25, 420 - normalized * 380);
-
-    const scheduleNext = () => {
-      this.playGeigerTick(normalized);
-      const nextDelay = meanInterval * (0.4 + Math.random() * 1.2);
-      this.#geigerInterval = setTimeout(scheduleNext, nextDelay);
+  // Precision Rifles / Snipers
+  if (id.includes('sniper') || id.includes('scoped') || id.includes('svd') || id.includes('mosin')) {
+    return {
+      type: 'sniper',
+      isFirearm: true,
+      optimal: ['long', 'extreme'],
+      usable: ['medium', 'long', 'extreme'],
+      caliber: '7.62',
+      jamRate: 0.04,
     };
-
-    scheduleNext();
   }
 
-  /**
-   * Stops the continuous Geiger stream.
-   */
-  stopGeigerStream() {
-    if (this.#geigerInterval) {
-      clearTimeout(this.#geigerInterval);
-      this.#geigerInterval = null;
-    }
-  }
-
-  /**
-   * Synthesizes a visceral sub-bass double-pulse heartbeat ("lub-dub").
-   * Triggered when health or telemetry drops into critical band (<20%).
-   * @param {number} [bpm=60] - Heart rate in beats per minute.
-   * @param {number} [volume=0.75] - Local amplitude.
-   */
-  playHeartbeat(bpm = 60, volume = 0.75) {
-    const ctx = this.#getContext();
-    if (!ctx || this.#isMuted) return;
-
-    const t = ctx.currentTime;
-
-    // Helper to generate a single ventricular contraction thump
-    const playThump = (startTime, startFreq, endFreq, dur, amp) => {
-      const osc = ctx.createOscillator();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(startFreq, startTime);
-      osc.frequency.exponentialRampToValueAtTime(endFreq, startTime + dur);
-
-      const filter = ctx.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(110, startTime);
-
-      const gain = ctx.createGain();
-      gain.gain.setValueAtTime(0.001, startTime);
-      gain.gain.linearRampToValueAtTime(amp * volume, startTime + 0.015);
-      gain.gain.exponentialRampToValueAtTime(0.0001, startTime + dur);
-
-      osc.connect(filter);
-      filter.connect(gain);
-      gain.connect(this.#crtFilter);
-
-      osc.start(startTime);
-      osc.stop(startTime + dur + 0.01);
+  // Assault Rifles / Battle Rifles
+  if (id.includes('rifle') || id.includes('ak47') || id.includes('m4') || id.includes('g3') || id.includes('carbine')) {
+    return {
+      type: 'rifle',
+      isFirearm: true,
+      optimal: ['medium', 'long'],
+      usable: ['close', 'medium', 'long', 'extreme'],
+      caliber: '5.56',
+      jamRate: 0.05,
     };
-
-    // First sound: S1 "Lub" (atrio-ventricular closure)
-    playThump(t, 58, 38, 0.14, 0.9);
-
-    // Second sound: S2 "Dub" (aortic/pulmonary closure, ~130ms later, slightly higher pitch)
-    playThump(t + 0.13, 76, 44, 0.11, 0.65);
   }
 
-  /**
-   * Starts or stops automatic looping heartbeat when survivor is in critical status.
-   */
-  setCriticalHeartbeat(active = true, bpm = 75) {
-    if (!active) {
-      if (this.#heartbeatInterval) {
-        clearInterval(this.#heartbeatInterval);
-        this.#heartbeatInterval = null;
-      }
-      return;
-    }
-
-    if (this.#heartbeatInterval) return;
-
-    const intervalMs = (60 / bpm) * 1000;
-    this.playHeartbeat(bpm);
-    this.#heartbeatInterval = setInterval(() => {
-      this.playHeartbeat(bpm);
-    }, intervalMs);
-  }
-
-  /**
-   * Synthesizes procedural ballistic gunshots for distinct weapon calibers.
-   * Features a sharp supersonic shockwave crack, heavy pressure body thump, and reverberant tail.
-   * @param {string} caliberType - '9mm', '12g' (shotgun), or '556' (rifle).
-   * @param {number} [volume=0.85] - Local amplitude.
-   */
-  playGunshot(caliberType = '9mm', volume = 0.85) {
-    const ctx = this.#getContext();
-    if (!ctx || this.#isMuted || !this.#noiseBuffer) return;
-
-    const t = ctx.currentTime;
-    const norm = String(caliberType).toLowerCase();
-
-    // Configuration profile per ballistic family
-    const configs = {
-      '9mm': {
-        crackFreq: 2200,
-        crackDur: 0.035,
-        bodyStartFreq: 260,
-        bodyEndFreq: 48,
-        bodyDur: 0.09,
-        tailDur: 0.38,
-        tailCutoff: 1400,
-      },
-      '12g': {
-        crackFreq: 1100,
-        crackDur: 0.08,
-        bodyStartFreq: 140,
-        bodyEndFreq: 30,
-        bodyDur: 0.22,
-        tailDur: 0.75,
-        tailCutoff: 900,
-      },
-      '556': {
-        crackFreq: 4200,
-        crackDur: 0.022,
-        bodyStartFreq: 450,
-        bodyEndFreq: 65,
-        bodyDur: 0.07,
-        tailDur: 0.48,
-        tailCutoff: 2100,
-      },
+  // Shotguns
+  if (id.includes('shotgun') || id.includes('remington') || id.includes('toz') || id.includes('12_gauge') || id.includes('pump')) {
+    return {
+      type: 'shotgun',
+      isFirearm: true,
+      optimal: ['close'],
+      usable: ['melee', 'close', 'medium'],
+      caliber: '12gauge',
+      jamRate: 0.06,
     };
-
-    // Match caliber aliases
-    const cfg = norm.includes('12') || norm.includes('shotgun')
-      ? configs['12g']
-      : (norm.includes('556') || norm.includes('rifle') || norm.includes('762') ? configs['556'] : configs['9mm']);
-
-    // 1. Initial Supersonic Crack / Muzzle Blast (Filtered Noise Burst)
-    const crackSource = ctx.createBufferSource();
-    crackSource.buffer = this.#noiseBuffer;
-
-    const crackFilter = ctx.createBiquadFilter();
-    crackFilter.type = 'highpass';
-    crackFilter.frequency.setValueAtTime(cfg.crackFreq, t);
-
-    const crackGain = ctx.createGain();
-    crackGain.gain.setValueAtTime(volume * 0.95, t);
-    crackGain.gain.exponentialRampToValueAtTime(0.001, t + cfg.crackDur);
-
-    crackSource.connect(crackFilter);
-    crackFilter.connect(crackGain);
-    crackGain.connect(this.#crtFilter);
-
-    crackSource.start(t);
-    crackSource.stop(t + cfg.crackDur + 0.01);
-
-    // 2. Kinetic Body Thump (Pitch-dropping low-end oscillator)
-    const bodyOsc = ctx.createOscillator();
-    bodyOsc.type = 'triangle';
-    bodyOsc.frequency.setValueAtTime(cfg.bodyStartFreq, t);
-    bodyOsc.frequency.exponentialRampToValueAtTime(cfg.bodyEndFreq, t + cfg.bodyDur);
-
-    const bodyGain = ctx.createGain();
-    bodyGain.gain.setValueAtTime(volume * 0.8, t);
-    bodyGain.gain.exponentialRampToValueAtTime(0.001, t + cfg.bodyDur);
-
-    bodyOsc.connect(bodyGain);
-    bodyGain.connect(this.#crtFilter);
-
-    bodyOsc.start(t);
-    bodyOsc.stop(t + cfg.bodyDur + 0.01);
-
-    // 3. Reverberant Atmospheric Decay Tail
-    const tailSource = ctx.createBufferSource();
-    tailSource.buffer = this.#noiseBuffer;
-
-    const tailFilter = ctx.createBiquadFilter();
-    tailFilter.type = 'lowpass';
-    tailFilter.frequency.setValueAtTime(cfg.tailCutoff, t);
-    tailFilter.frequency.linearRampToValueAtTime(200, t + cfg.tailDur);
-
-    const tailGain = ctx.createGain();
-    tailGain.gain.setValueAtTime(volume * 0.4, t + 0.02);
-    tailGain.gain.exponentialRampToValueAtTime(0.0001, t + cfg.tailDur);
-
-    tailSource.connect(tailFilter);
-    tailFilter.connect(tailGain);
-    tailGain.connect(this.#crtFilter);
-
-    tailSource.start(t + 0.01);
-    tailSource.stop(t + cfg.tailDur + 0.02);
   }
 
-  /**
-   * Synthesizes an authentic CRT analog phosphor terminal power-up whine.
-   * Includes high-voltage flyback transformer sweep (2.5kHz -> 15.6kHz) and degauss relay thump.
-   * @param {number} [volume=0.6] - Local amplitude.
-   */
-  playTerminalBoot(volume = 0.6) {
-    const ctx = this.#getContext();
-    if (!ctx || this.#isMuted) return;
-
-    const t = ctx.currentTime;
-    const dur = 1.1;
-
-    // 1. High-Voltage Flyback Transformer Sweep (Rising whine)
-    const whineOsc = ctx.createOscillator();
-    whineOsc.type = 'sine';
-    whineOsc.frequency.setValueAtTime(2200, t);
-    whineOsc.frequency.exponentialRampToValueAtTime(15625, t + 0.8); // 15.625kHz line rate
-
-    const whineGain = ctx.createGain();
-    whineGain.gain.setValueAtTime(0.001, t);
-    whineGain.gain.linearRampToValueAtTime(volume * 0.22, t + 0.4);
-    whineGain.gain.exponentialRampToValueAtTime(0.001, t + dur);
-
-    whineOsc.connect(whineGain);
-    whineGain.connect(this.#masterGain); // bypass lowpass to retain 15.6kHz whine
-
-    whineOsc.start(t);
-    whineOsc.stop(t + dur + 0.05);
-
-    // 2. Heavy Degauss Coil Thump at t + 0.15s
-    const degaussOsc = ctx.createOscillator();
-    degaussOsc.type = 'sine';
-    degaussOsc.frequency.setValueAtTime(95, t + 0.12);
-    degaussOsc.frequency.exponentialRampToValueAtTime(32, t + 0.45);
-
-    const degaussGain = ctx.createGain();
-    degaussGain.gain.setValueAtTime(0.001, t + 0.12);
-    degaussGain.gain.linearRampToValueAtTime(volume * 0.7, t + 0.15);
-    degaussGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.55);
-
-    degaussOsc.connect(degaussGain);
-    degaussGain.connect(this.#crtFilter);
-
-    degaussOsc.start(t + 0.12);
-    degaussOsc.stop(t + 0.6);
-
-    // 3. Phosphor Static Bloom (Muffled soft noise swell)
-    if (this.#noiseBuffer) {
-      const staticSource = ctx.createBufferSource();
-      staticSource.buffer = this.#noiseBuffer;
-
-      const staticFilter = ctx.createBiquadFilter();
-      staticFilter.type = 'bandpass';
-      staticFilter.frequency.setValueAtTime(1600, t);
-      staticFilter.Q.value = 1.2;
-
-      const staticGain = ctx.createGain();
-      staticGain.gain.setValueAtTime(0.001, t);
-      staticGain.gain.linearRampToValueAtTime(volume * 0.25, t + 0.3);
-      staticGain.gain.exponentialRampToValueAtTime(0.001, t + 0.9);
-
-      staticSource.connect(staticFilter);
-      staticFilter.connect(staticGain);
-      staticGain.connect(this.#crtFilter);
-
-      staticSource.start(t);
-      staticSource.stop(t + 0.95);
-    }
+  // Pistols / Submachine Guns / Revolvers
+  if (id.includes('pistol') || id.includes('smg') || id.includes('mp5') || id.includes('makarov') || id.includes('glock') || id.includes('revolver')) {
+    return {
+      type: 'pistol',
+      isFirearm: true,
+      optimal: ['close', 'medium'],
+      usable: ['melee', 'close', 'medium'],
+      caliber: '9mm',
+      jamRate: 0.05,
+    };
   }
 
-  /**
-   * Synthesizes an emergency warning klaxon or DEFCON alert tone.
-   * @param {number} [freq=880] - Alert pitch in Hz.
-   * @param {number} [duration=0.3] - Tone length.
-   */
-  playWarningAlarm(freq = 880, duration = 0.3, volume = 0.5) {
-    const ctx = this.#getContext();
-    if (!ctx || this.#isMuted) return;
-
-    const t = ctx.currentTime;
-    const osc = ctx.createOscillator();
-    osc.type = 'sawtooth';
-    osc.frequency.setValueAtTime(freq, t);
-
-    const filter = ctx.createBiquadFilter();
-    filter.type = 'lowpass';
-    filter.frequency.setValueAtTime(1800, t);
-
-    const gain = ctx.createGain();
-    gain.gain.setValueAtTime(volume * 0.4, t);
-    gain.gain.exponentialRampToValueAtTime(0.0001, t + duration);
-
-    osc.connect(filter);
-    filter.connect(gain);
-    gain.connect(this.#crtFilter);
-
-    osc.start(t);
-    osc.stop(t + duration + 0.01);
+  // Bows & Crossbows
+  if (id.includes('bow') || id.includes('crossbow')) {
+    return {
+      type: 'archery',
+      isFirearm: false,
+      optimal: ['medium', 'long'],
+      usable: ['close', 'medium', 'long'],
+      caliber: 'arrow',
+      jamRate: 0.02,
+    };
   }
 
-  /**
-   * Synthesizes tactical equipment rustle (for inventory movement / gear equipping).
-   */
-  playGearRustle(volume = 0.25) {
-    const ctx = this.#getContext();
-    if (!ctx || this.#isMuted || !this.#noiseBuffer) return;
-
-    const t = ctx.currentTime;
-    const dur = 0.08;
-
-    const noise = ctx.createBufferSource();
-    noise.buffer = this.#noiseBuffer;
-
-    const filter = ctx.createBiquadFilter();
-    filter.type = 'bandpass';
-    filter.frequency.setValueAtTime(950, t);
-    filter.Q.value = 1.8;
-
-    const gain = ctx.createGain();
-    gain.gain.setValueAtTime(volume * 0.35, t);
-    gain.gain.exponentialRampToValueAtTime(0.001, t + dur);
-
-    noise.connect(filter);
-    filter.connect(gain);
-    gain.connect(this.#crtFilter);
-
-    noise.start(t);
-    noise.stop(t + dur + 0.01);
-  }
+  // Melee weapons (Blades, Bludgeons, Axes, Spears)
+  return {
+    type: 'melee',
+    isFirearm: false,
+    optimal: ['melee'],
+    usable: id.includes('spear') ? ['melee', 'close'] : ['melee'],
+    caliber: null,
+    jamRate: 0,
+  };
 }
 
-// Export singleton instance as default and class for custom instances
-const audioEngine = new AudioEngine();
+/**
+ * Initializes a tactical engagement with range, cover, and morale parameters.
+ */
+function initTacticalState({ enemy, weather = 'clear_sky', rng }) {
+  // Determine starting range band based on enemy archetype & atmospheric visibility
+  let startingRange = 'medium';
+  if (enemy.preferredRange) {
+    startingRange = enemy.preferredRange;
+  } else if (!enemy.ranged) {
+    startingRange = rng ? rng.pick(['close', 'melee']) : 'close';
+  } else {
+    startingRange = rng ? rng.pick(['medium', 'long']) : 'medium';
+  }
 
+  // Fog or night closes the initial engagement distance
+  if (weather === 'radiation_ash_fog' && startingRange === 'long') {
+    startingRange = 'medium';
+  }
+
+  const initialMorale = enemy.morale ?? (enemy.canSurrender === false ? 100 : 70);
+
+  return {
+    range: startingRange,
+    playerCover: COVER_LEVELS.NONE,
+    enemyCover: rng && rng.chance(0.25) && enemy.ranged ? COVER_LEVELS.LIGHT : COVER_LEVELS.NONE,
+    enemyMorale: initialMorale,
+    maxEnemyMorale: initialMorale,
+    weaponJammed: false,
+    enemyStatus: {
+      fracturedLeg: false,
+      disarmed: false,
+      suppressed: false,
+      surrendered: false,
+      routed: false,
+    },
+  };
+}
+
+/**
+ * Calculates hit probability accounting for weapon range efficiency, target zone penalty,
+ * defender cover evasion, and environmental visibility factors.
+ */
+function calculateTacticalHitChance({
+  state,
+  weaponProfile,
+  range,
+  targetZone = TARGET_ZONES.TORSO,
+  defenderCover = COVER_LEVELS.NONE,
+  enemy,
+  weather = 'clear_sky',
+}) {
+  const rangeProf = getWeaponRangeProfile(weaponProfile?.itemId);
+  const marksmanship = skillLevel(state, 'marksmanship');
+  const debuffs = getBodyDebuffs(state.player.body);
+
+  // Baseline accuracy
+  let baseAccuracy = 0.78 + marksmanship * 0.025 - debuffs.weaponAccuracyPenalty;
+
+  // Range penalty/bonus
+  if (rangeProf.optimal.includes(range)) {
+    baseAccuracy += 0.08;
+  } else if (rangeProf.usable.includes(range)) {
+    baseAccuracy -= 0.12;
+  } else {
+    // Outside effective weapon range: severe penalty (e.g. throwing knife at long range)
+    baseAccuracy -= 0.45;
+  }
+
+  // Target Zone difficulty
+  switch (targetZone) {
+    case TARGET_ZONES.HEAD:
+      baseAccuracy -= 0.30; // Small, lethal target
+      break;
+    case TARGET_ZONES.ARMS:
+      baseAccuracy -= 0.16; // Moving target
+      break;
+    case TARGET_ZONES.LEGS:
+      baseAccuracy -= 0.14; // Lower target
+      break;
+    case TARGET_ZONES.TORSO:
+    default:
+      baseAccuracy += 0.02; // Center of mass
+      break;
+  }
+
+  // Defender Cover Evasion
+  let coverEvasion = 0;
+  if (defenderCover === COVER_LEVELS.LIGHT) coverEvasion = 0.22;
+  else if (defenderCover === COVER_LEVELS.HEAVY) coverEvasion = 0.42;
+
+  // Enemy intrinsic evasion & leg status
+  let enemyEvasion = enemy.evasion || 0.1;
+  if (enemy.status?.fracturedLeg) {
+    enemyEvasion = Math.max(0.02, enemyEvasion - 0.20); // Crippled leg impairs dodging
+  }
+
+  // Weather penalty for ranged fire
+  let envPenalty = 0;
+  if (['radiation_ash_fog', 'gale_windstorm'].includes(weather) && range !== 'melee') {
+    envPenalty = 0.18;
+  }
+
+  const finalChance = baseAccuracy - coverEvasion - enemyEvasion - envPenalty;
+  return Math.max(0.12, Math.min(0.95, finalChance));
+}
+
+/**
+ * Calculates damage dealt and tactical status effects on the target zone.
+ */
+function calculateTacticalDamage({
+  baseRating,
+  weaponId,
+  range,
+  targetZone = TARGET_ZONES.TORSO,
+  defenderCover = COVER_LEVELS.NONE,
+  rng,
+}) {
+  const rangeProf = getWeaponRangeProfile(weaponId);
+  let damage = baseRating * 2.2 + (rng ? rng.int(2, 6) : 3);
+
+  // Range efficiency damage adjustments
+  if (rangeProf.type === 'shotgun') {
+    if (range === 'melee' || range === 'close') damage *= 1.35; // devastating point-blank buckshot
+    else if (range === 'medium') damage *= 0.85;
+    else damage *= 0.35; // pellet spread drops off
+  } else if (rangeProf.type === 'melee' && range !== 'melee') {
+    damage *= 0.50; // desperate lunge
+  }
+
+  // Target Zone Multipliers
+  let isCritical = false;
+  let statusEffect = null;
+
+  switch (targetZone) {
+    case TARGET_ZONES.HEAD:
+      damage *= 2.4; // Devastating cranial trauma
+      isCritical = true;
+      statusEffect = 'cranial_shock';
+      break;
+    case TARGET_ZONES.ARMS:
+      damage *= 0.75;
+      statusEffect = 'disarm';
+      break;
+    case TARGET_ZONES.LEGS:
+      damage *= 0.80;
+      statusEffect = 'fractured_leg';
+      break;
+    case TARGET_ZONES.TORSO:
+    default:
+      damage *= 1.0;
+      statusEffect = 'arterial_bleed';
+      break;
+  }
+
+  // Defender Cover Damage Absorption
+  if (defenderCover === COVER_LEVELS.LIGHT) damage *= 0.70;
+  else if (defenderCover === COVER_LEVELS.HEAVY) damage *= 0.40;
+
+  return {
+    damage: Math.max(1, Math.round(damage)),
+    isCritical,
+    statusEffect,
+  };
+}
+
+/**
+ * Checks if a firearm weapon jams during a shot.
+ */
+function checkWeaponJam({ weaponId, weather = 'clear_sky', rng }) {
+  const prof = getWeaponRangeProfile(weaponId);
+  if (!prof.isFirearm) return false;
+
+  let jamChance = prof.jamRate;
+  if (weather === 'corrosive_acid_rain') jamChance += 0.06;
+  if (weather === 'radiation_ash_fog') jamChance += 0.04;
+
+  return rng ? rng.chance(jamChance) : Math.random() < jamChance;
+}
+
+/**
+ * Shifts range band closer or farther.
+ */
+function shiftRange(currentRange, direction = 'closer') {
+  const index = RANGE_BANDS.indexOf(currentRange);
+  if (index === -1) return 'medium';
+
+  if (direction === 'closer') {
+    return RANGE_BANDS[Math.max(0, index - 1)];
+  }
+  return RANGE_BANDS[Math.min(RANGE_BANDS.length - 1, index + 1)];
+}
 
 
 
   // --- src/modules/combat/index.js ---
+
+
 
 
 
@@ -19302,22 +21650,83 @@ function pickEnemyForNode(rng, nodeId) {
 
 function resolveEnemyTurn(ctx, enemyId) {
   const { store, rng, effects, engine } = ctx;
+  const active = store.state.combat.activeEngagement;
+  if (!active) return;
+
+  // Surrendered or routed enemies take no hostile action
+  if (active.enemyStatus?.surrendered || active.enemyStatus?.routed) {
+    return;
+  }
+
   const enemy = getEnemy(enemyId);
-  const dodgeBonus = skillLevel(store.state, 'foraging') * 0.02;
-  const hitChance = Math.max(0.25, enemy.accuracy - dodgeBonus);
+
+  // 1. Tactical AI Repositioning
+  // Melee-only enemies MUST close distance if player is at medium, long, or extreme
+  if (!enemy.ranged && active.range !== 'melee') {
+    if (active.enemyStatus?.fracturedLeg) {
+      engine.log('combat.enemy_crippled_cannot_advance', { name: enemyName(enemyId) }, 'good');
+    } else {
+      active.range = shiftRange(active.range, 'closer');
+      engine.log('combat.enemy_advanced', { name: enemyName(enemyId), range: ref(`combat.range.${active.range}`) }, 'warn');
+      audioEngine.playGearRustle(0.4);
+    }
+    return;
+  }
+
+  // Ranged enemy: 30% chance to seek light cover if taking fire in the open
+  if (enemy.ranged && active.enemyCover === COVER_LEVELS.NONE && rng.chance(0.30)) {
+    active.enemyCover = COVER_LEVELS.LIGHT;
+    engine.log('combat.enemy_took_cover', { name: enemyName(enemyId) }, 'warn');
+    audioEngine.playGearRustle(0.4);
+    return;
+  }
+
+  // 2. Tactical Accuracy & Cover Modifiers
+  const foraging = skillLevel(store.state, 'foraging');
+  let dodgeBonus = foraging * 0.02;
+
+  // Player cover evasion bonus
+  if (active.playerCover === COVER_LEVELS.LIGHT) dodgeBonus += 0.22;
+  else if (active.playerCover === COVER_LEVELS.HEAVY) dodgeBonus += 0.42;
+
+  // Enemy disarmed debuff
+  let accuracyPenalty = 0;
+  if (active.enemyStatus?.disarmed) accuracyPenalty += 0.35;
+  if (active.enemyStatus?.fracturedLeg) accuracyPenalty += 0.15;
+
+  const hitChance = Math.max(0.10, Math.min(0.90, enemy.accuracy - dodgeBonus - accuracyPenalty));
 
   if (!rng.chance(hitChance)) {
     engine.log('combat.enemy_missed', { name: enemyName(enemyId) }, 'good');
     return;
   }
 
-  const dmg = rollRange(rng, enemy.damage);
+  // 3. Damage Resolution & Cover Absorption
+  let dmg = rollRange(rng, enemy.damage);
+  if (active.enemyStatus?.disarmed) dmg = Math.max(2, Math.round(dmg * 0.5));
+
+  // Player cover absorbs physical trauma
+  if (active.playerCover === COVER_LEVELS.LIGHT) dmg = Math.max(1, Math.round(dmg * 0.70));
+  else if (active.playerCover === COVER_LEVELS.HEAVY) dmg = Math.max(1, Math.round(dmg * 0.40));
+
   engine.log('combat.enemy_hit', { name: enemyName(enemyId), dmg }, 'bad');
+
   if (enemy.ranged) {
     audioEngine.playGunshot('9mm', 0.65);
   } else {
     audioEngine.playGearRustle(0.4);
   }
+
+  // Apply targeted anatomical trauma to player's body status
+  if (store.state.player?.body) {
+    applyBodyDamage(store.state.player.body, {
+      amount: dmg,
+      damageType: enemy.ranged ? 'ballistic' : (enemy.bleedChance ? 'slashing' : 'blunt'),
+      rng,
+      bus: engine.bus,
+    });
+  }
+
   const combatEffects = [{ type: 'damage', amount: dmg, cause: 'wounds' }];
   if (enemy.bleedChance && rng.chance(enemy.bleedChance)) {
     combatEffects.push({ type: 'ailment', id: 'bleeding' });
@@ -19326,6 +21735,11 @@ function resolveEnemyTurn(ctx, enemyId) {
     combatEffects.push({ type: 'ailment', id: 'infection' });
   }
   effects.apply(combatEffects, ctx, { kind: 'combat', enemyId });
+
+  // Critical health alarm pulse
+  if (store.state.player?.health < 25) {
+    audioEngine.setCriticalHeartbeat(true, 85);
+  }
 }
 
 const combatModule = {
@@ -19339,13 +21753,20 @@ const combatModule = {
     const { store, rng, effects, engine } = ctx;
 
     store.registerMutations('combat', {
-      start(state, { enemyId, hp }) {
+      start(state, { enemyId, hp, tactical }) {
         state.combat.activeEngagement = {
           enemyId,
           hp,
           maxHp: hp,
           round: 1,
           scavenged: false,
+          range: tactical.range,
+          playerCover: tactical.playerCover,
+          enemyCover: tactical.enemyCover,
+          enemyMorale: tactical.enemyMorale,
+          maxEnemyMorale: tactical.maxEnemyMorale,
+          weaponJammed: tactical.weaponJammed,
+          enemyStatus: { ...tactical.enemyStatus },
         };
       },
       damageEnemy(state, amount) {
@@ -19354,6 +21775,35 @@ const combatModule = {
         active.hp = Math.max(0, active.hp - amount);
         active.round += 1;
         return active.hp;
+      },
+      reduceMorale(state, amount) {
+        const active = state.combat.activeEngagement;
+        if (!active) return 0;
+        active.enemyMorale = Math.max(0, active.enemyMorale - amount);
+        return active.enemyMorale;
+      },
+      setRange(state, range) {
+        if (state.combat.activeEngagement) {
+          state.combat.activeEngagement.range = range;
+          state.combat.activeEngagement.playerCover = COVER_LEVELS.NONE;
+          state.combat.activeEngagement.round += 1;
+        }
+      },
+      setPlayerCover(state, cover) {
+        if (state.combat.activeEngagement) {
+          state.combat.activeEngagement.playerCover = cover;
+          state.combat.activeEngagement.round += 1;
+        }
+      },
+      setWeaponJammed(state, jammed) {
+        if (state.combat.activeEngagement) {
+          state.combat.activeEngagement.weaponJammed = jammed;
+        }
+      },
+      setEnemyStatusFlag(state, { flag, value }) {
+        if (state.combat.activeEngagement?.enemyStatus) {
+          state.combat.activeEngagement.enemyStatus[flag] = value;
+        }
       },
       markScavenged(state) {
         if (state.combat.activeEngagement) {
@@ -19367,6 +21817,7 @@ const combatModule = {
       end(state, { won = false } = {}) {
         state.combat.activeEngagement = null;
         if (won) state.combat.victories = (state.combat.victories ?? 0) + 1;
+        audioEngine.setCriticalHeartbeat(false);
       },
     });
 
@@ -19380,22 +21831,140 @@ const combatModule = {
     engine.registerAction('combat/patrol', () => {
       const nodeId = store.state.world.currentNodeId;
       const picked = pickEnemyForNode(rng, nodeId);
-      store.commit('combat/start', { enemyId: picked.id, hp: picked.hp });
+      const tactical = initTacticalState({
+        enemy: picked,
+        weather: store.state.environment?.currentWeather || 'clear_sky',
+        rng,
+      });
+
+      store.commit('combat/start', { enemyId: picked.id, hp: picked.hp, tactical });
       engine.log('combat.enemy_appeared', { name: enemyName(picked.id) }, 'warn');
       engine.advanceTime(15, 'scavenge');
       return { ok: true };
     });
 
-    engine.registerAction('combat/action', ({ move }) => {
+    engine.registerAction('combat/action', ({ move, zone = TARGET_ZONES.TORSO }) => {
       const active = store.state.combat.activeEngagement;
       if (!active) return { ok: false, reason: 'reject.no_combat' };
+
       const enemy = getEnemy(active.enemyId);
       const rating = combatRating(store.state);
       const weapon = weaponProfile(store.state);
+      const weather = store.state.environment?.currentWeather || 'clear_sky';
 
+      // --- ACTION A: SURRENDER RESOLUTIONS (SPARE vs EXECUTE) ---
+      if (move === 'spare') {
+        if (!active.enemyStatus?.surrendered) return { ok: false, reason: 'reject.not_surrendered' };
+        store.commit('combat/end', { won: true });
+        codexManager.trackCareer('totalEnemiesSpared', 1);
+        codexManager.unlockAchievement('pacifist_mercy');
+        engine.log('combat.enemy_spared', { name: enemyName(active.enemyId) }, 'good');
+        effects.apply([
+          { type: 'xp', skill: 'foraging', amount: Math.round(enemy.xp * 0.8) },
+          { type: 'xp', skill: 'marksmanship', amount: Math.round(enemy.xp * 0.8) },
+        ], ctx);
+
+        // Peaceful disarm loot
+        const drops = rollLoot(rng, enemy.lootTable, 2);
+        const nodeId = store.state.world.currentNodeId;
+        engine.bus.emit('loot:modal', {
+          type: 'combat_victory',
+          titleKey: 'loot.title.combat_disarm',
+          descKey: 'loot.desc.combat_disarm',
+          descParams: { enemy: enemyName(active.enemyId) },
+          items: drops,
+          nodeId,
+          onConfirm: (taken, left) => {
+            for (const { itemId, qty } of taken) grantItems(ctx, itemId, qty);
+            for (const { itemId, qty } of left) {
+              store.commit('inventory/toGround', { nodeId, itemId, qty });
+            }
+          },
+        });
+        return { ok: true };
+      }
+
+      if (move === 'execute') {
+        if (!active.enemyStatus?.surrendered) return { ok: false, reason: 'reject.not_surrendered' };
+        audioEngine.playGunshot('9mm', 0.9);
+        store.commit('combat/end', { won: true });
+        engine.log('combat.enemy_executed', { name: enemyName(active.enemyId) }, 'bad');
+        effects.apply([{ type: 'xp', skill: 'marksmanship', amount: enemy.xp }], ctx);
+
+        const drops = rollLoot(rng, enemy.lootTable, 3);
+        const nodeId = store.state.world.currentNodeId;
+        engine.bus.emit('loot:modal', {
+          type: 'combat_victory',
+          titleKey: 'loot.title.combat_victory',
+          descKey: 'loot.desc.combat_victory',
+          descParams: { enemy: enemyName(active.enemyId), xp: enemy.xp },
+          items: drops,
+          nodeId,
+          onConfirm: (taken, left) => {
+            for (const { itemId, qty } of taken) grantItems(ctx, itemId, qty);
+            for (const { itemId, qty } of left) {
+              store.commit('inventory/toGround', { nodeId, itemId, qty });
+            }
+          },
+        });
+        return { ok: true };
+      }
+
+      // --- ACTION B: TACTICAL REPOSITIONING & COVER ---
+      if (move === 'advance') {
+        const nextRange = shiftRange(active.range, 'closer');
+        if (nextRange === active.range) return { ok: false, reason: 'reject.already_melee' };
+        effects.apply([{ type: 'vital', vital: 'energy', amount: -4 }], ctx);
+        store.commit('combat/setRange', nextRange);
+        engine.log('combat.player_advanced', { range: ref(`combat.range.${nextRange}`) }, 'warn');
+        audioEngine.playGearRustle(0.5);
+        resolveEnemyTurn(ctx, active.enemyId);
+        return { ok: true };
+      }
+
+      if (move === 'retreat') {
+        const nextRange = shiftRange(active.range, 'farther');
+        if (nextRange === active.range) return { ok: false, reason: 'reject.max_range' };
+        effects.apply([{ type: 'vital', vital: 'energy', amount: -5 }], ctx);
+        store.commit('combat/setRange', nextRange);
+        engine.log('combat.player_retreated', { range: ref(`combat.range.${nextRange}`) }, 'warn');
+        audioEngine.playGearRustle(0.5);
+        resolveEnemyTurn(ctx, active.enemyId);
+        return { ok: true };
+      }
+
+      if (move === 'take_cover') {
+        effects.apply([{ type: 'vital', vital: 'energy', amount: -3 }], ctx);
+        const nextCover = active.playerCover === COVER_LEVELS.NONE ? COVER_LEVELS.LIGHT : COVER_LEVELS.HEAVY;
+        store.commit('combat/setPlayerCover', nextCover);
+        engine.log('combat.player_took_cover', { cover: ref(`combat.cover.${nextCover}`) }, 'good');
+        audioEngine.playGearRustle(0.6);
+        resolveEnemyTurn(ctx, active.enemyId);
+        return { ok: true };
+      }
+
+      if (move === 'clear_jam') {
+        if (!active.weaponJammed) return { ok: false, reason: 'reject.not_jammed' };
+        effects.apply([{ type: 'vital', vital: 'energy', amount: -3 }], ctx);
+        store.commit('combat/setWeaponJammed', false);
+        audioEngine.playTerminalClick(1.2, 0.6);
+        engine.log('combat.jam_cleared', {}, 'good');
+        store.commit('combat/nextRound');
+        resolveEnemyTurn(ctx, active.enemyId);
+        return { ok: true };
+      }
+
+      // --- ACTION C: FLEE & SCAVENGE ---
       if (move === 'flee') {
-        const escapeChance = Math.min(0.9, 0.55 + skillLevel(store.state, 'foraging') * 0.05);
+        // Being in cover or at extreme range makes escape significantly easier
+        let coverBonus = 0;
+        if (active.playerCover === COVER_LEVELS.LIGHT) coverBonus += 0.15;
+        if (active.playerCover === COVER_LEVELS.HEAVY) coverBonus += 0.25;
+        if (active.range === 'extreme' || active.range === 'long') coverBonus += 0.20;
+
+        const escapeChance = Math.min(0.95, 0.50 + skillLevel(store.state, 'foraging') * 0.05 + coverBonus);
         effects.apply([{ type: 'vital', vital: 'energy', amount: -6 }], ctx);
+
         if (rng.chance(escapeChance)) {
           store.commit('combat/end', { won: false });
           engine.log('combat.fled_success', { name: enemyName(active.enemyId) }, 'warn');
@@ -19434,34 +22003,110 @@ const combatModule = {
         return { ok: true };
       }
 
-      const isAimed = move === 'aimed';
-      if (isAimed && weapon.ammoId && weapon.loaded) {
+      // --- ACTION D: TACTICAL FIRE / TARGETED STRIKE ---
+      if (active.weaponJammed) {
+        audioEngine.playTerminalClick(0.3, 0.7); // Dry click
+        engine.log('combat.weapon_is_jammed_prompt', {}, 'bad');
+        return { ok: false, reason: 'reject.weapon_jammed' };
+      }
+
+      const targetZone = zone || TARGET_ZONES.TORSO;
+
+      // Consume ammunition if weapon is a firearm
+      if (weapon.ammoId && weapon.loaded) {
         store.commit('inventory/remove', { itemId: weapon.ammoId, qty: 1 });
       }
 
-      const debuffs = getBodyDebuffs(store.state.player.body);
-      const hitChance = Math.max(
-        0.15,
-        Math.min(
-          0.95,
-          (isAimed ? 0.75 : 0.84) + skillLevel(store.state, 'marksmanship') * 0.02 - enemy.evasion - debuffs.weaponAccuracyPenalty,
-        ),
-      );
-      effects.apply([{ type: 'vital', vital: 'energy', amount: isAimed ? -5 : -3 }], ctx);
+      // Check for firearm mechanical jam
+      if (checkWeaponJam({ weaponId: weapon.itemId, weather, rng })) {
+        store.commit('combat/setWeaponJammed', true);
+        audioEngine.playTerminalClick(0.3, 0.7);
+        engine.log('combat.weapon_jammed', { weapon: weapon.itemId ? ref(`item.${weapon.itemId}.name`) : '' }, 'bad');
+        store.commit('combat/nextRound');
+        resolveEnemyTurn(ctx, active.enemyId);
+        return { ok: true };
+      }
 
+      // Stamina expenditure
+      effects.apply([{ type: 'vital', vital: 'energy', amount: targetZone === TARGET_ZONES.HEAD ? -5 : -3 }], ctx);
+
+      // Audio feedback
       if (weapon.ammoId) {
-        audioEngine.playGunshot(weapon.ammoId);
+        const rangeProf = getWeaponRangeProfile(weapon.itemId);
+        audioEngine.playGunshot(rangeProf.caliber || '9mm');
       } else {
         audioEngine.playTerminalClick(0.7, 0.4);
       }
 
-      if (rng.chance(hitChance)) {
-        const baseDmg = Math.round(rating * (isAimed ? 3.4 : 2.4)) + rng.int(2, 6);
-        const remainingHp = store.commit('combat/damageEnemy', baseDmg);
-        engine.log('combat.player_hit', { name: enemyName(active.enemyId), dmg: baseDmg }, 'good');
+      // Calculate Tactical Hit Chance
+      const hitChance = calculateTacticalHitChance({
+        state: store.state,
+        weaponProfile: weapon,
+        range: active.range,
+        targetZone,
+        defenderCover: active.enemyCover,
+        enemy,
+        weather,
+      });
 
+      if (rng.chance(hitChance)) {
+        const { damage, isCritical, statusEffect } = calculateTacticalDamage({
+          baseRating: rating,
+          weaponId: weapon.itemId,
+          range: active.range,
+          targetZone,
+          defenderCover: active.enemyCover,
+          rng,
+        });
+
+        const remainingHp = store.commit('combat/damageEnemy', damage);
+
+        // Targeted zone notifications
+        if (isCritical) {
+          engine.log('combat.headshot_crit', { name: enemyName(active.enemyId), dmg: damage }, 'good');
+        } else if (statusEffect === 'fractured_leg') {
+          store.commit('combat/setEnemyStatusFlag', { flag: 'fracturedLeg', value: true });
+          engine.log('combat.leg_fractured', { name: enemyName(active.enemyId), dmg: damage }, 'good');
+        } else if (statusEffect === 'disarm') {
+          store.commit('combat/setEnemyStatusFlag', { flag: 'disarmed', value: true });
+          engine.log('combat.arm_disarmed', { name: enemyName(active.enemyId), dmg: damage }, 'good');
+        } else {
+          engine.log('combat.player_hit', { name: enemyName(active.enemyId), dmg: damage }, 'good');
+        }
+
+        // Enemy Morale Check
+        let moraleLoss = 12;
+        if (isCritical) moraleLoss += 25;
+        if (statusEffect === 'fractured_leg' || statusEffect === 'disarm') moraleLoss += 15;
+        if (remainingHp <= active.maxHp * 0.35) moraleLoss += 20;
+
+        const currentMorale = store.commit('combat/reduceMorale', moraleLoss);
+
+        // Surrender or Routing resolution
+        if (remainingHp > 0 && currentMorale <= 20) {
+          if (enemy.canSurrender) {
+            store.commit('combat/setEnemyStatusFlag', { flag: 'surrendered', value: true });
+            audioEngine.playWarningAlarm(440, 0.25, 0.5);
+            engine.log('combat.enemy_surrendered', { name: enemyName(active.enemyId) }, 'warn');
+            return { ok: true };
+          } else if (enemy.morale !== 100) {
+            // Beasts with broken morale route and flee
+            store.commit('combat/setEnemyStatusFlag', { flag: 'routed', value: true });
+            store.commit('combat/end', { won: true });
+            engine.log('combat.enemy_routed', { name: enemyName(active.enemyId) }, 'good');
+            effects.apply([{ type: 'xp', skill: 'foraging', amount: Math.round(enemy.xp * 0.6) }], ctx);
+            return { ok: true };
+          }
+        }
+
+        // Victory
         if (remainingHp <= 0) {
           store.commit('combat/end', { won: true });
+          codexManager.trackCareer('totalEnemiesDefeated', 1);
+          codexManager.unlockAchievement('first_blood');
+          if (isCritical && targetZone === TARGET_ZONES.HEAD) {
+            codexManager.unlockAchievement('sniper_doctrine');
+          }
           engine.log('combat.victory', { name: enemyName(active.enemyId) }, 'good');
           const drops = rollLoot(rng, enemy.lootTable, rng.int(1, 2));
           effects.apply([{ type: 'xp', skill: 'marksmanship', amount: enemy.xp }], ctx);
@@ -19585,6 +22230,27 @@ const RECIPES = {
     output: { itemId: 'riot_vest', qty: 1 },
     xp: { skill: 'engineering', amount: 25 },
   },
+  fuel_siphon_hose: {
+    tier: 0,
+    minutes: 20,
+    ingredients: [
+      { itemId: 'copper_wire', qty: 2 },
+      { itemId: 'duct_tape', qty: 1 },
+      { itemId: 'cloth_rags', qty: 1 },
+    ],
+    output: { itemId: 'fuel_siphon_hose', qty: 1 },
+    xp: { skill: 'engineering', amount: 10 },
+  },
+  spark_plug_salvage: {
+    tier: 1,
+    minutes: 35,
+    ingredients: [
+      { itemId: 'scrap_metal', qty: 2 },
+      { itemId: 'copper_wire', qty: 2 },
+    ],
+    output: { itemId: 'spark_plug_set', qty: 1 },
+    xp: { skill: 'engineering', amount: 16 },
+  },
 };
 
 function getRecipe(recipeId) {
@@ -19681,6 +22347,7 @@ function getStructure(structureId) {
 
 
 
+
 const baseLocName = (nodeId) => ref(`location.${nodeId}`);
 const baseItemName = (itemId) => ref(`item.${itemId}.name`);
 
@@ -19756,6 +22423,7 @@ const baseModule = {
         return { ok: false, reason: 'reject.already_outpost' };
       }
       store.commit('base/establishOutpost', nodeId);
+      codexManager.unlockAchievement('outpost_pioneer');
       engine.log('log.base.established', { location: baseLocName(nodeId) }, 'good');
       engine.advanceTime(30, 'idle');
       return { ok: true };
@@ -19838,6 +22506,7 @@ const baseModule = {
 
 
 
+
 function canCraftRecipe(state, recipeId) {
   const recipe = getRecipe(recipeId);
   if (activeWorkbenchTier(state) < recipe.tier) return { ok: false, reason: 'reject.workbench_tier' };
@@ -19878,6 +22547,7 @@ const craftingModule = {
         store.commit('inventory/remove', { itemId, qty });
       }
       store.commit('crafting/recordCraft');
+      codexManager.trackCareer('totalCraftsDone', 1);
 
       const { itemId, qty } = recipe.output;
       engine.log('log.crafting.crafted', {
@@ -20021,6 +22691,570 @@ const environmentModule = {
 
 
 
+  // --- src/modules/economy/barterEngine.js ---
+/**
+ * Last Breath // Post-Apocalyptic Barter Economy Engine
+ * Zero fiat currency. Zero digital credits.
+ * Pure physical trade of ammunition, medical compounds, clean water, and salvage.
+ */
+
+
+
+
+
+
+const MERCHANT_TYPES = {
+  NOMAD_CARAVAN: 'nomad_caravan',
+  IRON_GUARD_QUARTERMASTER: 'iron_guard_quartermaster',
+  WASTELAND_PEDDLER: 'wasteland_peddler',
+};
+
+const MERCHANT_PROFILES = {
+  [MERCHANT_TYPES.NOMAD_CARAVAN]: {
+    faction: 'nomad_guild',
+    inventoryStock: [
+      { itemId: 'combat_tourniquet_cat', qty: 2 },
+      { itemId: 'chest_seal_vented', qty: 2 },
+      { itemId: 'ciprofloxacin_antibiotic', qty: 2 },
+      { itemId: 'sam_splint_roll', qty: 1 },
+      { itemId: 'ammo_9mm_fmj', qty: 45 },
+      { itemId: 'bottled_water', qty: 4 },
+      { itemId: 'mre', qty: 3 },
+      { itemId: 'high_lumen_tactical_flashlight', qty: 1 },
+    ],
+  },
+  [MERCHANT_TYPES.IRON_GUARD_QUARTERMASTER]: {
+    faction: 'iron_guard',
+    minStanding: -20, // Rejects trade with hostile scavengers
+    inventoryStock: [
+      { itemId: 'chest_seal_vented', qty: 2 },
+      { itemId: 'rifle_rounds', qty: 40 },
+      { itemId: 'ammo_12g_buckshot_00', qty: 20 },
+      { itemId: 'gp5_gas_mask_civilian', qty: 1 },
+      { itemId: 'gas_mask_m40_filter', qty: 2 },
+      { itemId: 'hazmat_poncho', qty: 1 },
+    ],
+  },
+  [MERCHANT_TYPES.WASTELAND_PEDDLER]: {
+    faction: 'ash_marauders',
+    inventoryStock: [
+      { itemId: 'canned_beans', qty: 3 },
+      { itemId: 'ammo_9mm_fmj', qty: 18 },
+      { itemId: 'copper_wire', qty: 5 },
+      { itemId: 'electronics', qty: 2 },
+      { itemId: 'scrap_metal', qty: 4 },
+      { itemId: 'cloth_rags', qty: 6 },
+    ],
+  },
+};
+
+/**
+ * Calculates intrinsic commodity barter value for an item.
+ */
+function getItemBarterValue(itemId) {
+  if (!itemId) return 0;
+  const item = getItem(itemId);
+  if (!item) return 1;
+
+  // Specific high-value essentials
+  const overrides = {
+    combat_tourniquet_cat: 85,
+    cat_tourniquet_gen7: 85,
+    chest_seal_vented: 95,
+    chest_seal_twin_pack: 140,
+    decompression_needle_14g: 110,
+    sam_splint_roll: 60,
+    sam_splint_36inch: 60,
+    ciprofloxacin_antibiotic: 80,
+    ciprofloxacin_500mg_box: 80,
+    broad_spectrum_antibiotics: 75,
+    morphine_auto_injector: 130,
+    gp5_gas_mask_civilian: 120,
+    gas_mask_m40_filter: 70,
+    hazmat_poncho: 150,
+    car_battery_lead_acid: 75,
+    car_battery_12v_lead_acid: 85,
+    gasoline_fuel_canister_5l: 60,
+    diesel_fuel_canister_5l: 60,
+    diesel_fuel_canister_10l: 110,
+    motor_oil_10w40_bottle: 40,
+    motor_oil_synthetic_10w40: 50,
+    spark_plug_set: 45,
+    fuel_siphon_hose: 35,
+    hunting_rifle: 240,
+    hunting_rifle_308: 240,
+    pump_shotgun_12g: 220,
+    high_lumen_tactical_flashlight: 65,
+    folding_camp_wood_stove: 160,
+    thermal_mylar_bivvy_emergency_sleeping_bag: 75,
+    ammo_9mm_fmj: 3,
+    ammo_12g_buckshot_00: 5,
+    rifle_rounds: 5,
+    copper_wire: 12,
+    electronics: 25,
+    scrap_metal: 8,
+    bottled_water: 15,
+    canned_beans: 15,
+    mre: 30,
+  };
+
+  if (overrides[itemId]) return overrides[itemId];
+
+  // Dynamic derivation based on category, weight, and properties
+  let val = 10;
+  if (item.category === 'medical') val = 45;
+  else if (item.category === 'weapons') val = item.equip?.power ? item.equip.power * 25 : 30;
+  else if (item.category === 'gear') val = 40;
+  else if (item.category === 'scrap') val = 15;
+  else if (item.category === 'supplies') val = 12;
+
+  if (item.equip?.armor) val += item.equip.armor * 30;
+  if (item.tags?.includes('ammo')) val = 4;
+
+  return Math.max(1, Math.round(val));
+}
+
+class BarterEngine {
+  /**
+   * Evaluates barter value of a list of items: [{ itemId, qty }]
+   */
+  static calculateTotalValue(items = []) {
+    return items.reduce((sum, { itemId, qty }) => {
+      return sum + getItemBarterValue(itemId) * (qty || 1);
+    }, 0);
+  }
+
+  /**
+   * Computes the trade equation, applying faction reputation modifiers and haggling discounts.
+   */
+  static evaluateTrade({
+    playerOffer = [],
+    merchantDemands = [],
+    merchantType = MERCHANT_TYPES.NOMAD_CARAVAN,
+    state,
+    haggleDiscount = 0,
+  }) {
+    const profile = MERCHANT_PROFILES[merchantType] || MERCHANT_PROFILES[MERCHANT_TYPES.NOMAD_CARAVAN];
+    const factionId = profile.faction;
+
+    // Faction multiplier: allied gets 30% discount; hostile has 30% markup
+    const factionMultiplier = FactionManager.getDiscountMultiplier(state, factionId);
+
+    const playerTotal = this.calculateTotalValue(playerOffer);
+    const merchantBaseTotal = this.calculateTotalValue(merchantDemands);
+
+    // Apply faction standing and haggling discounts to merchant item prices
+    const totalDiscountMod = Math.max(0.40, factionMultiplier - haggleDiscount);
+    const merchantRequiredTotal = Math.round(merchantBaseTotal * totalDiscountMod);
+
+    const difference = playerTotal - merchantRequiredTotal;
+    const isBalanced = merchantRequiredTotal === 0 ? true : difference >= 0;
+
+    return {
+      playerTotal,
+      merchantBaseTotal,
+      merchantRequiredTotal,
+      difference,
+      isBalanced,
+      discountPercent: Math.round((1 - totalDiscountMod) * 100),
+      factionId,
+    };
+  }
+
+  /**
+   * Attempts a haggle check to negotiate better prices with the merchant.
+   */
+  static attemptHaggle({ state, merchantType, rng }) {
+    const foraging = skillLevel(state, 'foraging');
+    const profile = MERCHANT_PROFILES[merchantType] || MERCHANT_PROFILES[MERCHANT_TYPES.NOMAD_CARAVAN];
+    const standing = FactionManager.getStanding(state, profile.faction);
+
+    // Baseline chance: 45% + foraging skill + standing bonus
+    let successChance = 0.45 + foraging * 0.05;
+    if (standing > 25) successChance += 0.15;
+    else if (standing < -20) successChance -= 0.20;
+
+    const success = rng ? rng.chance(successChance) : Math.random() < successChance;
+
+    if (success) {
+      return {
+        ok: true,
+        discount: 0.18, // 18% bonus discount
+        messageKey: 'barter.haggle_success',
+      };
+    }
+
+    return {
+      ok: false,
+      discount: -0.10, // 10% penalty markup for offensive haggling
+      messageKey: 'barter.haggle_failed',
+    };
+  }
+}
+
+
+  // --- src/modules/economy/index.js ---
+
+
+
+
+
+
+
+const economyModule = {
+  id: 'economy',
+
+  createState() {
+    return {
+      activeSession: null,
+    };
+  },
+
+  install(ctx) {
+    const { store, rng, effects, engine } = ctx;
+
+    store.registerMutations('economy', {
+      startSession(state, { merchantType }) {
+        const profile = MERCHANT_PROFILES[merchantType] || MERCHANT_PROFILES[MERCHANT_TYPES.NOMAD_CARAVAN];
+        state.economy.activeSession = {
+          merchantType,
+          faction: profile.faction,
+          playerOffer: {},     // { [itemId]: qty }
+          merchantDemands: {}, // { [itemId]: qty }
+          haggleDiscount: 0,
+          haggleAttempted: false,
+        };
+      },
+      updatePlayerOffer(state, { itemId, qty }) {
+        if (!state.economy.activeSession) return;
+        if (qty <= 0) {
+          delete state.economy.activeSession.playerOffer[itemId];
+        } else {
+          state.economy.activeSession.playerOffer[itemId] = qty;
+        }
+      },
+      updateMerchantDemand(state, { itemId, qty }) {
+        if (!state.economy.activeSession) return;
+        if (qty <= 0) {
+          delete state.economy.activeSession.merchantDemands[itemId];
+        } else {
+          state.economy.activeSession.merchantDemands[itemId] = qty;
+        }
+      },
+      applyHaggle(state, { discount }) {
+        if (!state.economy.activeSession) return;
+        state.economy.activeSession.haggleDiscount += discount;
+        state.economy.activeSession.haggleAttempted = true;
+      },
+      closeSession(state) {
+        state.economy.activeSession = null;
+      },
+    });
+
+    engine.registerAction('economy/openBarter', ({ merchantType = MERCHANT_TYPES.NOMAD_CARAVAN }) => {
+      const profile = MERCHANT_PROFILES[merchantType] || MERCHANT_PROFILES[MERCHANT_TYPES.NOMAD_CARAVAN];
+
+      // Standing verification for faction merchants
+      if (profile.minStanding !== undefined) {
+        const standing = FactionManager.getStanding(store.state, profile.faction);
+        if (standing < profile.minStanding) {
+          engine.log('barter.refused_standing', { faction: ref(`faction.${profile.faction}.name`) }, 'bad');
+          return { ok: false, reason: 'reject.hostile_faction' };
+        }
+      }
+
+      store.commit('economy/startSession', { merchantType });
+      audioEngine.playGearRustle(0.4);
+      engine.bus.emit('barter:modal', { active: true });
+      return { ok: true };
+    });
+
+    engine.registerAction('economy/togglePlayerOffer', ({ itemId, delta }) => {
+      const session = store.state.economy.activeSession;
+      if (!session) return { ok: false, reason: 'reject.no_session' };
+
+      const current = session.playerOffer[itemId] || 0;
+      const next = Math.max(0, current + delta);
+      store.commit('economy/updatePlayerOffer', { itemId, qty: next });
+      audioEngine.playTerminalClick(1.0, 0.2);
+      engine.bus.emit('barter:modal', { active: true });
+      return { ok: true };
+    });
+
+    engine.registerAction('economy/toggleMerchantDemand', ({ itemId, delta }) => {
+      const session = store.state.economy.activeSession;
+      if (!session) return { ok: false, reason: 'reject.no_session' };
+
+      const current = session.merchantDemands[itemId] || 0;
+      const next = Math.max(0, current + delta);
+      store.commit('economy/updateMerchantDemand', { itemId, qty: next });
+      audioEngine.playTerminalClick(1.0, 0.2);
+      engine.bus.emit('barter:modal', { active: true });
+      return { ok: true };
+    });
+
+    engine.registerAction('economy/haggle', () => {
+      const session = store.state.economy.activeSession;
+      if (!session) return { ok: false, reason: 'reject.no_session' };
+      if (session.haggleAttempted) return { ok: false, reason: 'reject.already_haggled' };
+
+      const res = BarterEngine.attemptHaggle({
+        state: store.state,
+        merchantType: session.merchantType,
+        rng,
+      });
+
+      store.commit('economy/applyHaggle', { discount: res.discount });
+      if (res.ok) {
+        audioEngine.playTerminalClick(1.3, 0.5);
+        engine.log(res.messageKey, {}, 'good');
+      } else {
+        audioEngine.playTerminalClick(0.6, 0.6);
+        engine.log(res.messageKey, {}, 'bad');
+      }
+      engine.bus.emit('barter:modal', { active: true });
+      return { ok: true };
+    });
+
+    engine.registerAction('economy/executeTrade', () => {
+      const session = store.state.economy.activeSession;
+      if (!session) return { ok: false, reason: 'reject.no_session' };
+
+      const playerOfferArr = Object.entries(session.playerOffer).map(([itemId, qty]) => ({ itemId, qty }));
+      const merchantDemandArr = Object.entries(session.merchantDemands).map(([itemId, qty]) => ({ itemId, qty }));
+
+      if (merchantDemandArr.length === 0) {
+        return { ok: false, reason: 'reject.no_demands' };
+      }
+
+      const evaluation = BarterEngine.evaluateTrade({
+        playerOffer: playerOfferArr,
+        merchantDemands: merchantDemandArr,
+        merchantType: session.merchantType,
+        state: store.state,
+        haggleDiscount: session.haggleDiscount,
+      });
+
+      if (!evaluation.isBalanced) {
+        engine.log('barter.insufficient_value', {}, 'warn');
+        return { ok: false, reason: 'reject.insufficient_value' };
+      }
+
+      // Deduct offered items from player inventory
+      for (const { itemId, qty } of playerOfferArr) {
+        store.commit('inventory/remove', { itemId, qty });
+      }
+
+      // Grant acquired goods
+      for (const { itemId, qty } of merchantDemandArr) {
+        grantItems(ctx, itemId, qty);
+      }
+
+      // Small karma/reputation reward with merchant faction
+      if (session.faction) {
+        FactionManager.adjustStanding(store.state, session.faction, 2, 'fair_trade', { bus: engine.bus });
+      }
+
+      codexManager.trackCareer('totalBarterValue', evaluation.playerTotal);
+      if (evaluation.playerTotal >= 200) {
+        codexManager.unlockAchievement('silk_road_tycoon');
+      }
+
+      audioEngine.playTerminalClick(1.2, 0.5);
+      audioEngine.playGearRustle(0.5);
+      engine.log('barter.trade_completed', {
+        playerVal: evaluation.playerTotal,
+        merchantVal: evaluation.merchantRequiredTotal,
+      }, 'good');
+
+      store.commit('economy/closeSession');
+      engine.bus.emit('barter:modal', { active: false });
+      return { ok: true };
+    });
+
+    engine.registerAction('economy/closeBarter', () => {
+      store.commit('economy/closeSession');
+      engine.bus.emit('barter:modal', { active: false });
+      return { ok: true };
+    });
+  },
+};
+
+
+  // --- src/modules/vehicles/index.js ---
+/**
+ * Last Breath // Vehicles Module Entry Point
+ * Registers mutations and actions for vehicle maintenance, cargo transfer,
+ * mount/dismount toggles, and travel integration.
+ */
+
+
+
+
+
+const vehiclesModule = {
+  id: 'vehicles',
+
+  createState() {
+    return VehicleEngine.getInitialState();
+  },
+
+  install(ctx) {
+    const { store, engine } = ctx;
+
+    // Register vehicle state mutations
+    store.registerMutations('vehicles', {
+      init(state, payload) {
+        state.vehicles = payload || VehicleEngine.getInitialState();
+      },
+      mount(state, vehicleId) {
+        state.vehicles.mountedVehicleId = vehicleId;
+      },
+      dismount(state) {
+        state.vehicles.mountedVehicleId = null;
+      },
+      openModal(state, vehicleId) {
+        state.vehicles.activeModalVehicleId = vehicleId;
+      },
+      closeModal(state) {
+        state.vehicles.activeModalVehicleId = null;
+      },
+      updateVehicleLocation(state, { vehicleId, nodeId }) {
+        if (state.vehicles?.fleet?.[vehicleId]) {
+          state.vehicles.fleet[vehicleId].nodeId = nodeId;
+        }
+      },
+      consumeFuel(state, { vehicleId, liters }) {
+        const v = state.vehicles?.fleet?.[vehicleId];
+        if (v) {
+          v.fuelLiters = Math.max(0, Math.round((v.fuelLiters - liters) * 10) / 10);
+        }
+      },
+      degradeCondition(state, { vehicleId, amount }) {
+        const v = state.vehicles?.fleet?.[vehicleId];
+        if (v) {
+          v.condition = Math.max(0, Math.round(v.condition - amount));
+        }
+      },
+    });
+
+    // Register actions
+    engine.registerAction('vehicles/openModal', ({ vehicleId }) => {
+      store.commit('vehicles/openModal', vehicleId);
+      audioEngine.playTerminalClick();
+      return { ok: true };
+    });
+
+    engine.registerAction('vehicles/closeModal', () => {
+      store.commit('vehicles/closeModal');
+      audioEngine.playTerminalClick();
+      return { ok: true };
+    });
+
+    engine.registerAction('vehicles/mount', ({ vehicleId }) => {
+      const vehicle = VehicleEngine.getVehicle(store.state, vehicleId);
+      if (!vehicle || !vehicle.restored) {
+        engine.log('vehicle.log.not_ready', {}, 'warn');
+        return { ok: false, reason: 'not_ready' };
+      }
+      if (vehicle.fuelLiters <= 0) {
+        engine.log('vehicle.log.no_fuel', {}, 'warn');
+        return { ok: false, reason: 'no_fuel' };
+      }
+      store.commit('vehicles/mount', vehicleId);
+      audioEngine.playEngineIgnition();
+      engine.log('vehicle.log.mounted', { vehicle: vehicleId }, 'good');
+      return { ok: true };
+    });
+
+    engine.registerAction('vehicles/dismount', () => {
+      const mountedId = store.state.vehicles?.mountedVehicleId;
+      if (!mountedId) return { ok: true };
+      store.commit('vehicles/dismount');
+      audioEngine.playTerminalClick();
+      engine.log('vehicle.log.dismounted', { vehicle: mountedId });
+      return { ok: true };
+    });
+
+    engine.registerAction('vehicles/installPart', ({ vehicleId, reqItemId }) => {
+      const res = VehicleEngine.installPart(store.state, vehicleId, reqItemId);
+      if (!res.ok) {
+        engine.log(`vehicle.reject.${res.reason}`, {}, 'warn');
+        return res;
+      }
+      audioEngine.playGearRustle();
+      if (res.restored) {
+        audioEngine.playEngineRev();
+        codexManager.trackCareer('totalVehiclesRestored', 1);
+        codexManager.unlockAchievement('mechanic_maestro');
+        engine.log('vehicle.log.fully_restored', { vehicle: vehicleId }, 'good');
+      } else {
+        engine.log('vehicle.log.part_installed', { part: reqItemId, remaining: res.remainingNeed });
+      }
+      return res;
+    });
+
+    engine.registerAction('vehicles/refuel', ({ vehicleId, canisterItemId }) => {
+      const res = VehicleEngine.refuel(store.state, vehicleId, canisterItemId);
+      if (!res.ok) {
+        engine.log(`vehicle.reject.${res.reason}`, {}, 'warn');
+        return res;
+      }
+      audioEngine.playGearRustle();
+      engine.log('vehicle.log.refueled', { added: res.addedLiters, total: res.currentFuel }, 'good');
+      return res;
+    });
+
+    engine.registerAction('vehicles/repair', ({ vehicleId, repairItemId }) => {
+      const res = VehicleEngine.repairCondition(store.state, vehicleId, repairItemId);
+      if (!res.ok) {
+        engine.log(`vehicle.reject.${res.reason}`, {}, 'warn');
+        return res;
+      }
+      audioEngine.playGearRustle();
+      engine.log('vehicle.log.repaired', { gain: res.gain, condition: res.condition }, 'good');
+      return res;
+    });
+
+    engine.registerAction('vehicles/toCargo', ({ vehicleId, itemId, qty = 1 }) => {
+      const res = VehicleEngine.transferToCargo(store.state, vehicleId, itemId, qty);
+      if (!res.ok) {
+        engine.log(`vehicle.reject.${res.reason}`, {}, 'warn');
+        return res;
+      }
+      audioEngine.playGearRustle();
+      return res;
+    });
+
+    engine.registerAction('vehicles/toPack', ({ vehicleId, itemId, qty = 1 }) => {
+      const res = VehicleEngine.transferToPack(store.state, vehicleId, itemId, qty);
+      if (!res.ok) {
+        engine.log(`vehicle.reject.${res.reason}`, {}, 'warn');
+        return res;
+      }
+      audioEngine.playGearRustle();
+      return res;
+    });
+
+    engine.registerAction('vehicles/siphon', ({ vehicleId }) => {
+      const res = VehicleEngine.siphonFuel(store.state, vehicleId);
+      if (!res.ok) {
+        engine.log(`vehicle.reject.${res.reason}`, {}, 'warn');
+        return res;
+      }
+      audioEngine.playGearRustle();
+      codexManager.trackCareer('totalFuelSiphoned', res.siphonedLiters);
+      codexManager.unlockAchievement('fuel_siphoner');
+      engine.log('vehicle.log.siphoned', { siphoned: res.siphonedLiters, total: res.currentFuel }, 'good');
+      return res;
+    });
+  },
+};
+
+
+
+
+
   // --- src/data/archetypes.js ---
 /**
  * Selectable survivor backgrounds and starting anchors for the Main Menu
@@ -20144,6 +23378,8 @@ function appendChildren(parent, children) {
 
 
   // --- src/ui/mapView.js ---
+
+
 
 
 
@@ -20406,6 +23642,49 @@ class MapView {
           },
           t('map.action.survey'),
         ),
+        el(
+          'button',
+          {
+            type: 'button',
+            class: 'btn btn-ghost',
+            onClick: () => this.#engine.dispatch('economy/openBarter', {
+              merchantType: current.danger >= 3
+                ? 'iron_guard_quartermaster'
+                : (current.biome === 'wasteland' ? 'wasteland_peddler' : 'nomad_caravan'),
+            }),
+          },
+          `🤝 ${t('barter.action_open')}`,
+        ),
+        (() => {
+          const mountedId = state.vehicles?.mountedVehicleId;
+          const sectorVehicles = VehicleEngine.getVehiclesInSector(state, current.id);
+          const activeVehicle = mountedId
+            ? VehicleEngine.getVehicle(state, mountedId)
+            : (sectorVehicles.length > 0 ? sectorVehicles[0] : null);
+
+          if (!activeVehicle) return null;
+          const def = VEHICLE_CATALOG[activeVehicle.id];
+          const isMounted = mountedId === activeVehicle.id;
+
+          return el(
+            'button',
+            {
+              type: 'button',
+              class: ['btn', isMounted ? 'btn-accent' : 'btn-ghost'],
+              onClick: () => this.#engine.dispatch('vehicles/openModal', { vehicleId: activeVehicle.id }),
+            },
+            `${def?.glyph || '🚙'} ${t('vehicle.action_inspect')} ${isMounted ? `(${t('vehicle.status.driving')})` : ''}`,
+          );
+        })(),
+        el(
+          'button',
+          {
+            type: 'button',
+            class: 'btn btn-ghost',
+            onClick: () => this.#engine.dispatch('map/requestAirdrop'),
+          },
+          `📡 ${t('ad.action_airdrop')}`,
+        ),
         ...BALANCE.rest.options.map((hours) =>
           el(
             'button',
@@ -20442,7 +23721,13 @@ class MapView {
             { class: 'route-meta' },
             el('span', {}, `${t(`biome.${selected.biome}`)} · ${this.#formatCoords(selected)}`),
             directPlan
-              ? el('span', {}, `${directPlan.km} km · ~${(directPlan.minutes / 60).toFixed(1)}h`)
+              ? el(
+                  'span',
+                  {},
+                  directPlan.isDriving
+                    ? `🚙 ${directPlan.km} km · ~${(directPlan.minutes / 60).toFixed(1)}h (${directPlan.fuelNeeded}L)`
+                    : `${directPlan.km} km · ~${(directPlan.minutes / 60).toFixed(1)}h`,
+                )
               : el('span', { class: 'tone-warn' }, t('map.no_direct_corridor')),
           ),
         ),
@@ -20489,7 +23774,7 @@ class MapView {
             'div',
             { class: 'route-meta' },
             el('span', {}, `${t(`biome.${target.biome}`)} · ${plan.km} km`),
-            el('span', {}, `~${hours}h`),
+            el('span', {}, plan.isDriving ? `🚙 ~${hours}h (${plan.fuelNeeded}L)` : `~${hours}h`),
             el('span', { class: riskPct >= 45 ? 'tone-warn' : '' }, `${t('map.risk')} ${riskPct}%`),
           ),
         ),
@@ -20540,6 +23825,13 @@ class MapView {
       ({ itemId }) => getItem(itemId).category === 'medical' && getItem(itemId).use,
     );
 
+    const isSurrendered = Boolean(engagement.enemyStatus?.surrendered);
+    const isJammed = Boolean(engagement.weaponJammed);
+    const rangeName = t(`combat.range.${engagement.range || 'medium'}`);
+    const rangeMeter = RANGE_METERS[engagement.range || 'medium'] || '40m';
+    const playerCoverName = t(`combat.cover.${engagement.playerCover || 'none'}`);
+    const enemyCoverName = t(`combat.cover.${engagement.enemyCover || 'none'}`);
+
     const card = el(
       'div',
       { class: 'encounter-card combat-card' },
@@ -20549,7 +23841,25 @@ class MapView {
         `${t('combat.kicker')} // ${t('combat.round', { round: engagement.round })}`,
       ),
       el('h3', { class: 'encounter-title' }, t(`enemy.${engagement.enemyId}.name`)),
-      el('p', { class: 'encounter-text' }, t(`enemy.${engagement.enemyId}.desc`)),
+
+      // Tactical Telemetry Strip
+      el(
+        'div',
+        { class: 'tactical-telemetry' },
+        el('span', { class: 'tactical-badge is-highlight' }, `🎯 ${rangeName} (${rangeMeter})`),
+        el(
+          'span',
+          { class: ['tactical-badge', engagement.playerCover !== 'none' && 'is-good'] },
+          `🛡️ ${t('combat.player_cover')}: ${playerCoverName}`,
+        ),
+        engagement.enemyCover && engagement.enemyCover !== 'none' &&
+          el('span', { class: 'tactical-badge is-good' }, `🧱 ${t('combat.enemy_cover')}: ${enemyCoverName}`),
+        engagement.enemyStatus?.fracturedLeg &&
+          el('span', { class: 'tactical-badge is-good' }, `🦵 ${t('combat.status.leg_crippled')}`),
+        engagement.enemyStatus?.disarmed &&
+          el('span', { class: 'tactical-badge is-good' }, `🖐️ ${t('combat.status.disarmed')}`),
+      ),
+
       el(
         'div',
         { class: 'vital-row band-critical' },
@@ -20565,51 +23875,188 @@ class MapView {
           el('div', { class: 'meter-fill', style: `width: ${hpPct}%` }),
         ),
       ),
+
+      // Surrender Banner
+      isSurrendered &&
+        el(
+          'div',
+          { class: 'tactical-banner banner-surrender' },
+          t('combat.surrender_banner', { name: t(`enemy.${engagement.enemyId}.name`) }),
+        ),
+
+      // Weapon Jam Banner
+      !isSurrendered && isJammed &&
+        el(
+          'div',
+          { class: 'tactical-banner banner-jam' },
+          t('combat.jammed_banner'),
+        ),
+
+      // Dynamic Choices Container
       el(
         'div',
         { class: 'encounter-choices' },
-        el(
-          'button',
-          {
-            type: 'button',
-            class: 'btn btn-accent encounter-choice-btn',
-            onClick: () => this.#engine.dispatch('combat/action', { move: 'strike' }),
-          },
-          el('span', {}, `${t('combat.action.strike')} (${weaponLabel})`),
-          el('span', { class: 'choice-odds' }, '-3 STAM'),
-        ),
-        el(
-          'button',
-          {
-            type: 'button',
-            class: 'btn encounter-choice-btn',
-            onClick: () => this.#engine.dispatch('combat/action', { move: 'aimed' }),
-          },
-          el('span', {}, t('combat.action.aimed')),
-          el('span', { class: 'choice-odds' }, '1.5× DMG · -5 STAM'),
-        ),
-        el(
-          'button',
-          {
-            type: 'button',
-            class: ['btn', 'encounter-choice-btn', engagement.scavenged && 'is-disabled'],
-            disabled: engagement.scavenged,
-            onClick: () => this.#engine.dispatch('combat/action', { move: 'scavenge' }),
-          },
-          el('span', {}, t('combat.action.scavenge')),
-          el('span', { class: 'choice-odds' }, t('combat.scavenge_tag')),
-        ),
-        el(
-          'button',
-          {
-            type: 'button',
-            class: 'btn btn-ghost encounter-choice-btn',
-            onClick: () => this.#engine.dispatch('combat/action', { move: 'flee' }),
-          },
-          el('span', {}, t('combat.action.flee')),
-          el('span', { class: 'choice-odds' }, '-6 STAM'),
-        ),
+        isSurrendered ? [
+          el(
+            'button',
+            {
+              type: 'button',
+              class: 'btn btn-accent encounter-choice-btn',
+              onClick: () => this.#engine.dispatch('combat/action', { move: 'spare' }),
+            },
+            el('span', {}, t('combat.action.spare')),
+            el('span', { class: 'choice-odds' }, t('combat.spare_tag')),
+          ),
+          el(
+            'button',
+            {
+              type: 'button',
+              class: 'btn encounter-choice-btn',
+              onClick: () => this.#engine.dispatch('combat/action', { move: 'execute' }),
+            },
+            el('span', {}, t('combat.action.execute')),
+            el('span', { class: 'choice-odds' }, t('combat.execute_tag')),
+          ),
+        ] : isJammed ? [
+          el(
+            'button',
+            {
+              type: 'button',
+              class: 'btn btn-accent encounter-choice-btn',
+              onClick: () => this.#engine.dispatch('combat/action', { move: 'clear_jam' }),
+            },
+            el('span', {}, `🔧 ${t('combat.action.clear_jam')}`),
+            el('span', { class: 'choice-odds' }, '-3 STAM'),
+          ),
+          el(
+            'button',
+            {
+              type: 'button',
+              class: 'btn encounter-choice-btn',
+              onClick: () => this.#engine.dispatch('combat/action', { move: 'take_cover' }),
+            },
+            el('span', {}, `🛡️ ${t('combat.action.take_cover')}`),
+            el('span', { class: 'choice-odds' }, '-3 STAM'),
+          ),
+          el(
+            'button',
+            {
+              type: 'button',
+              class: 'btn btn-ghost encounter-choice-btn',
+              onClick: () => this.#engine.dispatch('combat/action', { move: 'flee' }),
+            },
+            el('span', {}, t('combat.action.flee')),
+            el('span', { class: 'choice-odds' }, '-6 STAM'),
+          ),
+        ] : [
+          el('div', { class: 'tactical-subhead' }, `${t('combat.targeted_fire')} (${weaponLabel})`),
+          el(
+            'div',
+            { class: 'tactical-target-grid' },
+            el(
+              'button',
+              {
+                type: 'button',
+                class: 'btn btn-xs encounter-choice-btn',
+                onClick: () => this.#engine.dispatch('combat/action', { move: 'targeted', zone: TARGET_ZONES.HEAD }),
+              },
+              el('span', {}, `💀 ${t('combat.zone.head')}`),
+              el('span', { class: 'choice-odds' }, '2.4× DMG · -5 STAM'),
+            ),
+            el(
+              'button',
+              {
+                type: 'button',
+                class: 'btn btn-xs btn-accent encounter-choice-btn',
+                onClick: () => this.#engine.dispatch('combat/action', { move: 'targeted', zone: TARGET_ZONES.TORSO }),
+              },
+              el('span', {}, `🎯 ${t('combat.zone.torso')}`),
+              el('span', { class: 'choice-odds' }, '1.0× DMG · -3 STAM'),
+            ),
+            el(
+              'button',
+              {
+                type: 'button',
+                class: 'btn btn-xs encounter-choice-btn',
+                onClick: () => this.#engine.dispatch('combat/action', { move: 'targeted', zone: TARGET_ZONES.LEGS }),
+              },
+              el('span', {}, `🦵 ${t('combat.zone.legs')}`),
+              el('span', { class: 'choice-odds' }, t('combat.tag_immobilize')),
+            ),
+            el(
+              'button',
+              {
+                type: 'button',
+                class: 'btn btn-xs encounter-choice-btn',
+                onClick: () => this.#engine.dispatch('combat/action', { move: 'targeted', zone: TARGET_ZONES.ARMS }),
+              },
+              el('span', {}, `🖐️ ${t('combat.zone.arms')}`),
+              el('span', { class: 'choice-odds' }, t('combat.tag_disarm')),
+            ),
+          ),
+
+          el('div', { class: 'tactical-subhead' }, t('combat.maneuvers')),
+          el(
+            'div',
+            { class: 'tactical-target-grid' },
+            el(
+              'button',
+              {
+                type: 'button',
+                class: 'btn btn-xs encounter-choice-btn',
+                onClick: () => this.#engine.dispatch('combat/action', { move: 'take_cover' }),
+              },
+              el('span', {}, `🛡️ ${t('combat.action.take_cover')}`),
+              el('span', { class: 'choice-odds' }, '-3 STAM'),
+            ),
+            el(
+              'button',
+              {
+                type: 'button',
+                class: ['btn', 'btn-xs', 'encounter-choice-btn', engagement.range === 'melee' && 'is-disabled'],
+                disabled: engagement.range === 'melee',
+                onClick: () => this.#engine.dispatch('combat/action', { move: 'advance' }),
+              },
+              el('span', {}, `👟 ${t('combat.action.advance')}`),
+              el('span', { class: 'choice-odds' }, '-4 STAM'),
+            ),
+            el(
+              'button',
+              {
+                type: 'button',
+                class: ['btn', 'btn-xs', 'encounter-choice-btn', engagement.range === 'extreme' && 'is-disabled'],
+                disabled: engagement.range === 'extreme',
+                onClick: () => this.#engine.dispatch('combat/action', { move: 'retreat' }),
+              },
+              el('span', {}, `↩ ${t('combat.action.retreat')}`),
+              el('span', { class: 'choice-odds' }, '-5 STAM'),
+            ),
+            el(
+              'button',
+              {
+                type: 'button',
+                class: 'btn btn-xs btn-ghost encounter-choice-btn',
+                onClick: () => this.#engine.dispatch('combat/action', { move: 'flee' }),
+              },
+              el('span', {}, `🏃 ${t('combat.action.flee')}`),
+              el('span', { class: 'choice-odds' }, '-6 STAM'),
+            ),
+          ),
+
+          el(
+            'button',
+            {
+              type: 'button',
+              class: ['btn', 'btn-xs', 'encounter-choice-btn', engagement.scavenged && 'is-disabled'],
+              disabled: engagement.scavenged,
+              onClick: () => this.#engine.dispatch('combat/action', { move: 'scavenge' }),
+            },
+            el('span', {}, `🎒 ${t('combat.action.scavenge')}`),
+            el('span', { class: 'choice-odds' }, t('combat.scavenge_tag')),
+          ),
+        ],
       ),
+
       medStacks.length > 0 && el(
         'div',
         { class: 'ops-actions' },
@@ -21707,6 +25154,7 @@ function getAgeBracket(age) {
 
 
 
+
 class MenuView {
   #root;
   #onContinue;
@@ -21718,6 +25166,7 @@ class MenuView {
   #onSaveSlot;
   #onDeleteSlot;
   #onResetAll;
+  #onOpenCodex;
 
   #name = 'Mara';
   #age = 28;
@@ -21746,6 +25195,7 @@ class MenuView {
     onSaveSlot,
     onDeleteSlot,
     onResetAll,
+    onOpenCodex,
   }) {
     this.#root = root;
     this.#onContinue = onContinue;
@@ -21757,6 +25207,7 @@ class MenuView {
     this.#onSaveSlot = onSaveSlot;
     this.#onDeleteSlot = onDeleteSlot;
     this.#onResetAll = onResetAll;
+    this.#onOpenCodex = onOpenCodex;
   }
 
   get isOpen() {
@@ -21973,6 +25424,16 @@ class MenuView {
         onClick: () => {
           this.#mode = 'load_game';
           this.render();
+        },
+      },
+      {
+        id: 'codex',
+        glyph: '📖',
+        titleKey: 'menu.action.codex_memorial',
+        descKey: 'menu.action.desc_codex_memorial',
+        isAccent: false,
+        onClick: () => {
+          if (this.#onOpenCodex) this.#onOpenCodex();
         },
       },
       {
@@ -22339,6 +25800,50 @@ class MenuView {
       t('menu.premium.feature_4'),
     ].map((f) => el('li', { class: 'premium-feature-item' }, el('span', { class: 'premium-bullet' }, '✦'), el('span', {}, f)));
 
+    let promoInputEl;
+    let promoFeedbackEl = el('span', { class: 'promo-feedback-msg' }, '');
+
+    const promoBox = !isPremium
+      ? el(
+          'div',
+          { class: 'promo-code-container' },
+          el('span', { class: 'promo-code-label' }, t('menu.premium.promo_label')),
+          el(
+            'div',
+            { class: 'promo-code-row' },
+            (promoInputEl = el('input', {
+              type: 'text',
+              class: 'promo-code-input',
+              placeholder: 'Örn: VIP-SURVIVOR',
+              maxLength: 30,
+            })),
+            el(
+              'button',
+              {
+                type: 'button',
+                class: 'btn btn-sm btn-accent',
+                onClick: () => {
+                  const val = promoInputEl?.value?.trim();
+                  const res = adManager.redeemPromoCode(val);
+                  if (res.ok) {
+                    promoFeedbackEl.textContent = t('menu.premium.promo_success');
+                    promoFeedbackEl.className = 'promo-feedback-msg tone-good';
+                    setTimeout(() => {
+                      this.render();
+                    }, 600);
+                  } else {
+                    promoFeedbackEl.textContent = t('menu.premium.promo_invalid');
+                    promoFeedbackEl.className = 'promo-feedback-msg tone-warn';
+                  }
+                },
+              },
+              t('menu.premium.promo_submit'),
+            ),
+          ),
+          promoFeedbackEl,
+        )
+      : null;
+
     return el(
       'div',
       { class: 'premium-modal-backdrop' },
@@ -22350,9 +25855,10 @@ class MenuView {
           { class: 'premium-modal-header' },
           el('span', { class: 'premium-kicker' }, t('menu.premium.kicker')),
           el('h2', { class: 'premium-title' }, `👑 ${t('menu.premium.title')}`),
-          el('p', { class: 'premium-desc' }, t('menu.premium.desc')),
+          el('p', { class: 'premium-desc' }, isPremium ? t('menu.premium.active_badge') : t('menu.premium.desc')),
         ),
         el('ul', { class: 'premium-feature-list' }, featureItems),
+        promoBox,
         el(
           'div',
           { class: 'premium-modal-actions' },
@@ -22366,7 +25872,6 @@ class MenuView {
                     if (this.#saveManager) {
                       this.#saveManager.setPremium(true);
                     }
-                    this.#isPremiumModalOpen = false;
                     this.render();
                   },
                 },
@@ -22381,7 +25886,6 @@ class MenuView {
                     if (this.#saveManager) {
                       this.#saveManager.setPremium(false);
                     }
-                    this.#isPremiumModalOpen = false;
                     this.render();
                   },
                 },
@@ -23014,15 +26518,20 @@ class MenuView {
             type: 'button',
             class: 'btn btn-accent menu-nav-btn menu-deploy-btn',
             onClick: () => {
-              const finalName = this.#name.trim() || t('character.default_name');
-              this.#onStartNew({
-                name: finalName,
-                age: this.#age,
-                bloodType: this.#bloodType,
-                trait: this.#selectedTrait,
-                archetypeId: this.#selectedArchetype,
-                locationId: this.#selectedLocation,
-              });
+              try {
+                const finalName = this.#name.trim() || t('character.default_name');
+                this.close();
+                this.#onStartNew({
+                  name: finalName,
+                  age: this.#age,
+                  bloodType: this.#bloodType,
+                  trait: this.#selectedTrait,
+                  archetypeId: this.#selectedArchetype,
+                  locationId: this.#selectedLocation,
+                });
+              } catch (err) {
+                console.error('[menuView] deploy button error:', err);
+              }
             },
           },
           t('character.action.deploy'),
@@ -23269,6 +26778,1054 @@ class LootModalView {
 
 
 
+  // --- src/ui/barterModalView.js ---
+
+
+
+
+
+class BarterModalView {
+  #root;
+  #engine;
+
+  constructor(root, engine) {
+    this.#root = root;
+    this.#engine = engine;
+
+    engine.bus.on('barter:modal', ({ active }) => {
+      if (active) {
+        this.open();
+      } else {
+        this.close();
+      }
+    });
+  }
+
+  get isOpen() {
+    return !this.#root.hidden;
+  }
+
+  open() {
+    this.#root.hidden = false;
+    this.render();
+  }
+
+  close() {
+    this.#root.hidden = true;
+    this.#root.replaceChildren();
+  }
+
+  render() {
+    if (this.#root.hidden) return;
+
+    const state = this.#engine.store.state;
+    const session = state.economy?.activeSession;
+    if (!session) {
+      this.close();
+      return;
+    }
+
+    const profile = MERCHANT_PROFILES[session.merchantType] || MERCHANT_PROFILES[MERCHANT_TYPES.NOMAD_CARAVAN];
+    const merchantTitle = t(`barter.merchant.${session.merchantType}.name`);
+    const merchantDesc = t(`barter.merchant.${session.merchantType}.desc`);
+
+    // Prepare arrays for evaluation
+    const playerOfferArr = Object.entries(session.playerOffer).map(([itemId, qty]) => ({ itemId, qty }));
+    const merchantDemandArr = Object.entries(session.merchantDemands).map(([itemId, qty]) => ({ itemId, qty }));
+
+    const evaluation = BarterEngine.evaluateTrade({
+      playerOffer: playerOfferArr,
+      merchantDemands: merchantDemandArr,
+      merchantType: session.merchantType,
+      state,
+      haggleDiscount: session.haggleDiscount,
+    });
+
+    // 1. Header
+    const headerEl = el(
+      'div',
+      { class: 'action-modal-header' },
+      el('div', { class: 'encounter-kicker' }, `${t('barter.kicker')} // ${t(`faction.${session.faction}.name`)}`),
+      el('h3', { class: 'action-modal-title' }, merchantTitle),
+    );
+
+    // 2. Evaluation Status Bar
+    const statusClass = evaluation.isBalanced ? 'is-good' : 'is-danger';
+    const statusText = evaluation.isBalanced
+      ? `✓ ${t('barter.status_balanced')}`
+      : `⚠ ${t('barter.status_insufficient', { diff: Math.abs(evaluation.difference) })}`;
+
+    const evaluationEl = el(
+      'div',
+      { class: 'barter-eval-bar' },
+      el(
+        'div',
+        { class: 'barter-value-group' },
+        el('span', { class: 'muted-note' }, t('barter.player_offered_val')),
+        el('strong', { class: 'barter-val-num' }, `${evaluation.playerTotal} pts`),
+      ),
+      el(
+        'div',
+        { class: 'barter-value-group' },
+        el('span', { class: 'muted-note' }, t('barter.merchant_demanded_val')),
+        el('strong', { class: 'barter-val-num' }, `${evaluation.merchantRequiredTotal} pts`),
+      ),
+      el(
+        'div',
+        { class: ['barter-status-tag', statusClass] },
+        statusText,
+      ),
+    );
+
+    // 3. Two-Column Exchange Area
+    // Left: Player Inventory Stacks
+    const playerStacks = state.inventory.stacks || [];
+    const playerItemsList = el(
+      'div',
+      { class: 'barter-column-list' },
+      playerStacks.length === 0
+        ? el('p', { class: 'muted-note' }, t('barter.player_empty'))
+        : playerStacks.map(({ itemId, qty: totalQty }) => {
+            const def = getItem(itemId);
+            const val = getItemBarterValue(itemId);
+            const currentlyOffered = session.playerOffer[itemId] || 0;
+
+            return el(
+              'div',
+              { class: ['barter-item-row', currentlyOffered > 0 && 'is-active'] },
+              el(
+                'div',
+                { class: 'barter-item-meta' },
+                el('span', { class: 'barter-item-name' }, t(`item.${itemId}.name`)),
+                el('span', { class: 'muted-note' }, `${val} pts · pack: ${totalQty}`),
+              ),
+              el(
+                'div',
+                { class: 'barter-stepper' },
+                el(
+                  'button',
+                  {
+                    type: 'button',
+                    class: ['btn btn-xs', currentlyOffered === 0 && 'is-disabled'],
+                    disabled: currentlyOffered === 0,
+                    onClick: () => this.#engine.dispatch('economy/togglePlayerOffer', { itemId, delta: -1 }),
+                  },
+                  '-',
+                ),
+                el('span', { class: 'barter-qty-indicator' }, String(currentlyOffered)),
+                el(
+                  'button',
+                  {
+                    type: 'button',
+                    class: ['btn btn-xs', currentlyOffered >= totalQty && 'is-disabled'],
+                    disabled: currentlyOffered >= totalQty,
+                    onClick: () => this.#engine.dispatch('economy/togglePlayerOffer', { itemId, delta: 1 }),
+                  },
+                  '+',
+                ),
+              ),
+            );
+          }),
+    );
+
+    // Right: Merchant Stock
+    const merchantStock = profile.inventoryStock || [];
+    const merchantItemsList = el(
+      'div',
+      { class: 'barter-column-list' },
+      merchantStock.map(({ itemId, qty: maxStock }) => {
+        const val = getItemBarterValue(itemId);
+        const wanted = session.merchantDemands[itemId] || 0;
+
+        return el(
+          'div',
+          { class: ['barter-item-row', wanted > 0 && 'is-active'] },
+          el(
+            'div',
+            { class: 'barter-item-meta' },
+            el('span', { class: 'barter-item-name' }, t(`item.${itemId}.name`)),
+            el('span', { class: 'muted-note' }, `${val} pts · stock: ${maxStock}`),
+          ),
+          el(
+            'div',
+            { class: 'barter-stepper' },
+            el(
+              'button',
+              {
+                type: 'button',
+                class: ['btn btn-xs', wanted === 0 && 'is-disabled'],
+                disabled: wanted === 0,
+                onClick: () => this.#engine.dispatch('economy/toggleMerchantDemand', { itemId, delta: -1 }),
+              },
+              '-',
+            ),
+            el('span', { class: 'barter-qty-indicator' }, String(wanted)),
+            el(
+              'button',
+              {
+                type: 'button',
+                class: ['btn btn-xs', wanted >= maxStock && 'is-disabled'],
+                disabled: wanted >= maxStock,
+                onClick: () => this.#engine.dispatch('economy/toggleMerchantDemand', { itemId, delta: 1 }),
+              },
+              '+',
+            ),
+          ),
+        );
+      }),
+    );
+
+    const columnsGrid = el(
+      'div',
+      { class: 'barter-columns-grid' },
+      el(
+        'div',
+        { class: 'barter-col' },
+        el('div', { class: 'tactical-subhead' }, `🎒 ${t('barter.col_player')}`),
+        playerItemsList,
+      ),
+      el(
+        'div',
+        { class: 'barter-col' },
+        el('div', { class: 'tactical-subhead' }, `📦 ${t('barter.col_merchant')}`),
+        merchantItemsList,
+      ),
+    );
+
+    // 4. Modal Footer Controls
+    const canTrade = evaluation.isBalanced && merchantDemandArr.length > 0;
+    const footerEl = el(
+      'div',
+      { class: 'action-modal-footer barter-footer' },
+      el(
+        'button',
+        {
+          type: 'button',
+          class: ['btn btn-xs', session.haggleAttempted && 'is-disabled'],
+          disabled: session.haggleAttempted,
+          onClick: () => this.#engine.dispatch('economy/haggle'),
+        },
+        session.haggleAttempted
+          ? `✓ ${t('barter.haggle_done')} (${evaluation.discountPercent}% off)`
+          : `💬 ${t('barter.action_haggle')}`,
+      ),
+      el(
+        'button',
+        {
+          type: 'button',
+          class: 'btn btn-xs btn-ghost',
+          onClick: () => this.#engine.dispatch('economy/closeBarter'),
+        },
+        t('barter.action_cancel'),
+      ),
+      el(
+        'button',
+        {
+          type: 'button',
+          class: ['btn btn-xs btn-accent', !canTrade && 'is-disabled'],
+          disabled: !canTrade,
+          onClick: () => this.#engine.dispatch('economy/executeTrade'),
+        },
+        `🤝 ${t('barter.action_confirm')}`,
+      ),
+    );
+
+    const card = el(
+      'div',
+      { class: 'action-modal-card barter-modal-card' },
+      headerEl,
+      el('p', { class: 'action-modal-desc' }, merchantDesc),
+      evaluationEl,
+      columnsGrid,
+      footerEl,
+    );
+
+    this.#root.replaceChildren(card);
+  }
+}
+
+
+
+  // --- src/ui/vehicleModalView.js ---
+/**
+ * Last Breath // Vehicle & Overland Travel Modal View
+ * Dedicated terminal dossier for vehicle restoration, component installation,
+ * fuel telemetry, field siphoning, and bidirectional pack/trunk cargo transfer.
+ */
+
+
+
+
+
+
+
+class VehicleModalView {
+  #rootEl;
+  #engine;
+  #activeVehicleId = null;
+
+  constructor(rootEl, engine) {
+    this.#rootEl = rootEl;
+    this.#engine = engine;
+
+    // Listen to store updates
+    this.#engine.bus.on('store:updated', () => {
+      if (!this.#rootEl.hidden && this.#activeVehicleId) {
+        this.render(this.#engine.store.state);
+      }
+    });
+
+    // Action listener for opening/closing
+    this.#engine.bus.on('vehicles:modal', ({ vehicleId }) => {
+      if (vehicleId) {
+        this.open(vehicleId);
+      } else {
+        this.close();
+      }
+    });
+  }
+
+  open(vehicleId) {
+    this.#activeVehicleId = vehicleId;
+    this.#rootEl.hidden = false;
+    this.render(this.#engine.store.state);
+  }
+
+  close() {
+    this.#activeVehicleId = null;
+    this.#rootEl.hidden = true;
+    this.#rootEl.replaceChildren();
+    try {
+      this.#engine.store.commit('vehicles/closeModal');
+    } catch {}
+  }
+
+  render(state) {
+    if (!this.#activeVehicleId) {
+      this.#rootEl.hidden = true;
+      return;
+    }
+
+    const vehicle = VehicleEngine.getVehicle(state, this.#activeVehicleId);
+    const def = VEHICLE_CATALOG[this.#activeVehicleId];
+    if (!vehicle || !def) {
+      this.close();
+      return;
+    }
+
+    const isMounted = state.vehicles?.mountedVehicleId === this.#activeVehicleId;
+    const trunkWeight = VehicleEngine.getCargoWeight(vehicle);
+    const trunkPct = Math.min(100, Math.round((trunkWeight / def.trunkCapacityKg) * 100));
+    const fuelPct = Math.min(100, Math.round((vehicle.fuelLiters / vehicle.maxFuel) * 100));
+
+    const card = el(
+      'div',
+      { class: 'modal-card vehicle-modal-card' },
+
+      // Header Cluster
+      el(
+        'div',
+        { class: 'vehicle-header' },
+        el(
+          'div',
+          { class: 'vehicle-title-cluster' },
+          el('span', { class: 'vehicle-glyph' }, def.glyph),
+          el(
+            'div',
+            {},
+            el('h2', { class: 'vehicle-title' }, t(def.nameKey)),
+            el(
+              'div',
+              { class: 'vehicle-submeta' },
+              el('span', {}, `${t('vehicle.label.sector')}: ${t(`location.${vehicle.nodeId}`)}`),
+              el('span', {}, ' · '),
+              el(
+                'span',
+                { class: vehicle.restored ? 'tone-good' : 'tone-warn' },
+                vehicle.restored ? t('vehicle.status.operational') : t('vehicle.status.abandoned'),
+              ),
+              isMounted && el('span', { class: 'tactical-badge is-good' }, `🟢 ${t('vehicle.status.driving')}`),
+            ),
+          ),
+        ),
+        el(
+          'button',
+          {
+            type: 'button',
+            class: 'btn btn-ghost btn-xs',
+            onClick: () => this.close(),
+          },
+          '✕',
+        ),
+      ),
+
+      // Ignition / Mount Control Strip
+      el(
+        'div',
+        { class: 'vehicle-control-strip' },
+        isMounted
+          ? el(
+              'button',
+              {
+                type: 'button',
+                class: 'btn btn-warn btn-sm',
+                onClick: () => this.#engine.dispatch('vehicles/dismount'),
+              },
+              `🛑 ${t('vehicle.action.dismount')}`,
+            )
+          : el(
+              'button',
+              {
+                type: 'button',
+                class: ['btn', vehicle.restored && vehicle.fuelLiters > 0 ? 'btn-accent' : 'btn-disabled', 'btn-sm'],
+                disabled: !vehicle.restored || vehicle.fuelLiters <= 0,
+                onClick: () => this.#engine.dispatch('vehicles/mount', { vehicleId: this.#activeVehicleId }),
+              },
+              `🔑 ${t('vehicle.action.mount')}`,
+            ),
+        el(
+          'div',
+          { class: 'vehicle-specs-pills' },
+          el('span', { class: 'tactical-badge' }, `⚡ ${def.speedMultiplier <= 0.25 ? '4.5x' : '3.0x'} ${t('vehicle.spec.speed')}`),
+          el('span', { class: 'tactical-badge' }, `🔊 +${Math.round((def.noiseRiskMultiplier - 1) * 100)}% ${t('vehicle.spec.noise')}`),
+          def.cabinShelter && el('span', { class: 'tactical-badge is-good' }, `🛡️ ${t('vehicle.spec.shelter')}`),
+        ),
+      ),
+
+      // Telemetry Gauges (Fuel & Engine Health)
+      el(
+        'div',
+        { class: 'vehicle-telemetry-grid' },
+        el(
+          'div',
+          { class: 'vital-row' },
+          el(
+            'div',
+            { class: 'vital-head' },
+            el('span', { class: 'vital-label' }, `⛽ ${t('vehicle.gauge.fuel')} (${def.fuelType.toUpperCase()})`),
+            el('span', { class: 'vital-value' }, `${vehicle.fuelLiters.toFixed(1)} / ${vehicle.maxFuel} L`),
+          ),
+          el(
+            'div',
+            { class: 'meter-track' },
+            el('div', { class: ['meter-fill', fuelPct < 20 ? 'tone-fill-warn' : 'tone-fill-good'], style: `width: ${fuelPct}%` }),
+          ),
+        ),
+        el(
+          'div',
+          { class: 'vital-row' },
+          el(
+            'div',
+            { class: 'vital-head' },
+            el('span', { class: 'vital-label' }, `🛠️ ${t('vehicle.gauge.condition')}`),
+            el('span', { class: 'vital-value' }, `${vehicle.condition}%`),
+          ),
+          el(
+            'div',
+            { class: 'meter-track' },
+            el('div', { class: ['meter-fill', vehicle.condition < 30 ? 'tone-fill-bad' : 'tone-fill-accent'], style: `width: ${vehicle.condition}%` }),
+          ),
+        ),
+      ),
+
+      // Restoration & Maintenance Section
+      this.#renderRestorationBlock(state, vehicle, def),
+
+      // Dual Column Trunk & Pack Cargo Transfer
+      this.#renderCargoBay(state, vehicle, def, trunkWeight, trunkPct),
+    );
+
+    this.#rootEl.replaceChildren(card);
+  }
+
+  #renderRestorationBlock(state, vehicle, def) {
+    const isRestored = vehicle.restored;
+
+    // Component Checklist
+    const partsRows = def.partsRequired.map((req) => {
+      const installed = vehicle.installedParts?.[req.itemId] || 0;
+      const needed = req.qty;
+      const isComplete = installed >= needed;
+      const availableItemId = VehicleEngine.findAvailablePartInInventory(state.inventory, req);
+
+      return el(
+        'div',
+        { class: ['vehicle-part-row', isComplete ? 'is-complete' : 'is-missing'] },
+        el(
+          'div',
+          { class: 'vehicle-part-info' },
+          el('span', { class: 'part-icon' }, isComplete ? '✓' : '✗'),
+          el('span', { class: 'part-name' }, t(`item.${req.itemId}.name`)),
+          el('span', { class: 'part-qty' }, `[${installed} / ${needed}]`),
+        ),
+        !isComplete && availableItemId && el(
+          'button',
+          {
+            type: 'button',
+            class: 'btn btn-accent btn-xs',
+            onClick: () => this.#engine.dispatch('vehicles/installPart', {
+              vehicleId: vehicle.id,
+              reqItemId: req.itemId,
+            }),
+          },
+          `+ ${t('vehicle.action.install')}`,
+        ),
+        !isComplete && !availableItemId && el(
+          'span',
+          { class: 'part-missing-tag' },
+          t('vehicle.status.missing'),
+        ),
+      );
+    });
+
+    // Quick Refuel / Siphon Buttons
+    const hasGasCan = countItem(state.inventory, 'gasoline_fuel_canister_5l') > 0;
+    const hasDiesel5 = countItem(state.inventory, 'diesel_fuel_canister_5l') > 0;
+    const hasDiesel10 = countItem(state.inventory, 'diesel_fuel_canister_10l') > 0;
+    const hasSiphonHose = countItem(state.inventory, 'fuel_siphon_hose') > 0;
+    const hasScrap = countItem(state.inventory, 'scrap_metal') > 0;
+    const hasOil = countItem(state.inventory, 'motor_oil_10w40_bottle') > 0 ||
+      countItem(state.inventory, 'motor_oil_synthetic_10w40') > 0;
+
+    const maintenanceOps = el(
+      'div',
+      { class: 'vehicle-maintenance-actions' },
+      def.fuelType === 'gasoline' && hasGasCan && el(
+        'button',
+        {
+          type: 'button',
+          class: 'btn btn-xs',
+          onClick: () => this.#engine.dispatch('vehicles/refuel', {
+            vehicleId: vehicle.id,
+            canisterItemId: 'gasoline_fuel_canister_5l',
+          }),
+        },
+        `⛽ +5L ${t('item.gasoline_fuel_canister_5l.name')}`,
+      ),
+      def.fuelType === 'diesel' && hasDiesel5 && el(
+        'button',
+        {
+          type: 'button',
+          class: 'btn btn-xs',
+          onClick: () => this.#engine.dispatch('vehicles/refuel', {
+            vehicleId: vehicle.id,
+            canisterItemId: 'diesel_fuel_canister_5l',
+          }),
+        },
+        `⛽ +5L ${t('item.diesel_fuel_canister_5l.name')}`,
+      ),
+      def.fuelType === 'diesel' && hasDiesel10 && el(
+        'button',
+        {
+          type: 'button',
+          class: 'btn btn-xs',
+          onClick: () => this.#engine.dispatch('vehicles/refuel', {
+            vehicleId: vehicle.id,
+            canisterItemId: 'diesel_fuel_canister_10l',
+          }),
+        },
+        `⛽ +10L ${t('item.diesel_fuel_canister_10l.name')}`,
+      ),
+      hasSiphonHose && el(
+        'button',
+        {
+          type: 'button',
+          class: 'btn btn-ghost btn-xs',
+          onClick: () => this.#engine.dispatch('vehicles/siphon', { vehicleId: vehicle.id }),
+        },
+        `🧪 ${t('vehicle.action.siphon')}`,
+      ),
+      hasScrap && vehicle.condition < 100 && el(
+        'button',
+        {
+          type: 'button',
+          class: 'btn btn-ghost btn-xs',
+          onClick: () => this.#engine.dispatch('vehicles/repair', {
+            vehicleId: vehicle.id,
+            repairItemId: 'scrap_metal',
+          }),
+        },
+        `🔨 +10% ${t('vehicle.action.repair_scrap')}`,
+      ),
+      hasOil && vehicle.condition < 100 && el(
+        'button',
+        {
+          type: 'button',
+          class: 'btn btn-ghost btn-xs',
+          onClick: () => this.#engine.dispatch('vehicles/repair', {
+            vehicleId: vehicle.id,
+            repairItemId: countItem(state.inventory, 'motor_oil_10w40_bottle') > 0
+              ? 'motor_oil_10w40_bottle'
+              : 'motor_oil_synthetic_10w40',
+          }),
+        },
+        `🛢️ +25% ${t('vehicle.action.repair_oil')}`,
+      ),
+    );
+
+    return el(
+      'section',
+      { class: 'vehicle-section' },
+      el('h3', { class: 'block-title' }, isRestored ? t('vehicle.section.maintenance') : t('vehicle.section.restoration')),
+      !isRestored && el('div', { class: 'vehicle-parts-list' }, partsRows),
+      maintenanceOps,
+    );
+  }
+
+  #renderCargoBay(state, vehicle, def, trunkWeight, trunkPct) {
+    const packStacks = state.inventory.stacks || [];
+    const trunkStacks = vehicle.cargo || [];
+
+    // Left Column: Survivor Pack
+    const packItems = packStacks.map((stack) => {
+      const item = getItem(stack.itemId);
+      return el(
+        'li',
+        { class: 'cargo-item-row' },
+        el(
+          'div',
+          { class: 'cargo-item-meta' },
+          el('span', { class: 'item-glyph' }, item?.glyph || '•'),
+          el('span', { class: 'item-title' }, t(`item.${stack.itemId}.name`)),
+          el('span', { class: 'item-qty' }, `x${stack.qty}`),
+        ),
+        el(
+          'button',
+          {
+            type: 'button',
+            class: 'btn btn-ghost btn-xs',
+            onClick: () => this.#engine.dispatch('vehicles/toCargo', {
+              vehicleId: vehicle.id,
+              itemId: stack.itemId,
+              qty: 1,
+            }),
+          },
+          `→ ${t('vehicle.action.to_trunk')}`,
+        ),
+      );
+    });
+
+    // Right Column: Vehicle Trunk
+    const trunkItems = trunkStacks.map((stack) => {
+      const item = getItem(stack.itemId);
+      return el(
+        'li',
+        { class: 'cargo-item-row' },
+        el(
+          'div',
+          { class: 'cargo-item-meta' },
+          el('span', { class: 'item-glyph' }, item?.glyph || '•'),
+          el('span', { class: 'item-title' }, t(`item.${stack.itemId}.name`)),
+          el('span', { class: 'item-qty' }, `x${stack.qty}`),
+        ),
+        el(
+          'button',
+          {
+            type: 'button',
+            class: 'btn btn-ghost btn-xs',
+            onClick: () => this.#engine.dispatch('vehicles/toPack', {
+              vehicleId: vehicle.id,
+              itemId: stack.itemId,
+              qty: 1,
+            }),
+          },
+          `← ${t('vehicle.action.to_pack')}`,
+        ),
+      );
+    });
+
+    return el(
+      'section',
+      { class: 'vehicle-section vehicle-cargo-section' },
+      el(
+        'div',
+        { class: 'cargo-bay-head' },
+        el('h3', { class: 'block-title' }, `📦 ${t('vehicle.section.cargo_bay')}`),
+        el(
+          'div',
+          { class: 'trunk-capacity-strip' },
+          el('span', {}, `${t('vehicle.label.trunk_load')}: `),
+          el('strong', {}, `${trunkWeight} / ${def.trunkCapacityKg} kg`),
+          el(
+            'div',
+            { class: 'meter-track meter-track-sm' },
+            el('div', { class: 'meter-fill tone-fill-good', style: `width: ${trunkPct}%` }),
+          ),
+        ),
+      ),
+      el(
+        'div',
+        { class: 'cargo-bay-grid' },
+        el(
+          'div',
+          { class: 'cargo-bay-col' },
+          el('h4', { class: 'cargo-col-title' }, `🎒 ${t('vehicle.label.pack_inventory')}`),
+          packItems.length > 0
+            ? el('ul', { class: 'cargo-items-list' }, packItems)
+            : el('p', { class: 'muted-note' }, t('vehicle.label.pack_empty')),
+        ),
+        el(
+          'div',
+          { class: 'cargo-bay-col' },
+          el('h4', { class: 'cargo-col-title' }, `🚙 ${t('vehicle.label.trunk_inventory')}`),
+          trunkItems.length > 0
+            ? el('ul', { class: 'cargo-items-list' }, trunkItems)
+            : el('p', { class: 'muted-note' }, t('vehicle.label.trunk_empty')),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+  // --- src/ui/codexModalView.js ---
+/**
+ * Last Breath // Codex, Permadeath Memorial & Career Statistics View
+ * Interactive terminal dossier governing the fallen survivors graveyard,
+ * career telemetry dials, achievement medals, and classified post-collapse lore.
+ */
+
+
+
+
+
+class CodexModalView {
+  #rootEl;
+  #engine;
+  #activeTab = 'memorial'; // 'memorial' | 'achievements' | 'career' | 'lore'
+
+  constructor(rootEl, engine) {
+    this.#rootEl = rootEl;
+    this.#engine = engine;
+    codexManager.setBus(engine.bus);
+
+    // Achievement unlock banner listener
+    engine.bus.on('codex:achievement_unlocked', ({ id, catalog }) => {
+      this.#showUnlockToast(catalog);
+      if (!this.#rootEl.hidden) {
+        this.render();
+      }
+    });
+
+    // Listen for direct open/close modal events
+    engine.bus.on('codex:modal', ({ tab } = {}) => {
+      if (tab) this.#activeTab = tab;
+      this.open();
+    });
+  }
+
+  open(tab = 'memorial') {
+    this.#activeTab = tab;
+    this.#rootEl.hidden = false;
+    this.render();
+  }
+
+  close() {
+    this.#rootEl.hidden = true;
+    this.#rootEl.replaceChildren();
+  }
+
+  #showUnlockToast(catalog) {
+    const toast = document.getElementById('toast-banner');
+    if (!toast) return;
+    toast.textContent = `🏆 ${t('codex.toast_unlocked')}: ${t(catalog.titleKey)}`;
+    toast.classList.add('is-visible');
+    setTimeout(() => {
+      toast.classList.remove('is-visible');
+    }, 4500);
+  }
+
+  render() {
+    if (this.#rootEl.hidden) return;
+
+    const rank = codexManager.getSurvivalRank();
+    const achievements = codexManager.achievements;
+    const totalAch = Object.keys(ACHIEVEMENTS_CATALOG).length;
+    const unlockedAch = Object.keys(achievements).length;
+
+    const card = el(
+      'div',
+      { class: 'modal-card codex-modal-card' },
+
+      // Header Cluster
+      el(
+        'div',
+        { class: 'codex-header' },
+        el(
+          'div',
+          { class: 'codex-title-cluster' },
+          el('span', { class: 'codex-header-glyph' }, '📖'),
+          el(
+            'div',
+            {},
+            el('h2', { class: 'codex-title' }, t('codex.title')),
+            el(
+              'div',
+              { class: 'codex-submeta' },
+              el('span', {}, `${t('codex.label.rank')}: ${rank.glyph} ${t(rank.rankKey)}`),
+              el('span', {}, ' · '),
+              el('span', { class: 'tone-amber' }, `${unlockedAch} / ${totalAch} ${t('codex.label.achievements')}`),
+            ),
+          ),
+        ),
+        el(
+          'button',
+          {
+            type: 'button',
+            class: 'btn btn-ghost btn-xs',
+            onClick: () => this.close(),
+          },
+          '✕',
+        ),
+      ),
+
+      // Dossier Tab Switcher
+      el(
+        'div',
+        { class: 'codex-tab-bar' },
+        [
+          { id: 'memorial', labelKey: 'codex.tab.memorial', glyph: '🪦' },
+          { id: 'achievements', labelKey: 'codex.tab.achievements', glyph: '🏆' },
+          { id: 'career', labelKey: 'codex.tab.career', glyph: '📊' },
+          { id: 'lore', labelKey: 'codex.tab.lore', glyph: '📁' },
+        ].map((tab) =>
+          el(
+            'button',
+            {
+              type: 'button',
+              class: ['codex-tab-btn', this.#activeTab === tab.id && 'is-active'],
+              onClick: () => {
+                this.#activeTab = tab.id;
+                this.render();
+              },
+            },
+            `${tab.glyph} ${t(tab.labelKey)}`,
+          ),
+        ),
+      ),
+
+      // Tab Content Body
+      el('div', { class: 'codex-body' }, this.#renderActiveTabContent()),
+    );
+
+    this.#rootEl.replaceChildren(card);
+  }
+
+  #renderActiveTabContent() {
+    switch (this.#activeTab) {
+      case 'memorial':
+        return this.#renderMemorialTab();
+      case 'achievements':
+        return this.#renderAchievementsTab();
+      case 'career':
+        return this.#renderCareerTab();
+      case 'lore':
+        return this.#renderLoreTab();
+      default:
+        return el('div', {}, 'Unknown Tab');
+    }
+  }
+
+  // =========================================================================
+  // 1. MEMORIAL GRAVEYARD TAB
+  // =========================================================================
+  #renderMemorialTab() {
+    const records = codexManager.memorial;
+
+    if (records.length === 0) {
+      return el(
+        'div',
+        { class: 'memorial-empty-state' },
+        el('div', { class: 'empty-glyph' }, '🕯️'),
+        el('h3', { class: 'empty-title' }, t('codex.memorial.empty_title')),
+        el('p', { class: 'empty-desc' }, t('codex.memorial.empty_desc')),
+      );
+    }
+
+    const items = records.map((survivor) => {
+      const dateStr = new Date(survivor.diedAtTimestamp).toLocaleDateString(
+        i18n.locale === 'tr' ? 'tr-TR' : 'en-US',
+        { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' },
+      );
+
+      return el(
+        'div',
+        { class: 'memorial-card' },
+        el(
+          'div',
+          { class: 'memorial-card-head' },
+          el(
+            'div',
+            { class: 'memorial-name-cluster' },
+            el('span', { class: 'memorial-rip-icon' }, '✟'),
+            el('strong', { class: 'memorial-name' }, survivor.name),
+            el('span', { class: 'memorial-archetype-tag' }, t(`archetype.${survivor.archetype}.name`)),
+          ),
+          el('span', { class: 'memorial-date' }, dateStr),
+        ),
+        el(
+          'div',
+          { class: 'memorial-vital-stats' },
+          el('span', {}, `📍 ${t(`location.${survivor.deathLocation}`)}`),
+          el('span', {}, ' · '),
+          el('span', { class: 'tone-warn' }, `💀 ${t(`death.cause.${survivor.causeOfDeath}`)}`),
+          el('span', {}, ' · '),
+          el('span', {}, `⏳ ${survivor.daysSurvived} ${t('codex.label.days_survived')}`),
+          el('span', {}, ' · '),
+          el('span', {}, `🗺️ ${survivor.sectorsVisited} ${t('codex.label.sectors')}`),
+          el('span', {}, ' · '),
+          el('span', {}, `⚔️ ${survivor.enemiesNeutralized} ${t('codex.label.kills')}`),
+        ),
+        el('blockquote', { class: 'memorial-epitaph' }, `"${survivor.epitaph}"`),
+      );
+    });
+
+    return el(
+      'div',
+      { class: 'memorial-list-container' },
+      el('div', { class: 'memorial-header-intro' }, el('p', {}, t('codex.memorial.intro_text'))),
+      el('div', { class: 'memorial-cards-list' }, items),
+    );
+  }
+
+  // =========================================================================
+  // 2. ACHIEVEMENTS & MEDALS TAB
+  // =========================================================================
+  #renderAchievementsTab() {
+    const userAch = codexManager.achievements;
+    const allAchs = Object.values(ACHIEVEMENTS_CATALOG);
+
+    const cards = allAchs.map((ach) => {
+      const isUnlocked = Boolean(userAch[ach.id]);
+      const unlockDate = isUnlocked
+        ? new Date(userAch[ach.id].unlockedAt).toLocaleDateString(i18n.locale === 'tr' ? 'tr-TR' : 'en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+          })
+        : null;
+
+      return el(
+        'div',
+        { class: ['achievement-badge-card', isUnlocked ? 'is-unlocked' : 'is-locked'] },
+        el('div', { class: 'ach-icon' }, isUnlocked ? ach.icon : '🔒'),
+        el(
+          'div',
+          { class: 'ach-meta' },
+          el('h4', { class: 'ach-title' }, t(ach.titleKey)),
+          el('p', { class: 'ach-desc' }, t(ach.descKey)),
+          el(
+            'span',
+            { class: ['ach-date', isUnlocked ? 'tone-good' : 'tone-dim'] },
+            isUnlocked ? `✓ ${unlockDate}` : t('codex.label.locked'),
+          ),
+        ),
+      );
+    });
+
+    return el('div', { class: 'achievements-grid' }, cards);
+  }
+
+  // =========================================================================
+  // 3. CAREER STATISTICS TAB
+  // =========================================================================
+  #renderCareerTab() {
+    const c = codexManager.career;
+    const rank = codexManager.getSurvivalRank();
+
+    const statRows = [
+      { label: t('codex.stats.total_expeditions'), val: c.totalExpeditions, glyph: '🏕️' },
+      { label: t('codex.stats.total_days'), val: `${c.totalDaysSurvived} ${t('codex.label.days')}`, glyph: '⏳' },
+      { label: t('codex.stats.total_km'), val: `${c.totalKmTraveled} km`, glyph: '🧭' },
+      { label: t('codex.stats.total_sectors'), val: c.totalSectorsVisited, glyph: '🗺️' },
+      { label: t('codex.stats.enemies_neutralized'), val: c.totalEnemiesDefeated, glyph: '⚔️' },
+      { label: t('codex.stats.enemies_spared'), val: c.totalEnemiesSpared, glyph: '🕊️' },
+      { label: t('codex.stats.barter_volume'), val: `${c.totalBarterValue} pts`, glyph: '⚖️' },
+      { label: t('codex.stats.vehicles_restored'), val: c.totalVehiclesRestored, glyph: '🚙' },
+      { label: t('codex.stats.fuel_siphoned'), val: `${c.totalFuelSiphoned} L`, glyph: '⛽' },
+      { label: t('codex.stats.crafts_done'), val: c.totalCraftsDone, glyph: '⚒️' },
+    ];
+
+    return el(
+      'div',
+      { class: 'career-container' },
+      // Rank Hero Card
+      el(
+        'div',
+        { class: 'career-rank-hero' },
+        el('div', { class: 'rank-glyph' }, rank.glyph),
+        el(
+          'div',
+          { class: 'rank-details' },
+          el('span', { class: 'meta-label' }, t('codex.label.career_standing')),
+          el('h3', { class: 'rank-title' }, t(rank.rankKey)),
+          el('p', { class: 'rank-desc' }, t(`codex.rank.desc_${rank.tier}`)),
+        ),
+      ),
+
+      // Dials Grid
+      el(
+        'div',
+        { class: 'career-dials-grid' },
+        statRows.map((row) =>
+          el(
+            'div',
+            { class: 'career-dial-card' },
+            el('span', { class: 'dial-glyph' }, row.glyph),
+            el('span', { class: 'dial-label' }, row.label),
+            el('strong', { class: 'dial-value' }, row.val),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // =========================================================================
+  // 4. CLASSIFIED LORE CODEX TAB
+  // =========================================================================
+  #renderLoreTab() {
+    const entries = Object.values(LORE_CODEX_CATALOG);
+
+    const categories = [
+      { id: 'factions', title: t('codex.lore_cat.factions') },
+      { id: 'tactics', title: t('codex.lore_cat.tactics') },
+      { id: 'vehicles', title: t('codex.lore_cat.vehicles') },
+    ];
+
+    const blocks = categories.map((cat) => {
+      const catEntries = entries.filter((e) => e.category === cat.id);
+      return el(
+        'div',
+        { class: 'lore-category-block' },
+        el('h4', { class: 'lore-cat-title' }, cat.title),
+        el(
+          'div',
+          { class: 'lore-entries-grid' },
+          catEntries.map((e) =>
+            el(
+              'div',
+              { class: 'lore-dossier-card' },
+              el(
+                'div',
+                { class: 'lore-dossier-head' },
+                el('span', { class: 'lore-glyph' }, e.glyph),
+                el('h5', { class: 'lore-title' }, t(e.titleKey)),
+                el('span', { class: 'lore-stamp' }, `[${t('codex.lore.cleared')}]`),
+              ),
+              el('p', { class: 'lore-text' }, t(e.descKey)),
+            ),
+          ),
+        ),
+      );
+    });
+
+    return el('div', { class: 'lore-container' }, blocks);
+  }
+}
+
+
+
   // --- src/pwa.js ---
 
 
@@ -23463,6 +28020,13 @@ const pwaManager = new PwaManager();
 
 
 
+
+
+
+
+
+
+
 function createNewRunState({
   engine,
   seed,
@@ -23513,6 +28077,8 @@ function createNewRunState({
 
   fresh.factions = FactionManager.getInitialState();
   fresh.environment = WeatherEngine.getInitialState();
+  fresh.economy = { activeSession: null };
+  fresh.vehicles = VehicleEngine.getInitialState();
 
   return fresh;
 }
@@ -23533,6 +28099,7 @@ async function bootstrap() {
   const effects = new EffectRegistry();
   const store = new Store({}, bus);
   const engine = new Engine({ bus, store, rng, effects });
+  codexManager.setBus(bus);
 
   engine
     .register(coreModule)
@@ -23544,9 +28111,12 @@ async function bootstrap() {
     .register(craftingModule)
     .register(baseModule)
     .register(factionModule)
-    .register(environmentModule);
+    .register(environmentModule)
+    .register(economyModule)
+    .register(vehiclesModule);
 
   const saveManager = new SaveManager({ store, rng });
+  adManager.init({ saveManager, bus });
   const defaultState = createNewRunState({ engine, seed, archetypeId: 'scavenger', locationId: 'istanbul' });
   const saved = saveManager.load();
   let hasValidSave = false;
@@ -23577,43 +28147,63 @@ async function bootstrap() {
     toastEl: document.getElementById('toast-banner'),
   });
   const lootModalView = new LootModalView(document.getElementById('action-modal'), engine);
+  const barterModalView = new BarterModalView(document.getElementById('barter-modal'), engine);
+  const vehicleModalView = new VehicleModalView(document.getElementById('vehicle-modal'), engine);
+  const codexModalView = new CodexModalView(document.getElementById('codex-modal'), engine);
 
   const menuView = new MenuView({
     root: document.getElementById('main-menu'),
     saveManager,
     pwaManager,
+    onOpenCodex: () => codexModalView.open(),
     onContinue: () => {
       menuView.close();
+      barterModalView.close();
+      vehicleModalView.close();
+      codexModalView.close();
       mapView.centerOnNode(store.state.world.currentNodeId, 3.2);
     },
     onStartNew: ({ name, age, bloodType, trait, archetypeId, locationId }) => {
-      const newSeed = randomSeed();
-      rng.reseed(newSeed);
-      saveManager.clear();
-      const fresh = createNewRunState({
-        engine,
-        seed: newSeed,
-        name,
-        age,
-        bloodType,
-        trait,
-        archetypeId,
-        locationId,
-      });
-      store.replace(fresh);
-      audioEngine.playTerminalBoot();
-      engine.log('log.boot.telemetry');
-      engine.log('log.boot.beacon');
-      const hook = ARCHETYPE_HOOKS[archetypeId] || ARCHETYPE_HOOKS.scavenger;
-      const hookText = i18n.locale === 'tr' ? hook.hook_tr : hook.hook_en;
-      if (hookText) engine.log(hookText);
-      engine.log('log.boot.awakened', {
-        location: ref(`location.${store.state.world.currentNodeId}`),
-      });
-      saveManager.save();
-      lootModalView.close();
-      menuView.close();
-      mapView.centerOnNode(store.state.world.currentNodeId, 3.2);
+      try {
+        menuView.close();
+        lootModalView.close();
+        barterModalView.close();
+        vehicleModalView.close();
+        codexModalView.close();
+
+        const newSeed = randomSeed();
+        rng.reseed(newSeed);
+        saveManager.clear();
+        const fresh = createNewRunState({
+          engine,
+          seed: newSeed,
+          name,
+          age,
+          bloodType,
+          trait,
+          archetypeId,
+          locationId,
+        });
+        store.replace(fresh);
+        try { audioEngine.playTerminalBoot(); } catch {}
+        engine.log('log.boot.telemetry');
+        engine.log('log.boot.beacon');
+        const hook = ARCHETYPE_HOOKS[archetypeId] || ARCHETYPE_HOOKS.scavenger;
+        const hookText = i18n.locale === 'tr' ? hook.hook_tr : hook.hook_en;
+        if (hookText) engine.log(hookText);
+        engine.log('log.boot.awakened', {
+          location: ref(`location.${store.state.world.currentNodeId}`),
+        });
+        saveManager.save();
+        mapView.centerOnNode(store.state.world.currentNodeId, 3.2);
+      } catch (err) {
+        console.error('[deploy] Failed to deploy into sector:', err);
+        const toast = document.getElementById('toast-banner');
+        if (toast) {
+          toast.textContent = `HATA: ${err.message || err}`;
+          toast.classList.add('is-visible');
+        }
+      }
     },
     onLoadSlot: (slotNumber) => {
       const loaded = saveManager.loadSlot(slotNumber);
@@ -23622,6 +28212,10 @@ async function bootstrap() {
         const hydrated = engine.hydrateState(defaultState, loaded.state);
         store.replace(hydrated);
         lootModalView.close();
+        barterModalView.close();
+        vehicleModalView.close();
+        codexModalView.close();
+        barterModalView.close();
         menuView.close();
         engine.log('log.boot.awakened', {
           location: ref(`location.${store.state.world.currentNodeId}`),
@@ -23653,7 +28247,7 @@ async function bootstrap() {
     },
   });
 
-  bindTopControls({ engine, store, rng, saveManager, mapView, menuView });
+  bindTopControls({ engine, store, rng, saveManager, mapView, menuView, codexModalView });
   bindMapControls(mapView, store);
   bindNavigationTabs();
   pwaManager.init();
@@ -23687,6 +28281,9 @@ async function bootstrap() {
     }
     if (lootModalView.isOpen) {
       lootModalView.render();
+    }
+    if (barterModalView.isOpen) {
+      barterModalView.render();
     }
   };
 
@@ -23740,6 +28337,14 @@ function renderDeathModal(state) {
     return;
   }
   modal.hidden = false;
+
+  // Record fallen hero to permanent memorial graveyard
+  if (!state.player._recordedToMemorial) {
+    state.player._recordedToMemorial = true;
+    codexManager.recordFallenSurvivor(state);
+    adManager.showInterstitial({ name: 'survivor_perished' });
+  }
+
   const causeEl = document.getElementById('death-cause');
   const summaryEl = document.getElementById('death-summary');
   const days = i18n.formatNumber(daysElapsed(state.player.diedAt ?? state.time.minutes), 1);
@@ -23754,7 +28359,7 @@ function renderDeathModal(state) {
   })}`;
 }
 
-function bindTopControls({ engine, store, rng, saveManager, mapView, menuView }) {
+function bindTopControls({ engine, store, rng, saveManager, mapView, menuView, codexModalView }) {
   const toggleBtn = document.getElementById('btn-locale-toggle');
   const indicator = document.getElementById('locale-indicator');
 
@@ -23776,6 +28381,20 @@ function bindTopControls({ engine, store, rng, saveManager, mapView, menuView })
       storePreferredLocale(nextCode);
       await i18n.setLocale(nextCode);
       updateLocaleUi();
+    });
+  }
+
+  const openCodexBtn = document.getElementById('btn-open-codex');
+  if (openCodexBtn) {
+    openCodexBtn.addEventListener('click', () => {
+      codexModalView.open();
+    });
+  }
+
+  const deathMemorialBtn = document.getElementById('btn-death-memorial');
+  if (deathMemorialBtn) {
+    deathMemorialBtn.addEventListener('click', () => {
+      codexModalView.open('memorial');
     });
   }
 

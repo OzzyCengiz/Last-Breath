@@ -8278,6 +8278,26 @@ export const ITEMS = {
       "slot": "weapon",
       "power": 4
     }
+  },
+  "spark_plug_set": {
+    "category": "scrap",
+    "weight": 0.45,
+    "stack": 4,
+    "glyph": "*",
+    "tags": [
+      "crafting",
+      "vehicle_part"
+    ]
+  },
+  "fuel_siphon_hose": {
+    "category": "gear",
+    "weight": 0.35,
+    "stack": 1,
+    "glyph": "~",
+    "tags": [
+      "tool",
+      "vehicle_tool"
+    ]
   }
 };
 

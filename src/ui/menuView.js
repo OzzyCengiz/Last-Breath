@@ -3,6 +3,7 @@ import { ARCHETYPES, STARTING_LOCATIONS } from '../data/archetypes.js';
 import { BLOOD_TYPES, TRAITS, getAgeBracket, getRandomName } from '../data/traits.js';
 import { i18n, t } from '../i18n/i18n.js';
 import { getNode } from '../modules/map/mapGraph.js';
+import { adManager } from '../core/adManager.js';
 import { el } from './dom.js';
 
 export class MenuView {
@@ -16,6 +17,7 @@ export class MenuView {
   #onSaveSlot;
   #onDeleteSlot;
   #onResetAll;
+  #onOpenCodex;
 
   #name = 'Mara';
   #age = 28;
@@ -44,6 +46,7 @@ export class MenuView {
     onSaveSlot,
     onDeleteSlot,
     onResetAll,
+    onOpenCodex,
   }) {
     this.#root = root;
     this.#onContinue = onContinue;
@@ -55,6 +58,7 @@ export class MenuView {
     this.#onSaveSlot = onSaveSlot;
     this.#onDeleteSlot = onDeleteSlot;
     this.#onResetAll = onResetAll;
+    this.#onOpenCodex = onOpenCodex;
   }
 
   get isOpen() {
@@ -271,6 +275,16 @@ export class MenuView {
         onClick: () => {
           this.#mode = 'load_game';
           this.render();
+        },
+      },
+      {
+        id: 'codex',
+        glyph: '📖',
+        titleKey: 'menu.action.codex_memorial',
+        descKey: 'menu.action.desc_codex_memorial',
+        isAccent: false,
+        onClick: () => {
+          if (this.#onOpenCodex) this.#onOpenCodex();
         },
       },
       {
@@ -637,6 +651,50 @@ export class MenuView {
       t('menu.premium.feature_4'),
     ].map((f) => el('li', { class: 'premium-feature-item' }, el('span', { class: 'premium-bullet' }, '✦'), el('span', {}, f)));
 
+    let promoInputEl;
+    let promoFeedbackEl = el('span', { class: 'promo-feedback-msg' }, '');
+
+    const promoBox = !isPremium
+      ? el(
+          'div',
+          { class: 'promo-code-container' },
+          el('span', { class: 'promo-code-label' }, t('menu.premium.promo_label')),
+          el(
+            'div',
+            { class: 'promo-code-row' },
+            (promoInputEl = el('input', {
+              type: 'text',
+              class: 'promo-code-input',
+              placeholder: 'Örn: VIP-SURVIVOR',
+              maxLength: 30,
+            })),
+            el(
+              'button',
+              {
+                type: 'button',
+                class: 'btn btn-sm btn-accent',
+                onClick: () => {
+                  const val = promoInputEl?.value?.trim();
+                  const res = adManager.redeemPromoCode(val);
+                  if (res.ok) {
+                    promoFeedbackEl.textContent = t('menu.premium.promo_success');
+                    promoFeedbackEl.className = 'promo-feedback-msg tone-good';
+                    setTimeout(() => {
+                      this.render();
+                    }, 600);
+                  } else {
+                    promoFeedbackEl.textContent = t('menu.premium.promo_invalid');
+                    promoFeedbackEl.className = 'promo-feedback-msg tone-warn';
+                  }
+                },
+              },
+              t('menu.premium.promo_submit'),
+            ),
+          ),
+          promoFeedbackEl,
+        )
+      : null;
+
     return el(
       'div',
       { class: 'premium-modal-backdrop' },
@@ -648,9 +706,10 @@ export class MenuView {
           { class: 'premium-modal-header' },
           el('span', { class: 'premium-kicker' }, t('menu.premium.kicker')),
           el('h2', { class: 'premium-title' }, `👑 ${t('menu.premium.title')}`),
-          el('p', { class: 'premium-desc' }, t('menu.premium.desc')),
+          el('p', { class: 'premium-desc' }, isPremium ? t('menu.premium.active_badge') : t('menu.premium.desc')),
         ),
         el('ul', { class: 'premium-feature-list' }, featureItems),
+        promoBox,
         el(
           'div',
           { class: 'premium-modal-actions' },
@@ -664,7 +723,6 @@ export class MenuView {
                     if (this.#saveManager) {
                       this.#saveManager.setPremium(true);
                     }
-                    this.#isPremiumModalOpen = false;
                     this.render();
                   },
                 },
@@ -679,7 +737,6 @@ export class MenuView {
                     if (this.#saveManager) {
                       this.#saveManager.setPremium(false);
                     }
-                    this.#isPremiumModalOpen = false;
                     this.render();
                   },
                 },
@@ -1312,15 +1369,20 @@ export class MenuView {
             type: 'button',
             class: 'btn btn-accent menu-nav-btn menu-deploy-btn',
             onClick: () => {
-              const finalName = this.#name.trim() || t('character.default_name');
-              this.#onStartNew({
-                name: finalName,
-                age: this.#age,
-                bloodType: this.#bloodType,
-                trait: this.#selectedTrait,
-                archetypeId: this.#selectedArchetype,
-                locationId: this.#selectedLocation,
-              });
+              try {
+                const finalName = this.#name.trim() || t('character.default_name');
+                this.close();
+                this.#onStartNew({
+                  name: finalName,
+                  age: this.#age,
+                  bloodType: this.#bloodType,
+                  trait: this.#selectedTrait,
+                  archetypeId: this.#selectedArchetype,
+                  locationId: this.#selectedLocation,
+                });
+              } catch (err) {
+                console.error('[menuView] deploy button error:', err);
+              }
             },
           },
           t('character.action.deploy'),

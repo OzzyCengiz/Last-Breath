@@ -152,6 +152,11 @@ export class WeatherEngine {
    * Checks if survivor has equipped gear that provides full waterproof/chemical acid shielding.
    */
   static hasAcidProtection(state) {
+    const mountedId = state?.vehicles?.mountedVehicleId;
+    if (mountedId === 'uaz_469_jeep' || mountedId === 'ural_4320_caravan') {
+      return true; // Enclosed armored vehicle cabin provides 100% barrier
+    }
+
     const bodyGear = state?.inventory?.equipment?.body;
     if (!bodyGear) return false;
     const protectiveItems = [
@@ -167,6 +172,11 @@ export class WeatherEngine {
    * Checks if survivor has equipped an airtight respirator or gas mask against toxic ash particulate.
    */
   static hasAshProtection(state) {
+    const mountedId = state?.vehicles?.mountedVehicleId;
+    if (mountedId === 'uaz_469_jeep' || mountedId === 'ural_4320_caravan') {
+      return true; // Sealed vehicle cabin filters atmospheric particulate
+    }
+
     const headGear = state?.inventory?.equipment?.head;
     const bodyGear = state?.inventory?.equipment?.body;
     const gasMasks = [
@@ -188,6 +198,11 @@ export class WeatherEngine {
    * Calculates thermal insulation value (0 to 100) provided by clothing and gear.
    */
   static getThermalInsulation(state) {
+    const mountedId = state?.vehicles?.mountedVehicleId;
+    if (mountedId === 'uaz_469_jeep' || mountedId === 'ural_4320_caravan') {
+      return 90; // Heated cabin insulation
+    }
+
     let insulation = 10; // Baseline street clothes
     const body = state?.inventory?.equipment?.body;
     if (body) {
@@ -205,6 +220,10 @@ export class WeatherEngine {
    * Checks if survivor is in proximity to an active heat source (camp stove or outpost).
    */
   static hasActiveHeatSource(state, activity) {
+    const mountedId = state?.vehicles?.mountedVehicleId;
+    if (activity === 'rest' && (mountedId === 'uaz_469_jeep' || mountedId === 'ural_4320_caravan')) {
+      return true; // Vehicle heater / insulated interior
+    }
     if (activity === 'rest' && (safeCount(state?.inventory, 'folding_camp_wood_stove') > 0 || state?.base?.outpostNodeId === state?.world?.currentNodeId)) {
       return true;
     }

@@ -8,6 +8,8 @@ import {
   neighborsOf, nodeVisibility, scavengeProfile,
 } from '../modules/map/mapGraph.js';
 import { MAP_VIEWBOX } from '../modules/map/projection.js';
+import { RANGE_METERS, TARGET_ZONES } from '../modules/combat/tacticalCombat.js';
+import { VEHICLE_CATALOG, VehicleEngine } from '../modules/vehicles/vehicleEngine.js';
 import { el, svgEl } from './dom.js';
 
 export class MapView {
@@ -263,6 +265,49 @@ export class MapView {
           },
           t('map.action.survey'),
         ),
+        el(
+          'button',
+          {
+            type: 'button',
+            class: 'btn btn-ghost',
+            onClick: () => this.#engine.dispatch('economy/openBarter', {
+              merchantType: current.danger >= 3
+                ? 'iron_guard_quartermaster'
+                : (current.biome === 'wasteland' ? 'wasteland_peddler' : 'nomad_caravan'),
+            }),
+          },
+          `🤝 ${t('barter.action_open')}`,
+        ),
+        (() => {
+          const mountedId = state.vehicles?.mountedVehicleId;
+          const sectorVehicles = VehicleEngine.getVehiclesInSector(state, current.id);
+          const activeVehicle = mountedId
+            ? VehicleEngine.getVehicle(state, mountedId)
+            : (sectorVehicles.length > 0 ? sectorVehicles[0] : null);
+
+          if (!activeVehicle) return null;
+          const def = VEHICLE_CATALOG[activeVehicle.id];
+          const isMounted = mountedId === activeVehicle.id;
+
+          return el(
+            'button',
+            {
+              type: 'button',
+              class: ['btn', isMounted ? 'btn-accent' : 'btn-ghost'],
+              onClick: () => this.#engine.dispatch('vehicles/openModal', { vehicleId: activeVehicle.id }),
+            },
+            `${def?.glyph || '🚙'} ${t('vehicle.action_inspect')} ${isMounted ? `(${t('vehicle.status.driving')})` : ''}`,
+          );
+        })(),
+        el(
+          'button',
+          {
+            type: 'button',
+            class: 'btn btn-ghost',
+            onClick: () => this.#engine.dispatch('map/requestAirdrop'),
+          },
+          `📡 ${t('ad.action_airdrop')}`,
+        ),
         ...BALANCE.rest.options.map((hours) =>
           el(
             'button',
@@ -299,7 +344,13 @@ export class MapView {
             { class: 'route-meta' },
             el('span', {}, `${t(`biome.${selected.biome}`)} · ${this.#formatCoords(selected)}`),
             directPlan
-              ? el('span', {}, `${directPlan.km} km · ~${(directPlan.minutes / 60).toFixed(1)}h`)
+              ? el(
+                  'span',
+                  {},
+                  directPlan.isDriving
+                    ? `🚙 ${directPlan.km} km · ~${(directPlan.minutes / 60).toFixed(1)}h (${directPlan.fuelNeeded}L)`
+                    : `${directPlan.km} km · ~${(directPlan.minutes / 60).toFixed(1)}h`,
+                )
               : el('span', { class: 'tone-warn' }, t('map.no_direct_corridor')),
           ),
         ),
@@ -346,7 +397,7 @@ export class MapView {
             'div',
             { class: 'route-meta' },
             el('span', {}, `${t(`biome.${target.biome}`)} · ${plan.km} km`),
-            el('span', {}, `~${hours}h`),
+            el('span', {}, plan.isDriving ? `🚙 ~${hours}h (${plan.fuelNeeded}L)` : `~${hours}h`),
             el('span', { class: riskPct >= 45 ? 'tone-warn' : '' }, `${t('map.risk')} ${riskPct}%`),
           ),
         ),
@@ -397,6 +448,13 @@ export class MapView {
       ({ itemId }) => getItem(itemId).category === 'medical' && getItem(itemId).use,
     );
 
+    const isSurrendered = Boolean(engagement.enemyStatus?.surrendered);
+    const isJammed = Boolean(engagement.weaponJammed);
+    const rangeName = t(`combat.range.${engagement.range || 'medium'}`);
+    const rangeMeter = RANGE_METERS[engagement.range || 'medium'] || '40m';
+    const playerCoverName = t(`combat.cover.${engagement.playerCover || 'none'}`);
+    const enemyCoverName = t(`combat.cover.${engagement.enemyCover || 'none'}`);
+
     const card = el(
       'div',
       { class: 'encounter-card combat-card' },
@@ -406,7 +464,25 @@ export class MapView {
         `${t('combat.kicker')} // ${t('combat.round', { round: engagement.round })}`,
       ),
       el('h3', { class: 'encounter-title' }, t(`enemy.${engagement.enemyId}.name`)),
-      el('p', { class: 'encounter-text' }, t(`enemy.${engagement.enemyId}.desc`)),
+
+      // Tactical Telemetry Strip
+      el(
+        'div',
+        { class: 'tactical-telemetry' },
+        el('span', { class: 'tactical-badge is-highlight' }, `🎯 ${rangeName} (${rangeMeter})`),
+        el(
+          'span',
+          { class: ['tactical-badge', engagement.playerCover !== 'none' && 'is-good'] },
+          `🛡️ ${t('combat.player_cover')}: ${playerCoverName}`,
+        ),
+        engagement.enemyCover && engagement.enemyCover !== 'none' &&
+          el('span', { class: 'tactical-badge is-good' }, `🧱 ${t('combat.enemy_cover')}: ${enemyCoverName}`),
+        engagement.enemyStatus?.fracturedLeg &&
+          el('span', { class: 'tactical-badge is-good' }, `🦵 ${t('combat.status.leg_crippled')}`),
+        engagement.enemyStatus?.disarmed &&
+          el('span', { class: 'tactical-badge is-good' }, `🖐️ ${t('combat.status.disarmed')}`),
+      ),
+
       el(
         'div',
         { class: 'vital-row band-critical' },
@@ -422,51 +498,188 @@ export class MapView {
           el('div', { class: 'meter-fill', style: `width: ${hpPct}%` }),
         ),
       ),
+
+      // Surrender Banner
+      isSurrendered &&
+        el(
+          'div',
+          { class: 'tactical-banner banner-surrender' },
+          t('combat.surrender_banner', { name: t(`enemy.${engagement.enemyId}.name`) }),
+        ),
+
+      // Weapon Jam Banner
+      !isSurrendered && isJammed &&
+        el(
+          'div',
+          { class: 'tactical-banner banner-jam' },
+          t('combat.jammed_banner'),
+        ),
+
+      // Dynamic Choices Container
       el(
         'div',
         { class: 'encounter-choices' },
-        el(
-          'button',
-          {
-            type: 'button',
-            class: 'btn btn-accent encounter-choice-btn',
-            onClick: () => this.#engine.dispatch('combat/action', { move: 'strike' }),
-          },
-          el('span', {}, `${t('combat.action.strike')} (${weaponLabel})`),
-          el('span', { class: 'choice-odds' }, '-3 STAM'),
-        ),
-        el(
-          'button',
-          {
-            type: 'button',
-            class: 'btn encounter-choice-btn',
-            onClick: () => this.#engine.dispatch('combat/action', { move: 'aimed' }),
-          },
-          el('span', {}, t('combat.action.aimed')),
-          el('span', { class: 'choice-odds' }, '1.5× DMG · -5 STAM'),
-        ),
-        el(
-          'button',
-          {
-            type: 'button',
-            class: ['btn', 'encounter-choice-btn', engagement.scavenged && 'is-disabled'],
-            disabled: engagement.scavenged,
-            onClick: () => this.#engine.dispatch('combat/action', { move: 'scavenge' }),
-          },
-          el('span', {}, t('combat.action.scavenge')),
-          el('span', { class: 'choice-odds' }, t('combat.scavenge_tag')),
-        ),
-        el(
-          'button',
-          {
-            type: 'button',
-            class: 'btn btn-ghost encounter-choice-btn',
-            onClick: () => this.#engine.dispatch('combat/action', { move: 'flee' }),
-          },
-          el('span', {}, t('combat.action.flee')),
-          el('span', { class: 'choice-odds' }, '-6 STAM'),
-        ),
+        isSurrendered ? [
+          el(
+            'button',
+            {
+              type: 'button',
+              class: 'btn btn-accent encounter-choice-btn',
+              onClick: () => this.#engine.dispatch('combat/action', { move: 'spare' }),
+            },
+            el('span', {}, t('combat.action.spare')),
+            el('span', { class: 'choice-odds' }, t('combat.spare_tag')),
+          ),
+          el(
+            'button',
+            {
+              type: 'button',
+              class: 'btn encounter-choice-btn',
+              onClick: () => this.#engine.dispatch('combat/action', { move: 'execute' }),
+            },
+            el('span', {}, t('combat.action.execute')),
+            el('span', { class: 'choice-odds' }, t('combat.execute_tag')),
+          ),
+        ] : isJammed ? [
+          el(
+            'button',
+            {
+              type: 'button',
+              class: 'btn btn-accent encounter-choice-btn',
+              onClick: () => this.#engine.dispatch('combat/action', { move: 'clear_jam' }),
+            },
+            el('span', {}, `🔧 ${t('combat.action.clear_jam')}`),
+            el('span', { class: 'choice-odds' }, '-3 STAM'),
+          ),
+          el(
+            'button',
+            {
+              type: 'button',
+              class: 'btn encounter-choice-btn',
+              onClick: () => this.#engine.dispatch('combat/action', { move: 'take_cover' }),
+            },
+            el('span', {}, `🛡️ ${t('combat.action.take_cover')}`),
+            el('span', { class: 'choice-odds' }, '-3 STAM'),
+          ),
+          el(
+            'button',
+            {
+              type: 'button',
+              class: 'btn btn-ghost encounter-choice-btn',
+              onClick: () => this.#engine.dispatch('combat/action', { move: 'flee' }),
+            },
+            el('span', {}, t('combat.action.flee')),
+            el('span', { class: 'choice-odds' }, '-6 STAM'),
+          ),
+        ] : [
+          el('div', { class: 'tactical-subhead' }, `${t('combat.targeted_fire')} (${weaponLabel})`),
+          el(
+            'div',
+            { class: 'tactical-target-grid' },
+            el(
+              'button',
+              {
+                type: 'button',
+                class: 'btn btn-xs encounter-choice-btn',
+                onClick: () => this.#engine.dispatch('combat/action', { move: 'targeted', zone: TARGET_ZONES.HEAD }),
+              },
+              el('span', {}, `💀 ${t('combat.zone.head')}`),
+              el('span', { class: 'choice-odds' }, '2.4× DMG · -5 STAM'),
+            ),
+            el(
+              'button',
+              {
+                type: 'button',
+                class: 'btn btn-xs btn-accent encounter-choice-btn',
+                onClick: () => this.#engine.dispatch('combat/action', { move: 'targeted', zone: TARGET_ZONES.TORSO }),
+              },
+              el('span', {}, `🎯 ${t('combat.zone.torso')}`),
+              el('span', { class: 'choice-odds' }, '1.0× DMG · -3 STAM'),
+            ),
+            el(
+              'button',
+              {
+                type: 'button',
+                class: 'btn btn-xs encounter-choice-btn',
+                onClick: () => this.#engine.dispatch('combat/action', { move: 'targeted', zone: TARGET_ZONES.LEGS }),
+              },
+              el('span', {}, `🦵 ${t('combat.zone.legs')}`),
+              el('span', { class: 'choice-odds' }, t('combat.tag_immobilize')),
+            ),
+            el(
+              'button',
+              {
+                type: 'button',
+                class: 'btn btn-xs encounter-choice-btn',
+                onClick: () => this.#engine.dispatch('combat/action', { move: 'targeted', zone: TARGET_ZONES.ARMS }),
+              },
+              el('span', {}, `🖐️ ${t('combat.zone.arms')}`),
+              el('span', { class: 'choice-odds' }, t('combat.tag_disarm')),
+            ),
+          ),
+
+          el('div', { class: 'tactical-subhead' }, t('combat.maneuvers')),
+          el(
+            'div',
+            { class: 'tactical-target-grid' },
+            el(
+              'button',
+              {
+                type: 'button',
+                class: 'btn btn-xs encounter-choice-btn',
+                onClick: () => this.#engine.dispatch('combat/action', { move: 'take_cover' }),
+              },
+              el('span', {}, `🛡️ ${t('combat.action.take_cover')}`),
+              el('span', { class: 'choice-odds' }, '-3 STAM'),
+            ),
+            el(
+              'button',
+              {
+                type: 'button',
+                class: ['btn', 'btn-xs', 'encounter-choice-btn', engagement.range === 'melee' && 'is-disabled'],
+                disabled: engagement.range === 'melee',
+                onClick: () => this.#engine.dispatch('combat/action', { move: 'advance' }),
+              },
+              el('span', {}, `👟 ${t('combat.action.advance')}`),
+              el('span', { class: 'choice-odds' }, '-4 STAM'),
+            ),
+            el(
+              'button',
+              {
+                type: 'button',
+                class: ['btn', 'btn-xs', 'encounter-choice-btn', engagement.range === 'extreme' && 'is-disabled'],
+                disabled: engagement.range === 'extreme',
+                onClick: () => this.#engine.dispatch('combat/action', { move: 'retreat' }),
+              },
+              el('span', {}, `↩ ${t('combat.action.retreat')}`),
+              el('span', { class: 'choice-odds' }, '-5 STAM'),
+            ),
+            el(
+              'button',
+              {
+                type: 'button',
+                class: 'btn btn-xs btn-ghost encounter-choice-btn',
+                onClick: () => this.#engine.dispatch('combat/action', { move: 'flee' }),
+              },
+              el('span', {}, `🏃 ${t('combat.action.flee')}`),
+              el('span', { class: 'choice-odds' }, '-6 STAM'),
+            ),
+          ),
+
+          el(
+            'button',
+            {
+              type: 'button',
+              class: ['btn', 'btn-xs', 'encounter-choice-btn', engagement.scavenged && 'is-disabled'],
+              disabled: engagement.scavenged,
+              onClick: () => this.#engine.dispatch('combat/action', { move: 'scavenge' }),
+            },
+            el('span', {}, `🎒 ${t('combat.action.scavenge')}`),
+            el('span', { class: 'choice-odds' }, t('combat.scavenge_tag')),
+          ),
+        ],
       ),
+
       medStacks.length > 0 && el(
         'div',
         { class: 'ops-actions' },

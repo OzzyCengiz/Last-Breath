@@ -6,6 +6,7 @@ import { isNight } from '../../core/clock.js';
 import { isOverloaded, passiveBonus } from '../inventory/inventorySelectors.js';
 import { statusTravelMultiplier } from '../status/statusSelectors.js';
 import { WeatherEngine } from '../environment/weatherEngine.js';
+import { VEHICLE_CATALOG, VehicleEngine } from '../vehicles/vehicleEngine.js';
 
 /**
  * Precomputed static graph of real-world anchor nodes and connections,
@@ -85,11 +86,29 @@ export function estimateJourney(state, fromId, toId) {
     roundToMinutes, nightRiskMultiplier, seaRiskBonus, maxEncounterChance,
   } = BALANCE.travel;
 
+  const mountedId = state?.vehicles?.mountedVehicleId;
+  const mountedVehicle = mountedId ? state?.vehicles?.fleet?.[mountedId] : null;
+  const vehicleDef = mountedId ? VEHICLE_CATALOG[mountedId] : null;
+  const isDriving = Boolean(
+    mountedVehicle &&
+    mountedVehicle.restored &&
+    mountedVehicle.fuelLiters > 0 &&
+    mountedVehicle.condition > 0 &&
+    route.mode !== 'sea'
+  );
+
   let hours = (baseHours + route.km / kmPerHour) * biome.travelTime;
-  if (route.mode === 'sea') hours *= seaTimeMultiplier;
-  if (isOverloaded(state)) hours *= BALANCE.inventory.overloadTravelPenalty;
-  hours *= statusTravelMultiplier(state);
-  hours *= Math.max(0.75, 1 - passiveBonus(state, 'travelSpeed'));
+  if (route.mode === 'sea') {
+    hours *= seaTimeMultiplier;
+  }
+
+  if (isDriving && vehicleDef) {
+    hours *= vehicleDef.speedMultiplier;
+  } else {
+    if (isOverloaded(state)) hours *= BALANCE.inventory.overloadTravelPenalty;
+    hours *= statusTravelMultiplier(state);
+    hours *= Math.max(0.75, 1 - passiveBonus(state, 'travelSpeed'));
+  }
 
   const totalMinutes = Math.max(
     roundToMinutes,
@@ -104,7 +123,16 @@ export function estimateJourney(state, fromId, toId) {
   }
   const envMods = WeatherEngine.getStealthAndVisibilityModifiers(state);
   risk *= envMods.encounterRiskMultiplier;
+
+  if (isDriving && vehicleDef) {
+    risk *= vehicleDef.noiseRiskMultiplier;
+  }
+
   risk = Math.min(maxEncounterChance, Math.max(0.05, risk));
+
+  const fuelNeeded = isDriving && vehicleDef
+    ? VehicleEngine.calculateJourneyFuel(vehicleDef, route.km)
+    : 0;
 
   return {
     fromId,
@@ -115,6 +143,9 @@ export function estimateJourney(state, fromId, toId) {
     segments,
     risk,
     destination,
+    isDriving,
+    vehicleId: isDriving ? mountedId : null,
+    fuelNeeded,
   };
 }
 

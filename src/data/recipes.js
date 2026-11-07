@@ -88,6 +88,27 @@ export const RECIPES = {
     output: { itemId: 'riot_vest', qty: 1 },
     xp: { skill: 'engineering', amount: 25 },
   },
+  fuel_siphon_hose: {
+    tier: 0,
+    minutes: 20,
+    ingredients: [
+      { itemId: 'copper_wire', qty: 2 },
+      { itemId: 'duct_tape', qty: 1 },
+      { itemId: 'cloth_rags', qty: 1 },
+    ],
+    output: { itemId: 'fuel_siphon_hose', qty: 1 },
+    xp: { skill: 'engineering', amount: 10 },
+  },
+  spark_plug_salvage: {
+    tier: 1,
+    minutes: 35,
+    ingredients: [
+      { itemId: 'scrap_metal', qty: 2 },
+      { itemId: 'copper_wire', qty: 2 },
+    ],
+    output: { itemId: 'spark_plug_set', qty: 1 },
+    xp: { skill: 'engineering', amount: 16 },
+  },
 };
 
 export function getRecipe(recipeId) {

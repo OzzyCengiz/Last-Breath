@@ -1,6 +1,7 @@
 import { STRUCTURES, getStructure } from '../../data/structures.js';
 import { countItem } from '../inventory/inventoryModel.js';
 import { grantItems } from '../inventory/index.js';
+import { codexManager } from '../../core/codexManager.js';
 import { ref } from '../../i18n/i18n.js';
 
 const baseLocName = (nodeId) => ref(`location.${nodeId}`);
@@ -78,6 +79,7 @@ export const baseModule = {
         return { ok: false, reason: 'reject.already_outpost' };
       }
       store.commit('base/establishOutpost', nodeId);
+      codexManager.unlockAchievement('outpost_pioneer');
       engine.log('log.base.established', { location: baseLocName(nodeId) }, 'good');
       engine.advanceTime(30, 'idle');
       return { ok: true };

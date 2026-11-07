@@ -16,6 +16,19 @@
   <link rel="stylesheet" href="./css/layout.css" />
   <link rel="stylesheet" href="./css/components/map.css" />
   <link rel="stylesheet" href="./css/components/panels.css" />
+
+  <!-- Google AdSense for Games / H5 Ads -->
+  <script async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6006298574044898"
+    crossorigin="anonymous"
+    data-ad-frequency-hint="30s"
+    data-adbreak-test="on">
+  </script>
+  <script>
+    window.adsbygoogle = window.adsbygoogle || [];
+    window.adBreak = function(o) { adsbygoogle.push(o); };
+    window.adConfig = function(o) { adsbygoogle.push(o); };
+  </script>
 </head>
 <body>
   <div class="app-shell">
@@ -51,6 +64,9 @@
               <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
             </svg>
             <span id="locale-indicator" class="locale-indicator">TR</span>
+          </button>
+          <button id="btn-open-codex" type="button" class="btn btn-ghost btn-xs" data-i18n="hud.codex">
+            📖 CODEX
           </button>
           <button id="btn-open-menu" type="button" class="btn btn-ghost btn-xs" data-i18n="menu.action.open_menu">
             MAIN MENU
@@ -189,6 +205,12 @@
 
   <div id="action-modal" class="action-modal-overlay" hidden></div>
 
+  <div id="barter-modal" class="action-modal-overlay" hidden></div>
+
+  <div id="vehicle-modal" class="action-modal-overlay" hidden></div>
+
+  <div id="codex-modal" class="action-modal-overlay" hidden></div>
+
   <div id="encounter-host" class="encounter-overlay" hidden></div>
 
   <div id="toast-banner" class="toast-banner" role="status" aria-live="polite"></div>
@@ -198,12 +220,17 @@
       <h2 class="modal-title" data-i18n="death.title">SIGNAL TERMINATED</h2>
       <p id="death-cause" class="tone-bad"></p>
       <p id="death-summary" class="muted-note"></p>
-      <button id="btn-death-restart" type="button" class="btn btn-accent" data-i18n="hud.new_run">
-        NEW EXPEDITION
-      </button>
+      <div class="death-actions-row">
+        <button id="btn-death-restart" type="button" class="btn btn-accent" data-i18n="hud.new_run">
+          NEW EXPEDITION
+        </button>
+        <button id="btn-death-memorial" type="button" class="btn btn-ghost" data-i18n="death.action_memorial">
+          🪦 MEMORIAL LOG
+        </button>
+      </div>
     </div>
   </div>
 
-  <script defer src="./dist/app.bundle.js?v=4"></script>
+  <script defer src="./dist/app.bundle.js?v=7"></script>
 </body>
 </html>

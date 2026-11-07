@@ -19,6 +19,8 @@ import { craftingModule } from './modules/crafting/index.js';
 import { baseModule } from './modules/base/index.js';
 import { factionModule, FactionManager } from './modules/factions/index.js';
 import { environmentModule, WeatherEngine } from './modules/environment/index.js';
+import { economyModule } from './modules/economy/index.js';
+import { vehiclesModule, VehicleEngine } from './modules/vehicles/index.js';
 import { ARCHETYPES } from './data/archetypes.js';
 import { ARCHETYPE_HOOKS } from './data/narratives.js';
 import { VITALS, vitalBand } from './modules/status/statusSelectors.js';
@@ -29,6 +31,11 @@ import { StatusView } from './ui/statusView.js';
 import { LogView } from './ui/logView.js';
 import { MenuView } from './ui/menuView.js';
 import { LootModalView } from './ui/lootModalView.js';
+import { BarterModalView } from './ui/barterModalView.js';
+import { VehicleModalView } from './ui/vehicleModalView.js';
+import { CodexModalView } from './ui/codexModalView.js';
+import { codexManager } from './core/codexManager.js';
+import { adManager } from './core/adManager.js';
 import { pwaManager } from './pwa.js';
 import { audioEngine } from './core/audioEngine.js';
 
@@ -82,6 +89,8 @@ function createNewRunState({
 
   fresh.factions = FactionManager.getInitialState();
   fresh.environment = WeatherEngine.getInitialState();
+  fresh.economy = { activeSession: null };
+  fresh.vehicles = VehicleEngine.getInitialState();
 
   return fresh;
 }
@@ -102,6 +111,7 @@ async function bootstrap() {
   const effects = new EffectRegistry();
   const store = new Store({}, bus);
   const engine = new Engine({ bus, store, rng, effects });
+  codexManager.setBus(bus);
 
   engine
     .register(coreModule)
@@ -113,9 +123,12 @@ async function bootstrap() {
     .register(craftingModule)
     .register(baseModule)
     .register(factionModule)
-    .register(environmentModule);
+    .register(environmentModule)
+    .register(economyModule)
+    .register(vehiclesModule);
 
   const saveManager = new SaveManager({ store, rng });
+  adManager.init({ saveManager, bus });
   const defaultState = createNewRunState({ engine, seed, archetypeId: 'scavenger', locationId: 'istanbul' });
   const saved = saveManager.load();
   let hasValidSave = false;
@@ -146,43 +159,63 @@ async function bootstrap() {
     toastEl: document.getElementById('toast-banner'),
   });
   const lootModalView = new LootModalView(document.getElementById('action-modal'), engine);
+  const barterModalView = new BarterModalView(document.getElementById('barter-modal'), engine);
+  const vehicleModalView = new VehicleModalView(document.getElementById('vehicle-modal'), engine);
+  const codexModalView = new CodexModalView(document.getElementById('codex-modal'), engine);
 
   const menuView = new MenuView({
     root: document.getElementById('main-menu'),
     saveManager,
     pwaManager,
+    onOpenCodex: () => codexModalView.open(),
     onContinue: () => {
       menuView.close();
+      barterModalView.close();
+      vehicleModalView.close();
+      codexModalView.close();
       mapView.centerOnNode(store.state.world.currentNodeId, 3.2);
     },
     onStartNew: ({ name, age, bloodType, trait, archetypeId, locationId }) => {
-      const newSeed = randomSeed();
-      rng.reseed(newSeed);
-      saveManager.clear();
-      const fresh = createNewRunState({
-        engine,
-        seed: newSeed,
-        name,
-        age,
-        bloodType,
-        trait,
-        archetypeId,
-        locationId,
-      });
-      store.replace(fresh);
-      audioEngine.playTerminalBoot();
-      engine.log('log.boot.telemetry');
-      engine.log('log.boot.beacon');
-      const hook = ARCHETYPE_HOOKS[archetypeId] || ARCHETYPE_HOOKS.scavenger;
-      const hookText = i18n.locale === 'tr' ? hook.hook_tr : hook.hook_en;
-      if (hookText) engine.log(hookText);
-      engine.log('log.boot.awakened', {
-        location: ref(`location.${store.state.world.currentNodeId}`),
-      });
-      saveManager.save();
-      lootModalView.close();
-      menuView.close();
-      mapView.centerOnNode(store.state.world.currentNodeId, 3.2);
+      try {
+        menuView.close();
+        lootModalView.close();
+        barterModalView.close();
+        vehicleModalView.close();
+        codexModalView.close();
+
+        const newSeed = randomSeed();
+        rng.reseed(newSeed);
+        saveManager.clear();
+        const fresh = createNewRunState({
+          engine,
+          seed: newSeed,
+          name,
+          age,
+          bloodType,
+          trait,
+          archetypeId,
+          locationId,
+        });
+        store.replace(fresh);
+        try { audioEngine.playTerminalBoot(); } catch {}
+        engine.log('log.boot.telemetry');
+        engine.log('log.boot.beacon');
+        const hook = ARCHETYPE_HOOKS[archetypeId] || ARCHETYPE_HOOKS.scavenger;
+        const hookText = i18n.locale === 'tr' ? hook.hook_tr : hook.hook_en;
+        if (hookText) engine.log(hookText);
+        engine.log('log.boot.awakened', {
+          location: ref(`location.${store.state.world.currentNodeId}`),
+        });
+        saveManager.save();
+        mapView.centerOnNode(store.state.world.currentNodeId, 3.2);
+      } catch (err) {
+        console.error('[deploy] Failed to deploy into sector:', err);
+        const toast = document.getElementById('toast-banner');
+        if (toast) {
+          toast.textContent = `HATA: ${err.message || err}`;
+          toast.classList.add('is-visible');
+        }
+      }
     },
     onLoadSlot: (slotNumber) => {
       const loaded = saveManager.loadSlot(slotNumber);
@@ -191,6 +224,10 @@ async function bootstrap() {
         const hydrated = engine.hydrateState(defaultState, loaded.state);
         store.replace(hydrated);
         lootModalView.close();
+        barterModalView.close();
+        vehicleModalView.close();
+        codexModalView.close();
+        barterModalView.close();
         menuView.close();
         engine.log('log.boot.awakened', {
           location: ref(`location.${store.state.world.currentNodeId}`),
@@ -222,7 +259,7 @@ async function bootstrap() {
     },
   });
 
-  bindTopControls({ engine, store, rng, saveManager, mapView, menuView });
+  bindTopControls({ engine, store, rng, saveManager, mapView, menuView, codexModalView });
   bindMapControls(mapView, store);
   bindNavigationTabs();
   pwaManager.init();
@@ -256,6 +293,9 @@ async function bootstrap() {
     }
     if (lootModalView.isOpen) {
       lootModalView.render();
+    }
+    if (barterModalView.isOpen) {
+      barterModalView.render();
     }
   };
 
@@ -309,6 +349,14 @@ function renderDeathModal(state) {
     return;
   }
   modal.hidden = false;
+
+  // Record fallen hero to permanent memorial graveyard
+  if (!state.player._recordedToMemorial) {
+    state.player._recordedToMemorial = true;
+    codexManager.recordFallenSurvivor(state);
+    adManager.showInterstitial({ name: 'survivor_perished' });
+  }
+
   const causeEl = document.getElementById('death-cause');
   const summaryEl = document.getElementById('death-summary');
   const days = i18n.formatNumber(daysElapsed(state.player.diedAt ?? state.time.minutes), 1);
@@ -323,7 +371,7 @@ function renderDeathModal(state) {
   })}`;
 }
 
-function bindTopControls({ engine, store, rng, saveManager, mapView, menuView }) {
+function bindTopControls({ engine, store, rng, saveManager, mapView, menuView, codexModalView }) {
   const toggleBtn = document.getElementById('btn-locale-toggle');
   const indicator = document.getElementById('locale-indicator');
 
@@ -345,6 +393,20 @@ function bindTopControls({ engine, store, rng, saveManager, mapView, menuView })
       storePreferredLocale(nextCode);
       await i18n.setLocale(nextCode);
       updateLocaleUi();
+    });
+  }
+
+  const openCodexBtn = document.getElementById('btn-open-codex');
+  if (openCodexBtn) {
+    openCodexBtn.addEventListener('click', () => {
+      codexModalView.open();
+    });
+  }
+
+  const deathMemorialBtn = document.getElementById('btn-death-memorial');
+  if (deathMemorialBtn) {
+    deathMemorialBtn.addEventListener('click', () => {
+      codexModalView.open('memorial');
     });
   }
 

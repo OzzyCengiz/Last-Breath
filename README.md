@@ -45,6 +45,8 @@ The player navigates through ruined metropolises, irradiated marshes, abandoned 
 
 - **Retro-Terminal Military UI:** An atmospheric user interface rendered in amber, olive drab, and rust tones, complete with authentic CRT scanline overlays and dynamic signal telemetry.
 - **Zero Runtime Dependencies:** Developed strictly using modern vanilla JavaScript (ES Modules) and pure CSS3—free from frameworks like React or Vue, and without third-party runtime libraries.
+- **Tactical Combat 2.0:** Deep turn-based engagements featuring 5 range bands (melee to extreme distance), light and heavy physical cover, targeted anatomical zones (cranial crits, leg fractures, disarming strikes), firearm mechanical feed jamming, and dynamic enemy morale/surrender decisions (spare & disarm vs. execute).
+- **True Barter Economy:** Zero fiat currency; direct commodity exchange of ammunition, medical compounds, clean water, and salvage with Nomad Guild, Iron Guard, and Wasteland merchants; real-time trade balance calculations, faction reputation discounts, and skill-based haggling negotiations.
 - **Dynamic Weather & Thermal Simulation:** Acid rain, radioactive ash fog, sub-zero cold fronts, and gale windstorms directly affect core body temperature (hypothermia), cause shivering-induced calorie depletion, deliver chemical burns, and alter tactical visibility (tactical flashlights increase ambush hazard by 300%).
 - **Targeted Anatomical Trauma Schema:** Discrete tracking of 6 body parts for fractures, arterial bleeding, tension pneumothorax, and infection risk; resolved through clinical field treatments including CAT tourniquets, chest seals, SAM splints, and ciprofloxacin.
 - **Faction Diplomacy & Dynamic Encounters:** Dynamic standing ratings ranging from -100 to +100 across the Iron Guard, Nomad Guild, and Ash Marauders, affecting barter rates, tolls, and engagement rules.
@@ -210,8 +212,9 @@ Last Breath/
 │   │   └── locales.js
 │   ├── modules/                 # Game logic modules (Inventory, Map, Combat, Status, Base)
 │   │   ├── base/
-│   │   ├── combat/
+│   │   ├── combat/              # Tactical Combat 2.0 (Range bands, cover, targeted shots, jam, morale)
 │   │   ├── crafting/
+│   │   ├── economy/             # True Barter Economy (Commodity evaluation, merchant stock, haggling)
 │   │   ├── environment/         # Dynamic weather, thermal exposure, acid/ash simulation (weatherEngine.js)
 │   │   ├── factions/            # Faction diplomacy, karma, and encounter filtering
 │   │   ├── inventory/
@@ -219,6 +222,7 @@ Last Breath/
 │   │   ├── skills/
 │   │   └── status/              # Biometrics and anatomical trauma handling (bodyStatus.js)
 │   ├── ui/                      # DOM view components
+│   │   ├── barterModalView.js   # Interactive two-column barter trading table
 │   │   ├── craftBaseView.js
 │   │   ├── dom.js
 │   │   ├── inventoryView.js
@@ -255,7 +259,7 @@ To apply any updates made to JavaScript or CSS source files into the runtime bun
 ```bash
 node build.mjs
 ```
-*Expected Output:* `Built dist\app.bundle.js (55 modules).`
+*Expected Output:* `Built dist\app.bundle.js (59 modules).`
 
 ### 3. Launch the Local Development Server
 ```bash

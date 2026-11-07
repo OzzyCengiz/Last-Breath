@@ -11,6 +11,8 @@ import {
 } from './mapGraph.js';
 import { consumeCombatAmmo, evaluateCheckChance, pickEncounter } from './encounters.js';
 import { WeatherEngine } from '../environment/weatherEngine.js';
+import { codexManager } from '../../core/codexManager.js';
+import { adManager } from '../../core/adManager.js';
 
 const locName = (nodeId) => ref(`location.${nodeId}`);
 
@@ -94,10 +96,20 @@ function startEncounter(ctx, { context, nodeId, mode = 'road', pendingTravel = n
  */
 function runTravelSegments(ctx, plan) {
   const { store, rng, engine } = ctx;
-  const { fromId, toId, mode, remainingMinutes, remainingSegments, risk } = plan;
+  const { fromId, toId, mode, remainingMinutes, remainingSegments, risk, isDriving, vehicleId, fuelNeeded, km } = plan;
 
   let minutesLeft = remainingMinutes;
   let segmentsLeft = remainingSegments;
+
+  // Consume fuel and update vehicle position if driving
+  if (isDriving && vehicleId) {
+    store.commit('vehicles/consumeFuel', { vehicleId, liters: fuelNeeded });
+    store.commit('vehicles/degradeCondition', {
+      vehicleId,
+      amount: Math.max(1, Math.round((km / 100) * 1.5)),
+    });
+    store.commit('vehicles/updateVehicleLocation', { vehicleId, nodeId: toId });
+  }
 
   while (segmentsLeft > 0 && store.state.player.alive) {
     const stepMinutes = Math.round(minutesLeft / segmentsLeft);
@@ -121,6 +133,8 @@ function runTravelSegments(ctx, plan) {
           remainingSegments: segmentsLeft,
           totalSegments: plan.totalSegments,
           risk,
+          isDriving,
+          vehicleId,
         },
       });
       if (interrupted) return;
@@ -129,6 +143,11 @@ function runTravelSegments(ctx, plan) {
 
   if (!store.state.player.alive) return;
   const firstVisit = store.commit('world/visitNode', toId);
+  codexManager.trackCareer('totalKmTraveled', km);
+  const visitedCount = Object.values(store.state.world.nodes).filter((node) => node.visited).length;
+  if (visitedCount >= 10) {
+    codexManager.unlockAchievement('eurasian_nomad');
+  }
   engine.log(
     firstVisit ? 'log.travel.discovered' : 'log.travel.arrived',
     { destination: locName(toId) },
@@ -154,6 +173,18 @@ function registerMapActions(engine, ctx) {
     if (!findRoute(fromId, toId)) return { ok: false, reason: 'reject.no_route' };
 
     const plan = estimateJourney(store.state, fromId, toId);
+
+    if (plan.isDriving) {
+      const vehicle = store.state.vehicles?.fleet?.[plan.vehicleId];
+      if (vehicle && vehicle.fuelLiters < plan.fuelNeeded) {
+        engine.log('vehicle.log.no_fuel', {}, 'warn');
+        return { ok: false, reason: 'reject.insufficient_fuel' };
+      }
+    } else if (store.state.vehicles?.mountedVehicleId && plan.mode === 'sea') {
+      engine.log('vehicle.log.cannot_cross_water', {}, 'warn');
+      return { ok: false, reason: 'reject.sea_cross' };
+    }
+
     engine.log('log.travel.departed', {
       origin: locName(fromId),
       destination: locName(toId),
@@ -168,6 +199,10 @@ function registerMapActions(engine, ctx) {
       remainingSegments: plan.segments,
       totalSegments: plan.segments,
       risk: plan.risk,
+      isDriving: plan.isDriving,
+      vehicleId: plan.vehicleId,
+      fuelNeeded: plan.fuelNeeded,
+      km: plan.km,
     });
     return { ok: true };
   });
@@ -294,6 +329,39 @@ function registerMapActions(engine, ctx) {
       items: [],
       nodeId,
       onConfirm: () => {},
+    });
+    return { ok: true };
+  });
+
+  engine.registerAction('map/requestAirdrop', () => {
+    const nodeId = store.state.world.currentNodeId;
+    adManager.showRewarded({
+      name: 'emergency_supply_airdrop',
+      onReward: ({ adSkipped } = {}) => {
+        const supplies = [
+          { itemId: 'canned_beans', qty: 2 },
+          { itemId: 'bottled_water', qty: 2 },
+          { itemId: 'bandage', qty: 2 },
+        ];
+        engine.log(adSkipped ? 'ad.log.reward_granted_vip' : 'ad.log.reward_granted', {}, 'good');
+        engine.bus.emit('loot:modal', {
+          type: 'airdrop',
+          titleKey: 'ad.airdrop.title',
+          descKey: 'ad.airdrop.desc',
+          descParams: { location: locName(nodeId) },
+          items: supplies,
+          nodeId,
+          onConfirm: (taken, left) => {
+            for (const { itemId, qty } of taken) grantItems(ctx, itemId, qty);
+            for (const { itemId, qty } of left) {
+              store.commit('inventory/toGround', { nodeId, itemId, qty });
+            }
+          },
+        });
+      },
+      onDismiss: () => {
+        engine.log('ad.log.dismissed', {}, 'warn');
+      },
     });
     return { ok: true };
   });

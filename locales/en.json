@@ -30,6 +30,8 @@
       "desc_load_game": "Browse expedition save slots (10 Slots) and resume.",
       "desc_settings": "Configure audio, language, CRT monitor scanlines, and preferences.",
       "desc_exit": "Safely terminate current session and exit the game.",
+      "codex_memorial": "EXPEDITION CODEX & MEMORIAL",
+      "desc_codex_memorial": "Review fallen survivor epitaphs, career statistics, achievement medals, and field lore.",
       "install_app": "INSTALL APP (PWA)",
       "desc_install_app": "Install to your device for offline fullscreen play."
     },
@@ -75,13 +77,18 @@
     "premium": {
       "title": "SURVIVOR PREMIUM EDITION",
       "kicker": "EXCLUSIVE CLEARANCE LEVEL",
-      "desc": "Break the limits of the wasteland. Unlock 8 additional save slots, multi-expedition management, and veteran survival perks.",
-      "feature_1": "10 Full Independent Save Slots (2 Free + 8 Premium)",
-      "feature_2": "Seamless Multi-Survivor Run Management",
-      "feature_3": "Exclusive Wasteland Veteran Badges & UI Themes",
-      "feature_4": "Advanced Offline Journal Export & Local Backups",
-      "unlock_btn": "ENABLE PREMIUM (TRY FREE)",
+      "desc": "Break the limits of the wasteland. Remove all ads, unlock all 10 save slots, and claim instant emergency supply drops.",
+      "active_badge": "👑 LIFETIME PREMIUM ACTIVE // All ads disabled, 10 save slots unlocked.",
+      "feature_1": "Completely Ad-Free Experience (Zero commercial breaks)",
+      "feature_2": "All 10 Save Slots Unlocked (Full multi-expedition management)",
+      "feature_3": "Instant Emergency Supply Drops (Rations & water without watching ads)",
+      "feature_4": "Gold VIP Survivor Badge & Lifetime Meta Support",
+      "unlock_btn": "ACTIVATE PREMIUM (TEST MODE)",
       "revoke_btn": "DISABLE PREMIUM (TEST LOCKED MODE)",
+      "promo_label": "HAVE A LICENSE / PROMO CODE?",
+      "promo_submit": "REDEEM CODE",
+      "promo_success": "✓ Code verified! Lifetime Premium activated.",
+      "promo_invalid": "✗ Invalid code. Try: VIP-SURVIVOR",
       "close": "CLOSE",
       "active_notice": "Survivor Premium license is active on this device."
     },
@@ -230,6 +237,7 @@
       "hydration": "H2O",
       "energy": "STAM"
     },
+    "codex": "CODEX",
     "install_app": "INSTALL"
   },
   "status": {
@@ -556,6 +564,14 @@
     "duct_tape": {
       "name": "Industrial Duct Tape",
       "desc": "Heavy-duty adhesive cloth roll. The backbone of improvised field repairs."
+    },
+    "spark_plug_set": {
+      "name": "Salvaged Spark Plug Set",
+      "desc": "Set of ceramic electrode plugs salvaged from automotive engines. Critical for vehicle ignition restoration."
+    },
+    "fuel_siphon_hose": {
+      "name": "Fuel Siphon Hose",
+      "desc": "Flexible PVC hose with manual primer squeeze bulb. Enables siphoning fuel from abandoned vehicle wrecks."
     },
     "duffel_bag": {
       "name": "Canvas Duffel Bag",
@@ -2923,26 +2939,88 @@
     "cordon_deserter": {
       "name": "Rogue Cordon Deserter",
       "desc": "Former perimeter trooper in battered ballistic rig carrying a service weapon."
+    },
+    "marauder_marksman": {
+      "name": "Ash Marauder Sniper",
+      "desc": "Concealed sharpshooter armed with a high-caliber scoped rifle tracking movements."
+    },
+    "iron_guard_sentinel": {
+      "name": "Iron Guard Shock Sentinel",
+      "desc": "Heavily armored bunker shock-trooper enforcing shoot-to-kill perimeter isolation."
     }
   },
   "combat": {
     "kicker": "TACTICAL ENGAGEMENT",
     "round": "ROUND {round}",
     "enemy_hp": "HOSTILE INTEGRITY",
+    "player_cover": "Cover",
+    "enemy_cover": "Hostile Cover",
     "scavenge_tag": "1× per fight",
-    "enemy_appeared": "HOSTILE CONTACT: {name} closes distance!",
+    "tag_immobilize": "Immobilize · -3 STAM",
+    "tag_disarm": "Disarm · -3 STAM",
+    "spare_tag": "Claim Loot · +Karma",
+    "execute_tag": "Loot Body · Ruthless",
+    "targeted_fire": "Targeted Ballistics",
+    "maneuvers": "Tactical Maneuvers",
+    "surrender_banner": "⚠ {name} HAS SURRENDERED // WEAPON DROPPED",
+    "jammed_banner": "⚠ WEAPON JAMMED // CLEAR CHAMBER TO FIRE",
+    "enemy_appeared": "HOSTILE CONTACT: {name} detected!",
     "player_hit": "Struck {name} for {dmg} damage.",
-    "player_missed": "Your strike against {name} missed.",
+    "player_missed": "Your attack against {name} missed.",
+    "headshot_crit": "CRITICAL HEADSHOT! Struck {name} in the skull for {dmg} trauma!",
+    "leg_fractured": "Direct hit fractured the leg of {name} ({dmg} dmg)! Hostile immobilized.",
+    "arm_disarmed": "Struck {name} in the weapon arm ({dmg} dmg)! Hostile disarmed.",
     "enemy_hit": "{name} struck you for {dmg} trauma!",
     "enemy_missed": "Evaded attack from {name}.",
     "victory": "Neutralized {name}.",
     "fled_success": "Broke contact and slipped away from {name}.",
     "fled_failed": "Failed to break contact with {name}!",
+    "enemy_surrendered": "{name} drops their weapon and falls to their knees, begging for mercy!",
+    "enemy_routed": "Broken morale! {name} panics and flees into the wasteland.",
+    "enemy_spared": "Disarmed {name} peacefully and claimed their supplies.",
+    "enemy_executed": "Executed {name} at point-blank range.",
+    "player_advanced": "Advanced forward, closing range to {range}.",
+    "player_retreated": "Fell back to long distance, opening range to {range}.",
+    "player_took_cover": "Dived behind {cover}!",
+    "jam_cleared": "Racked the bolt and cleared the jammed chamber.",
+    "weapon_jammed": "CLICK! {weapon} suffered a mechanical feed jam!",
+    "weapon_is_jammed_prompt": "Weapon is jammed! Clear the chamber before firing.",
+    "enemy_advanced": "{name} charged forward, closing distance to {range}!",
+    "enemy_crippled_cannot_advance": "{name} attempts to charge but collapses on a fractured leg!",
+    "enemy_took_cover": "{name} dove behind tactical cover!",
+    "range": {
+      "melee": "Melee Contact (<5m)",
+      "close": "Close Quarters (15m)",
+      "medium": "Medium Range (40m)",
+      "long": "Long Distance (85m)",
+      "extreme": "Extreme Distance (150m)"
+    },
+    "cover": {
+      "none": "Exposed (0%)",
+      "light": "Light Cover (-30% Dmg)",
+      "heavy": "Fortified (-60% Dmg)"
+    },
+    "zone": {
+      "head": "Cranial / Head",
+      "torso": "Torso / Vitals",
+      "legs": "Legs / Knees",
+      "arms": "Arms / Hands"
+    },
+    "status": {
+      "leg_crippled": "Immobilized",
+      "disarmed": "Disarmed"
+    },
     "action": {
-      "strike": "Tactical Strike",
-      "aimed": "Precision / Aimed Burst",
+      "strike": "Center Mass Strike",
+      "aimed": "Precision Aimed Burst",
       "scavenge": "Scavenge Mid-Fight",
-      "flee": "Break Contact & Flee"
+      "flee": "Break Contact & Flee",
+      "take_cover": "Take Cover",
+      "advance": "Advance",
+      "retreat": "Fall Back",
+      "clear_jam": "Clear Jam",
+      "spare": "Spare & Disarm",
+      "execute": "Execute"
     }
   },
   "crafting": {
@@ -3033,7 +3111,8 @@
       "drowning": "Swallowed by storm swells in open water.",
       "wounds": "Fell to cumulative trauma in the field."
     },
-    "summary": "Survived {days} days across {nodes} charted sectors. Final transmission logged at {location}."
+    "summary": "Survived {days} days across {nodes} charted sectors. Final transmission logged at {location}.",
+    "action_memorial": "🪦 MEMORIAL LOG"
   },
   "faction": {
     "title": "WASTELAND FACTIONS & DIPLOMACY",
@@ -3075,6 +3154,40 @@
     "flashlight_on": "Tactical light switched ON. Visibility increased, but light signature visible to raiders!",
     "flashlight_off": "Tactical light switched OFF. Stepping into the shadows."
   },
+  "barter": {
+    "kicker": "COMMODITY EXCHANGE",
+    "action_open": "Trade / Barter",
+    "player_offered_val": "Your Offer Value",
+    "merchant_demanded_val": "Demanded Value",
+    "status_balanced": "TRADE ACCEPTABLE",
+    "status_insufficient": "INSUFFICIENT VALUE (+{diff} pts needed)",
+    "player_empty": "No tradeable commodities in pack.",
+    "col_player": "SURVIVOR PACK (OFFER TRAY)",
+    "col_merchant": "MERCHANT WARES",
+    "action_haggle": "Haggle (-18% Discount)",
+    "haggle_done": "Haggled",
+    "action_cancel": "Cancel / Step Away",
+    "action_confirm": "Execute Barter",
+    "haggle_success": "Smooth negotiation! The merchant agrees to an 18% discount on their wares.",
+    "haggle_failed": "Aggressive haggling offended the merchant! They tacked on a 10% stubborn surcharge.",
+    "trade_completed": "Barter sealed! Exchanged {playerVal} pts of goods for {merchantVal} pts of supplies.",
+    "insufficient_value": "The merchant shakes their head: 'Not enough value on the table, survivor.'",
+    "refused_standing": "{faction} sentinels turn you away at gunpoint: 'Your standing is too low for trade.'",
+    "merchant": {
+      "nomad_caravan": {
+        "name": "Nomad Guild Caravan Peddler",
+        "desc": "A sun-weathered trader sitting atop a cart lined with water purification and field medicine."
+      },
+      "iron_guard_quartermaster": {
+        "name": "Iron Guard Logistics Quartermaster",
+        "desc": "A rigid officer behind reinforced blast-glass trading military ordnance for raw salvage."
+      },
+      "wasteland_peddler": {
+        "name": "Fringe Wasteland Scavenger",
+        "desc": "A hunched scavenger surrounded by scavenged wiring, lead sheets, and jury-rigged tools."
+      }
+    }
+  },
   "pwa": {
     "install_title": "INSTALL APP (PWA)",
     "install_desc": "Add Last Breath to your home screen for fullscreen, zero lag, and offline play.",
@@ -3086,5 +3199,167 @@
     "ios_guide_step3": "3. Tap 'Add' in the top right. The game will be installed!",
     "installed_success": "App installed successfully! Ready for offline play.",
     "close": "CLOSE"
+  },
+  "vehicle": {
+    "action_inspect": "Vehicle & Caravan",
+    "label": {
+      "sector": "Sector",
+      "trunk_load": "Trunk Load",
+      "pack_inventory": "Survivor Pack",
+      "trunk_inventory": "Vehicle Trunk",
+      "pack_empty": "No items in pack.",
+      "trunk_empty": "Cargo trunk is empty."
+    },
+    "status": {
+      "operational": "OPERATIONAL",
+      "abandoned": "ABANDONED WRECK",
+      "driving": "DRIVING",
+      "missing": "MISSING"
+    },
+    "action": {
+      "mount": "Start Engine (Mount)",
+      "dismount": "Turn Off Engine (Dismount)",
+      "install": "Install Component",
+      "siphon": "Siphon Fuel from Wreck",
+      "repair_scrap": "Patch Body (Scrap Metal)",
+      "repair_oil": "Top Up Lubricant (Motor Oil)",
+      "to_trunk": "To Trunk",
+      "to_pack": "To Pack"
+    },
+    "spec": {
+      "speed": "Transit Speed",
+      "noise": "Hazard Noise",
+      "shelter": "Cabin Shelter"
+    },
+    "gauge": {
+      "fuel": "Fuel Tank",
+      "condition": "Engine Condition"
+    },
+    "section": {
+      "restoration": "Component Salvage & Restoration",
+      "maintenance": "Field Maintenance & Refueling",
+      "cargo_bay": "Cargo Hold & Pack Logistics"
+    },
+    "enduro": {
+      "name": "Enduro 250cc Recon Motorcycle",
+      "desc": "Light, agile single-track runner built for navigating rubble-choked ruins and mountain trails."
+    },
+    "uaz": {
+      "name": "UAZ-469 Military Utility 4x4",
+      "desc": "Iconic Soviet all-terrain utility vehicle. Rugged mechanicals and sealed cabin protect against corrosive rain and cold."
+    },
+    "ural": {
+      "name": "Ural-4320 Armored Mobile Caravan",
+      "desc": "Massive 6x6 heavy diesel carrier converted into an armored expedition fortress. Huge cargo hold and unmatched crew shelter."
+    },
+    "log": {
+      "mounted": "Engine purrs to life! You take the wheel of the {vehicle}.",
+      "dismounted": "Engine switched off. You step down from the {vehicle} on foot.",
+      "part_installed": "Installed component into chassis. ({remaining} more needed).",
+      "fully_restored": "Chassis fully restored and tuned! The vehicle is ready for expedition travel.",
+      "refueled": "Poured +{added}L of fuel into the tank. Current level: {total}L.",
+      "repaired": "Condition restored by +{gain}%. Current integrity: {condition}%.",
+      "siphoned": "Siphoned +{siphoned}L of fuel from abandoned roadside wrecks into the tank!",
+      "no_fuel": "The engine sputters dry! Tank is empty.",
+      "not_ready": "The vehicle is missing critical components and cannot start.",
+      "cannot_cross_water": "Wheeled overland vehicles cannot cross open sea waters!"
+    },
+    "reject": {
+      "invalid_vehicle": "Vehicle not found.",
+      "insufficient_fuel": "Insufficient fuel for journey.",
+      "trunk_full": "Vehicle trunk is overloaded!",
+      "part_not_in_inventory": "Required component not found in inventory."
+    }
+  },
+  "codex": {
+    "title": "EXPEDITION CODEX & MEMORIAL",
+    "toast_unlocked": "ACHIEVEMENT UNLOCKED",
+    "tab": {
+      "memorial": "Memorial Graveyard",
+      "achievements": "Achievements",
+      "career": "Career Telemetry",
+      "lore": "Field Manual & Lore"
+    },
+    "label": {
+      "rank": "Career Rank",
+      "achievements": "Achievements Unlocked",
+      "days_survived": "days survived",
+      "sectors": "sectors charted",
+      "kills": "enemies neutralized",
+      "locked": "CLASSIFIED / LOCKED",
+      "career_standing": "SURVIVOR REPUTATION TIER",
+      "days": "days"
+    },
+    "rank": {
+      "tier_1": "Greenhorn Refugee",
+      "desc_1": "Freshly awakened survivor taking tentative first steps through the ruins.",
+      "tier_2": "Wasteland Wanderer",
+      "desc_2": "Tested traveler who has endured combat, starvation, and toxic storms.",
+      "tier_3": "Eurasian Steppe Wolf",
+      "desc_3": "Hardened veteran who navigates trade corridors, repairs engines, and survives lethal ambushes.",
+      "tier_4": "Expedition Commander",
+      "desc_4": "Elite survivor commanding overland caravans and commanding high standing with factions.",
+      "tier_5": "Legend of the Last Breath",
+      "desc_5": "A mythical survivor whose name is whispered across every bunker and radio frequency."
+    },
+    "memorial": {
+      "intro_text": "A solemn registry of every survivor who drew their last breath in the wasteland. Their names, achievements, and final hours are etched into this terminal memory.",
+      "empty_title": "No Fallen Survivors Yet",
+      "empty_desc": "Every survivor in this expedition line is currently alive. When a character perishes, their memorial will be recorded here forever."
+    },
+    "stats": {
+      "total_expeditions": "Expeditions Launched",
+      "total_days": "Cumulative Survival Time",
+      "total_km": "Total Distance Covered",
+      "total_sectors": "Sectors Charted",
+      "enemies_neutralized": "Enemies Neutralized",
+      "enemies_spared": "Enemies Spared & Disarmed",
+      "barter_volume": "Total Commodity Barter Value",
+      "vehicles_restored": "Expedition Vehicles Restored",
+      "fuel_siphoned": "Fuel Siphoned from Wrecks",
+      "crafts_done": "Crafted Field Recipes"
+    },
+    "ach": {
+      "first_blood": { "title": "First Contact", "desc": "Neutralize an enemy in tactical combat." },
+      "pacifist_mercy": { "title": "Law of Mercy", "desc": "Spare a surrendered enemy instead of executing them." },
+      "trauma_surgeon": { "title": "Combat Medic", "desc": "Treat severe trauma using a CAT tourniquet or SAM splint." },
+      "mechanic_maestro": { "title": "Wreck Engineer", "desc": "Fully restore an abandoned expedition vehicle with all components." },
+      "silk_road_tycoon": { "title": "Silk Road Tycoon", "desc": "Execute a barter transaction valued over 200 trade points." },
+      "nomad_ally": { "title": "Nomad Kinship", "desc": "Reach +30 standing (Allied) with the Nomad Guild." },
+      "iron_discipline": { "title": "Iron Discipline", "desc": "Reach +30 standing (Allied) with the Iron Guard military." },
+      "acid_survivor": { "title": "Chemical Veteran", "desc": "Weather a corrosive acid storm or radiation ash front without taking damage." },
+      "eurasian_nomad": { "title": "Eurasian Nomad", "desc": "Chart and visit 10 different geographic sectors on the world map." },
+      "endurance_champion": { "title": "Iron Will", "desc": "Survive for more than 10 full days in the post-apocalyptic wasteland." },
+      "fuel_siphoner": { "title": "Fuel Siphoner", "desc": "Siphon vehicle fuel from roadside wrecks using a siphon hose." },
+      "outpost_pioneer": { "title": "Outpost Pioneer", "desc": "Establish a forward outpost base in a sector." },
+      "master_scavenger": { "title": "Master Scavenger", "desc": "Scavenge over 50 items and supplies from ruins." },
+      "sniper_doctrine": { "title": "Dead-Eye", "desc": "Land a lethal targeted head shot from long range with a firearm." }
+    },
+    "lore_cat": {
+      "factions": "Wasteland Factions",
+      "tactics": "Survival Tactics & Field Medicine",
+      "vehicles": "Overland Vehicles & Logistics"
+    },
+    "lore": {
+      "cleared": "DECLASSIFIED",
+      "iron_guard": { "title": "Iron Guard Command Structure", "desc": "Remnants of pre-collapse military forces sealed inside subterranean bunkers. Driven by rigid protocol and high-tech weaponry, they enforce quarantine and trade military ordnance for raw industrial scrap." },
+      "nomad_guild": { "title": "Nomad Guild Trade Caravans", "desc": "An expansive confederation of merchant clans and scavengers who traverse ancient Silk Road corridors with water purification convoys and camel/draft caravans." },
+      "ash_marauders": { "title": "Ash Marauder Doctrine", "desc": "Desperate raiders and scavenger renegades who claim viaduct checkpoints and choke points, extorting passing travelers with toll barriers and ambush raiding." },
+      "trauma_tccc": { "title": "Tactical Combat Casualty Care (TCCC)", "desc": "Post-collapse medical doctrine prioritizing rapid bleeding control with CAT Tourniquets, needle decompression for tension pneumothorax, and fracture stabilization using SAM splints." },
+      "weather_extremes": { "title": "Atmospheric Toxicity Profiles", "desc": "Industrial ruins emit corrosive acid rain capable of melting skin and synthetic gear, while radioactive ash fronts require sealed NBC respirators and enclosed cabin shelters." },
+      "vehicle_overland": { "title": "Expedition Motorization Protocol", "desc": "Motorized overland transit provides 3x-4.5x speed advantages and immense trunk cargo capacity, but combustion engine noise heavily attracts marauders and roving beasts." }
+    }
+  },
+  "ad": {
+    "action_airdrop": "Distress Airdrop (Rewarded)",
+    "airdrop": {
+      "title": "EMERGENCY SUPPLY AIRDROP",
+      "desc": "A supply drone drops a sealed canister at {location}, packed with emergency rations, potable water, and medical bandages."
+    },
+    "log": {
+      "reward_granted": "Emergency airdrop canister deployed! Supplies have landed at your coordinates.",
+      "reward_granted_vip": "👑 VIP ACCESS: Emergency airdrop delivered instantly without commercial delay!",
+      "dismissed": "Emergency broadcast interrupted. Supply drop aborted."
+    }
   }
 }

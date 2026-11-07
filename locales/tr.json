@@ -30,6 +30,8 @@
       "desc_load_game": "Kaydedilmiş sefer yuvalarını (10 Slot) görüntüle ve devam et.",
       "desc_settings": "Ses, dil, CRT ekran paraziti ve sistem ayarlarını yapılandır.",
       "desc_exit": "Mevcut oturumu sonlandır ve oyundan çık.",
+      "codex_memorial": "SEFER DEFTERİ & ANIT",
+      "desc_codex_memorial": "Hayatta kalanların anıt mezarını, başarımları, kümülatif istatistikleri ve saha istihbaratını incele.",
       "install_app": "UYGULAMAYI YÜKLE (PWA)",
       "desc_install_app": "Cihazınıza yükleyerek çevrimdışı ve tam ekran oynayın."
     },
@@ -74,14 +76,19 @@
     },
     "premium": {
       "title": "SURVIVOR PREMIUM SÜRÜMÜ",
-      "kicker": "ÖZEL ERİŞİM DÜZEYİ",
-      "desc": "Çorak topraklarda sınırları kaldırın. Survivor Premium ile 8 ekstra kayıt yuvası ve profesyonel hayatta kalma araçlarının kilidini açın.",
-      "feature_1": "10 Adet Bağımsız Kayıt Yuvası (2 Ücretsiz + 8 Premium)",
-      "feature_2": "Kesintisiz Çoklu Karakter ve Sefer Yönetimi",
-      "feature_3": "Özel Kıyamet Gazisi Profil Rozetleri ve Arayüz Temaları",
-      "feature_4": "Gelişmiş Çevrimdışı Sefer Günlüğü ve Veri Yedekleme",
-      "unlock_btn": "PREMIUM'U ETKİNLEŞTİR (ÜCRETSİZ DENE)",
+      "kicker": "ÖZEL VIP ERİŞİM DÜZEYİ",
+      "desc": "Çorak topraklarda sınırları kaldırın. Tüm reklamları devre dışı bırakın, 10 kayıt yuvasının tümünü sınırsız açın ve acil yardım sandıklarına anında ulaşın.",
+      "active_badge": "👑 ÖMÜR BOYU PREMIUM ETKİN // Tüm reklamlar kaldırıldı, 10 yuva açık.",
+      "feature_1": "Tamamen Reklamsız Kesintisiz Deneyim (Sıfır reklam beklemesi)",
+      "feature_2": "10 Adet Bağımsız Kayıt Yuvası (Tüm yuvalar sınırsız açık)",
+      "feature_3": "Anında Acil Durum Erzak Yardımı (Reklamsız tayın, su ve bandaj)",
+      "feature_4": "Altın VIP Rozeti & Kalıcı Meta-Destek",
+      "unlock_btn": "PREMIUM'U ETKİNLEŞTİR (TEST MODU)",
       "revoke_btn": "PREMIUM'U KALDIR (KİLİTLİ MODU TEST ET)",
+      "promo_label": "LİSANS VEYA PROMOSYON KODUNUZ VAR MI?",
+      "promo_submit": "KODU DOĞRULA",
+      "promo_success": "✓ Kod onaylandı! Ömür Boyu Premium hesabınız aktifleştirildi.",
+      "promo_invalid": "✗ Geçersiz kod. Test kodu: VIP-SURVIVOR",
       "close": "KAPAT",
       "active_notice": "Survivor Premium lisansı bu cihazda başarıyla aktifleştirildi."
     },
@@ -230,6 +237,7 @@
       "hydration": "SU",
       "energy": "DAY"
     },
+    "codex": "KODEKS",
     "install_app": "YÜKLE"
   },
   "status": {
@@ -480,26 +488,88 @@
     "cordon_deserter": {
       "name": "Kaçak Kordon Askeri",
       "desc": "Yıpranmış balistik yelekli, silahlı eski karantina askeri."
+    },
+    "marauder_marksman": {
+      "name": "Kül Yağmacısı Keskin Nişancı",
+      "desc": "Dürbünlü yüksek kalibreli tüfekle hareketleri izleyen gizlenmiş nişancı."
+    },
+    "iron_guard_sentinel": {
+      "name": "Demir Muhafız Şok Nöbetçisi",
+      "desc": "Görüldüğü yerde vur emri uygulayan, ağır zırhlı sığınak hücum askeri."
     }
   },
   "combat": {
     "kicker": "TAKTİK ÇATIŞMA",
     "round": "TUR {round}",
     "enemy_hp": "DÜŞMAN BÜTÜNLÜĞÜ",
+    "player_cover": "Siper Durumu",
+    "enemy_cover": "Düşman Siperi",
     "scavenge_tag": "Çatışma başı 1×",
-    "enemy_appeared": "TEMAS: {name} hızla yaklaşıyor!",
+    "tag_immobilize": "Hareketsiz Bırak · -3 DAY",
+    "tag_disarm": "Silahsızlandır · -3 DAY",
+    "spare_tag": "Ganimeti Al · +Karma",
+    "execute_tag": "İnfaz Et · Acımasız",
+    "targeted_fire": "Hedefli Balistik Atışlar",
+    "maneuvers": "Taktik Manevralar",
+    "surrender_banner": "⚠ {name} TESLİM OLDU // SİLAHINI BIRAKTI",
+    "jammed_banner": "⚠ SİLAH TUTUKLUK YAPTI // MEKANİZMAYI TEMİZLEYİN",
+    "enemy_appeared": "DÜŞMAN TEMASI: {name} tespit edildi!",
     "player_hit": "{name} hedefine {dmg} hasar verdin.",
     "player_missed": "{name} hedefine saldırın ıskaladı.",
+    "headshot_crit": "ÖLÜMCÜL KAFATASI VURUŞU! {name} kafasından {dmg} travma aldı!",
+    "leg_fractured": "İsabetli atış {name} bacağını kırdı ({dmg} hasar)! Düşman hareketsiz kaldı.",
+    "arm_disarmed": "{name} silah kolundan vuruldu ({dmg} hasar)! Silahını düşürdü.",
     "enemy_hit": "{name} sana {dmg} travma hasarı verdi!",
     "enemy_missed": "{name} saldırısından sıyrıldın.",
     "victory": "{name} etkisiz hale getirildi.",
     "fled_success": "Teması kesip {name} tehdidinden uzaklaştın.",
     "fled_failed": "{name} karşısında geri çekilemedin!",
+    "enemy_surrendered": "{name} silahını fırlatıp dizlerinin üzerine çöktü ve merhamet diliyor!",
+    "enemy_routed": "Moral çöktü! {name} panik içinde çorak topraklara kaçtı.",
+    "enemy_spared": "{name} bağışlanıp silahsızlandırıldı ve teçhizatı ele geçirildi.",
+    "enemy_executed": "{name} yakın mesafeden infaz edildi.",
+    "player_advanced": "İleri atılarak mesafeyi kapattın: {range}.",
+    "player_retreated": "Geriye çekilerek menzili açtın: {range}.",
+    "player_took_cover": "{cover} arkasına siper aldın!",
+    "jam_cleared": "Mekanizma çekilip sıkışan kovan temizlendi.",
+    "weapon_jammed": "KLİK! {weapon} mekanizması besleme hatası verip tutukluk yaptı!",
+    "weapon_is_jammed_prompt": "Silah tutukluk yaptı! Ateş etmeden önce mekanizmayı temizleyin.",
+    "enemy_advanced": "{name} hızla hücuma geçerek aradaki mesafeyi kapattı: {range}!",
+    "enemy_crippled_cannot_advance": "{name} hücum etmeye çalıştı ancak kırık bacağının üzerine çöktü!",
+    "enemy_took_cover": "{name} taktiksel siper arkasına daldı!",
+    "range": {
+      "melee": "Göğüs Göğüse (<5m)",
+      "close": "Yakın Mesafe (15m)",
+      "medium": "Orta Menzil (40m)",
+      "long": "Uzak Mesafe (85m)",
+      "extreme": "Aşırı Uzak (150m)"
+    },
+    "cover": {
+      "none": "Açıkta (%0)",
+      "light": "Hafif Siper (-%30 Hasar)",
+      "heavy": "Tahkimat (-%60 Hasar)"
+    },
+    "zone": {
+      "head": "Kafatası / Baş",
+      "torso": "Gövde / Yaşamsal",
+      "legs": "Bacaklar / Diz",
+      "arms": "Kollar / Eller"
+    },
+    "status": {
+      "leg_crippled": "Hareketsiz",
+      "disarmed": "Silahsız"
+    },
     "action": {
-      "strike": "Taktik Saldırı",
-      "aimed": "Nişanlı / Güçlü Atış",
+      "strike": "Gövdeye Saldırı",
+      "aimed": "Hassas Nişanlı Atış",
       "scavenge": "Çatışma Ortasında Yağmala",
-      "flee": "Teması Kes & Kaç"
+      "flee": "Teması Kes & Kaç",
+      "take_cover": "Siper Al",
+      "advance": "Yaklaş",
+      "retreat": "Geri Çekil",
+      "clear_jam": "Tutukluğu Gider",
+      "spare": "Affet & Silahsızlandır",
+      "execute": "İnfaz Et"
     }
   },
   "crafting": {
@@ -642,6 +712,14 @@
     "duct_tape": {
       "name": "Endüstriyel Koli Bandı",
       "desc": "Ağır hizmet tipi yapışkan bant rulosu. Saha tamiratlarının vazgeçilmezi."
+    },
+    "spark_plug_set": {
+      "name": "Hurda Buji Takımı",
+      "desc": "Otomobil motorlarından sökülmüş seramik elektrotlu bujiler. Taşıt ateşleme sistemi için kritiktir."
+    },
+    "fuel_siphon_hose": {
+      "name": "Yakıt Sifon Hortumu",
+      "desc": "Manuel emme pompalı esnek PVC hortum. Terkedilmiş araç enkazlarından benzin veya dizel çekmeyi sağlar."
     },
     "duffel_bag": {
       "name": "Kanvas Kurye Çantası",
@@ -2716,6 +2794,40 @@
     "flashlight_on": "Fener AÇIK. Arama hızı arttı ancak ışık hüzmesi yağmacıların dikkatini çekiyor!",
     "flashlight_off": "Fener KAPALI. Gölgelerin içine adım atılıyor."
   },
+  "barter": {
+    "kicker": "MAL TAKAS MASASI",
+    "action_open": "Tüccar ile Takas",
+    "player_offered_val": "Senin Teklif Değerin",
+    "merchant_demanded_val": "İstenen Mal Değeri",
+    "status_balanced": "ANLAŞMA KABUL EDİLEBİLİR",
+    "status_insufficient": "YETERSİZ DEĞER (+{diff} puan gerekli)",
+    "player_empty": "Çantada takas edilecek eşya bulunmuyor.",
+    "col_player": "HAYATTA KALAN ÇANTASI (TEKLİF)",
+    "col_merchant": "TÜCCAR ENVANTERİ",
+    "action_haggle": "Pazarlık Yap (-%18 İndirim)",
+    "haggle_done": "Pazarlık Yapıldı",
+    "action_cancel": "Vazgeç / Ayrıl",
+    "action_confirm": "Takası Tamamla",
+    "haggle_success": "Usta işi pazarlık! Tüccar mallarında %18 indirimi kabul etti.",
+    "haggle_failed": "Sert pazarlık tüccarı kızdırdı! Fiyatlara %10 inat zammı koydu.",
+    "trade_completed": "Takas tamamlandı! {playerVal} puanlık eşya verilip {merchantVal} puanlık erzak alındı.",
+    "insufficient_value": "Tüccar başını salladı: 'Masadaki mallar yetersiz, yabancı.'",
+    "refused_standing": "{faction} muhafızları namlu doğrulttu: 'İtibarın ticaret için çok düşük.'",
+    "merchant": {
+      "nomad_caravan": {
+        "name": "Göçebe Loncası Kervan Tüccarı",
+        "desc": "Su arıtma tabletleri ve saha tıbbı gereçleriyle dolu bir kervanın başında bekleyen tecrübeli tüccar."
+      },
+      "iron_guard_quartermaster": {
+        "name": "Demir Muhafız Levazım Subayı",
+        "desc": "Zırhlı camın arkasından hurda karşılığı askeri mühimmat takas eden disiplinli levazım subayı."
+      },
+      "wasteland_peddler": {
+        "name": "Çorak Arazi Başıboş Hurdacı",
+        "desc": "Bakır kablolar, kurşun plakalar ve derme çatma aletlerle dolu çuvalının başında bekleyen bir hurdacı."
+      }
+    }
+  },
   "pwa": {
     "install_title": "UYGULAMAYI YÜKLE (PWA)",
     "install_desc": "Last Breath'i ana ekranınıza ekleyerek tam ekran, sıfır gecikme ve çevrimdışı oynayın.",
@@ -2786,6 +2898,183 @@
       "started": "{location} harabelerinde erzak ve hurda aranıyor...",
       "empty": "{location} içindeki yıkıntılar tarandı ancak işe yarar bir şey bulunamadı.",
       "field_log": "[ELE GEÇİRİLEN SAHA KAYDI] {text}"
+    }
+  },
+  "vehicle": {
+    "action_inspect": "Taşıt & Karavan",
+    "label": {
+      "sector": "Sektör",
+      "trunk_load": "Bagaj Yükü",
+      "pack_inventory": "Hayatta Kalan Çantası",
+      "trunk_inventory": "Taşıt Bagajı",
+      "pack_empty": "Çantada eşya yok.",
+      "trunk_empty": "Taşıt bagajı boş."
+    },
+    "status": {
+      "operational": "ÇALIŞIR DURUMDA",
+      "abandoned": "TERKEDİLMİŞ ENKAZ",
+      "driving": "SÜRÜLÜYOR",
+      "missing": "EKSİK"
+    },
+    "action": {
+      "mount": "Kontağı Çalıştır (Bin)",
+      "dismount": "Kontağı Kapat (İn)",
+      "install": "Parçayı Tak",
+      "siphon": "Enkazdan Yakıt Sifonla",
+      "repair_scrap": "Gövdeyi Onar (Hurda)",
+      "repair_oil": "Yağ Seviyesini Tamamla (Motor Yağı)",
+      "to_trunk": "Bagaja Koy",
+      "to_pack": "Çantaya Al"
+    },
+    "spec": {
+      "speed": "İntikal Hızı",
+      "noise": "Motor Gürültüsü",
+      "shelter": "Kabini Korunaklı"
+    },
+    "gauge": {
+      "fuel": "Yakıt Deposu",
+      "condition": "Motor Sağlığı"
+    },
+    "section": {
+      "restoration": "Parça Montajı ve Restorasyon",
+      "maintenance": "Saha Bakımı ve İkmal",
+      "cargo_bay": "Bagaj Yükleme ve Çanta Yönetimi"
+    },
+    "enduro": {
+      "name": "Enduro 250cc Keşif Motosikleti",
+      "desc": "Harabe sokaklar ve dağ patikalarını hızla aşmak için tasarlanmış hafif, kıvrak tek izli keşif aracı."
+    },
+    "uaz": {
+      "name": "UAZ-469 Askeri Arazi Taşıtı",
+      "desc": "Klasik Sovyet 4x4 arazi taşıtı. Mekanik sağlamlığı ve kapalı kabini asit yağmuru ve dondurucu soğuğa karşı tam koruma sağlar."
+    },
+    "ural": {
+      "name": "Ural-4320 Ağır Zırhlı Mobil Karavan",
+      "desc": "Zırhlı seyyar bir kaleye dönüştürülmüş 6x6 ağır dizel nakliye devi. Devasa bagaj hacmi ve eşsiz mürettebat koruması sunar."
+    },
+    "log": {
+      "mounted": "Motor kükreyerek çalıştı! {vehicle} direksiyonuna geçtiniz.",
+      "dismounted": "Kontak kapatıldı. {vehicle} taşıtından yaya olarak indiniz.",
+      "part_installed": "Parça gövdeye monte edildi. ({remaining} parça daha gerekiyor).",
+      "fully_restored": "Araç restorasyonu tamamlandı! Taşıt uzun yolculuklara hazır.",
+      "refueled": "Depoya +{added}L yakıt dolduruldu. Mevcut seviye: {total}L.",
+      "repaired": "Araç gövdesi +%{gain} onarıldı. Durum: %{condition}.",
+      "siphoned": "Yol kenarındaki enkazdan depoya +{siphoned}L yakıt sifonlandı!",
+      "no_fuel": "Motor yakıtsızlıktan tekleme yapıp durdu! Yakıt deposu boş.",
+      "not_ready": "Taşıtın kritik parçaları eksik, çalıştırılamıyor.",
+      "cannot_cross_water": "Tekerlekli kara taşıtları deniz yolunu aşamaz!"
+    },
+    "reject": {
+      "invalid_vehicle": "Taşıt bulunamadı.",
+      "insufficient_fuel": "Yolculuk için yetersiz yakıt.",
+      "trunk_full": "Taşıt bagajı azami taşıma sınırında!",
+      "part_not_in_inventory": "Gerekli parça envanterde yok."
+    }
+  },
+  "death": {
+    "title": "SİNYAL KESİLDİ",
+    "cause": {
+      "starvation": "Uzun süren açlığa yenik düştü.",
+      "dehydration": "Sistemik susuzluktan yere yığıldı.",
+      "exhaustion": "Aşırı bitkinlik ve yorgunluktan kalbi durdu.",
+      "bleeding": "Tedavi edilmeyen derin kan kaybından öldü.",
+      "infection": "Enfeksiyon ve septik şok sonucu can verdi.",
+      "acid": "Aşındırıcı asit yanıkları ölümcül oldu.",
+      "drowning": "Açık denizin fırtınalı dalgalarında kayboldu.",
+      "wounds": "Ağır muharebe travmasına ve yaralarına yenik düştü."
+    },
+    "summary": "{nodes} sektör haritalandıktan sonra {days} gün hayatta kalındı. Son telsiz sinyali {location} harabelerinden alındı.",
+    "action_memorial": "🪦 ANIT MEZAR & SEFER DEFTERİ"
+  },
+  "codex": {
+    "title": "SEFER DEFTERİ, ANIT & KODEKS",
+    "toast_unlocked": "BAŞARIM AÇILDI",
+    "tab": {
+      "memorial": "Anıt Mezar",
+      "achievements": "Başarımlar",
+      "career": "Kümülatif Telemetri",
+      "lore": "Saha El Kitabı & İstihbarat"
+    },
+    "label": {
+      "rank": "Hayatta Kalma Rütbesi",
+      "achievements": "Başarım Açıldı",
+      "days_survived": "gün hayatta kalındı",
+      "sectors": "sektör haritalandı",
+      "kills": "düşman etkisiz hale getirildi",
+      "locked": "GİZLİ / KİLİTLİ",
+      "career_standing": "HAYATTA KALAN İTİBAR DERECESİ",
+      "days": "gün"
+    },
+    "rank": {
+      "tier_1": "Acemi Mülteci",
+      "desc_1": "Kıyamet sonrası harabelere henüz ilk adımlarını atan tecrübesiz mülteci.",
+      "tier_2": "Çorak Arazi Seyyahı",
+      "desc_2": "Çatışma, açlık ve asit fırtınalarını bizzat tatmış dayanıklı gezgin.",
+      "tier_3": "Avrasya Bozkır Kurdu",
+      "desc_3": "Ticaret yollarını bilen, motor onaran ve ölümcül pusuları bertaraf eden çetin gazi.",
+      "tier_4": "Sefer Kolu Komutanı",
+      "desc_4": "Karavanlara liderlik eden ve hizipler nezdinde yüksek itibara sahip usta hayatta kalan.",
+      "tier_5": "Son Nefes Efsanesi",
+      "desc_5": "Adı sığınak duvarlarına kazınmış, tüm Avrasya telsiz frekanslarında efsaneleşen kurtarıcı."
+    },
+    "memorial": {
+      "intro_text": "Avrasya harabelerinde son nefesini veren tüm hayatta kalanların anıt defteri. İsimleri, başarıları ve son anları terminal hafızasında sonsuza dek yaşayacak.",
+      "empty_title": "Henüz Can Veren Hayatta Kalan Yok",
+      "empty_desc": "Bu sefer hattındaki tüm hayatta kalanlar şu anda hayatta. Bir karakter can verdiğinde, hatırası sonsuza dek buraya kaydedilecek."
+    },
+    "stats": {
+      "total_expeditions": "Başlatılan Toplam Sefer",
+      "total_days": "Toplam Hayatta Kalınan Süre",
+      "total_km": "Kat Edilen Toplam Mesafe",
+      "total_sectors": "Haritalanan Toplam Sektör",
+      "enemies_neutralized": "Etkisiz Hale Getirilen Düşman",
+      "enemies_spared": "Affedilen / Bağışlanan Düşman",
+      "barter_volume": "Kümülatif Mal Takas Hacmi",
+      "vehicles_restored": "Restore Edilen Arazi Taşıtı",
+      "fuel_siphoned": "Enkazlardan Sifonlanan Yakıt",
+      "crafts_done": "Tamamlanan Saha Üretimleri"
+    },
+    "ach": {
+      "first_blood": { "title": "İlk Temas", "desc": "Taktiksel çatışmada bir düşmanı etkisiz hale getir." },
+      "pacifist_mercy": { "title": "Merhamet Yasası", "desc": "Teslim olan silahlı bir yağmacıyı öldürmek yerine affedip serbest bırak." },
+      "trauma_surgeon": { "title": "Saha Cerrahı", "desc": "Arteryel kanamayı CAT turnikesi ile durdur ve kırık bir uzvu SAM ateliyle sabitle." },
+      "mechanic_maestro": { "title": "Enkaz Mühendisi", "desc": "Terkedilmiş bir askeri veya arazi taşıtını tüm parçalarını toplayarak restore et." },
+      "silk_road_tycoon": { "title": "İpek Yolu Taciri", "desc": "Tek seferde tüccarlarla 200 değer puanının üzerinde başarılı takas gerçekleştir." },
+      "nomad_ally": { "title": "Bozkır Kardeşliği", "desc": "Göçebe Loncası (Nomad Guild) ile itibarını +30 (Müttefik) seviyesine yükselt." },
+      "iron_discipline": { "title": "Demir Disiplin", "desc": "Demir Muhafızlar (Iron Guard) ile itibarını +30 seviyesine yükselt." },
+      "acid_survivor": { "title": "Kimyasal Gazisi", "desc": "Aşındırıcı asit yağmuru veya radyasyon kül fırtınasını hasar almadan atlat." },
+      "eurasian_nomad": { "title": "Avrasya Seyyahı", "desc": "Harita üzerinde 10 farklı sektörü keşfet ve ayak bas." },
+      "endurance_champion": { "title": "Demir İrade", "desc": "Acımasız kıyamet sonrasında 10 günden fazla hayatta kal." },
+      "fuel_siphoner": { "title": "Yakıt Korsanı", "desc": "Sifon hortumu kullanarak terkedilmiş araç enkazlarından yakıt çek." },
+      "outpost_pioneer": { "title": "İlk Tahkimat", "desc": "Bir sektöre ilk ileri karakol üssünü inşa et." },
+      "master_scavenger": { "title": "Usta Yağmacı", "desc": "Harabelerden toplamda 50'den fazla kaynak ve eşya topla." },
+      "sniper_doctrine": { "title": "Keskin Nişancı", "desc": "Ateşli silahla uzaktan tek vuruşta kritik kafa hasarı ver." }
+    },
+    "lore_cat": {
+      "factions": "Kıyamet Hizipleri",
+      "tactics": "Saha Taktikleri & Travma Tıbbı",
+      "vehicles": "Arazi Taşıtları & İntikal"
+    },
+    "lore": {
+      "cleared": "GİZLİLİK KALDIRILDI",
+      "iron_guard": { "title": "Demir Muhafız Komuta Yapısı", "desc": "Yeraltı askeri sığınaklarında mühürlenmiş kıyamet öncesi nizam ordusu kalıntıları. Katı protokoller ve yüksek teknolojili silahlarla donanmış olup harabelerde karantinayı uygular ve hurda karşılığı mühimmat sağlarlar." },
+      "nomad_guild": { "title": "Göçebe Loncası Ticaret Kervanları", "desc": "Tarihi İpek Yolu güzergahlarını su arıtma konvoyları ve deve/yük kervanlarıyla kat eden tecrübeli tüccar klanları ve gezgin hurdacılar birliği." },
+      "ash_marauders": { "title": "Kül Yağmacıları Doktrini", "desc": "Viyadükleri ve stratejik boğazları kesen, seyyahları haraç barikatlarıyla soyan ve pusu kuran acımasız harabe çeteleri." },
+      "trauma_tccc": { "title": "Taktik Muharebe Yaralı Bakımı (TCCC)", "desc": "Kıyamet şartlarında hayatta kalmak için CAT turnikelerle acil kanama durdurma, göğüs dekompresyonu ve SAM atelleriyle kırık sabitleme doktrini." },
+      "weather_extremes": { "title": "Atmosferik Toksisite Profilleri", "desc": "Sanayi enkazlarından yükselen aşındırıcı asit yağmurları teni ve kıyafetleri eritirken; radyoaktif kül fırtınaları NBC gaz maskeleri veya kapalı araç kabinleri gerektirir." },
+      "vehicle_overland": { "title": "Motorlu İntikal ve Lojistik Protokolü", "desc": "Motorlu araçlar 3x-4.5x hız avantajı ve yüzlerce kiloluk bagaj kapasitesi sunar; ancak içten yanmalı motor gürültüsü yağmacıları ve yaratıkları hızla çeker." }
+    }
+  },
+  "ad": {
+    "action_airdrop": "Acil İkmal Sandığı (Ödüllü)",
+    "airdrop": {
+      "title": "ACİL DURUM İKMAL SANDIĞI",
+      "desc": "Telsiz çağrınız üzerine koordinatlarınıza bir drone tarafından acil tayın, temiz su ve sargı bezi içeren mühürlü bir paraşüt sandığı indirildi."
+    },
+    "log": {
+      "reward_granted": "Acil durum yardım sandığı başarıyla ulaştı! Malzemeler envantere eklendi.",
+      "reward_granted_vip": "👑 VIP ERİŞİM: Acil erzak sandığı reklamsız ve anında teslim edildi!",
+      "dismissed": "Yayın yarıda kesildi. İkmal çağrısı iptal edildi."
     }
   }
 }

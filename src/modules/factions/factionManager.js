@@ -4,6 +4,8 @@
  * reputation ripple matrices, economic discount multipliers, and encounter modifications.
  */
 
+import { codexManager } from '../../core/codexManager.js';
+
 export const FACTION_IDS = {
   IRON_GUARD: 'iron_guard',
   NOMAD_GUILD: 'nomad_guild',
@@ -181,6 +183,11 @@ export class FactionManager {
     const newTier = this.getTier(newStanding);
 
     state.factions.standings[factionId] = newStanding;
+
+    if (newStanding >= 30) {
+      if (factionId === FACTION_IDS.NOMAD_GUILD) codexManager.unlockAchievement('nomad_ally');
+      if (factionId === FACTION_IDS.IRON_GUARD) codexManager.unlockAchievement('iron_discipline');
+    }
 
     const tierShifts = [];
     if (oldTier.id !== newTier.id) {
