@@ -23,7 +23,18 @@
       "open_menu": "MAIN MENU",
       "new_game": "START NEW EXPEDITION →",
       "create_character": "CREATE SURVIVOR EXPEDITION →",
-      "back_to_menu": "← MAIN MENU"
+      "back_to_menu": "← MAIN MENU",
+      "new_game_main": "NEW GAME",
+      "load_game": "LOAD GAME",
+      "settings": "SETTINGS",
+      "exit": "EXIT",
+      "return_to_game": "RETURN TO GAME",
+      "desc_new_game": "Embark on a new survival expedition and create your character.",
+      "desc_load_game": "Browse expedition save slots (10 Slots) and resume.",
+      "desc_settings": "Configure audio, language, CRT monitor scanlines, and preferences.",
+      "desc_exit": "Safely terminate current session and exit the game.",
+      "install_app": "INSTALL APP (PWA)",
+      "desc_install_app": "Install to your device for offline fullscreen play."
     },
     "archetype": {
       "scavenger": {
@@ -42,6 +53,65 @@
         "name": "Cordon Veteran",
         "desc": "Starts with a weighted machete, riding jacket, military rations, and Lv.1 Close Quarters."
       }
+    },
+    "slots": {
+      "title": "EXPEDITION SAVE SLOTS",
+      "subtitle": "10 Save Slots // 2 Free Slots · 8 Survivor Premium Slots",
+      "free_badge": "FREE",
+      "premium_badge": "PREMIUM",
+      "locked_badge": "LOCKED 🔒",
+      "active_badge": "ACTIVE RUN",
+      "empty": "EMPTY SLOT",
+      "empty_desc": "No active survival expedition recorded in this slot.",
+      "locked_desc": "This slot is locked. Survivor Premium Edition is required to unlock 8 additional slots.",
+      "load_btn": "LOAD",
+      "save_btn": "SAVE",
+      "delete_btn": "DELETE",
+      "unlock_btn": "UNLOCK 🔒",
+      "delete_confirm": "All progress in this save slot will be permanently deleted. Are you sure?",
+      "save_success": "Game saved successfully.",
+      "load_failed": "Failed to load save file or data is corrupt.",
+      "premium_status_active": "SURVIVOR PREMIUM ACTIVE 👑",
+      "premium_status_free": "FREE EDITION",
+      "upgrade_cta": "UPGRADE TO PREMIUM"
+    },
+    "premium": {
+      "title": "SURVIVOR PREMIUM EDITION",
+      "kicker": "EXCLUSIVE CLEARANCE LEVEL",
+      "desc": "Break the limits of the wasteland. Unlock 8 additional save slots, multi-expedition management, and veteran survival perks.",
+      "feature_1": "10 Full Independent Save Slots (2 Free + 8 Premium)",
+      "feature_2": "Seamless Multi-Survivor Run Management",
+      "feature_3": "Exclusive Wasteland Veteran Badges & UI Themes",
+      "feature_4": "Advanced Offline Journal Export & Local Backups",
+      "unlock_btn": "ENABLE PREMIUM (TRY FREE)",
+      "revoke_btn": "DISABLE PREMIUM (TEST LOCKED MODE)",
+      "close": "CLOSE",
+      "active_notice": "Survivor Premium license is active on this device."
+    },
+    "settings": {
+      "title": "SYSTEM SETTINGS",
+      "subtitle": "Display interface, audio, language, and local storage configuration",
+      "language": "Interface Language",
+      "sfx": "Sound Effects (SFX)",
+      "ambient": "Radio & Atmospheric Ambience",
+      "crt": "CRT Screen Flicker & Scanline Effects",
+      "autosave": "Auto-Save System",
+      "reset_title": "Danger Zone (Data Reset)",
+      "reset_desc": "Clears all save slots, preferences, and local game state.",
+      "reset_btn": "CLEAR ALL DATA",
+      "reset_confirm": "WARNING: All save slots and preferences will be permanently wiped! Proceed?",
+      "on": "ON",
+      "off": "OFF",
+      "saved_notice": "Settings saved."
+    },
+    "exit": {
+      "title": "TERMINATE SESSION",
+      "desc": "You are about to exit the wasteland. Your current expedition state is safely stored in your active slot.",
+      "confirm_btn": "EXIT GAME",
+      "cancel_btn": "CANCEL / RETURN",
+      "terminated_title": "CONNECTION TERMINATED // OFFLINE",
+      "terminated_desc": "Survivor telemetry sealed into non-volatile storage. You may safely close this browser tab.",
+      "reconnect_btn": "RECONNECT"
     }
   },
   "character": {
@@ -50,10 +120,10 @@
     "default_name": "Survivor",
     "callsign_kicker": "CALLSIGN // ID",
     "steps": {
-      "identity": "1. IDENTITY & TRAITS",
-      "archetype": "2. BACKGROUND & KIT",
-      "sector": "3. DROP SECTOR",
-      "summary": "4. DOSSIER & DEPLOY"
+      "identity": "1. IDENTITY",
+      "archetype": "2. ORIGIN",
+      "sector": "3. SECTOR",
+      "summary": "4. SUMMARY"
     },
     "step_subtitle": {
       "1": "Step 1/4: Enter operative callsign, age, blood type, and primary survival disposition.",
@@ -162,14 +232,35 @@
       "satiety": "KCAL",
       "hydration": "H2O",
       "energy": "STAM"
-    }
+    },
+    "install_app": "INSTALL"
   },
   "status": {
     "section": {
       "vitals": "BIOMETRIC VITALS",
+      "body": "ANATOMICAL TRAUMA SCHEMATIC",
       "conditions": "ACTIVE TRAUMA & PATHOGENS",
       "readout": "COMBAT & RIG TELEMETRY",
       "skills": "SURVIVAL PROFICIENCIES"
+    },
+    "body": {
+      "part": {
+        "head": "Cranial / Head",
+        "torso": "Torso / Chest",
+        "leftArm": "Left Arm",
+        "rightArm": "Right Arm",
+        "leftLeg": "Left Leg",
+        "rightLeg": "Right Leg"
+      },
+      "condition": {
+        "intact": "INTACT",
+        "arterial_bleed": "ARTERIAL BLEED",
+        "minor_bleed": "BLEEDING",
+        "fracture": "FRACTURE",
+        "pneumothorax": "PNEUMOTHORAX",
+        "burn": "BURN",
+        "infection": "INFECTED"
+      }
     },
     "vital": {
       "health": "INTEGRITY",
@@ -382,124 +473,2124 @@
       "desc": "Dented steel can of salted beans in brine. Heavy, dependable calories."
     },
     "jerky": {
-      "name": "Smoked Venison Strips",
-      "desc": "Dry cured meat. Keeps forever, leaves your mouth parched."
+      "name": "Smoked Beef Jerky",
+      "desc": "Salt-cured dried meat strip. Lightweight and durable, but increases thirst."
     },
     "mre": {
-      "name": "Sealed Field Ration (MRE)",
-      "desc": "Military-grade retort pouch with flameless heater and electrolyte pack."
+      "name": "Military MRE Ration",
+      "desc": "Field combat ration pack with flameless ration heater and high-energy biscuits."
     },
     "energy_bar": {
-      "name": "Compressed Oat Bar",
-      "desc": "Dense glucose and fat brick salvaged from an emergency kit."
+      "name": "Oatmeal Energy Bar",
+      "desc": "Dense glucose-packed oat bar. Quick boost on the move."
     },
     "bottled_water": {
-      "name": "Sealed Water Bottle",
-      "desc": "Half-liter of clean, pre-collapse municipal water."
+      "name": "Sealed Bottled Water",
+      "desc": "Factory-sealed mineral water bottle. Safe from microbial infection."
     },
     "dirty_water": {
-      "name": "Brackish Runoff",
-      "desc": "Cloudy water collected from cisterns. Quenches thirst at pathogen risk."
+      "name": "Turbid Stagnant Water",
+      "desc": "Collected from an open puddle or cistern. Quenches thirst but carries disease risk."
     },
     "instant_coffee": {
-      "name": "Freeze-Dried Coffee Packet",
-      "desc": "Chewed dry or stirred into cold water to stave off exhaustion."
+      "name": "Instant Coffee Packet",
+      "desc": "Bitter freeze-dried coffee crystals. Restores focus at the cost of mild dehydration."
     },
     "bandage": {
-      "name": "Sterile Gauze Roll",
-      "desc": "Tightly woven pressure dressing that staunches active bleeding."
+      "name": "Sterile Gauze Bandage",
+      "desc": "Clean woven cotton dressing. Stops active traumatic bleeding."
     },
     "antiseptic": {
-      "name": "Iodine Tincture",
-      "desc": "Stinging topical wash that scrubs down developing infections."
+      "name": "Iodine Antiseptic Bottle",
+      "desc": "Topical povidone-iodine disinfectant. Treats early superficial infections."
     },
     "antibiotics": {
-      "name": "Broad-Spectrum Capsules",
-      "desc": "Blister pack of ciprofloxacin. Purges systemic bacterial sepsis."
+      "name": "Broad-Spectrum Antibiotics",
+      "desc": "Full course of pharmaceutical antibiotic capsules. Cures severe systemic infections."
     },
     "painkillers": {
-      "name": "Analgesic Tablets",
-      "desc": "Numbs musculoskeletal pain and restores short-term stamina."
+      "name": "Analgesic Painkillers",
+      "desc": "Synthetic analgesic tablets. Dull chronic pain and reduce fatigue."
     },
     "first_aid_kit": {
-      "name": "Trauma Field Kit",
-      "desc": "Hemostatic gauze, sutures, and staples. Restores integrity and halts bleeding."
+      "name": "Field Trauma First Aid Kit",
+      "desc": "Hard-case trauma pack with splints, sutures, and clotting agents. Restores significant health."
     },
     "kitchen_knife": {
-      "name": "Full-Tang Chef Knife",
-      "desc": "Carbon-steel blade wrapped in cord. Better than bare knuckles."
+      "name": "Kitchen Chef Knife",
+      "desc": "Sturdy stainless-steel culinary blade. Basic close-quarters protection."
     },
     "crowbar": {
-      "name": "Forged Wrecking Bar",
-      "desc": "Pries locked trunks (+12% search chance) and cracks skulls."
+      "name": "Steel Crowbar",
+      "desc": "Forged pry bar. Deadly blunt weapon that pries open locked containers (+12% scavenge yield)."
     },
     "machete": {
-      "name": "Weighted Brush Machete",
-      "desc": "Long agricultural blade suited for close quarters."
+      "name": "Heavy Bush Machete",
+      "desc": "Wide steel clearing blade with weighted balance. Excellent slashing damage."
     },
     "fire_axe": {
-      "name": "Municipal Fire Axe",
-      "desc": "Fiberglass-handled breaching axe (+8% search chance, high impact)."
+      "name": "Firefighter Axe",
+      "desc": "Heavy pick-headed rescue axe. Devastating impact power (+8% scavenge yield)."
     },
     "hunting_rifle": {
-      "name": "Bolt-Action .308 Rifle",
-      "desc": "Long-range rifle. Requires .308 cartridges to fire at full rating."
+      "name": "Bolt-Action Hunting Rifle",
+      "desc": "Precision scoped long rifle. High lethality when chambered with rifle rounds."
     },
     "rifle_rounds": {
-      "name": ".308 Brass Cartridges",
-      "desc": "Boxed centerfire ammunition for bolt-action rifles."
+      "name": "Rifle Ammunition (7.62mm)",
+      "desc": "High-powered brass cartridges for bolt-action rifles."
     },
     "scrap_metal": {
-      "name": "Sheared Steel Plate",
-      "desc": "Salvaged structural metal for fortifications and toolsmithing."
+      "name": "Salvaged Scrap Metal",
+      "desc": "Rusted sheet plates and angle iron. Fundamental material for fortification and weapon crafting."
     },
     "copper_wire": {
-      "name": "Spool of Copper Wire",
-      "desc": "Stripped windings used in traps, radios, and repairs."
+      "name": "Stripped Copper Wire",
+      "desc": "Conductive cabling harvested from abandoned conduits."
     },
     "electronics": {
-      "name": "Salvaged Circuitry",
-      "desc": "Intact relays, capacitors, and logic boards."
+      "name": "Salvaged Circuit Electronics",
+      "desc": "Microcontroller chips and diodes for advanced electrical crafting."
     },
     "cloth_rags": {
-      "name": "Torn Canvas Strips",
-      "desc": "Cleanable fabric scraps for bindings and filters."
+      "name": "Clean Cloth Rags",
+      "desc": "Scraps of woven cotton. Essential for makeshift bandages and fuel wicks."
     },
     "duct_tape": {
-      "name": "Industrial Cloth Tape",
-      "desc": "Reinforced adhesive roll that holds the post-collapse world together."
+      "name": "Industrial Duct Tape",
+      "desc": "Heavy-duty adhesive cloth roll. The backbone of improvised field repairs."
     },
     "duffel_bag": {
-      "name": "Canvas Courier Duffel",
-      "desc": "Slung over one shoulder (+6 kg capacity, +3 slots)."
+      "name": "Canvas Duffel Bag",
+      "desc": "Reinforced military duffel. Adds +6 kg carry capacity and +3 inventory slots."
     },
     "hiking_pack": {
-      "name": "Internal-Frame Trekker Pack",
-      "desc": "Distributes weight across the hips (+12 kg capacity, +5 slots)."
+      "name": "Expedition Hiking Pack",
+      "desc": "Ergonomic trail rucksack with sternum strap. Adds +12 kg capacity and +5 slots."
     },
     "military_rucksack": {
-      "name": "MOLLE Patrol Rucksack",
-      "desc": "Heavy expedition rig (+18 kg capacity, +8 slots)."
+      "name": "Heavy Military Rucksack",
+      "desc": "Rugged ALICE frame assault pack. Adds +18 kg capacity and +8 slots."
     },
     "leather_jacket": {
-      "name": "Abrasion Riding Jacket",
-      "desc": "Thick cowhide that turns teeth and rusty shards (+1 armor)."
+      "name": "Treated Leather Jacket",
+      "desc": "Thick cowhide jacket. Grants 1 armor against claws, teeth, and blade slashes."
     },
     "hazmat_poncho": {
-      "name": "Polymer Chemical Poncho",
-      "desc": "Heat-sealed seams shed caustic fallout and acid rain."
+      "name": "Chemical Hazmat Poncho",
+      "desc": "Heavy vinyl hooded cape. Completely repels toxic spills and chemical acid rain."
     },
     "riot_vest": {
-      "name": "Plated Riot Harness",
-      "desc": "Polycarbonate trauma plates over ballistic weave (+3 armor)."
+      "name": "Police Tactical Riot Vest",
+      "desc": "Molded ballistic composite chest protector. Grants 3 armor against blunt and ballistic trauma."
     },
     "flashlight": {
-      "name": "Dynamo Angle Torch",
-      "desc": "Hand-cranked beam that cuts night travel risk and aids indoor searches (+4%)."
+      "name": "High-Lumen LED Flashlight",
+      "desc": "Handheld tactical beam. Dispels pitch darkness and improves scavenging speed (+4%)."
     },
     "compass": {
-      "name": "Liquid Lensatic Compass",
-      "desc": "Keeps true bearing across dead highways (+8% overland pace)."
+      "name": "Lensatic Military Compass",
+      "desc": "Damped magnetic needle in brass housing. Increases travel overland speed (+8%)."
+    },
+    "canned_sardines": {
+      "name": "Canned Sardines in Oil",
+      "desc": "Tightly packed oily fish in a key-open tin. Rich in protein and essential fatty acids."
+    },
+    "canned_tuna": {
+      "name": "Canned Chunk Tuna",
+      "desc": "Solid white tuna in spring brine. Dependable and filling survival meal."
+    },
+    "canned_mackerel": {
+      "name": "Canned Mackerel Fillets",
+      "desc": "Oily mackerel steaks preserved in spiced tomato sauce."
+    },
+    "canned_salmon": {
+      "name": "Canned Wild Pink Salmon",
+      "desc": "High-grade preserved salmon steak. A rare luxury from pre-collapse storehouses."
+    },
+    "canned_corned_beef": {
+      "name": "Canned Corned Beef",
+      "desc": "Dense trapezoidal tin of cured beef brisket. Calorie-heavy and salty."
+    },
+    "canned_spam": {
+      "name": "Luncheon Meat Tin",
+      "desc": "Gelatinous spiced pork and ham block. Long shelf-life staple."
+    },
+    "canned_vienna_sausages": {
+      "name": "Vienna Sausages Can",
+      "desc": "Small cocktail sausages soaked in salty chicken broth."
+    },
+    "canned_meatballs": {
+      "name": "Canned Meatballs in Gravy",
+      "desc": "Pre-cooked beef meatballs smothered in thick savory brown gravy."
+    },
+    "canned_beef_stew": {
+      "name": "Canned Beef & Potato Stew",
+      "desc": "Hearty stew loaded with chunks of beef, potatoes, and diced carrots."
+    },
+    "canned_chicken_noodle": {
+      "name": "Chicken Noodle Soup Tin",
+      "desc": "Warm comforting broth filled with egg noodles and shredded chicken."
+    },
+    "canned_tomato_soup": {
+      "name": "Condensed Tomato Soup",
+      "desc": "Thick acidic tomato soup. Best heated over camp coals."
+    },
+    "canned_chili_con_carne": {
+      "name": "Chili con Carne Tin",
+      "desc": "Spicy pinto beans and minced beef in a fiery chili pepper sauce."
+    },
+    "canned_ravioli": {
+      "name": "Canned Beef Ravioli",
+      "desc": "Pocket pasta stuffed with minced meat in sweet marinara sauce."
+    },
+    "canned_pork_beans": {
+      "name": "Canned Pork and Beans",
+      "desc": "White beans simmered with sweet molasses and cured pork fat."
+    },
+    "canned_black_beans": {
+      "name": "Canned Seasoned Black Beans",
+      "desc": "Nutritious black turtle beans seasoned with cumin and onion."
+    },
+    "canned_chickpeas": {
+      "name": "Canned Garbanzo Chickpeas",
+      "desc": "Firm whole chickpeas soaked in brine. Excellent energy retention."
+    },
+    "canned_sweet_corn": {
+      "name": "Canned Whole Kernel Corn",
+      "desc": "Sweet yellow corn kernels suspended in sugary liquid."
+    },
+    "canned_green_peas": {
+      "name": "Canned Tender Green Peas",
+      "desc": "Soft green garden peas in mild brine. Easy on an upset stomach."
+    },
+    "canned_mushrooms": {
+      "name": "Canned Sliced Button Mushrooms",
+      "desc": "Pickled white button mushrooms. Earthy taste and minerals."
+    },
+    "canned_peaches": {
+      "name": "Canned Peach Halves in Syrup",
+      "desc": "Golden peach halves swimming in heavy sugar syrup. Great moral booster."
+    },
+    "canned_pineapple_chunks": {
+      "name": "Canned Pineapple Chunks",
+      "desc": "Acidic tropical pineapple pieces. Rehydrates and restores vitamin C."
+    },
+    "canned_pears": {
+      "name": "Canned Bartlett Pears",
+      "desc": "Soft sliced sweet pears in light syrup."
+    },
+    "canned_mandarins": {
+      "name": "Canned Mandarin Segments",
+      "desc": "Peeled mandarin orange segments in sweet natural juice."
+    },
+    "canned_condensed_milk": {
+      "name": "Sweetened Condensed Milk",
+      "desc": "Extremely dense, sugary, pasteurized dairy syrup. Pure concentrated calories."
+    },
+    "canned_evaporated_milk": {
+      "name": "Canned Evaporated Milk",
+      "desc": "Unsweetened concentrated milk in a steel can."
+    },
+    "canned_olives_black": {
+      "name": "Pitted Black Olives Tin",
+      "desc": "Salt-cured ripe black olives rich in mono-unsaturated oils."
+    },
+    "canned_olives_green": {
+      "name": "Stuffed Green Olives Tin",
+      "desc": "Green olives stuffed with sweet pimento pepper paste."
+    },
+    "canned_pickled_cucumbers": {
+      "name": "Jar of Dill Pickles",
+      "desc": "Sour dill cucumbers in vinegar brine. Replenishes lost body salts."
+    },
+    "canned_sauerkraut": {
+      "name": "Canned Fermented Sauerkraut",
+      "desc": "Shredded fermented cabbage. Rich in lactic acid and vitamin C."
+    },
+    "canned_anchovies": {
+      "name": "Tin of Salted Anchovy Fillets",
+      "desc": "Tiny, intensely salty fish fillets cured in olive oil."
+    },
+    "canned_liver_pate": {
+      "name": "Canned Liver Pâté",
+      "desc": "Smooth spreadable liver paste loaded with iron and animal fats."
+    },
+    "canned_artichoke_hearts": {
+      "name": "Marinated Artichoke Hearts",
+      "desc": "Tender artichoke quarters preserved in herb-infused oil."
+    },
+    "canned_baked_beans": {
+      "name": "English Style Baked Beans",
+      "desc": "Haricot beans in a rich savory tomato glaze."
+    },
+    "canned_tomato_paste": {
+      "name": "Double Concentrated Tomato Paste",
+      "desc": "Ultra-thick tomato reduction. High in lycopene and sour flavor."
+    },
+    "canned_grape_leaves": {
+      "name": "Stuffed Grape Leaves Tin",
+      "desc": "Vine leaves wrapped around spiced rice and pine nuts in olive oil."
+    },
+    "hardtack_biscuit": {
+      "name": "Hardtack Survival Biscuit",
+      "desc": "Rock-hard cracker made of flour, water, and salt. Practically immune to rotting."
+    },
+    "pilot_bread": {
+      "name": "Sailor Pilot Bread Cracker",
+      "desc": "Sturdy survival biscuit favored by arctic expeditions."
+    },
+    "rusk_toast": {
+      "name": "Twice-Baked Rusk Slices",
+      "desc": "Dry toasted bread slices. Crisp, light, and easy to chew."
+    },
+    "pemmican_bar": {
+      "name": "Pemmican Tallow Block",
+      "desc": "Rendered animal fat pounded with dried bison meat and chokeberries. Extreme caloric density."
+    },
+    "beef_jerky_peppered": {
+      "name": "Peppered Beef Jerky",
+      "desc": "Chewy smoked beef strip crusted in cracked black pepper."
+    },
+    "turkey_jerky_smoke": {
+      "name": "Hickory Smoked Turkey Jerky",
+      "desc": "Lean cured poultry jerky with a fragrant woodsmoke aroma."
+    },
+    "dried_sausage_link": {
+      "name": "Dry Cured Salami Link",
+      "desc": "Fermented dry pork and beef sausage encased in natural gut."
+    },
+    "dried_salt_cod": {
+      "name": "Salted Dried Cod Slab",
+      "desc": "Bone-dry stiff slab of salted ocean cod. Must be boiled or soaked."
+    },
+    "dried_figs_string": {
+      "name": "String of Sun-Dried Figs",
+      "desc": "Naturally sweetened Aegean figs strung on a hemp twine."
+    },
+    "dried_apricots_pack": {
+      "name": "Sun-Dried Yellow Apricots",
+      "desc": "Chewy dried apricots packed with potassium and natural sugars."
+    },
+    "raisins_box": {
+      "name": "Box of Golden Sultana Raisins",
+      "desc": "Compact cardboard box of seedless sweet dried grapes."
+    },
+    "dried_dates_packet": {
+      "name": "Medjool Desert Dates",
+      "desc": "Rich, fleshy desert dates with caramel notes. Sustained energy release."
+    },
+    "dried_cranberries": {
+      "name": "Dried Tart Cranberries",
+      "desc": "Sweet and sour red berry morsels. Boosts urinary tract health."
+    },
+    "trail_mix_pouch": {
+      "name": "Highlander Trail Mix Pouch",
+      "desc": "Blend of peanuts, cashews, raisins, and dark chocolate chips."
+    },
+    "salted_peanuts": {
+      "name": "Roasted Salted Peanuts",
+      "desc": "Crunchy peanuts roasted in vegetable oil and sea salt."
+    },
+    "roasted_almonds": {
+      "name": "Whole Roasted Almonds",
+      "desc": "Heart-healthy tree nuts rich in vitamin E and magnesium."
+    },
+    "walnut_halves": {
+      "name": "Shelled Walnut Halves",
+      "desc": "Fatty raw walnut kernels. High brain-fuel omega fats."
+    },
+    "sunflower_seeds_pack": {
+      "name": "Roasted Sunflower Seeds",
+      "desc": "Salted sunflower kernels. Good casual snack to pass cold hours."
+    },
+    "pumpkin_seeds": {
+      "name": "Roasted Pumpkin Pepitas",
+      "desc": "Zinc-rich pumpkin seeds roasted with a touch of mineral salt."
+    },
+    "instant_ramen_beef": {
+      "name": "Instant Beef Ramen Packet",
+      "desc": "Dehydrated noodle brick with a spicy beef seasoning sachet."
+    },
+    "instant_ramen_chicken": {
+      "name": "Instant Chicken Ramen Packet",
+      "desc": "Curly egg noodles with salty chicken bouillon powder."
+    },
+    "instant_ramen_spicy": {
+      "name": "Extra Hot Kimchi Ramen",
+      "desc": "Fiery Korean style noodles that warm the blood in sub-zero weather."
+    },
+    "instant_oatmeal_apple": {
+      "name": "Instant Oatmeal Cinnamon & Apple",
+      "desc": "Pre-cooked rolled oats flavored with dried apples and cinnamon."
+    },
+    "instant_mashed_potatoes": {
+      "name": "Potato Flakes Pouch",
+      "desc": "Dehydrated potato flakes that reconstitute instantly with boiling water."
+    },
+    "dry_white_rice_bag": {
+      "name": "One Kilo Bag of Long Grain Rice",
+      "desc": "Polished white rice. A true survival cornerstone if boiled."
+    },
+    "dry_brown_rice_bag": {
+      "name": "Bag of Whole Brown Rice",
+      "desc": "Whole grain unpolished rice. Rich in dietary fiber and B-vitamins."
+    },
+    "red_lentils_sack": {
+      "name": "Sack of Red Split Lentils",
+      "desc": "Quick-cooking dried pulses. Cooks into a thick, warming gruel."
+    },
+    "green_lentils_sack": {
+      "name": "Sack of French Green Lentils",
+      "desc": "Sturdy brown-green lentils that hold their firm shape in boiling stew."
+    },
+    "rolled_oats_tin": {
+      "name": "Steel Tin of Whole Rolled Oats",
+      "desc": "Heavy-gauge steel tin keeping rolled oats dry and pest-free."
+    },
+    "cornmeal_flour_bag": {
+      "name": "Stone-Ground Yellow Cornmeal",
+      "desc": "Coarse yellow maize flour. Makes dense cornbread or polenta."
+    },
+    "wheat_flour_sack": {
+      "name": "Bleached White Flour Sack",
+      "desc": "Refined baking flour for flatbreads and pan-frying."
+    },
+    "dry_pasta_spaghetti": {
+      "name": "Pack of Durum Spaghetti",
+      "desc": "Hard wheat extruded long noodles. Lasts indefinitely when dry."
+    },
+    "dry_pasta_macaroni": {
+      "name": "Elbow Macaroni Box",
+      "desc": "Short hollow pasta elbows."
+    },
+    "sugar_cubes_box": {
+      "name": "Box of White Sugar Cubes",
+      "desc": "Pressed refined sugar blocks. Instant energy boost."
+    },
+    "brown_sugar_pouch": {
+      "name": "Moist Brown Cane Sugar",
+      "desc": "Molasses-rich brown sugar crystals."
+    },
+    "raw_honey_jar": {
+      "name": "Jar of Raw Forest Honey",
+      "desc": "Unfiltered crystallizing wild honey. Never spoils and soothes the throat."
+    },
+    "strawberry_jam_jar": {
+      "name": "Jar of Strawberry Jam",
+      "desc": "Sweet strawberry fruit preserve packed with sugar."
+    },
+    "creamy_peanut_butter": {
+      "name": "Creamy Peanut Butter Tub",
+      "desc": "Calorie monster: dense roasted peanut butter loaded with lipids."
+    },
+    "hazelnut_cocoa_spread": {
+      "name": "Chocolate Hazelnut Spread",
+      "desc": "Thick cocoa and roasted hazelnut paste."
+    },
+    "powdered_whole_milk": {
+      "name": "Can of Powdered Whole Milk",
+      "desc": "Dry whole milk powder. Reconstitutes into rich dairy with clean water."
+    },
+    "powdered_eggs_can": {
+      "name": "Pasteurized Powdered Whole Eggs",
+      "desc": "Commercial spray-dried eggs. Whisk with water and fry for protein."
+    },
+    "table_salt_shaker": {
+      "name": "Iodized Table Salt Shaker",
+      "desc": "Essential for electrolyte balance and curing raw meat against decay."
+    },
+    "black_peppercorns_tin": {
+      "name": "Tin of Whole Black Peppercorns",
+      "desc": "Aromatic pungent dried spice berries from southern trade routes."
+    },
+    "bouillon_cubes_beef": {
+      "name": "Beef Bouillon Stock Cubes",
+      "desc": "Concentrated cubes of dehydrated beef broth, salt, and spices."
+    },
+    "baking_yeast_packet": {
+      "name": "Active Dry Baker's Yeast",
+      "desc": "Granulated live yeast dormant in foil sachets. For bread and mash brewing."
+    },
+    "hot_chili_sauce": {
+      "name": "Bottle of Cayenne Pepper Sauce",
+      "desc": "Vinegary fiery red pepper sauce. Makes bland rations palatable."
+    },
+    "olive_oil_canister": {
+      "name": "Extra Virgin Olive Oil Canister",
+      "desc": "Pure pressed green olive oil. Highly concentrated dietary fat."
+    },
+    "freeze_dried_beef_stroganoff": {
+      "name": "Freeze-Dried Beef Stroganoff",
+      "desc": "High-end mountaineer meal pouch. Tender beef strips and mushrooms."
+    },
+    "freeze_dried_chicken_rice": {
+      "name": "Freeze-Dried Chicken Teriyaki",
+      "desc": "Backpacking meal pouch with white rice, chicken breast, and bell peppers."
+    },
+    "freeze_dried_scrambled_eggs": {
+      "name": "Freeze-Dried Eggs & Bacon Bits",
+      "desc": "Dehydrated breakfast scramble. Rehydrates into fluffy hot eggs."
+    },
+    "emergency_ration_bar_500": {
+      "name": "SOS Emergency Ration Biscuit (500 kcal)",
+      "desc": "Dense compressed fortified wheat biscuit. Vacuum packed for lifeboats."
+    },
+    "emergency_ration_bar_1000": {
+      "name": "Seven Oceans Ration Block (1000 kcal)",
+      "desc": "High-calorie lipid and grain bar. Sustains a survivor for 24 hours."
+    },
+    "energy_gel_caffeine": {
+      "name": "Caffeinated Endurance Gel Pack",
+      "desc": "Glucose and 100mg caffeine gel. Shock treatment for exhaustion."
+    },
+    "glucose_dextrose_tablets": {
+      "name": "Roll of Dextrose Glucose Tablets",
+      "desc": "Chalky lemon-flavored glucose candies for sudden sugar drops."
+    },
+    "protein_cookie_double_choc": {
+      "name": "Whey Protein Chocolate Cookie",
+      "desc": "Chewy baked protein biscuit containing 25g of whey isolate."
+    },
+    "purified_water_canteen": {
+      "name": "Purified Military Canteen (1L)",
+      "desc": "Heavy green polymer canteen filled with sterile purified water."
+    },
+    "spring_water_gallon": {
+      "name": "One Gallon Spring Water Jug",
+      "desc": "Bulky transparent plastic jug filled with clean mountain spring water."
+    },
+    "boiled_tap_water": {
+      "name": "Glass Bottle of Boiled Water",
+      "desc": "Cooled water boiled over campfire to neutralize active pathogens."
+    },
+    "filtered_rainwater": {
+      "name": "Charcoal-Filtered Rainwater",
+      "desc": "Captured rainwater passed through sand and crushed activated charcoal."
+    },
+    "rainwater_jar": {
+      "name": "Raw Rainwater Mason Jar",
+      "desc": "Cloudy rainwater scooped from rooftop runoff tarps. Minor infection risk."
+    },
+    "river_water_flask": {
+      "name": "Murky River Water Flask",
+      "desc": "Drawn from a slow riverbed. Contains silt, algae, and parasites."
+    },
+    "stagnant_puddle_water": {
+      "name": "Scum-Covered Puddle Water",
+      "desc": "Desperation drink skimmed from roadside puddles. High sickness odds."
+    },
+    "chemically_treated_water": {
+      "name": "Chlorine-Treated Bottle Water",
+      "desc": "Tastes strongly of bleach and chemical pools, but guaranteed pathogen-free."
+    },
+    "electrolyte_rehydration_drink": {
+      "name": "Sports Electrolyte Beverage",
+      "desc": "Vibrant blue isotonic drink designed to quickly restore body salts."
+    },
+    "energy_drink_can": {
+      "name": "High-Taurine Energy Drink Can",
+      "desc": "Carbonated concoction of caffeine, taurine, and B-vitamins."
+    },
+    "citrus_soda_can": {
+      "name": "Lemon-Lime Fizzy Soda",
+      "desc": "Sweet carbonated soda. Sticky and bubbly sugar rush."
+    },
+    "root_beer_can": {
+      "name": "Sassafras Root Beer Can",
+      "desc": "Herbal carbonated soda with distinct wintergreen and vanilla tones."
+    },
+    "tonic_water_bottle": {
+      "name": "Quinine Tonic Water Bottle",
+      "desc": "Bitter carbonated water containing quinine."
+    },
+    "black_tea_loose_tin": {
+      "name": "Tin of Loose Leaf Black Tea",
+      "desc": "Fragrant dried leaves from high mountain plantations."
+    },
+    "black_tea_bags_box": {
+      "name": "Box of English Breakfast Teabags",
+      "desc": "Foil-sealed paper teabags packed with bold black tea."
+    },
+    "green_tea_tin": {
+      "name": "Sencha Green Tea Tin",
+      "desc": "Antioxidant-rich unfermented green tea leaves."
+    },
+    "chamomile_herbal_tea": {
+      "name": "Dried Chamomile Flowers Pouch",
+      "desc": "Calming dried blossom heads. Promotes deep, restful sleep."
+    },
+    "rosehip_wild_tea": {
+      "name": "Foraged Wild Rosehips",
+      "desc": "Crushed red rose hips rich in immune-boosting vitamin C."
+    },
+    "linden_flower_tea": {
+      "name": "Dried Linden Blossoms",
+      "desc": "Fragrant dried linden leaves and flowers. Relieves chest congestion."
+    },
+    "roasted_chicory_coffee": {
+      "name": "Roasted Chicory Root Powder",
+      "desc": "Classic wartime coffee substitute made from roasted chicory roots."
+    },
+    "ground_espresso_tin": {
+      "name": "Vacuum-Sealed Espresso Tin",
+      "desc": "Finely milled dark-roast coffee beans. Produces an intense black brew."
+    },
+    "coffee_beans_roasted": {
+      "name": "Bag of Whole Arabica Beans",
+      "desc": "Whole roasted coffee beans. Keeps potency far longer than ground powder."
+    },
+    "hot_cocoa_mix_pouch": {
+      "name": "Sweet Hot Cocoa Mix Pouch",
+      "desc": "Rich milk powder and cocoa blend with mini dehydrated marshmallows."
+    },
+    "malt_beer_can": {
+      "name": "Pilsner Malt Beer Can",
+      "desc": "Crisp golden beer with 5% alcohol. Relaxes nerves after combat."
+    },
+    "craft_ipa_bottle": {
+      "name": "Heavy Hop IPA Glass Bottle",
+      "desc": "Bitter hoppy beer with high alcohol content."
+    },
+    "cheap_lager_can": {
+      "name": "Dented Can of Cheap Lager",
+      "desc": "Watery industrial beer. Still drinkable despite the rusted rim."
+    },
+    "red_table_wine_bottle": {
+      "name": "Bottle of Dry Red Wine",
+      "desc": "Aged vintage grape wine. Boosts morale and dulls lingering pain."
+    },
+    "moonshine_mason_jar": {
+      "name": "Mason Jar of Corn Moonshine",
+      "desc": "Rough 65% proof clear spirit distilled in a homemade copper pot still."
+    },
+    "corn_whiskey_flask": {
+      "name": "Pocket Flask of Aged Whiskey",
+      "desc": "Charred oak aged bourbon in a stainless-steel pocket hip flask."
+    },
+    "clear_vodka_bottle": {
+      "name": "Bottle of Triple-Distilled Vodka",
+      "desc": "Clean neutral 40% spirit. Usable as a morale booster or antiseptic in a pinch."
+    },
+    "apple_cider_jug": {
+      "name": "Gallon of Fermented Apple Cider",
+      "desc": "Cloudy orchard apple cider with a gentle alcoholic tang."
+    },
+    "canned_tomato_juice": {
+      "name": "Can of Salted Tomato Juice",
+      "desc": "Thick savory tomato nectar seasoned with celery salt."
+    },
+    "grapefruit_juice_carton": {
+      "name": "Carton of Tart Grapefruit Juice",
+      "desc": "Bitter citrus juice. Contains potent enzymes and vitamin C."
+    },
+    "powdered_orange_drink_tang": {
+      "name": "Pouch of Synthetic Orange Drink Mix",
+      "desc": "Sugary ascorbic powder that turns stale water into bright orange punch."
+    },
+    "powdered_lemonade_mix": {
+      "name": "Pouch of Sweet Lemonade Powder",
+      "desc": "Crystalline lemon drink mix with citric acid."
+    },
+    "gauze_roll_sterile": {
+      "name": "Sterile Roller Gauze",
+      "desc": "Tightly wound continuous cotton strip for dressing gaping lacerations."
+    },
+    "elastic_compression_wrap": {
+      "name": "Elastic Compression Bandage (ACE)",
+      "desc": "Stretchy elastic bandage with metal clips. Immobilizes twisted ankles and sprains."
+    },
+    "quikclot_hemostatic_gauze": {
+      "name": "QuikClot Combat Hemostatic Gauze",
+      "desc": "Kaolin-infused gauze that accelerates biological blood clotting in seconds."
+    },
+    "combat_tourniquet_cat": {
+      "name": "C-A-T Combat Application Tourniquet",
+      "desc": "Windlass-tightened tactical arterial tourniquet for catastrophic limb bleeding."
+    },
+    "softt_wide_tourniquet": {
+      "name": "SOFTT-W Tactical Tourniquet",
+      "desc": "All-metal buckle wide tourniquet resistant to extreme cold and mud."
+    },
+    "emergency_israeli_bandage": {
+      "name": "Israeli Emergency Pressure Bandage",
+      "desc": "All-in-one sterile dressing with a built-in pressure bar to crush arterial bleeds."
+    },
+    "chest_seal_vented": {
+      "name": "Vented Chest Seal Patch",
+      "desc": "One-way valve hydrogel sheet for treating tension pneumothorax and sucking chest wounds."
+    },
+    "burn_hydrogel_dressing": {
+      "name": "Water-Jel Burn Dressing",
+      "desc": "Cooling hydrogel pad that relieves thermal pain and prevents tissue scarring."
+    },
+    "burn_sheet_sterile": {
+      "name": "Sterile Burn Trauma Sheet",
+      "desc": "Non-adherent large sheet for wrapping extensive second-degree burn victims."
+    },
+    "adhesive_plaster_strip": {
+      "name": "Adhesive Band-Aid Strip",
+      "desc": "Flexible fabric plaster for minor finger cuts and abrasions."
+    },
+    "butterfly_wound_closure": {
+      "name": "Butterfly Skin Closures",
+      "desc": "Adhesive bridge strips that pull laceration edges together without stitches."
+    },
+    "liquid_skin_adhesive": {
+      "name": "Liquid Cyanoacrylate Skin Glue",
+      "desc": "Topical skin glue that seals raw bleeding cuts with a flexible waterproof film."
+    },
+    "sam_splint_roll": {
+      "name": "SAM Aluminum Foam Splint",
+      "desc": "Malleable foam-coated aluminum strip that bends to immobilize fractured limbs."
+    },
+    "triangular_bandage_sling": {
+      "name": "Muslin Triangular Sling Bandage",
+      "desc": "Classic cloth triangle to support fractured wrists, forearms, or shoulders."
+    },
+    "suture_needle_silk": {
+      "name": "Braided Silk Suture with Curved Needle",
+      "desc": "Non-absorbable surgical silk with pre-attached reverse cutting needle."
+    },
+    "disposable_skin_stapler": {
+      "name": "Pre-Loaded Skin Stapler (35 staples)",
+      "desc": "Medical staple gun. Swiftly bridges severe gaping wounds under field conditions."
+    },
+    "povidone_iodine_bottle": {
+      "name": "Povidone-Iodine 10% Solution",
+      "desc": "Deep golden-brown antiseptic liquid. Destroys bacterial spores and fungus on wounds."
+    },
+    "rubbing_alcohol_bottle": {
+      "name": "70% Isopropyl Rubbing Alcohol",
+      "desc": "Hospital-grade alcohol for sterilizing blades, needles, and unbroken skin."
+    },
+    "alcohol_prep_swabs": {
+      "name": "Box of Sterile Alcohol Prep Pads",
+      "desc": "Foil-wrapped miniature wipes saturated with 70% isopropyl alcohol."
+    },
+    "hydrogen_peroxide_bottle": {
+      "name": "3% Hydrogen Peroxide Solution",
+      "desc": "Bubbling oxidative wash. Debrides crusted dirt and coagulated blood from punctures."
+    },
+    "chlorhexidine_scrub": {
+      "name": "Chlorhexidine Gluconate Surgical Scrub",
+      "desc": "Residual antimicrobial skin wash that suppresses pathogens for over 24 hours."
+    },
+    "antibacterial_triple_ointment": {
+      "name": "Triple Antibiotic Bacitracin Ointment",
+      "desc": "Petroleum-based antibacterial salve containing Neomycin, Bacitracin, and Polymyxin."
+    },
+    "silver_sulfadiazine_burn_cream": {
+      "name": "Silver Sulfadiazine Burn Cream (1%)",
+      "desc": "Heavy white antimicrobial silver cream that halts necrotic infection in severe burns."
+    },
+    "potassium_permanganate_crystals": {
+      "name": "Potassium Permanganate Crystals",
+      "desc": "Deep purple crystals. Diluted into water, it creates an emergency topical antiseptic wash."
+    },
+    "amoxicillin_capsules": {
+      "name": "Amoxicillin 500mg Capsules",
+      "desc": "Common penicillin-family antibiotic. Clears respiratory and soft-tissue bacterial infections."
+    },
+    "ciprofloxacin_antibiotic": {
+      "name": "Ciprofloxacin 500mg Tablets",
+      "desc": "Potent fluoroquinolone antibiotic. Treats deep abdominal and severe bone infections."
+    },
+    "doxycycline_hyclate": {
+      "name": "Doxycycline Hyclate 100mg",
+      "desc": "Tetracycline class antibiotic. Highly effective against tick-borne fevers and anthrax spores."
+    },
+    "paracetamol_500mg": {
+      "name": "Paracetamol 500mg Tablets",
+      "desc": "Everyday fever reducer and mild headache relief. Easy on the stomach lining."
+    },
+    "ibuprofen_400mg": {
+      "name": "Ibuprofen 400mg NSAID",
+      "desc": "Non-steroidal anti-inflammatory pill. Knocks down joint swelling, muscle fever, and toothaches."
+    },
+    "naproxen_sodium": {
+      "name": "Naproxen Sodium 220mg",
+      "desc": "Long-acting pain reliever providing up to 12 hours of joint and back pain relief."
+    },
+    "aspirin_cardio_bottle": {
+      "name": "Acetylsalicylic Acid (Aspirin)",
+      "desc": "Blood-thinning pain relief tablets. Reduces stroke risk and soothes inflammation."
+    },
+    "codeine_phosphate_pills": {
+      "name": "Codeine Phosphate 30mg Tablets",
+      "desc": "Mild opioid analgesic for severe fractures and unrelenting persistent coughs."
+    },
+    "tramadol_analgesic_caps": {
+      "name": "Tramadol 50mg Capsules",
+      "desc": "Centrally acting synthetic opioid for serious blunt force trauma and gunshot pain."
+    },
+    "morphine_syrette_military": {
+      "name": "Military Morphine Syrette (10mg)",
+      "desc": "Single-use squirt needle containing pure morphine sulfate. Blunts agonizing agony."
+    },
+    "epinephrine_autoinjector": {
+      "name": "EpiPen 0.3mg Auto-Injector",
+      "desc": "Spring-loaded adrenaline syringe. Reverses fatal anaphylaxis and jumps sluggish hearts."
+    },
+    "atropine_sulfate_autoinjector": {
+      "name": "Atropine Sulfate Auto-Injector",
+      "desc": "Standard issue military antidote for organophosphate pesticides and nerve gas poisoning."
+    },
+    "naloxone_narcan_nasal_spray": {
+      "name": "Narcan Naloxone Nasal Spray",
+      "desc": "Emergency opioid antagonist that knocks narcotics off receptors to restore respiration."
+    },
+    "potassium_iodide_radiation_tabs": {
+      "name": "Potassium Iodide (KI) Tablets",
+      "desc": "Floods the thyroid with stable iodine to prevent uptake of cancer-causing Iodine-131 fallout."
+    },
+    "activated_charcoal_powder": {
+      "name": "Activated Charcoal Toxin Sponge",
+      "desc": "High-porosity carbon slurry. Swallowed immediately following toxic chemical ingestion."
+    },
+    "oral_rehydration_salts_who": {
+      "name": "WHO Oral Rehydration Salts Sachet",
+      "desc": "Precise formulation of glucose, sodium, and potassium to counter lethal dehydration."
+    },
+    "loperamide_diarrhea_relief": {
+      "name": "Loperamide Hydrochloride 2mg",
+      "desc": "Anti-motility medication that shuts down acute infectious diarrhea to conserve body water."
+    },
+    "diphenhydramine_antihistamine": {
+      "name": "Diphenhydramine 25mg (Benadryl)",
+      "desc": "First-generation antihistamine. Suppresses severe hives, bug stings, and insomnia."
+    },
+    "pulse_oximeter_fingertip": {
+      "name": "Fingertip Pulse Oximeter",
+      "desc": "Digital sensor that clips to a finger to check blood oxygen saturation (SpO2) and pulse."
+    },
+    "dual_head_stethoscope": {
+      "name": "Acoustic Medical Stethoscope",
+      "desc": "Double-lumen stethoscope for listening to internal heart valves and bronchial breathing."
+    },
+    "aneroid_blood_pressure_cuff": {
+      "name": "Manual Sphygmomanometer Cuff",
+      "desc": "Inflatable arm cuff with a precision dial gauge to detect internal hemorrhagic shock."
+    },
+    "iv_saline_bag_500ml": {
+      "name": "IV Normal Saline Bag (500ml)",
+      "desc": "Sterile 0.9% sodium chloride infusion bag. Replaces lost circulatory volume in trauma."
+    },
+    "iv_giving_infusion_set": {
+      "name": "IV Gravity Infusion Tubing & Spike",
+      "desc": "Sterile drip chamber and roller clamp tubing to administer intravenous fluids."
+    },
+    "trauma_shears_scissors": {
+      "name": "Titanium Fluoride Trauma Shears",
+      "desc": "Heavy-duty angled blunt-nosed medical shears capable of cutting denim, boots, and pennies."
+    },
+    "surgical_forceps": {
+      "name": "Stainless Steel Tissue Forceps",
+      "desc": "Toothed surgical tweezers for extracting shrapnel, lead fragments, and necrotic tissue."
+    },
+    "wooden_baseball_bat": {
+      "name": "Ash Wood Baseball Bat",
+      "desc": "Smooth solid hardwood sports bat. Good balance and solid bludgeoning force."
+    },
+    "aluminum_baseball_bat": {
+      "name": "Hollow Aluminum Bat",
+      "desc": "Lighter and faster to swing than wood, ringing loudly upon skull impact."
+    },
+    "nailed_baseball_bat": {
+      "name": "Spiked Nail Bat",
+      "desc": "Hardwood bat driven through with rusty construction nails. Rips through flesh."
+    },
+    "barbed_wire_bat": {
+      "name": "Barbed Wire Lucille Bat",
+      "desc": "Wooden club bound tightly in coiled rusted barbed wire. Causes intense bleeding."
+    },
+    "lead_pipe_heavy": {
+      "name": "Heavy Lead Water Pipe",
+      "desc": "Dense, heavy segment of lead plumbing pipe. Crushes bone through makeshift helmets."
+    },
+    "rebar_club_heavy": {
+      "name": "Ribbed Steel Rebar Club",
+      "desc": "Cut section of reinforced concrete rebar wrapped in duct tape at the handle."
+    },
+    "cast_iron_frying_pan": {
+      "name": "Cast-Iron Skillet",
+      "desc": "Heavy cast iron pan. Deals concussive head blows and doubles as cooking gear."
+    },
+    "heavy_sledgehammer": {
+      "name": "10 lb Demolition Sledgehammer",
+      "desc": "Massive forged steel head on fiberglass shaft. Obliterates doors and armor."
+    },
+    "claw_hammer_steel": {
+      "name": "Curved Claw Hammer",
+      "desc": "Standard steel carpenter's hammer with a curved nail-pulling claw."
+    },
+    "tire_iron_cross_wrench": {
+      "name": "Four-Way Cross Tire Iron",
+      "desc": "Heavy four-point steel lug wrench from a truck trunk."
+    },
+    "brass_knuckles": {
+      "name": "Solid Brass Knuckles",
+      "desc": "Cast metal fist weapon. Concentrates punch impact directly onto facial bones."
+    },
+    "police_baton_tonfa": {
+      "name": "Polymer Riot Police Baton",
+      "desc": "Side-handle riot baton manufactured from shatterproof rigid polycarbonate."
+    },
+    "collapsible_steel_baton": {
+      "name": "Friction-Lock Telescopic Baton",
+      "desc": "Three-stage expanding hardened steel baton. Compact when sheathed."
+    },
+    "pickaxe_heavy": {
+      "name": "Heavy Miner Pickaxe",
+      "desc": "Dual pointed steel pick. Penetrates rocky ground, concrete, and heavy armor."
+    },
+    "entrenching_shovel_tactical": {
+      "name": "Folding Entrenching Tool (E-Tool)",
+      "desc": "Military folding spade with a sharpened side edge. Digs trenches and splits skulls."
+    },
+    "chef_knife_8inch": {
+      "name": "High-Carbon Chef Knife",
+      "desc": "Broad, razored culinary blade capable of quick slicing strokes."
+    },
+    "folding_tactical_knife": {
+      "name": "Tanto Folding Pocket Knife",
+      "desc": "Serrated titanium-coated pocket folder with liner lock mechanism."
+    },
+    "bowie_hunting_knife": {
+      "name": "Heavy Bowie Hunting Knife",
+      "desc": "Large clip-point fighting blade with brass crossguard and stag horn handle."
+    },
+    "bayonet_m9": {
+      "name": "M9 Combat Bayonet",
+      "desc": "Military issue knife with wire-cutter scabbard attachment."
+    },
+    "kukri_gurkha_machete": {
+      "name": "Gurkha Kukri Incurved Blade",
+      "desc": "Forward-curved Nepalese chopping knife. Monstrous kinetic chopping power."
+    },
+    "wood_splitting_axe": {
+      "name": "Felling Wood Axe",
+      "desc": "Forged wedge blade on hickory shaft. Cleaves firewood and mutant scavengers alike."
+    },
+    "tactical_tomahawk": {
+      "name": "Breaching Tactical Tomahawk",
+      "desc": "Lightweight combat axe with a rear penetration spike and synthetic grip."
+    },
+    "carpenter_hatchet": {
+      "name": "Short Carpenter Hatchet",
+      "desc": "Handy short-handled hatchet with a flat hammer back."
+    },
+    "hand_sickle_curved": {
+      "name": "Reaping Hand Sickle",
+      "desc": "Crescent-curved harvesting blade. Hooks limbs and pulls shields aside."
+    },
+    "combat_wakizashi": {
+      "name": "Carbon Steel Wakizashi",
+      "desc": "Short Japanese auxiliary sword. Devastating close-quarters slashes."
+    },
+    "folded_steel_katana": {
+      "name": "Forged Katana Longsword",
+      "desc": "Master-crafted two-handed curved saber. Clean decapitating strikes."
+    },
+    "box_cutter_utility": {
+      "name": "Retractable Box Cutter",
+      "desc": "Plastic utility knife with fresh razor-sharp snap-off blades."
+    },
+    "competition_recurve_bow": {
+      "name": "Takedown Recurve Bow",
+      "desc": "Laminated fiberglass and maple field bow. Silent and deadly."
+    },
+    "tactical_compound_bow": {
+      "name": "Twin-Cam Compound Bow (70 lb)",
+      "desc": "Pulley-assisted hunting bow. Flings broadheads with rifle-like speed."
+    },
+    "hunting_crossbow_150lb": {
+      "name": "150 lb Recurve Hunting Crossbow",
+      "desc": "Rifle-stocked mechanical crossbow with stirrup and safety latch."
+    },
+    "carbon_hunting_arrows": {
+      "name": "Carbon Hunting Arrows",
+      "desc": "Fletched carbon-fiber arrows with interchangeable steel tips."
+    },
+    "crossbow_bolts_aluminum": {
+      "name": "Aluminum Crossbow Bolts",
+      "desc": "Short, rigid aluminum bolts designed for high-poundage crossbow rails."
+    },
+    "makarov_pistol_9x18": {
+      "name": "Makarov PM 9x18mm Pistol",
+      "desc": "Legendary Soviet compact handgun. Unstoppable reliability in dust and ice."
+    },
+    "pistol_9mm_semi": {
+      "name": "9mm Service Handgun",
+      "desc": "Standard polymer-frame semi-automatic pistol. 15-round double-stack capacity."
+    },
+    "tactical_handgun_45acp": {
+      "name": "M1911 Tactical .45 ACP Pistol",
+      "desc": "Heavy steel classic pistol firing heavy-slug .45 ACP rounds with enormous stopping power."
+    },
+    "revolver_38_special": {
+      "name": "Snubnose .38 Special Revolver",
+      "desc": "Short-barrel 6-cylinder concealed wheelgun. Never jams or fails to fire."
+    },
+    "revolver_357_magnum": {
+      "name": ".357 Magnum Heavy Revolver",
+      "desc": "Stainless-steel 6-inch barrel hand cannon. Deafening roar and bone-crushing impact."
+    },
+    "pump_shotgun_12g": {
+      "name": "12-Gauge Pump-Action Shotgun",
+      "desc": "Tube-fed tactical combat shotgun. Devastating spread at room distances."
+    },
+    "side_by_side_double_shotgun": {
+      "name": "Double-Barrel Break Shotgun",
+      "desc": "Side-by-side break-action hunting gun. Simple mechanics and double hammer strike."
+    },
+    "sks_semi_auto_carbine": {
+      "name": "SKS 7.62x39mm Carbine",
+      "desc": "Fixed magazine semi-automatic carbine with internal stripper clip feeding."
+    },
+    "akm_assault_rifle": {
+      "name": "AKM Pattern Assault Rifle",
+      "desc": "Stamped steel receiver assault rifle. Fires under sand, snow, and torrential mud."
+    },
+    "ar15_carbine_556": {
+      "name": "AR-15 Tactical Carbine (5.56mm)",
+      "desc": "Lightweight modular rifle. Pinpoint accuracy and light recoil."
+    },
+    "bolt_action_rifle_308": {
+      "name": ".308 Winchester Marksman Rifle",
+      "desc": "Heavy free-floating barrel sniper rifle designed for long-distance takedowns."
+    },
+    "single_shot_flare_gun": {
+      "name": "Orange 26.5mm Signal Flare Gun",
+      "desc": "Emergency polymer flare launcher. Ignites targets at short range."
+    },
+    "ammo_9mm_fmj": {
+      "name": "Box of 9x19mm FMJ Rounds",
+      "desc": "Full metal jacket handgun rounds. Most ubiquitous pistol ammo in ruined cities."
+    },
+    "ammo_45acp_fmj": {
+      "name": "Box of .45 ACP Cartridges",
+      "desc": "Heavy 230-grain subsonic rounds designed for maximum target knockdown."
+    },
+    "ammo_38_special_lead": {
+      "name": ".38 Special Lead Round Nose",
+      "desc": "Classic revolver ammo firing soft lead projectile bullets."
+    },
+    "ammo_357_magnum_jsp": {
+      "name": ".357 Magnum JSP Cartridges",
+      "desc": "Jacketed soft point high-pressure magnum revolver rounds."
+    },
+    "ammo_12g_buckshot_00": {
+      "name": "12-Gauge 00 Buckshot Shells",
+      "desc": "Heavy shells each packing 9 lead buckshot pellets."
+    },
+    "ammo_12g_slug_solid": {
+      "name": "12-Gauge Solid Rifled Slugs",
+      "desc": "One-ounce massive lead slug. Punches through engine blocks and concrete."
+    },
+    "ammo_556_nato_fmj": {
+      "name": "5.56x45mm NATO Ball Ammo (M855)",
+      "desc": "High-velocity penetrator rounds on military stripper clips."
+    },
+    "ammo_762x39_soviet_fmj": {
+      "name": "7.62x39mm Soviet FMJ Rounds",
+      "desc": "Steel-cased military surplus cartridges for AKM and SKS carbines."
+    },
+    "ammo_762x51_winchester": {
+      "name": ".308 Win / 7.62x51mm Ammo",
+      "desc": "Precision brass-cased sniper cartridges for heavy long-distance rifles."
+    },
+    "ammo_red_signal_flare": {
+      "name": "26.5mm Red Aerial Flare Shell",
+      "desc": "Magnesium phosphorus pyrotechnic cartridge for distress guns."
+    },
+    "molotov_cocktail_rag": {
+      "name": "Gasoline Molotov Cocktail",
+      "desc": "Glass bottle filled with fuel and motor oil, stoppered with a kerosene rag."
+    },
+    "improvised_pipe_bomb": {
+      "name": "Steel Pipe Bomb with Fuse",
+      "desc": "Iron pipe packed with black powder, nails, and ball bearings."
+    },
+    "military_smoke_grenade": {
+      "name": "M18 White Smoke Canister",
+      "desc": "Releases an impenetrable curtain of dense white phosphorus-free smoke."
+    },
+    "steel_jaw_bear_trap": {
+      "name": "Heavy Steel Jaw Foothold Trap",
+      "desc": "Spring-loaded tempered steel serrated jaws that snap on unsuspecting legs."
+    },
+    "scrap_iron_plates": {
+      "name": "Heavy Rusted Iron Plates",
+      "desc": "Stout metal sheets torn from vehicle doors."
+    },
+    "sheet_metal_corrugated": {
+      "name": "Corrugated Galvanized Tin Sheet",
+      "desc": "Wavy roofing sheet for reinforced shelters."
+    },
+    "rusted_steel_mesh": {
+      "name": "Rusted Steel Wire Mesh",
+      "desc": "Woven wire grating from industrial screens."
+    },
+    "steel_wire_galvanized": {
+      "name": "Galvanized Steel Fencing Wire",
+      "desc": "Tough, pliable rust-resistant wire for snare traps."
+    },
+    "barbed_wire_spool": {
+      "name": "Spool of Razor Barbed Wire",
+      "desc": "Coiled defensive wire studded with sharp barbs."
+    },
+    "spring_steel_coil": {
+      "name": "Coiled Vehicle Suspension Spring",
+      "desc": "High-carbon tempered spring steel."
+    },
+    "ball_bearings_steel": {
+      "name": "Pouch of Hardened Ball Bearings",
+      "desc": "Chrome steel spheres from wheel bearings."
+    },
+    "chain_links_hardened": {
+      "name": "Heavy Towing Chain Segment",
+      "desc": "Thick forged link chain for securing gates."
+    },
+    "box_iron_nails_3inch": {
+      "name": "Box of 3-Inch Framing Nails",
+      "desc": "Rough forged steel nails for carpentry."
+    },
+    "box_wood_screws": {
+      "name": "Assorted Steel Wood Screws",
+      "desc": "Phillips-drive zinc-coated screws."
+    },
+    "lead_solder_wire_rosin": {
+      "name": "Rosin-Core Lead Solder Tube",
+      "desc": "60/40 tin-lead solder for electrical joints."
+    },
+    "aluminum_can_scraps": {
+      "name": "Flattened Aluminum Drink Cans",
+      "desc": "Thin malleable sheet metal for shims and alarms."
+    },
+    "lead_tire_weights": {
+      "name": "Clip-On Lead Wheel Balance Weights",
+      "desc": "Soft, dense lead scrap ideal for melting."
+    },
+    "gorilla_tape_waterproof": {
+      "name": "Heavy-Duty Waterproof Duct Tape",
+      "desc": "Ultra-thick, weather-resistant fabric tape."
+    },
+    "electrical_tape_vinyl": {
+      "name": "Black PVC Electrical Insulating Tape",
+      "desc": "Stretchy flame-retardant tape for wiring."
+    },
+    "industrial_superglue_gel": {
+      "name": "Industrial Cyanoacrylate Superglue",
+      "desc": "Instant adhesive that bonds metal, bone, and wood."
+    },
+    "epoxy_resin_two_part": {
+      "name": "Two-Part Steel-Reinforced Epoxy",
+      "desc": "Dual syringe resin and hardener that cures rock-hard."
+    },
+    "silicone_caulk_tube": {
+      "name": "Silicone Waterproof Caulk Tube",
+      "desc": "Flexible sealant for weatherproofing windows."
+    },
+    "plastic_cable_zip_ties": {
+      "name": "Heavy Nylon Cable Zip Ties (Pack of 50)",
+      "desc": "High-tensile self-locking ties for cables and gear."
+    },
+    "rubber_inner_tube_strip": {
+      "name": "Bicycle Rubber Inner Tube Strips",
+      "desc": "Stretchy puncture-resistant vulcanized rubber."
+    },
+    "thick_plastic_tarpaulin": {
+      "name": "Heavy Blue Woven Poly Tarp (3x4m)",
+      "desc": "Grommeted waterproof tarp for shelter roofs."
+    },
+    "paracord_550_hank": {
+      "name": "Mil-Spec 550 Nylon Paracord (15m)",
+      "desc": "7-strand kernmantle parachute suspension cord."
+    },
+    "hemp_rope_coil": {
+      "name": "Braided Natural Hemp Rope (10m)",
+      "desc": "Heavy fibrous cordage for hauling and lashing."
+    },
+    "salvaged_circuit_boards": {
+      "name": "Green Printed PCB Circuit Boards",
+      "desc": "Components harvested from broken radios and appliances."
+    },
+    "integrated_microchip_ic": {
+      "name": "Repurposed Microcontroller IC",
+      "desc": "Programmable silicon chips from control units."
+    },
+    "miniature_electric_motor": {
+      "name": "Small 12V High-Torque DC Motor",
+      "desc": "Harvested from printer carriages and car mirrors."
+    },
+    "hand_crank_dynamo_unit": {
+      "name": "Hand-Crank Magnetic Dynamo",
+      "desc": "Mechanical generator that produces DC current when turned."
+    },
+    "damaged_solar_panel_cell": {
+      "name": "Cracked Monocrystalline Solar Cell",
+      "desc": "Partially functional photovoltaic panel wafer."
+    },
+    "aa_alkaline_batteries": {
+      "name": "Pack of 4 AA Alkaline Batteries",
+      "desc": "Fresh 1.5V cylinder cells powering flashlights."
+    },
+    "aaa_alkaline_batteries": {
+      "name": "Pack of 4 AAA Miniature Batteries",
+      "desc": "Compact cells for small headlamps and radios."
+    },
+    "battery_9v_transistor": {
+      "name": "9-Volt Square Transistor Battery",
+      "desc": "Block battery used in alarms and Geiger detectors."
+    },
+    "lithium_cell_18650": {
+      "name": "3.7V 18650 Rechargeable Li-Ion Cell",
+      "desc": "High-capacity cylinder battery from laptop packs."
+    },
+    "rechargeable_powerbank_10k": {
+      "name": "10,000mAh Ruggedized USB Power Bank",
+      "desc": "Rubberized battery bank with dual output ports."
+    },
+    "car_battery_lead_acid": {
+      "name": "Heavy 12V Lead-Acid Vehicle Battery",
+      "desc": "Bulky car battery holding significant electrical reserve."
+    },
+    "diesel_fuel_canister_5l": {
+      "name": "5-Liter Steel Jerrycan of Diesel",
+      "desc": "Dense fuel for heaters, lamps, and generators."
+    },
+    "gasoline_fuel_canister_5l": {
+      "name": "5-Liter Plastic Jerrycan of Gasoline",
+      "desc": "Highly volatile gasoline. Fuel for engines and firebombs."
+    },
+    "kerosene_fuel_canister": {
+      "name": "Tin of Refined Kerosene (2L)",
+      "desc": "Clean burning oil for hurricane lanterns and camp heaters."
+    },
+    "gunpowder_smokeless_flask": {
+      "name": "Canister of Smokeless Nitro Powder",
+      "desc": "High-energy propellant for reloading rifle and pistol cartridges."
+    },
+    "household_bleach_chlorine": {
+      "name": "Bottle of Concentrated Chlorine Bleach",
+      "desc": "Strong oxidant for sanitizing water or neutralizing biological grime."
+    },
+    "motor_oil_10w40_bottle": {
+      "name": "Bottle of 10W-40 Synthetic Motor Oil",
+      "desc": "Lubricant for firearms, bike chains, and machine pivots."
+    },
+    "wd40_penetrating_oil": {
+      "name": "Can of WD-40 Lubricant Spray",
+      "desc": "Frees rusted bolts, drives out moisture, and halts corrosion."
+    },
+    "wooden_strike_matches": {
+      "name": "Box of Wooden Strike-Anywhere Matches",
+      "desc": "Kitchen matches that ignite on any abrasive rough surface."
+    },
+    "ferrocerium_spark_rod": {
+      "name": "Thick Ferrocerium Striker Rod",
+      "desc": "Showers 3,000°C sparks in rain, snow, and gale-force wind."
+    },
+    "refillable_zippo_lighter": {
+      "name": "Classic Windproof Brass Lighter",
+      "desc": "Durable flip-top lighter that stays lit in stiff wind."
+    },
+    "canvas_tote_bag": {
+      "name": "Simple Canvas Tote Bag",
+      "desc": "Open-top grocery sack. Minimal extra capacity (+4 kg, +2 slots)."
+    },
+    "school_backpack": {
+      "name": "Zippered School Backpack",
+      "desc": "Common polyester school pack with two compartments (+8 kg, +4 slots)."
+    },
+    "tactical_assault_pack_35l": {
+      "name": "3-Day MOLLE Assault Pack",
+      "desc": "Military nylon pack with external webbing straps (+15 kg, +6 slots)."
+    },
+    "internal_frame_hiking_pack_55l": {
+      "name": "Internal Frame Expedition Rucksack (55L)",
+      "desc": "Ergonomic aluminum stays distribute heavy weight across the hips (+22 kg, +9 slots)."
+    },
+    "military_molle_rucksack_75l": {
+      "name": "Massive 75L Field Expedition Rucksack",
+      "desc": "Titan of burden. Reinforcements carry full survival kits (+30 kg, +12 slots)."
+    },
+    "denim_jeans_rugged": {
+      "name": "Reinforced Denim Work Dungarees",
+      "desc": "Double-knee stitched heavy denim pants offering basic leg armor."
+    },
+    "cargo_combat_pants_ripstop": {
+      "name": "Ripstop Camouflage Cargo Trousers",
+      "desc": "Tear-resistant military pants loaded with utility thigh pockets."
+    },
+    "flannel_work_shirt": {
+      "name": "Heavy Plaid Flannel Shirt",
+      "desc": "Warm brushed cotton shirt that insulates against nighttime chills."
+    },
+    "heavy_wool_sweater": {
+      "name": "Fisherman Chunky Wool Sweater",
+      "desc": "Greasy unwashed sheep wool that maintains thermal warmth even when soaked."
+    },
+    "heavy_down_parka": {
+      "name": "Sub-Zero Down Winter Parka",
+      "desc": "Goose down lined hooded jacket impervious to blizzard winds."
+    },
+    "motorcycle_leather_jacket": {
+      "name": "Armored Biker Leather Jacket",
+      "desc": "Thick steerhide jacket fitted with foam elbow and shoulder pads (Armor 2)."
+    },
+    "concealable_kevlar_vest_ii": {
+      "name": "Concealable Kevlar Vest (Level II)",
+      "desc": "Discreet woven aramid vest stopping low-velocity handgun rounds (Armor 2)."
+    },
+    "tactical_body_armor_iiia": {
+      "name": "Tactical Kevlar Vest (Level IIIA)",
+      "desc": "Heavy police vest with throat guard. Halts all handgun bullets (Armor 3)."
+    },
+    "ceramic_ballistic_plate_iv": {
+      "name": "Standalone Ceramic Plate Carrier (Level IV)",
+      "desc": "Rigid silicon-carbide ceramic torso rig. Absorbs high-power rifle fire (Armor 5)."
+    },
+    "ballistic_combat_helmet": {
+      "name": "Kevlar Combat Helmet (ACH)",
+      "desc": "Aramid shell stopping shell shrapnel and grazing pistol shots."
+    },
+    "disposable_n95_dust_mask": {
+      "name": "Box of N95 Particulate Respirators",
+      "desc": "Filtration masks protecting lungs from ash, smoke, and spore dust."
+    },
+    "gp5_gas_mask_civilian": {
+      "name": "GP-5 Rubber Gas Mask with Filter",
+      "desc": "Full-face vintage rubber mask protecting from chemical gases and tear gas."
+    },
+    "pocket_swiss_multitool": {
+      "name": "Stainless Folding Multi-Tool",
+      "desc": "Pliers, wire cutters, saw blade, and can opener in one compact frame (+6% scavenge)."
+    },
+    "heavy_duty_bolt_cutters": {
+      "name": "24-Inch Steel Bolt Cutters",
+      "desc": "Compound leverage jaws that snap through padlocks, fences, and rebar (+15% scavenge)."
+    },
+    "lockpick_set_professional": {
+      "name": "Hardened Steel Lockpick Set",
+      "desc": "Tension wrenches and rake picks in a leather folding case (+10% scavenge)."
+    },
+    "diamond_sharpening_stone": {
+      "name": "Dual-Grit Diamond Whetstone",
+      "desc": "Coarse and fine diamond abrasive stone for honing dull blades razor sharp."
+    },
+    "headlamp_rechargeable_led": {
+      "name": "Rechargeable LED Headlamp",
+      "desc": "Hands-free elastic forehead lamp illuminating dark tunnels and rooms (+5% scavenge)."
+    },
+    "military_chem_light_green": {
+      "name": "12-Hour Green Chemical Lightstick",
+      "desc": "Snap-and-shake non-flammable glowing cyalume tube."
+    },
+    "geiger_muller_counter": {
+      "name": "Handheld Geiger-Müller Radiation Counter",
+      "desc": "Clicks furiously in the presence of invisible lethal ionizing gamma rays."
+    },
+    "compact_binoculars_10x42": {
+      "name": "10x42 Roof-Prism Binoculars",
+      "desc": "Rubber-armored binoculars. Spot enemies and road hazards from kilometers away."
+    },
+    "mountaineering_rope_50m": {
+      "name": "Dynamic Climbing Rope (50m, 10.5mm)",
+      "desc": "Kernmantle nylon climbing rope rated for thousands of kilograms of tensile load."
+    },
+    "silnylon_backpacking_tarp": {
+      "name": "Ultralight Silnylon Rain Fly Tarp",
+      "desc": "Silicone-coated nylon shelter sheet. Keeps sleeping survivors bone-dry in downpours."
+    },
+    "hemostatic_gauze_z_fold": {
+      "name": "Z-Folded Hemostatic Combat Gauze",
+      "desc": "Chitosan-impregnated vacuum-packed gauze designed to pack deep arterial wounds."
+    },
+    "pressure_dressing_trauma_4in": {
+      "name": "Emergency Trauma Pressure Dressing 4\"",
+      "desc": "Heavy elastic wrap with built-in pressure bar for controlling massive hemorrhages."
+    },
+    "chest_seal_twin_pack": {
+      "name": "Vented Chest Seal Twin-Pack",
+      "desc": "Adhesive occlusive seals with one-way valves for treating penetrating chest gunshot wounds."
+    },
+    "nasopharyngeal_airway_28fr": {
+      "name": "Nasopharyngeal Airway Tube (28 Fr)",
+      "desc": "Soft flexible rubber airway tube inserted through the nasal passage to secure breathing."
+    },
+    "decompression_needle_14g": {
+      "name": "Tension Pneumothorax 14G Needle Catheter",
+      "desc": "3.25-inch needle for relieving dangerous air pressure trapped inside the chest cavity."
+    },
+    "sam_splint_36inch": {
+      "name": "SAM Moldable Aluminum Foam Splint",
+      "desc": "Pliable radiolucent aluminum sheet covered in foam for immobilizing fractures."
+    },
+    "cervical_extrication_collar": {
+      "name": "Rigid Cervical Extrication Collar",
+      "desc": "Adjustable plastic neck brace preventing spinal damage during traumatic evacuations."
+    },
+    "surgical_scalpel_disposable_10": {
+      "name": "Sterile Disposable Scalpel #10",
+      "desc": "Surgical steel curved blade with molded plastic handle for emergency debridement."
+    },
+    "surgical_hemostat_forceps": {
+      "name": "Curved Hemostatic Locking Forceps",
+      "desc": "Ratchet-locking stainless steel clamps for grasping severed blood vessels."
+    },
+    "bone_saw_gigli_wire": {
+      "name": "Flexible Gigli Wire Bone Saw with Handles",
+      "desc": "Braided surgical stainless steel wire saw used for amputations in field surgery."
+    },
+    "tissue_forceps_toothed": {
+      "name": "Adson Toothed Tissue Forceps",
+      "desc": "Fine surgical tweezers with interlocking teeth for delicate wound suturing."
+    },
+    "dental_extraction_forceps": {
+      "name": "Heavy Dental Tooth Extraction Pliers",
+      "desc": "Stainless cross-hatch pliers for wrenching infected rotting molars from jaws."
+    },
+    "ciprofloxacin_500mg_box": {
+      "name": "Ciprofloxacin 500mg Tablets (14ct)",
+      "desc": "Broad-spectrum fluoroquinolone antibiotic targeting severe gut and bone infections."
+    },
+    "doxycycline_100mg_bottle": {
+      "name": "Doxycycline Hyclate 100mg (20 Caps)",
+      "desc": "Tetracycline class antibiotic used against cholera, Lyme disease, and anthrax exposure."
+    },
+    "amoxicillin_clavulanate_box": {
+      "name": "Amoxicillin-Clavulanate 875/125mg (14ct)",
+      "desc": "Heavy-hitting penicillin derivative formulation overcoming resistant bacterial strains."
+    },
+    "azithromycin_250mg_zpack": {
+      "name": "Azithromycin 250mg Z-Pack (6 Tabs)",
+      "desc": "Macrolide antibiotic course effective against aggressive bronchial and pulmonary infections."
+    },
+    "metronidazole_500mg_bottle": {
+      "name": "Metronidazole 500mg Antimicrobial (20ct)",
+      "desc": "Potent antiprotozoal pills combating contaminated-water dysentery and giardia."
+    },
+    "chloroquine_phosphate_tabs": {
+      "name": "Chloroquine Phosphate 250mg Tablets",
+      "desc": "Antimalarial medication preventing deadly parasitic fever from swarming mosquito bites."
+    },
+    "tramadol_50mg_capsules": {
+      "name": "Tramadol HCl 50mg Pain Capsules (10ct)",
+      "desc": "Synthetic opioid analgesic alleviating crushing pain from compound fractures."
+    },
+    "ketamine_vial_500mg": {
+      "name": "Injectable Ketamine HCl Vial (500mg/10ml)",
+      "desc": "Dissociative surgical anesthetic for setting broken bones and field surgery without pain."
+    },
+    "lidocaine_2pct_epinephrine": {
+      "name": "Lidocaine 2% with Epinephrine (20ml)",
+      "desc": "Local injectable numbing agent that constricts blood vessels during wound suturing."
+    },
+    "fentanyl_transdermal_patch": {
+      "name": "Fentanyl Transdermal Patch 50mcg/hr",
+      "desc": "Potent 72-hour narcotic dermal patch suppressing unimaginable burn or trauma pain."
+    },
+    "ibuprofen_400mg_blister": {
+      "name": "Ibuprofen 400mg Blister Pack (20 Tabs)",
+      "desc": "Non-steroidal anti-inflammatory reducing swelling, fever, and throbbing aches."
+    },
+    "paracetamol_500mg_box": {
+      "name": "Paracetamol 500mg Tablets (24ct)",
+      "desc": "Reliable fever reducer and mild analgesic safe for gastric ulcer sufferers."
+    },
+    "epipen_epinephrine_autoinjector": {
+      "name": "EpiPen 0.3mg Epinephrine Autoinjector",
+      "desc": "Spring-loaded adrenaline syringe reversing acute anaphylactic shock and airway collapse."
+    },
+    "narcan_naloxone_nasal_spray": {
+      "name": "Narcan 4mg Naloxone Nasal Spray",
+      "desc": "Emergency opioid overdose reversal spray rapidly clearing narcotic receptors."
+    },
+    "pralidoxime_2pam_chloride": {
+      "name": "2-PAM Pralidoxime Chloride Injectable",
+      "desc": "Cholinesterase reactivator administered alongside atropine during nerve gas attacks."
+    },
+    "potassium_iodide_130mg_strips": {
+      "name": "Potassium Iodide (IOSAT 130mg, 14 Tabs)",
+      "desc": "Saturates thyroid gland with stable iodine, blocking uptake of radioactive Iodine-131."
+    },
+    "activated_charcoal_slurry": {
+      "name": "USP Activated Charcoal Liquid Suspension",
+      "desc": "Black porous carbon slurry binding ingested poisons and toxic seeds in the stomach."
+    },
+    "ringer_lactate_500ml_iv_bag": {
+      "name": "Ringer's Lactate 500ml Sterile IV Bag",
+      "desc": "Isotonic electrolyte fluid restoring circulating volume after heavy trauma blood loss."
+    },
+    "normal_saline_500ml_iv_bag": {
+      "name": "0.9% Normal Saline 500ml IV Infusion",
+      "desc": "Sterile sodium chloride IV solution used for rehydration and wound irrigation."
+    },
+    "iv_infusion_tubing_set": {
+      "name": "Macro-Drip IV Infusion Tubing Set with Roller Clamp",
+      "desc": "Sterile line with drip chamber, roller regulator, and luer lock connector."
+    },
+    "iv_cannula_catheter_18g": {
+      "name": "Green 18-Gauge IV Cannula Catheters (Box)",
+      "desc": "High-flow stainless steel needle with Teflon catheter for rapid blood and fluid delivery."
+    },
+    "chlorhexidine_gluconate_4pct": {
+      "name": "Chlorhexidine Gluconate 4% Scrub Solution",
+      "desc": "Surgical grade pink antiseptic cleanser killing bacteria and fungi on skin contact."
+    },
+    "hydrocortisone_cream_1pct": {
+      "name": "Hydrocortisone 1% Anti-Itch Ointment",
+      "desc": "Corticosteroid cream subduing severe plant dermatitis, rash, and toxic insect stings."
+    },
+    "calamine_lotion_bottle": {
+      "name": "Calamine Soothing Zinc Lotion (150ml)",
+      "desc": "Pink soothing suspension relieving blistering insect bites, hives, and prickly heat."
+    },
+    "zinc_oxide_petroleum_paste": {
+      "name": "Zinc Oxide Protective Barrier Paste",
+      "desc": "Heavy waterproof white paste protecting chafed thighs, trench foot, and raw friction sores."
+    },
+    "eye_wash_sterile_saline_bottle": {
+      "name": "Sterile Saline Eye Wash Bottle (250ml)",
+      "desc": "Ergonomic eyecup nozzle for flushing caustic chemicals, pepper spray, and grit from eyes."
+    },
+    "burn_gel_hydrogel_packet": {
+      "name": "Water-Jel Sterile Hydrogel Burn Packet",
+      "desc": "Cools thermal burns instantly and halts deeper tissue cooking with tea-tree oil."
+    },
+    "cohesive_flexible_vet_wrap": {
+      "name": "Self-Adherent Cohesive Bandage Roll",
+      "desc": "Sticks to itself without pins or tape; ideal for securing splints and wet dressings."
+    },
+    "sterile_disposable_hypodermic_syringes": {
+      "name": "10x Sterile 5ml Luer-Lock Syringes with Needles",
+      "desc": "Pack of medical grade graduated barrels with 21G injection needles."
+    },
+    "barbed_wire_baseball_bat": {
+      "name": "Barbed-Wire Wrapped Wooden Bat",
+      "desc": "Heavy ash wood baseball bat wound with razor-sharp rusted barb wire."
+    },
+    "spiked_cricket_bat": {
+      "name": "Spiked Willow Cricket Bat",
+      "desc": "Solid English willow bat driven through with dozens of ground construction spikes."
+    },
+    "police_side_handle_tonfa": {
+      "name": "Polycarbonate Riot Police Tonfa",
+      "desc": "Impact-resistant rigid baton with side perpendicular handle for blocking and striking."
+    },
+    "solid_rebar_club": {
+      "name": "Deformed Steel Rebar Club",
+      "desc": "A thick length of ribbed concrete rebar with wrapped rubber bicycle tube grip."
+    },
+    "heavy_railroad_spike_club": {
+      "name": "Railroad Spike Morningstar Club",
+      "desc": "Heavy oak timber studded with forged high-carbon railway track spikes."
+    },
+    "two_handed_splitting_maul": {
+      "name": "8-Pound Wood Splitting Maul",
+      "desc": "Drop-forged wedge axe head combined with sledgehammer butt on fiberglass handle."
+    },
+    "tactical_tomahawk_black": {
+      "name": "Tactical Breaching Tomahawk",
+      "desc": "One-piece drop forged steel hawk with rear penetration spike and paracord wrap."
+    },
+    "firemans_flathead_axe": {
+      "name": "Firefighter Flathead Crash Axe",
+      "desc": "Heavy high-visibility red steel axe designed to chew through structural wood and roofs."
+    },
+    "combat_trench_knife_1918": {
+      "name": "Mark I Trench Knife with Knuckle Duster",
+      "desc": "Double-edged triangular dagger combined with solid brass knuckle-duster grip."
+    },
+    "tactical_karambit_blade": {
+      "name": "Curved Tactical Karambit Blade",
+      "desc": "Tiger-claw curved blade with safety finger ring for lightning-fast close-quarters slashing."
+    },
+    "folding_butterfly_balisong": {
+      "name": "Steel Balisong Butterfly Knife",
+      "desc": "Concealable flip-opening utility knife with razor-honed drop point blade."
+    },
+    "improvised_rebar_spear": {
+      "name": "Ground-Point Rebar Hunting Spear",
+      "desc": "Six-foot steel rod ground down to a needle tip with leather handle wrap."
+    },
+    "scythe_blade_war_pike": {
+      "name": "Straightened Scythe Blade War Pike",
+      "desc": "Agricultural scythe blade reforged straight and bolted to an ash wood pole."
+    },
+    "fiberglass_recurve_bow_45lb": {
+      "name": "45-Pound Takedown Recurve Bow",
+      "desc": "Compact laminated wood and fiberglass limbs delivering silent deadly arrows."
+    },
+    "tactical_compound_crossbow_175lb": {
+      "name": "175-Pound Tactical Compound Crossbow",
+      "desc": "Cams and split limbs hurling aluminum bolts fast enough to pierce engine cowlings."
+    },
+    "bundle_carbon_hunting_arrows": {
+      "name": "Bundle of 6 Carbon Shaft Broadhead Arrows",
+      "desc": "Precision straight-spine carbon fiber arrows tipped with 3-blade razor broadheads."
+    },
+    "bundle_aluminum_crossbow_bolts": {
+      "name": "Quiver of 6 Anodized Crossbow Bolts",
+      "desc": "Heavy-gauge 20-inch aluminum bolts built for high-energy modern crossbows."
+    },
+    "hunting_slingshot_steel_balls": {
+      "name": "High-Velocity Wrist-Rocket Slingshot",
+      "desc": "Tubular latex band slingshot with forearm brace. Fires ball bearings with bone-breaking force."
+    },
+    "glock_19_9mm_pistol": {
+      "name": "Glock 19 Compact 9x19mm Pistol",
+      "desc": "Legendary Austrian polymer pistol renowned for extreme reliability in dirt and muck."
+    },
+    "beretta_92fs_pistol": {
+      "name": "Beretta 92FS 9mm Service Pistol",
+      "desc": "Classic open-slide alloy frame Italian combat pistol holding 15 rounds."
+    },
+    "colt_1911_45acp_pistol": {
+      "name": "Colt M1911A1 .45 ACP Pistol",
+      "desc": "All-steel American service pistol delivering massive stopping power per single bullet."
+    },
+    "tokarev_tt33_pistol": {
+      "name": "Soviet TT-33 Tokarev 7.62x25mm Pistol",
+      "desc": "Rugged single-action pistol firing blisteringly fast armor-piercing pistol cartridges."
+    },
+    "makarov_pm_9x18_pistol": {
+      "name": "Makarov PM 9x18mm Concealed Pistol",
+      "desc": "Compact blowback Soviet officer handgun. Simple, indestructible, and easy to clean."
+    },
+    "sw_model_29_44mag_revolver": {
+      "name": "Smith & Wesson Model 29 .44 Magnum Revolver",
+      "desc": "6.5-inch blued barrel cannon capable of dropping a grizzly bear in its tracks."
+    },
+    "ruger_sp101_357_revolver": {
+      "name": "Ruger SP101 .357 Magnum 3-Inch Revolver",
+      "desc": "Solid steel frame five-shot cylinder. Accepts both .38 Special and .357 Magnum."
+    },
+    "remington_870_express_12g": {
+      "name": "Remington 870 12-Gauge Pump Shotgun",
+      "desc": "Dual action slide bars and steel receiver. The gold standard pump scattergun."
+    },
+    "mossberg_590_tactical_12g": {
+      "name": "Mossberg 590A1 Mil-Spec 12-Gauge",
+      "desc": "Heavy-walled barrel and 8-round magazine tube built to US Marine Corps specifications."
+    },
+    "sawed_off_double_barrel_12g": {
+      "name": "Sawed-Off Side-by-Side 12-Gauge Shotgun",
+      "desc": "Barrels hacked down to 10 inches with pistol grip. Devastating spread at point-blank."
+    },
+    "single_shot_break_action_20g": {
+      "name": "H&R Pardner 20-Gauge Single Shot",
+      "desc": "Primitive single-shot break barrel hammer shotgun. Light, simple, and functional."
+    },
+    "sks_carbine_762x39": {
+      "name": "Soviet SKS Carbine 7.62x39mm",
+      "desc": "10-round internal magazine carbine with folding bayonet. Hard-hitting semi-automatic accuracy."
+    },
+    "mosin_nagant_9130_rifle": {
+      "name": "Mosin-Nagant M91/30 7.62x54mmR Bolt Rifle",
+      "desc": "Historic Russian bolt-action infantry rifle. Deafening muzzle blast and monstrous penetration."
+    },
+    "remington_700_scoped_308": {
+      "name": "Remington 700 .308 Win with 3-9x Scope",
+      "desc": "Hair-trigger precision bolt rifle equipped with long-distance optical crosshair scope."
+    },
+    "ruger_1022_carbine": {
+      "name": "Ruger 10/22 Semi-Auto .22 LR Carbine",
+      "desc": "Virtually recoil-free rimfire rifle ideal for silent small-game subsistence hunting."
+    },
+    "ak74m_assault_rifle_545": {
+      "name": "AK-74M Assault Rifle 5.45x39mm",
+      "desc": "Side-folding polymer stock Russian service rifle with lethal tumbling high-velocity rounds."
+    },
+    "ar15_carbine_556x45": {
+      "name": "Civilian AR-15 Carbine 5.56 NATO",
+      "desc": "Ergonomic modular semi-automatic platform with picatinny rail and red-dot sight."
+    },
+    "fal_battle_rifle_762x51": {
+      "name": "FN FAL 7.62x51mm NATO Battle Rifle",
+      "desc": "\"The Right Arm of the Free World\". Punches full-power battle cartridges through concrete."
+    },
+    "mp5a3_submachine_gun": {
+      "name": "H&K MP5A3 9mm Submachine Gun",
+      "desc": "Roller-delayed blowback submachine gun famous for surgical burst accuracy."
+    },
+    "ammo_9mm_parabellum_box": {
+      "name": "Box of 50 Rounds 9x19mm Luger FMJ",
+      "desc": "Standard brass-cased full metal jacket pistol ammunition."
+    },
+    "ammo_45_acp_box": {
+      "name": "Box of 50 Rounds .45 ACP 230gr Ball",
+      "desc": "Heavy lead-core subsonic handgun cartridges with crushing impact."
+    },
+    "ammo_357_magnum_box": {
+      "name": "Box of 50 Rounds .357 Magnum JHP",
+      "desc": "Jacketed hollow point revolver ammunition producing massive hydraulic expansion."
+    },
+    "ammo_44_magnum_box": {
+      "name": "Box of 25 Rounds .44 Remington Magnum",
+      "desc": "Heavy magnum cartridges delivering enough kinetic foot-pounds to crack engine blocks."
+    },
+    "ammo_12g_00_buckshot_box": {
+      "name": "Box of 25 Shells 12-Gauge 00 Buckshot",
+      "desc": "Each 2-3/4\" hull packs nine heavy 33-caliber lead pellets."
+    },
+    "ammo_12g_rifled_slug_box": {
+      "name": "Box of 10 Shells 12-Gauge 1-oz Rifled Slug",
+      "desc": "Solid 437-grain lead projectiles capable of punch-through on light vehicle armor."
+    },
+    "ammo_22_lr_brick_100": {
+      "name": "Brick of 100 Rounds .22 LR Hollow Point",
+      "desc": "Rimfire copper-plated ammunition; light to carry by the hundreds."
+    },
+    "ammo_556_nato_box": {
+      "name": "Box of 30 Rounds 5.56x45mm NATO M855 (Green Tip)",
+      "desc": "Steel-penetrator core cartridges designed for military AR-15 and M4 rifles."
+    },
+    "ammo_762x39_soviet_box": {
+      "name": "Box of 30 Rounds 7.62x39mm Soviet FMJ",
+      "desc": "Lacquer-coated steel-cased ammunition powering AK-47 and SKS rifles."
+    },
+    "ammo_545x39_soviet_tin": {
+      "name": "Sealed Tin of 30 Rounds 5.45x39mm 7N6",
+      "desc": "Mild-steel core 'poison bullet' rounds engineered for AK-74 rifles."
+    },
+    "ammo_308_winchester_box": {
+      "name": "Box of 20 Rounds .308 Winchester 168gr BTHP",
+      "desc": "Match-grade boat tail hollow point ammunition for surgical sniper work."
+    },
+    "pipe_bomb_shrapnel_fuse": {
+      "name": "Improvised Steel Pipe Shrapnel Bomb",
+      "desc": "Threaded plumbing pipe packed with match-head sulfur, nails, and slow safety fuse."
+    },
+    "thermite_incendiary_canister": {
+      "name": "Thermite Firebomb Canister",
+      "desc": "Iron oxide and aluminum powder mixture burning at 4,000°F. Melts through steel safes."
+    },
+    "m18_smoke_grenade_white": {
+      "name": "M18 Military Smoke Grenade (White)",
+      "desc": "Pulls pin to release an impenetrable cloud of blinding white smoke for retreats."
+    },
+    "tripwire_shotgun_blank_trap": {
+      "name": "Perimeter Tripwire Alarm Blank Mine",
+      "desc": "Spring-loaded firing pin assembly using 12G blanks to sound deafening perimeter alarms."
+    },
+    "claymore_antipersonnel_mine": {
+      "name": "M18A1 Claymore Directional Mine",
+      "desc": "Curved plastic case containing C-4 explosive and 700 steel ball bearings. 'FRONT TOWARD ENEMY'."
+    },
+    "copper_pipe_section_1m": {
+      "name": "1-Meter Rigid Copper Plumbing Pipe (15mm)",
+      "desc": "High-purity antimicrobial copper pipe; prized for stills and electrical projects."
+    },
+    "brass_plumbing_fittings_pack": {
+      "name": "Pack of Assorted Brass Threaded Fittings",
+      "desc": "Tees, elbows, and nipples capable of handling corrosive fluids and high pressures."
+    },
+    "galvanized_sheet_metal_plate": {
+      "name": "Galvanized Sheet Steel Plate (0.8mm)",
+      "desc": "Corrosion-resistant zinc-coated steel sheet for vehicle armor and chimney fabrication."
+    },
+    "expanded_steel_mesh_grating": {
+      "name": "Expanded Steel Diamond Mesh Grate",
+      "desc": "Heavy flattened steel mesh for welding protective window cages and animal traps."
+    },
+    "tungsten_carbide_drill_bits": {
+      "name": "Tungsten Carbide Masonry & Steel Drill Bits",
+      "desc": "Extremely hard drill bit set that bores through armor plate, cast iron, and stone."
+    },
+    "heavy_steel_ball_bearings_bag": {
+      "name": "Pouch of 50 Chrome Steel Ball Bearings (12mm)",
+      "desc": "Mirror-polished hardened steel spheres. Perfect slingshot ammo or pipe bomb shrapnel."
+    },
+    "assorted_steel_springs_box": {
+      "name": "Box of Assorted Tension and Compression Springs",
+      "desc": "High-tensile tempered steel springs for gunsmithing, traps, and mechanical latches."
+    },
+    "hex_bolts_and_nuts_assortment": {
+      "name": "Bucket of Grade 8 High-Strength Hex Bolts & Nuts",
+      "desc": "Structural steel fasteners rated for engine mounts and chassis reinforcement."
+    },
+    "blind_rivets_and_pop_riveter": {
+      "name": "Hand Pop Rivet Tool with 200 Blind Rivets",
+      "desc": "Allows permanent joining of sheet metal without needing access to the backside."
+    },
+    "stainless_steel_hose_clamps": {
+      "name": "Box of 20 Worm-Gear Stainless Hose Clamps",
+      "desc": "Adjustable screw clamps for securing radiator hoses, exhaust patches, and tools."
+    },
+    "car_battery_12v_lead_acid": {
+      "name": "12-Volt Sealed Lead-Acid Car Battery",
+      "desc": "Heavy 60Ah accumulator capable of running camp lights, radios, and inverters."
+    },
+    "lithium_18650_rechargeable_cell": {
+      "name": "Rechargeable 18650 3.7V Lithium-Ion Cell",
+      "desc": "High-capacity cylinder battery pulled from a laptop pack. Powers tactical gear."
+    },
+    "alkaline_9v_transistor_battery": {
+      "name": "Heavy-Duty 9-Volt Alkaline Battery",
+      "desc": "Rectangular snap-terminal battery required by radiation meters, smoke alarms, and radios."
+    },
+    "cr2032_lithium_coin_cells": {
+      "name": "Blister Pack of 5 CR2032 3V Coin Cells",
+      "desc": "Flat lithium button batteries for red-dot optic sights and digital wristwatches."
+    },
+    "solar_charge_controller_mppt": {
+      "name": "12V/24V MPPT Solar Charge Controller Board",
+      "desc": "Microprocessor unit safely charging battery banks from raw solar panel voltage."
+    },
+    "step_down_buck_voltage_regulator": {
+      "name": "DC-DC Step-Down Buck Converter Module",
+      "desc": "Adjusts noisy 12V car battery power down to clean 5V USB output for devices."
+    },
+    "brushless_12v_dc_motor": {
+      "name": "High-RPM Brushless 12V DC Motor",
+      "desc": "Can be spun as an efficient wind generator or used to build power blowers."
+    },
+    "solder_wire_6040_rosin_core": {
+      "name": "Spool of 60/40 Tin-Lead Rosin-Core Solder",
+      "desc": "Low melting point alloy wire for repairing broken circuit boards and radios."
+    },
+    "electric_soldering_iron_40w": {
+      "name": "40-Watt Precision Pencil Soldering Iron",
+      "desc": "Handheld heating element with chisel tip for electronic component soldering."
+    },
+    "insulated_copper_wiring_harness": {
+      "name": "Automotive Multi-Strand Wire Harness Loom",
+      "desc": "Bundle of color-coded copper stranded wires shielded in oil-resistant PVC."
+    },
+    "heavy_toggle_switches_pack": {
+      "name": "Pack of 4 Heavy-Duty Bat Toggle Switches",
+      "desc": "Weatherproof click-toggle electrical switches rated for 20 amps DC."
+    },
+    "neodymium_rare_earth_magnets": {
+      "name": "Set of 6 N52 Strong Neodymium Disc Magnets",
+      "desc": "Incredibly powerful magnetic discs for building homebrew generators and secret latches."
+    },
+    "epoxy_resin_and_hardener_tubes": {
+      "name": "Twin-Syringe High-Strength 2-Part Epoxy",
+      "desc": "Cures rock-hard in 5 minutes to bond metals, wood, ceramics, and fractured gunstocks."
+    },
+    "cyanoacrylate_super_glue_bottle": {
+      "name": "Industrial Cyanoacrylate Super Glue (50g)",
+      "desc": "Instant bonding liquid; also seals clean skin lacerations in emergencies."
+    },
+    "silicone_rtv_gasket_maker": {
+      "name": "RTV High-Temp Silicone Gasket Maker",
+      "desc": "Oil-resistant silicone vulcanizing paste for sealing engine covers and water joints."
+    },
+    "polyurethane_expanding_foam_can": {
+      "name": "Aerosol Expanding Polyurethane Foam (750ml)",
+      "desc": "Shoots expanding insulation foam sealing drafts, rodent gaps, and floating hulls."
+    },
+    "fiberglass_cloth_and_resin_kit": {
+      "name": "Fiberglass Mesh Cloth and Polyester Resin Kit",
+      "desc": "Woven glass matting and catalyst liquid for rebuilding boats, tanks, and vehicle bodies."
+    },
+    "wd40_penetrating_lubricant_can": {
+      "name": "WD-40 Multi-Use Penetrating Lubricant Spray",
+      "desc": "Displaces moisture, frees frozen rusted bolts, and stops squeaking hinges."
+    },
+    "motor_oil_synthetic_10w40": {
+      "name": "1-Quart Full Synthetic 10W-40 Motor Oil",
+      "desc": "High-temperature lubricant keeping combustion engines from seizing solid."
+    },
+    "brake_fluid_dot4_can": {
+      "name": "Synthetic DOT 4 Hydraulic Brake Fluid (500ml)",
+      "desc": "Non-compressible hydraulic oil for vehicle brake and clutch cylinders."
+    },
+    "acetone_solvent_metal_can": {
+      "name": "Pure Chemical Grade Acetone Solvent (1L)",
+      "desc": "Dissolves paints, degreases gun barrels, and serves as explosive synthesis precursor."
+    },
+    "kerosene_fuel_plastic_jug": {
+      "name": "5-Liter Jug of Clean Kerosene Lamp Fuel",
+      "desc": "Refined petroleum distillate for hurricane lanterns, space heaters, and cleaning."
+    },
+    "diesel_fuel_canister_10l": {
+      "name": "10-Liter Steel Jerrycan of Diesel Fuel",
+      "desc": "Heavy fuel for diesel generators, trucks, and lighting smudge pot heaters."
+    },
+    "butane_gas_canister_camping": {
+      "name": "220g Isobutane/Propane Blend Gas Cartridge",
+      "desc": "Self-sealing threaded fuel canister for backpacking stoves and micro-torches."
+    },
+    "rubber_tire_patch_vulcanizing_kit": {
+      "name": "Bicycle & Truck Tire Vulcanizing Patch Kit",
+      "desc": "Rubber cement, cheese grater buffer, and cold vulcanizing rubber patches."
+    },
+    "neoprene_gasket_sheet_thick": {
+      "name": "1/8\" Oil-Resistant Neoprene Rubber Sheet",
+      "desc": "Flexible rubber sheet cut to make watertight seals, face gaskets, and washers."
+    },
+    "heavy_duty_cable_ties_pack_100": {
+      "name": "Pack of 100 Heavy-Duty UV-Resistant Zip Ties",
+      "desc": "Nylon ties rated for 75-lb tensile pull; indispensable for quick camp repairs."
+    },
+    "aluminum_foil_heavy_duty_roll": {
+      "name": "Heavy-Duty Embossed Aluminum Foil Roll",
+      "desc": "Food cooking wrap, heat reflector, and makeshift electromagnetic shielding."
+    },
+    "heat_shrink_tubing_assortment": {
+      "name": "150-Piece Heat Shrink Wire Insulating Sleeves",
+      "desc": "Polyolefin tubing that shrinks tight over exposed soldered wire joints when heated."
+    },
+    "welding_rods_e6013_pack": {
+      "name": "Pack of 30 E6013 Mild Steel Arc Welding Electrodes",
+      "desc": "Rutile-coated welding rods for structural steel repairs using stick welders."
+    },
+    "graphite_powder_lock_lubricant": {
+      "name": "Dry Micronized Graphite Powder Tube",
+      "desc": "Greaseless dry lubricant that frees sticky jammed padlocks and firearm triggers in freezing cold."
+    },
+    "bungee_cargo_cords_pack": {
+      "name": "Pack of 4 Elastic Bungee Cords with Steel Hooks",
+      "desc": "Heavy latex cords with coated steel hooks for strapping gear to packs and racks."
+    },
+    "polyethylene_tarp_repair_tape": {
+      "name": "Heavy UV-Resistant Green Tarp Tape",
+      "desc": "Ultra-sticky adhesive tape designed specifically to seal tears in woven shelters and tarps."
+    },
+    "ratchet_tie_down_strap_5m": {
+      "name": "5-Meter Heavy Ratchet Tie-Down Strap (2-Ton)",
+      "desc": "Polyester webbing strap with heavy steel ratchet winch for hauling cargo."
+    },
+    "silica_gel_desiccant_packs": {
+      "name": "Pack of 20 Moisture Absorbing Silica Gel Packets",
+      "desc": "Porous silicone dioxide granules keeping ammunition and medicines bone-dry."
+    },
+    "chlorine_bleach_sodium_hypochlorite": {
+      "name": "1-Liter Unscented Household Bleach (5.25%)",
+      "desc": "Disinfectant liquid; 2 drops purify one liter of suspect water from cholera."
+    },
+    "calcium_carbide_chunks": {
+      "name": "Lump of Calcium Carbide in Airtight Canister",
+      "desc": "Reacts with water to produce flammable acetylene gas for welding torches and lamps."
+    },
+    "beeswax_pure_block": {
+      "name": "Block of Pure Natural Yellow Beeswax",
+      "desc": "For waterproofing canvas jackets, lubricating wooden friction parts, and candle making."
+    },
+    "tactical_plate_carrier_level4": {
+      "name": "MOLLE Tactical Plate Carrier with Ceramic Plates",
+      "desc": "Heavy ceramic-composite body armor stopping multi-hit armor-piercing rifle rounds."
+    },
+    "concealable_kevlar_vest_level2": {
+      "name": "Concealable Level IIIA Kevlar Vest",
+      "desc": "Lightweight aramid fiber body armor protecting torso from handgun bullets and shrapnel."
+    },
+    "stab_proof_security_vest": {
+      "name": "Stab & Slash Resistant Security Vest",
+      "desc": "Interlocking steel scale matrix preventing puncture wounds from knives and improvised shanks."
+    },
+    "riot_police_hard_armor_suit": {
+      "name": "Full Anti-Riot Hard Shell Armor System",
+      "desc": "Molded polycarbonate chest, forearm, and shin guards designed for brutal melee riots."
+    },
+    "firefighter_turnout_bunker_coat": {
+      "name": "Nomex Firefighter Turnout Bunker Coat",
+      "desc": "Heavy thermal insulation jacket resisting direct heat, embers, and chemical splatters."
+    },
+    "waxed_canvas_hunting_jacket": {
+      "name": "Heavy Waxed Canvas Field Jacket",
+      "desc": "Thick paraffin-waxed duck cotton resisting thorn briars, rain, and tooth scratches."
+    },
+    "military_m65_field_jacket_liner": {
+      "name": "M-65 Combat Field Jacket with Quilted Liner",
+      "desc": "Rugged military cotton-nylon twill coat with button-in quilted insulating thermal liner."
+    },
+    "goretex_waterproof_parka_camo": {
+      "name": "ECWCS Woodland Camo Gore-Tex Parka",
+      "desc": "Breathable waterproof membrane outer jacket shedding monsoon rain and sleet."
+    },
+    "merino_wool_thermal_base_layer": {
+      "name": "Heavyweight Merino Wool Thermal Base Layer",
+      "desc": "Keeps body core warm even when drenched wet in freezing subterranean conditions."
+    },
+    "tactical_ripstop_cargo_pants": {
+      "name": "Ripstop Tactical Operator Pants with Knee Pad Pockets",
+      "desc": "Reinforced crotch and knees with dozens of cargo pockets for spare magazines."
+    },
+    "vibram_sole_combat_boots": {
+      "name": "Gore-Tex Vibram-Sole Tactical Combat Boots",
+      "desc": "Lugged rubber soles preventing ankle twists on broken rubble and sharp debris."
+    },
+    "insulated_extreme_cold_snow_boots": {
+      "name": "-40°C Insulated Winter Sorel Pac Boots",
+      "desc": "Thick rubber lug bottoms with felt liners for trekking through deep frozen nuclear ash."
+    },
+    "heavy_neoprene_wading_boots": {
+      "name": "Chest Wader Waterproof Neoprene Boots",
+      "desc": "Seamless waterproof rubber wading gear for traversing flooded sewers and swamps."
+    },
+    "kevlar_reinforced_tactical_gloves": {
+      "name": "Kevlar-Lined Hard-Knuckle Tactical Gloves",
+      "desc": "Carbon fiber knuckle shields and slash-proof palms for hand-to-hand combat."
+    },
+    "insulated_leather_work_gauntlets": {
+      "name": "Split Cowhide Heavy Welding Gauntlets",
+      "desc": "Thick leather forearm gloves resisting red-hot sparks, jagged scrap, and animal bites."
+    },
+    "ballistic_mtek_bump_helmet": {
+      "name": "Tactical FAST Bump Helmet with Accessory Rails",
+      "desc": "High-impact shell with night-vision shroud and side flashlight attachment rails."
+    },
+    "welding_goggles_shade_5": {
+      "name": "Dual Cup Shade 5 Oxy-Acetylene Welding Goggles",
+      "desc": "Dark green lenses blocking retina-scorching ultraviolet rays and blinding flashes."
+    },
+    "polarized_ballistic_sunglasses": {
+      "name": "ANSI Z87.1 Rated Ballistic Polarized Sunglasses",
+      "desc": "Shatterproof polycarbonate wrap sunglasses eliminating blinding sun glare."
+    },
+    "nomex_flame_resistant_balaclava": {
+      "name": "Nomex Fire-Retardant Balaclava Hood",
+      "desc": "Protects face, throat, and ears from flash burns and hiding user identity."
+    },
+    "boonie_hat_woodland_camo": {
+      "name": "Wide-Brim Woodland Camo Boonie Hat",
+      "desc": "Cotton sun hat with branch loops for foliage camouflage and keeping sun off neck."
+    },
+    "internal_frame_expedition_pack_75l": {
+      "name": "75-Liter Internal Aluminum Frame Expedition Pack",
+      "desc": "Heavy expedition rucksack with padded lumbar belt distributing crushing weight (+35 kg)."
+    },
+    "assault_pack_3_day_40l": {
+      "name": "40-Liter MOLLE 3-Day Assault Backpack",
+      "desc": "Rugged 1000D Cordura pack with hydration bladder compartment and webbing straps (+20 kg)."
+    },
+    "tactical_chest_rig_vest": {
+      "name": "Modular Tactical Chest Rig with Mag Pouches",
+      "desc": "Holds rifle magazines, radio, and trauma kit directly on the chest (+8 kg)."
+    },
+    "canvas_messenger_satchel_heavy": {
+      "name": "Heavy Waxed Canvas Shoulder Satchel",
+      "desc": "Over-the-shoulder flap bag lined with waterproof vinyl for quick loot grabs (+10 kg)."
+    },
+    "waterproof_roll_top_dry_bag_30l": {
+      "name": "30-Liter Heavy PVC Waterproof Dry Bag",
+      "desc": "Roll-top bag that floats and keeps sleeping gear completely dry in deep water (+12 kg)."
+    },
+    "folding_camp_wood_stove": {
+      "name": "Collapsible Titanium Camping Wood Stove",
+      "desc": "Packs flat like a book; efficiently burns twigs and pinecones to boil water smokelessly."
+    },
+    "titanium_pot_and_pan_mess_kit": {
+      "name": "Ultralight Titanium 2-Piece Cook Set",
+      "desc": "Nesting pot and lid-skillet impervious to rust and denting over open campfires."
+    },
+    "handheld_crank_solar_emergency_radio": {
+      "name": "Dynamo Hand-Crank Solar Emergency Radio",
+      "desc": "Picks up AM/FM/NOAA emergency broadcasts, features bright LED light and USB charger."
+    },
+    "high_lumen_tactical_flashlight": {
+      "name": "2000-Lumen Rechargeable Tactical Flashlight",
+      "desc": "Blinding aircraft-grade aluminum beam piercing dark tunnels for hundreds of meters (+8% scavenge)."
+    },
+    "silva_sighting_mirror_compass": {
+      "name": "Silva Ranger Sighting Mirror Compass",
+      "desc": "Precision navigation instrument with clinometer and declination adjustment (+6% travel)."
+    },
+    "bushcraft_parang_heavy_machete": {
+      "name": "Hand-Forged 14-Inch Bushcraft Parang",
+      "desc": "Thick belly blade splitting through dense jungle undergrowth and building shelters."
+    },
+    "folding_entrenching_spade_pick": {
+      "name": "Tri-Fold Military Entrenching Tool with Pick",
+      "desc": "Hardened carbon steel shovel blade with integrated serrated edge and root pick."
+    },
+    "magnesium_fire_starter_block": {
+      "name": "Magnesium Bar with Flint Striker",
+      "desc": "Shave magnesium slivers into a tinder pile and spark with flint to ignite soaking wet wood."
+    },
+    "stormproof_matches_sealed_case": {
+      "name": "Windproof & Waterproof Matches in O-Ring Tube",
+      "desc": "Phosphorus dipped sticks that stay burning submerged underwater or in gale winds."
+    },
+    "tactical_pen_tungsten_glassbreaker": {
+      "name": "Anodized Aluminum Tactical Pen with Carbide Tip",
+      "desc": "Writes upside down in the cold; features an impact tip that shatters car safety glass."
+    },
+    "mechanical_automatic_field_watch": {
+      "name": "Self-Winding Mechanical Field Watch",
+      "desc": "No battery required; wound by wrist motion. Immune to nuclear electromagnetic pulses (EMP)."
+    },
+    "monocular_telescope_12x50": {
+      "name": "12x50 High-Definition Monocular Telescope",
+      "desc": "Nitrogen-purged fog-proof optic for long distance reconnaissance (+4% travel)."
+    },
+    "thermal_mylar_bivvy_emergency_sleeping_bag": {
+      "name": "Reflective Mylar Thermal Emergency Bivvy",
+      "desc": "Reflects 90% of radiated body heat back to prevent hypothermia during wet nights."
+    },
+    "down_filled_subzero_sleeping_bag": {
+      "name": "-20°C Goose Down Expedition Mummy Sleeping Bag",
+      "desc": "Ripstop nylon shell stuffed with 800-fill power down for brutal sub-zero nights."
+    },
+    "self_inflating_camp_sleeping_pad": {
+      "name": "Therm-a-Rest Self-Inflating Sleeping Pad",
+      "desc": "Open-cell foam core inflating automatically to insulate body from frozen ground."
+    },
+    "heavy_canteen_1l_molle_cup": {
+      "name": "1-Liter Military Canteen with Stainless Nesting Cup",
+      "desc": "BPA-free polymer flask slipping inside a steel cup for boiling water over embers."
+    },
+    "sawyer_gravity_water_filter_4l": {
+      "name": "4-Liter Gravity Membrane Water Purifier",
+      "desc": "Hangs from tree branch to filter gallons of dirty pond water down to 0.1 microns."
+    },
+    "tactical_entry_crowbar_short": {
+      "name": "18-Inch Forged Pry Bar & Door Breacher",
+      "desc": "Compact alloy steel pry bar notched for pulling hinges and prying locked trunks (+12% scavenge)."
+    },
+    "heavy_snatch_strap_tow_rope_5t": {
+      "name": "30-Foot Kinetic Energy Vehicle Recovery Snatch Strap",
+      "desc": "Stretches 20% under tension to snatch stuck 4x4 vehicles from mud bogs."
+    },
+    "handheld_laser_rangefinder_600m": {
+      "name": "Laser Distance Rangefinder (600m Range)",
+      "desc": "Bounces eye-safe laser pulse to provide precise yardage to game or sniper targets."
+    },
+    "signal_mirror_heliograph": {
+      "name": "Military Glass Heliograph Sighting Signal Mirror",
+      "desc": "Flashes blinding beams of sunlight visible up to 50 kilometers to rescue pilots."
+    },
+    "camp_bow_saw_folding": {
+      "name": "21-Inch Folding Aluminum Bow Saw",
+      "desc": "High-carbon raker-tooth blade cutting through fallen tree trunks in seconds."
+    },
+    "portable_waterproof_solar_panel_28w": {
+      "name": "28-Watt Foldable USB Solar Panel Charger",
+      "desc": "SunPower cells unfurling over a backpack to charge batteries and radios while marching."
+    },
+    "geiger_tube_pouch_sensor": {
+      "name": "Spare SBM-20 Glass Geiger-Müller Detection Tube",
+      "desc": "Delicate gas-filled vacuum tube sensitive to beta and gamma radiation pulses."
+    },
+    "hydraulic_bottle_jack_6t": {
+      "name": "6-Ton Welded Steel Hydraulic Bottle Jack",
+      "desc": "Compact hydraulic cylinder lifting collapsed concrete beams and heavy vehicle axles."
+    },
+    "industrial_wire_strippers_crimper": {
+      "name": "Automatic Wire Stripping and Crimping Pliers",
+      "desc": "Strips insulation cleanly from 10-24 AWG electrical copper wire without nicking."
+    },
+    "heavy_canvas_tool_roll_organizer": {
+      "name": "Multi-Slot Heavy Canvas Tool Roll Pouch",
+      "desc": "Rolls wrenches, screwdrivers, and pliers into a neat rattle-free bundle."
+    },
+    "tactical_modular_hydration_bladder_3l": {
+      "name": "3-Liter TPU Military Hydration Bladder with Bite Valve",
+      "desc": "Flexible water reservoir with insulated neoprene hose routed over shoulder."
+    },
+    "brass_emergency_whistle_pea_less": {
+      "name": "Pea-Less Solid Brass Survival Whistle (120dB)",
+      "desc": "Shrieks at ear-piercing volumes heard through howling blizzards and fog."
+    },
+    "leather_sheath_folding_pocket_knife": {
+      "name": "Lockback Carbon Steel Pocket Knife with Leather Sheath",
+      "desc": "Classic folding knife with brass bolsters; reliable for field dressing and whittling."
     }
   },
   "encounter": {
@@ -657,10 +2748,58 @@
         "listen": "You copy down grid bearings for distant transit hubs before the carrier fades.",
         "ignore": "You leave the repeater clicking into the wind."
       }
+    },
+    "decompression_chamber": {
+      "title": "Collapsed Highway Field Clinic",
+      "text": "A wounded soldier is pinned beneath an oxygen manifold with acute tension pneumothorax. His trachea is pushed left and his breath rattles violently. Beside him rests a sealed military rucksack.",
+      "choice": {
+        "decompress": "Needle Thoracostomy (Relieve chest cavity pressure)",
+        "loot_pack": "Strip the rucksack and retreat into the rubble",
+        "leave": "Leave him to the failing monitors"
+      },
+      "outcome": {
+        "decompress_success": "A hiss of pressurized air and dark blood erupts. The soldier decompresses and coughs, handing you his morphine reserve in gratitude.",
+        "decompress_failure": "The needle slips against fractured rib cartilage, tearing into soft tissue before you pull away.",
+        "loot_pack": "You slice through the nylon straps and take emergency rations while his boots drum against the floor.",
+        "leave": "You step backward into the dust and let the silence take the ward."
+      }
+    },
+    "checkpoint_siphon": {
+      "title": "Viaduct Toll Post (Iron Rail Company)",
+      "text": "Deserters in heavy coats have barricaded the bridge with railroad ties and a sandbagged machine gun. Their leader demands caloric tribute or ammunition.",
+      "choice": {
+        "pay_toll": "Pay the 2x ration toll for unhindered passage",
+        "fight_sentry": "Draw your weapon and break the roadblock by force",
+        "scale_gorge": "Descend into the freezing gorge and scale the abutment"
+      },
+      "outcome": {
+        "pay_toll": "The sentry weighs your rations and waves you through: 'Keep your head down in the tunnel, traveler.'",
+        "fight_sentry_success": "Accurate defensive fire shatters their sandbag position, forcing the surviving pickets to retreat down the embankment.",
+        "fight_sentry_failure": "Heavy automatic fire pins you behind concrete; shrapnel tears into your thigh before you stumble clear.",
+        "scale_gorge_success": "You drag yourself through waist-deep industrial runoff and scale the cliff, bypassing the toll unseen.",
+        "scale_gorge_failure": "The freezing sludge numbs your hands. You slip on wet gravel, wrenching your knee against concrete."
+      }
+    },
+    "protocol47_cache": {
+      "title": "Hardened Civil Defense Terminal",
+      "text": "An analog terminal glows amber inside a blast-proof alcove. A blinking prompt displays classified military dispatch logs titled 'PROTOCOL 47'.",
+      "choice": {
+        "decrypt": "Bypass logic interlock and copy dispatch logs",
+        "salvage": "Strip copper coils and battery cells from the terminal",
+        "ignore": "Leave the terminal humming in the dark"
+      },
+      "outcome": {
+        "decrypt_success": "The magnetic core dumps encrypted dispatch records revealing the true origin of the Black Sea EMP.",
+        "decrypt_failure": "A power surge sparks across the circuit board, scorching your fingers and fusing the logic chips.",
+        "salvage": "You harvest insulated copper wiring and intact scrap metal from the auxiliary casing.",
+        "ignore": "You leave the CRT phosphor fading into the vault shadows."
+      }
     }
   },
   "log": {
     "boot": {
+      "telemetry": "SYS_BOOT // TACTICAL TELEMETRY v4.19-REL // RAD: 14.8 mSv/h // CARRIER: 142.85 MHz",
+      "beacon": "RADIO 142.85 MHz: 'Sector 09 Bozkır Complex online... blast doors seal in 45 days. Survive the traverse.'",
       "awakened": "Cold static clears. You check your straps in the ruins of {location}."
     },
     "vital": {
@@ -742,7 +2881,8 @@
     },
     "scavenge": {
       "started": "Combing the ruins of {location} for salvage...",
-      "empty": "Picked through collapsed structures in {location} and came up empty."
+      "empty": "Picked through collapsed structures in {location} and came up empty.",
+      "field_log": "[RECOVERED DISPATCH] {text}"
     },
     "survey": {
       "revealed": {
@@ -897,6 +3037,58 @@
       "wounds": "Fell to cumulative trauma in the field."
     },
     "summary": "Survived {days} days across {nodes} charted sectors. Final transmission logged at {location}."
+  },
+  "faction": {
+    "title": "WASTELAND FACTIONS & DIPLOMACY",
+    "iron_guard": {
+      "name": "Iron Guard",
+      "desc": "Remnants of subterranean military garrisons; technocratic, disciplined, enforcing ruthless quarantine parameters across the central corridor."
+    },
+    "nomad_guild": {
+      "name": "Nomad Guild",
+      "desc": "Transcontinental trade caravans and scrap peddlers; pragmatic, peaceful, offering barter and safe passage in exchange for salvage."
+    },
+    "ash_marauders": {
+      "name": "Ash Marauders",
+      "desc": "Desperate rogue raider war-bands operating out of scorched border ruins; extortion-driven, opportunistic, and violent."
+    },
+    "tier": {
+      "allied": "ALLIED (+30% Barter Discount)",
+      "friendly": "FRIENDLY (+15% Barter Discount)",
+      "neutral": "NEUTRAL (Standard Terms)",
+      "suspicious": "SUSPICIOUS (+30% Price Markup)",
+      "hostile": "HOSTILE (Shoot-on-Sight)"
+    }
+  },
+  "environment": {
+    "weather": {
+      "clear_sky": "Clear Sky",
+      "radiation_ash_fog": "Toxic Ash Fog",
+      "corrosive_acid_rain": "Corrosive Acid Rain",
+      "subzero_cold_front": "Sub-zero Cold Front",
+      "gale_windstorm": "Gale Windstorm"
+    },
+    "alert": {
+      "shivering": "Core temperature dropping ({coreTemp}°C). Severe shivering sets in, sapping calories.",
+      "hypothermia": "Stage II Hypothermia ({coreTemp}°C)! Extremities freezing, stamina and health failing.",
+      "acid_burn": "Caustic acid precipitation burns unprotected skin and corrodes gear!",
+      "ash_inhalation": "Inhaling dense radioactive ash ({dose} mSv). Bronchial passages inflamed!",
+      "windstorm_fatigue": "Buffeting gale winds double travel fatigue and dehydrate your throat."
+    },
+    "flashlight_on": "Tactical light switched ON. Visibility increased, but light signature visible to raiders!",
+    "flashlight_off": "Tactical light switched OFF. Stepping into the shadows."
+  },
+  "pwa": {
+    "install_title": "INSTALL APP (PWA)",
+    "install_desc": "Add Last Breath to your home screen for fullscreen, zero lag, and offline play.",
+    "install_btn": "ADD TO HOME SCREEN 📲",
+    "already_installed": "App is already installed.",
+    "ios_guide_title": "iPHONE / iPAD INSTALL INSTRUCTIONS",
+    "ios_guide_step1": "1. Tap the Share button in Safari toolbar.",
+    "ios_guide_step2": "2. Scroll down and select 'Add to Home Screen'.",
+    "ios_guide_step3": "3. Tap 'Add' in the top right. The game will be installed!",
+    "installed_success": "App installed successfully! Ready for offline play.",
+    "close": "CLOSE"
   }
 };
   globalThis.__LAST_BREATH_TR__ = {
@@ -921,7 +3113,18 @@
       "open_menu": "ANA MENÜ",
       "new_game": "YENİ SEFERE BAŞLA →",
       "create_character": "YENİ HAYATTA KALAN OLUŞTUR →",
-      "back_to_menu": "← ANA MENÜ"
+      "back_to_menu": "← ANA MENÜ",
+      "new_game_main": "YENİ OYUN",
+      "load_game": "OYUN YÜKLE",
+      "settings": "AYARLAR",
+      "exit": "ÇIKIŞ",
+      "return_to_game": "OYUNA DÖN",
+      "desc_new_game": "Sıfırdan yeni bir hayatta kalma seferi başlat ve karakterini yarat.",
+      "desc_load_game": "Kaydedilmiş sefer yuvalarını (10 Slot) görüntüle ve devam et.",
+      "desc_settings": "Ses, dil, CRT ekran paraziti ve sistem ayarlarını yapılandır.",
+      "desc_exit": "Mevcut oturumu sonlandır ve oyundan çık.",
+      "install_app": "UYGULAMAYI YÜKLE (PWA)",
+      "desc_install_app": "Cihazınıza yükleyerek çevrimdışı ve tam ekran oynayın."
     },
     "archetype": {
       "scavenger": {
@@ -940,6 +3143,65 @@
         "name": "Kordon Muhafızı",
         "desc": "Pala, korumalı deri ceket, askeri kumanya (MRE) ve Sv.1 Yakın Çatışma ile başlar."
       }
+    },
+    "slots": {
+      "title": "SEFER KAYIT YUVALARI",
+      "subtitle": "10 Kayıt Yuvası // 2 Ücretsiz Slot · 8 Survivor Premium Slot",
+      "free_badge": "ÜCRETSİZ",
+      "premium_badge": "PREMIUM",
+      "locked_badge": "KİLİTLİ 🔒",
+      "active_badge": "AKTİF SEFER",
+      "empty": "BOŞ YUVA",
+      "empty_desc": "Bu yuvada kayıtlı bir hayatta kalma seferi bulunmuyor.",
+      "locked_desc": "Bu yuva kilitlidir. 8 ilave kayıt yuvasını kullanmak için Premium sürüm gereklidir.",
+      "load_btn": "YÜKLE",
+      "save_btn": "KAYDET",
+      "delete_btn": "SİL",
+      "unlock_btn": "KİLİDİ AÇ 🔒",
+      "delete_confirm": "Bu kayıt yuvasındaki tüm ilerleme silinecek. Emin misiniz?",
+      "save_success": "Oyun başarıyla kaydedildi.",
+      "load_failed": "Kayıt yüklenemedi veya bozuk.",
+      "premium_status_active": "SURVIVOR PREMIUM AKTİF 👑",
+      "premium_status_free": "ÜCRETSİZ SÜRÜM (FREE)",
+      "upgrade_cta": "PREMIUM'A YÜKSELT"
+    },
+    "premium": {
+      "title": "SURVIVOR PREMIUM SÜRÜMÜ",
+      "kicker": "ÖZEL ERİŞİM DÜZEYİ",
+      "desc": "Çorak topraklarda sınırları kaldırın. Survivor Premium ile 8 ekstra kayıt yuvası ve profesyonel hayatta kalma araçlarının kilidini açın.",
+      "feature_1": "10 Adet Bağımsız Kayıt Yuvası (2 Ücretsiz + 8 Premium)",
+      "feature_2": "Kesintisiz Çoklu Karakter ve Sefer Yönetimi",
+      "feature_3": "Özel Kıyamet Gazisi Profil Rozetleri ve Arayüz Temaları",
+      "feature_4": "Gelişmiş Çevrimdışı Sefer Günlüğü ve Veri Yedekleme",
+      "unlock_btn": "PREMIUM'U ETKİNLEŞTİR (ÜCRETSİZ DENE)",
+      "revoke_btn": "PREMIUM'U KALDIR (KİLİTLİ MODU TEST ET)",
+      "close": "KAPAT",
+      "active_notice": "Survivor Premium lisansı bu cihazda başarıyla aktifleştirildi."
+    },
+    "settings": {
+      "title": "SİSTEM AYARLARI",
+      "subtitle": "Arayüz, ses, dil ve yerel depolama yapılandırması",
+      "language": "Arayüz Dili (Language)",
+      "sfx": "Ses Efektleri (SFX)",
+      "ambient": "Telsiz & Atmosfer Ambiyansı",
+      "crt": "CRT Ekran Paraziti ve Tarama Çizgileri",
+      "autosave": "Otomatik Kayıt Sistemi",
+      "reset_title": "Tehlikeli Bölge (Veri Sıfırlama)",
+      "reset_desc": "Tüm kayıt yuvalarını, ayarları ve yerel verileri sıfırlar.",
+      "reset_btn": "TÜM VERİLERİ SIFIRLA",
+      "reset_confirm": "DİKKAT: Tüm kayıtlarınız ve ayarlarınız kalıcı olarak silinecek! Onaylıyor musunuz?",
+      "on": "AÇIK",
+      "off": "KAPALI",
+      "saved_notice": "Ayarlar kaydedildi."
+    },
+    "exit": {
+      "title": "OTURUMU SONLANDIR",
+      "desc": "Çorak topraklardan ayrılmak üzeresiniz. Mevcut seferiniz aktif yuvaya otomatik olarak kaydedilmiştir.",
+      "confirm_btn": "ÇIKIŞ YAP",
+      "cancel_btn": "İPTAL / GERİ DÖN",
+      "terminated_title": "BAĞLANTI KESİLDİ // SESSION TERMINATED",
+      "terminated_desc": "Hayatta kalan verileri güvenli belleğe mühürlendi. Tarayıcı sekmesini kapatabilirsiniz.",
+      "reconnect_btn": "YENİDEN BAĞLAN"
     }
   },
   "character": {
@@ -948,10 +3210,10 @@
     "default_name": "Kazazede",
     "callsign_kicker": "ÇAĞRI KODU // KİMLİK",
     "steps": {
-      "identity": "1. KİMLİK & MİZAÇ",
-      "archetype": "2. GEÇMİŞ & KİT",
-      "sector": "3. İNİŞ SEKTÖRÜ",
-      "summary": "4. ÖZET & BAŞLAT"
+      "identity": "1. KİMLİK",
+      "archetype": "2. GEÇMİŞ",
+      "sector": "3. SEKTÖR",
+      "summary": "4. ÖZET"
     },
     "step_subtitle": {
       "1": "Adım 1/4: Çağrı kodunuzu, yaşınızı, kan grubunuzu ve hayatta kalma mizacınızı belirleyin.",
@@ -1060,14 +3322,35 @@
       "satiety": "KAL",
       "hydration": "SU",
       "energy": "DAY"
-    }
+    },
+    "install_app": "YÜKLE"
   },
   "status": {
     "section": {
       "vitals": "BİYOMETRİK DEĞERLER",
+      "body": "ANATOMİK TRAVMA ŞEMASI",
       "conditions": "AKTİF TRAVMA & ENFEKSİYON",
       "readout": "ÇATIŞMA & DONANIM TELEMETRİSİ",
       "skills": "HAYATTA KALMA UZMANLIKLARI"
+    },
+    "body": {
+      "part": {
+        "head": "Kafatası / Baş",
+        "torso": "Gövde / Göğüs",
+        "leftArm": "Sol Kol",
+        "rightArm": "Sağ Kol",
+        "leftLeg": "Sol Bacak",
+        "rightLeg": "Sağ Bacak"
+      },
+      "condition": {
+        "intact": "SAĞLAM",
+        "arterial_bleed": "ATARDAMAR KANAMASI",
+        "minor_bleed": "KANAMA",
+        "fracture": "KIRIK",
+        "pneumothorax": "PNÖMOTORAKS",
+        "burn": "YANIK",
+        "infection": "ENFEKTE"
+      }
     },
     "vital": {
       "health": "BÜTÜNLÜK",
@@ -1358,6 +3641,2244 @@
     "med_cot": {
       "name": "Steril Revir Yatağı",
       "desc": "Sığınakta dinlenirken can yenilenmesini hızlandırır."
+    }
+  },
+  "item": {
+    "canned_beans": {
+      "name": "Konserve Kuru Fasulye",
+      "desc": "Tuzlu salamura içinde ezik teneke kutu fasulye. Ağır ve güvenilir kalori."
+    },
+    "jerky": {
+      "name": "Kurutulmuş Et (Jerky)",
+      "desc": "Tuzla kurutulmuş et şeridi. Hafif ve dayanıklı, ancak susuzluğu artırır."
+    },
+    "mre": {
+      "name": "Askeri MRE Kumanyası",
+      "desc": "Alevsiz ısıtıcı ve yüksek kalorili bisküviler içeren askeri savaş rasyonu."
+    },
+    "energy_bar": {
+      "name": "Yulaflı Enerji Barı",
+      "desc": "Yoğun glikoz ve yulaf barı. Hareket halindeyken hızlı enerji sağlar."
+    },
+    "bottled_water": {
+      "name": "Mühürlü Şişe Su",
+      "desc": "Fabrika mühürlü mineral suyu. Mikrobiyal enfeksiyon riski taşımaz."
+    },
+    "dirty_water": {
+      "name": "Bulanık Durgun Su",
+      "desc": "Açık su birikintisinden toplanmış. Susuzluğu giderir ancak hastalık riski taşır."
+    },
+    "instant_coffee": {
+      "name": "Hazır Kahve Paketi",
+      "desc": "Acı dondurulmuş kahve kristalleri. Hafif susuzluk pahasına zihni açar."
+    },
+    "bandage": {
+      "name": "Steril Gazlı Bez",
+      "desc": "Temiz pamuklu sargı. Aktif travmatik kanamayı durdurur."
+    },
+    "antiseptic": {
+      "name": "İyotlu Antiseptik Şişe",
+      "desc": "Povidon iyot dezenfektanı. Erken yüzeyel enfeksiyonları tedavi eder."
+    },
+    "antibiotics": {
+      "name": "Geniş Spektrumlu Antibiyotik",
+      "desc": "İlaç kapsülleri kürü. Ağır sistemik enfeksiyonları tamamen iyileştirir."
+    },
+    "painkillers": {
+      "name": "Ağrı Kesici Tablet",
+      "desc": "Sentetik analjezik haplar. Kronik ağrıyı dindirir ve yorgunluğu azaltır."
+    },
+    "first_aid_kit": {
+      "name": "Saha Travma İlk Yardım Kiti",
+      "desc": "Atel, dikiş ve pıhtılaştırıcı içeren sert çanta. Önemli ölçüde sağlık yeniler."
+    },
+    "kitchen_knife": {
+      "name": "Mutfak Bıçağı",
+      "desc": "Sağlam paslanmaz çelik bıçak. Temel yakın dövüş savunması sağlar."
+    },
+    "crowbar": {
+      "name": "Çelik Levye",
+      "desc": "Dövme demir levye. Ölümcül ezici darbe ve kilitli sandıkları açma avantajı (+%12 arama)."
+    },
+    "machete": {
+      "name": "Ağır Çalı Palası",
+      "desc": "Ağırlık merkezi önde geniş çelik pala. Mükemmel kesici hasar verir."
+    },
+    "fire_axe": {
+      "name": "İtfaiyeci Baltası",
+      "desc": "Sivri burunlu ağır kurtarma baltası. Yıkıcı darbe gücü (+%8 arama)."
+    },
+    "hunting_rifle": {
+      "name": "Sürgülü Av Tüfeği",
+      "desc": "Hassas dürbünlü uzun namlu. Mühimmat yüklendiğinde ölümcül menzilli güç."
+    },
+    "rifle_rounds": {
+      "name": "Tüfek Mermisi (7.62mm)",
+      "desc": "Sürgülü tüfekler için yüksek güçlü pirinç kovanlı fişekler."
+    },
+    "scrap_metal": {
+      "name": "Hurda Metal Parçaları",
+      "desc": "Paslı sac levhalar ve profil demirler. Tahkimat ve silah üretimi için temel hammadde."
+    },
+    "copper_wire": {
+      "name": "Soyulmuş Bakır Tel",
+      "desc": "Terk edilmiş hatlardan sökülmüş iletken kablo."
+    },
+    "electronics": {
+      "name": "Elektronik Devre Parçaları",
+      "desc": "İleri düzey elektrikli alet üretimi için mikroyongalar ve diyotlar."
+    },
+    "cloth_rags": {
+      "name": "Kumaş Parçaları",
+      "desc": "Dokuma pamuklu kumaş kırpıntıları. Derme çatma sargılar ve fitiller için gereklidir."
+    },
+    "duct_tape": {
+      "name": "Endüstriyel Koli Bandı",
+      "desc": "Ağır hizmet tipi yapışkan bant rulosu. Saha tamiratlarının vazgeçilmezi."
+    },
+    "duffel_bag": {
+      "name": "Kanvas Kurye Çantası",
+      "desc": "Güçlendirilmiş askeri bez çanta. +6 kg taşıma kapasitesi ve +3 çanta yuvası sağlar."
+    },
+    "hiking_pack": {
+      "name": "Dağcı Sırt Çantası",
+      "desc": "Göğüs kemerli ergonomik tırmanış çantası. +12 kg kapasite ve +5 yuva ekler."
+    },
+    "military_rucksack": {
+      "name": "Ağır Askeri Taarruz Çantası",
+      "desc": "ALICE iskeletli dayanıklı taarruz çantası. +18 kg kapasite ve +8 yuva ekler."
+    },
+    "leather_jacket": {
+      "name": "Korumalı Deri Ceket",
+      "desc": "Kalın sığır derisi mont. Pençe, diş ve bıçak saldırılarına karşı 1 zırh sağlar."
+    },
+    "hazmat_poncho": {
+      "name": "Kimyasal Koruma Pançosu",
+      "desc": "Ağır vinil kapüşonlu pelerin. Zehirli sıvıları ve asit yağmurlarını tamamen engeller."
+    },
+    "riot_vest": {
+      "name": "Çevik Kuvvet Balistik Yelek",
+      "desc": "Darbeye dayanıklı kompozit zırh. Ezici darbelere ve ateşli silahlara karşı 3 zırh sağlar."
+    },
+    "flashlight": {
+      "name": "Taktik LED El Feneri",
+      "desc": "Yüksek lümenli el feneri. Zifiri karanlığı aydınlatır ve arama verimini artırır (+%4)."
+    },
+    "compass": {
+      "name": "Askeri Mercekli Pusula",
+      "desc": "Pirinç gövdeli manyetik pusula. Harita koridorlarında intikal hızını artırır (+%8)."
+    },
+    "canned_sardines": {
+      "name": "Konserve Yağlı Sardalya",
+      "desc": "Açma halkalı teneke kutuda yağlı sardalya. Protein ve yağ açısından zengin."
+    },
+    "canned_tuna": {
+      "name": "Konserve Parça Ton Balığı",
+      "desc": "Tuzlu salamura içinde beyaz ton balığı. Doyurucu ve güvenilir protein."
+    },
+    "canned_mackerel": {
+      "name": "Konserve Uskumru Fileto",
+      "desc": "Baharatlı domates sosunda korunmuş yağlı uskumru dilimleri."
+    },
+    "canned_salmon": {
+      "name": "Konserve Pembe Somon",
+      "desc": "Yüksek kaliteli konserve somon dilimi. Çöküş öncesi depolardan nadir bir lüks."
+    },
+    "canned_corned_beef": {
+      "name": "Konserve Kornbif",
+      "desc": "Tuzlanmış sığır döş eti. Yoğun kalorili ve tok tutucu."
+    },
+    "canned_spam": {
+      "name": "Konserve Jambon / Spam",
+      "desc": "Jöleli konserve et bloğu. Onlarca yıl bozulmayan hayatta kalma klasiği."
+    },
+    "canned_vienna_sausages": {
+      "name": "Konserve Viyana Sosis",
+      "desc": "Tuzlu et suyuna batırılmış küçük kokteyl sosisleri."
+    },
+    "canned_meatballs": {
+      "name": "Konserve Soslu Köfte",
+      "desc": "Koyu et suyu sosunda pişirilmiş sığır köfteleri."
+    },
+    "canned_beef_stew": {
+      "name": "Konserve Patatesli Et Yahnisi",
+      "desc": "Sığır eti, patates ve havuç parçalarıyla dolu doyurucu yahni."
+    },
+    "canned_chicken_noodle": {
+      "name": "Konserve Tavuklu Şehriye Çorbası",
+      "desc": "Yumurta şehriyesi ve didiklenmiş tavuklu sıcak et suyu çorbası."
+    },
+    "canned_tomato_soup": {
+      "name": "Konserve Domates Çorbası",
+      "desc": "Kıvamlı domates çorbası. Kamp ateşinde ısıtıldığında iç ısıtır."
+    },
+    "canned_chili_con_carne": {
+      "name": "Konserve Acılı Chili con Carne",
+      "desc": "Kıymalı ve fasulyeli acı biber soslu Meksika yahnisi."
+    },
+    "canned_ravioli": {
+      "name": "Konserve Kıymalı Mantı / Ravioli",
+      "desc": "Domates sosu içinde kıymalı dolgulu hazır makarna."
+    },
+    "canned_pork_beans": {
+      "name": "Konserve Etli Kuru Fasulye",
+      "desc": "Pekmez ve domuz yağıyla pişirilmiş beyaz kuru fasulye."
+    },
+    "canned_black_beans": {
+      "name": "Konserve Siyah Fasulye",
+      "desc": "Kimyon ve soğanla tatlandırılmış besleyici siyah fasulye."
+    },
+    "canned_chickpeas": {
+      "name": "Konserve Haşlanmış Nohut",
+      "desc": "Tuzlu suda haşlanmış diri nohut. Uzun süreli tokluk sağlar."
+    },
+    "canned_sweet_corn": {
+      "name": "Konserve Mısır",
+      "desc": "Şekerli su içinde diri sarı mısır taneleri."
+    },
+    "canned_green_peas": {
+      "name": "Konserve Bezelye",
+      "desc": "Hafif tuzlu suda yumuşak bahçe bezelyesi. Sindirimi son derece kolaydır."
+    },
+    "canned_mushrooms": {
+      "name": "Konserve Dilimli Mantar",
+      "desc": "Salamura edilmiş kültür mantarı dilimleri."
+    },
+    "canned_peaches": {
+      "name": "Konserve Şeftali Kompostosu",
+      "desc": "Koyu şekerli şurup içinde altın şeftali yarımları. Morali yükseltir."
+    },
+    "canned_pineapple_chunks": {
+      "name": "Konserve Ananas Parçaları",
+      "desc": "Tropikal ananas dilimleri. C vitamini ve sıvı dengesi sağlar."
+    },
+    "canned_pears": {
+      "name": "Konserve Armut",
+      "desc": "Hafif şurupta yumuşak armut dilimleri."
+    },
+    "canned_mandarins": {
+      "name": "Konserve Mandalina Dilimleri",
+      "desc": "Tatlı meyve suyunda soyulmuş mandalina dilimleri."
+    },
+    "canned_condensed_milk": {
+      "name": "Şekerli Yoğunlaştırılmış Süt",
+      "desc": "Aşırı tatlı ve yoğun süt şurubu. Saf konsantre kalori deposu."
+    },
+    "canned_evaporated_milk": {
+      "name": "Konserve Buharlaştırılmış Süt",
+      "desc": "Şekersiz konsantre süt. Kahve ve çorbalara besleyicilik katar."
+    },
+    "canned_olives_black": {
+      "name": "Konserve Çekirdeksiz Siyah Zeytin",
+      "desc": "Tuzlu salamurada olgun siyah zeytinler. Faydalı yağlar içerir."
+    },
+    "canned_olives_green": {
+      "name": "Konserve Biberli Yeşil Zeytin",
+      "desc": "Kırmızı biber ezmesi dolgulu salamura yeşil zeytin."
+    },
+    "canned_pickled_cucumbers": {
+      "name": "Kornişon Turşu Kavanozu",
+      "desc": "Sirkeli salamurada dereotlu çıtır salatalık turşusu."
+    },
+    "canned_sauerkraut": {
+      "name": "Konserve Lahana Turşusu (Sauerkraut)",
+      "desc": "Fermente edilmiş kıyılmış lahana. C vitamini deposudur."
+    },
+    "canned_anchovies": {
+      "name": "Konserve Hamsi Fileto (Ançüez)",
+      "desc": "Zeytinyağında dinlendirilmiş yoğun tuzlu küçük balık filetoları."
+    },
+    "canned_liver_pate": {
+      "name": "Konserve Ciğer Ezmesi (Pate)",
+      "desc": "Demir ve hayvansal yağ zengini sürülebilir ciğer ezmesi."
+    },
+    "canned_artichoke_hearts": {
+      "name": "Konserve Enginar Kalbi",
+      "desc": "Otlu zeytinyağında marine edilmiş yumuşak enginar göbeği."
+    },
+    "canned_baked_beans": {
+      "name": "Fırınlanmış Soslu Kuru Fasulye",
+      "desc": "Koyu domates sosunda fırınlanmış İngiliz usulü kuru fasulye."
+    },
+    "canned_tomato_paste": {
+      "name": "Konserve Çift Konsantre Domates Salçası",
+      "desc": "Yoğun kıvamlı yemeklik domates salçası."
+    },
+    "canned_grape_leaves": {
+      "name": "Konserve Zeytinyağlı Yaprak Sarma",
+      "desc": "Baharatlı pirinç dolgulu zeytinyağlı asma yaprağı sarması."
+    },
+    "hardtack_biscuit": {
+      "name": "Peksimet / Hardtack Bisküvi",
+      "desc": "Un, su ve tuzla pişirilmiş taş gibi sert bisküvi. Asla bozulmaz."
+    },
+    "pilot_bread": {
+      "name": "Denizci Krakeri (Pilot Bread)",
+      "desc": "Kutup kaşiflerinin tercihi, neme ve basınca dayanıklı kalın kraker."
+    },
+    "rusk_toast": {
+      "name": "Kıtır Etimek / Ekmek Rusk",
+      "desc": "İki kez fırınlanmış kıtır ekmek dilimleri."
+    },
+    "pemmican_bar": {
+      "name": "Pemikan Yağlı Et Bloğu",
+      "desc": "Kurutulmuş et, böğürtlen ve donmuş hayvan yağının karışımı. Olağanüstü enerji verir."
+    },
+    "beef_jerky_peppered": {
+      "name": "Karabiberli Dana Jerky",
+      "desc": "Dövülmüş karabiber taneleriyle tütsülenmiş kuru dana eti."
+    },
+    "turkey_jerky_smoke": {
+      "name": "Tütsülenmiş Hindi Eti",
+      "desc": "Odun dumanında kurutulmuş yağsız hindi eti şeritleri."
+    },
+    "dried_sausage_link": {
+      "name": "Kuru Sucuk / Salam Halkası",
+      "desc": "Doğal bağırsakta fermente edilmiş dayanıklı kuru sucuk."
+    },
+    "dried_salt_cod": {
+      "name": "Tuzlu Kuru Morina Balığı",
+      "desc": "Kaya tuzuyla taşlaşmış okyanus balığı. Pişirilmeden önce ıslatılmalıdır."
+    },
+    "dried_figs_string": {
+      "name": "İpe Dizili Kuru İncir",
+      "desc": "Güneşte kurutulmuş tatlı Ege incirleri."
+    },
+    "dried_apricots_pack": {
+      "name": "Kuru Kayısı Paketi",
+      "desc": "Potasyum ve doğal şeker deposu kurutulmuş kayısılar."
+    },
+    "raisins_box": {
+      "name": "Çekirdeksiz Kuru Üzüm",
+      "desc": "Hafif ve taşıması kolay kurutulmuş tatlı üzüm kutusu."
+    },
+    "dried_dates_packet": {
+      "name": "Medine Hurması Paketi",
+      "desc": "Karamel tadında dolgun çöl hurmaları. Yüksek dayanıklılık sağlar."
+    },
+    "dried_cranberries": {
+      "name": "Kurutulmuş Turna Yemişi",
+      "desc": "Mayhoş ve tatlı kırmızı yaban mersini taneleri."
+    },
+    "trail_mix_pouch": {
+      "name": "Karışık Kuruyemiş Torbası",
+      "desc": "Fıstık, kaju, kuru üzüm ve bitter çikolata parçaları karışımı."
+    },
+    "salted_peanuts": {
+      "name": "Tuzlu Kavrulmuş Fıstık",
+      "desc": "Deniz tuzuyla kavrulmuş çıtır yer fıstığı."
+    },
+    "roasted_almonds": {
+      "name": "Kavrulmuş Badem",
+      "desc": "E vitamini ve magnezyum zengini kavrulmuş badem içi."
+    },
+    "walnut_halves": {
+      "name": "Ayıklanmış Ceviz İçi",
+      "desc": "Omega yağ asitleri içeren besleyici ceviz parçaları."
+    },
+    "sunflower_seeds_pack": {
+      "name": "Kavrulmuş Ay Çekirdeği",
+      "desc": "Soğuk nöbet saatlerinde oyalanmak için tuzlu ay çekirdeği."
+    },
+    "pumpkin_seeds": {
+      "name": "Kavrulmuş Kabak Çekirdeği",
+      "desc": "Çinko zengini kavrulmuş kabak çekirdeği içi."
+    },
+    "instant_ramen_beef": {
+      "name": "Hazır Dana Etli Noodle",
+      "desc": "Baharat poşetli hazır kurutulmuş erişte bloğu."
+    },
+    "instant_ramen_chicken": {
+      "name": "Hazır Tavuklu Noodle",
+      "desc": "Tavuk bulyon tozu içeren çabuk pişen kıvırcık erişte."
+    },
+    "instant_ramen_spicy": {
+      "name": "Ekstra Acılı Kore Noodle",
+      "desc": "Dondurucu soğukta kanı ısıtan aşırı baharatlı hazır ramen."
+    },
+    "instant_oatmeal_apple": {
+      "name": "Elmalı Tarçınlı Hazır Yulaf",
+      "desc": "Kurutulmuş elma ve tarçın aromalı pratik yulaf ezmesi."
+    },
+    "instant_mashed_potatoes": {
+      "name": "Hazır Patates Püresi Tozu",
+      "desc": "Sıcak suyla karıştırıldığında anında kıvama gelen patates tozu."
+    },
+    "dry_white_rice_bag": {
+      "name": "1 Kg Uzun Taneli Pirinç",
+      "desc": "Haşlandığında hacmi üçe katlanan temel tahıl erzağı."
+    },
+    "dry_brown_rice_bag": {
+      "name": "1 Kg Kepekli Esmer Pirinç",
+      "desc": "B vitaminleri ve lif zengini işlenmemiş esmer pirinç."
+    },
+    "red_lentils_sack": {
+      "name": "1 Kg Kırmızı Mercimek",
+      "desc": "Çabuk pişen ve besleyici koyu bir çorba oluşturan kırmızı mercimek."
+    },
+    "green_lentils_sack": {
+      "name": "1 Kg Yeşil Mercimek",
+      "desc": "Yahnilerde diri kalan demir zengini yeşil mercimek."
+    },
+    "rolled_oats_tin": {
+      "name": "Teneke Kutuda Yulaf Ezmesi",
+      "desc": "Neme ve kemirgenlere karşı tenekede saklanan bütün yulaf."
+    },
+    "cornmeal_flour_bag": {
+      "name": "Taş Değirmen Mısır Unu",
+      "desc": "Koyu mısır ekmeği ve lapa yapımına uygun mısır unu."
+    },
+    "wheat_flour_sack": {
+      "name": "Beyaz Buğday Unu Torbası",
+      "desc": "Tavada bazlama ve ekmek pişirmeye uygun rafine un."
+    },
+    "dry_pasta_spaghetti": {
+      "name": "Paket Spagetti Makarna",
+      "desc": "Kuru kaldığı sürece bozulmayan sert durum buğdayı makarnası."
+    },
+    "dry_pasta_macaroni": {
+      "name": "Kutu Düdük Makarna",
+      "desc": "Kolay pişen dirsek biçimli makarna."
+    },
+    "sugar_cubes_box": {
+      "name": "Küp Şeker Kutusu",
+      "desc": "Preslenmiş saf beyaz şeker küpleri. Anında glikoz sağlar."
+    },
+    "brown_sugar_pouch": {
+      "name": "Esmer Kamış Şekeri",
+      "desc": "Koyu pekmez aromalı nemli esmer şeker."
+    },
+    "raw_honey_jar": {
+      "name": "Ham Çam Balı Kavanozu",
+      "desc": "Doğal kristalize orman balı. Asla bozulmaz, boğazı yumuşatır."
+    },
+    "strawberry_jam_jar": {
+      "name": "Çilek Reçeli Kavanozu",
+      "desc": "Yüksek şekerli çilek marmelatı."
+    },
+    "creamy_peanut_butter": {
+      "name": "Krem Fıstık Ezmesi",
+      "desc": "Kalori canavarı: yoğun kavrulmuş yer fıstığı ezmesi."
+    },
+    "hazelnut_cocoa_spread": {
+      "name": "Kakaolu Fındık Kreması",
+      "desc": "Kakaolu yoğun fındık ezmesi. Yüksek moral ve hızlı kalori verir."
+    },
+    "powdered_whole_milk": {
+      "name": "Tam Yağlı Süt Tozu",
+      "desc": "Suyla karıştırıldığında zengin süt elde edilen dayanıklı toz."
+    },
+    "powdered_eggs_can": {
+      "name": "Pastörize Yumurta Tozu",
+      "desc": "Suyla çırpılıp tavada pişirilebilen yüksek proteinli yumurta tozu."
+    },
+    "table_salt_shaker": {
+      "name": "İyotlu Sofra Tuzu",
+      "desc": "Vücut elektrolit dengesi ve et kurutmak için elzem mineral."
+    },
+    "black_peppercorns_tin": {
+      "name": "Tane Karabiber Tenekesi",
+      "desc": "Et ve çorbalara lezzet katan kokulu kuru karabiber taneleri."
+    },
+    "bouillon_cubes_beef": {
+      "name": "Et Suyu Bulyon Küpleri",
+      "desc": "Sıcak suya atıldığında lezzetli et suyu oluşturan tuzlu küpler."
+    },
+    "baking_yeast_packet": {
+      "name": "Kuru Ekmek Mayası Paketi",
+      "desc": "Ekmek kabartmak ve alkol damıtmak için aktif kuru maya."
+    },
+    "hot_chili_sauce": {
+      "name": "Acı Biber Sosu Şişesi",
+      "desc": "Tatsız tuzsuz konserveleri yenilebilir kılan sirke bazlı acı sos."
+    },
+    "olive_oil_canister": {
+      "name": "1 Litre Sızma Zeytinyağı",
+      "desc": "Preslenmiş zeytinyağı tenekesi. Saf sağlıklı yağ kaynağı."
+    },
+    "freeze_dried_beef_stroganoff": {
+      "name": "Dondurularak Kurutulmuş Biftek Stroganoff",
+      "desc": "Sıcak su eklenerek yenen dağcı yemeği."
+    },
+    "freeze_dried_chicken_rice": {
+      "name": "Dondurulmuş Tavuklu Pirinç Yemeği",
+      "desc": "Pilav ve tavuk göğsü içeren hafif ve besleyici kamp rasyonu."
+    },
+    "freeze_dried_scrambled_eggs": {
+      "name": "Kurutulmuş Pastırmalı Çırpılmış Yumurta",
+      "desc": "Sıcak suyla kabaran doyurucu kahvaltı paketi."
+    },
+    "emergency_ration_bar_500": {
+      "name": "Can Salı Acil Durum Bisküvisi (500 kcal)",
+      "desc": "Kurtarma filikaları için vakumlanmış aşırı sert enerji bloğu."
+    },
+    "emergency_ration_bar_1000": {
+      "name": "Seven Oceans Hayatta Kalma Bloğu (1000 kcal)",
+      "desc": "Bir kazazedeyi 24 saat ayakta tutabilecek yoğun kalori tuğlası."
+    },
+    "energy_gel_caffeine": {
+      "name": "Kafeinli Koşu Jel Paketi",
+      "desc": "Bitkinlik anında hızla emilen 100mg kafeinli glikoz jeli."
+    },
+    "glucose_dextrose_tablets": {
+      "name": "Dekstroz Glikoz Şekerleri Rulosu",
+      "desc": "Ani kan şekeri düşüşlerine karşı çiğnenir glikoz tableti."
+    },
+    "protein_cookie_double_choc": {
+      "name": "Çikolatalı Yüksek Proteinli Kurabiye",
+      "desc": "25 gram peynir altı suyu proteini içeren fırınlanmış bisküvi."
+    },
+    "purified_water_canteen": {
+      "name": "1 Litrelik Matara Temiz Su",
+      "desc": "Yeşil polimer matarada arıtılmış saf içme suyu."
+    },
+    "spring_water_gallon": {
+      "name": "1 Galon Doğal Kaynak Suyu",
+      "desc": "Temiz dağ kaynağından doldurulmuş büyük plastik bidon su."
+    },
+    "boiled_tap_water": {
+      "name": "Kaynatılmış İçme Suyu Şişesi",
+      "desc": "Ateşte kaynatılarak mikroplardan arındırılmış soğutulmuş su."
+    },
+    "filtered_rainwater": {
+      "name": "Kömür Filtresinden Geçmiş Yağmur Suyu",
+      "desc": "Kömür ve kum filtresinden süzülmüş nispeten temiz yağmur suyu."
+    },
+    "rainwater_jar": {
+      "name": "Ham Yağmur Suyu Kavanozu",
+      "desc": "Çatılardan toplanmış hafif tozlu yağmur suyu. Düşük mikrop riski taşır."
+    },
+    "river_water_flask": {
+      "name": "Bulanık Nehir Suyu Matarası",
+      "desc": "Nehirden doldurulmuş yosunlu su. Parazit riski yüksektir."
+    },
+    "stagnant_puddle_water": {
+      "name": "Çamurlu Çukur Suyu",
+      "desc": "Çaresizlik anında sokak çukurundan alınmış su. Çok yüksek enfeksiyon riski."
+    },
+    "chemically_treated_water": {
+      "name": "Klor Tabletiyle Arıtılmış Su",
+      "desc": "Ağır klor kokulu ancak mikroplardan tamamen temizlenmiş su."
+    },
+    "electrolyte_rehydration_drink": {
+      "name": "İzotonik Elektrolit İçeceği",
+      "desc": "Vücut sıvı ve mineral dengesini hızla yenileyen sporcu içeceği."
+    },
+    "energy_drink_can": {
+      "name": "Taurinli Enerji İçeceği Kutusu",
+      "desc": "Ağır kafein ve taurin içeren gazlı enerji içeceği."
+    },
+    "citrus_soda_can": {
+      "name": "Gazlı Limonlu Meşrubat",
+      "desc": "Şekerli ve gazlı ferahlatıcı limon sodası."
+    },
+    "root_beer_can": {
+      "name": "Kök Birası (Root Beer)",
+      "desc": "Vanilya ve şifalı kök aromalı gazlı içecek."
+    },
+    "tonic_water_bottle": {
+      "name": "Kininli Tonik Şişesi",
+      "desc": "Sıtma parazitlerine karşı hafif koruyucu kinin içeren acı tonik."
+    },
+    "black_tea_loose_tin": {
+      "name": "Dökme Siyah Çay Tenekesi",
+      "desc": "Kaynar suyla demlendiğinde zihni açan kaliteli siyah çay."
+    },
+    "black_tea_bags_box": {
+      "name": "Poşet Siyah Çay Kutusu",
+      "desc": "Demlenmeye hazır pratik poşet çay kutusu."
+    },
+    "green_tea_tin": {
+      "name": "Yeşil Çay Tenekesi",
+      "desc": "Antioksidan zengini yatıştırıcı yeşil çay."
+    },
+    "chamomile_herbal_tea": {
+      "name": "Kurutulmuş Papatya Çayı",
+      "desc": "Sinirleri yatıştıran ve rahat uyku sağlayan kuru papatya çiçeği."
+    },
+    "rosehip_wild_tea": {
+      "name": "Kuşburnu Çayı Paketi",
+      "desc": "C vitamini deposu kurutulmuş yabani kuşburnu meyveleri."
+    },
+    "linden_flower_tea": {
+      "name": "Kurutulmuş Ihlamur Çiçeği",
+      "desc": "Göğsü yumuşatan ve soğuk algınlığına iyi gelen kuru ıhlamur."
+    },
+    "roasted_chicory_coffee": {
+      "name": "Kavrulmuş Hindiba Kahvesi",
+      "desc": "Savaş dönemi kahve ikamesi olan kavrulmuş acı hindiba tozu."
+    },
+    "ground_espresso_tin": {
+      "name": "Vakumlu İtalyan Espresso Tenekesi",
+      "desc": "Aşırı koyu kavrulmuş yoğun aromalı öğütülmüş espresso kahvesi."
+    },
+    "coffee_beans_roasted": {
+      "name": "Tane Çekirdek Kahve Torbası",
+      "desc": "Öğütülmedikçe aromasını yıllarca koruyan tane kahve çekirdekleri."
+    },
+    "hot_cocoa_mix_pouch": {
+      "name": "Sıcak Çikolata Karışımı",
+      "desc": "Sıcak suya karıştırılan şekerli kakao ve krema tozu."
+    },
+    "malt_beer_can": {
+      "name": "Teneke Kutu Bira (500ml)",
+      "desc": "Savaş sonrası sinirleri gevşeten hafif malt arpa birası."
+    },
+    "craft_ipa_bottle": {
+      "name": "Şişe Ağır Şerbetçiotlu Bira",
+      "desc": "Yüksek alkollü ve aromatik şişe bira."
+    },
+    "cheap_lager_can": {
+      "name": "Ezik Kutu Ucuz Lager Bira",
+      "desc": "Hafif sulandırılmış paslı kutu bira."
+    },
+    "red_table_wine_bottle": {
+      "name": "Şişe Kuru Kırmızı Şarap",
+      "desc": "Yıllanmış kırmızı şarap. Morali yükseltir ve ağrıyı hafifletir."
+    },
+    "moonshine_mason_jar": {
+      "name": "Kavanozda Kaçak Mısır Rakısı / Moonshine",
+      "desc": "%65 alkollü ev yapımı saf damıtık içki. Ateş gibi yakar."
+    },
+    "corn_whiskey_flask": {
+      "name": "Çelik Konyak Matarasında Viski",
+      "desc": "Paslanmaz çelik cep matarasında meşe fıçıda yıllanmış viski."
+    },
+    "clear_vodka_bottle": {
+      "name": "Üç Kez Damıtılmış Votka Şişesi",
+      "desc": "%40 alkollü saf votka. Acil durumlarda yara temizliğinde de kullanılır."
+    },
+    "apple_cider_jug": {
+      "name": "Fermente Elma Şırası Bidonu",
+      "desc": "Hafif alkollü doğal mayalanmış elma sirkesi ve şırası."
+    },
+    "canned_tomato_juice": {
+      "name": "Tuzlu Domates Suyu Kutusu",
+      "desc": "Mineral ve tuz zengini kıvamlı domates suyu."
+    },
+    "grapefruit_juice_carton": {
+      "name": "Greyfurt Suyu Kartonu",
+      "desc": "Acımtırak ve ferahlatıcı narenciye suyu."
+    },
+    "powdered_orange_drink_tang": {
+      "name": "Toz Portakal İçeceği Paketi (Tang)",
+      "desc": "Bulanık suyun tadını gizleyen şekerli toz içecek."
+    },
+    "powdered_lemonade_mix": {
+      "name": "Toz Limonata Karışımı",
+      "desc": "Sitrik asit ve şeker içeren toz limonata paketi."
+    },
+    "gauze_roll_sterile": {
+      "name": "Steril Rulo Gazlı Bez",
+      "desc": "Açık kesikleri sarmak için sıkı sarılmış pamuklu rulo."
+    },
+    "elastic_compression_wrap": {
+      "name": "Elastik Kompresyon Bandajı",
+      "desc": "Metal kopçalı esnek bandaj. Burkulmuş eklemleri sabitler ve şişliği indirir."
+    },
+    "quikclot_hemostatic_gauze": {
+      "name": "QuikClot Kanama Durdurucu Gazlı Bez",
+      "desc": "Kaolin emdirilmiş askeri sargı; saniyeler içinde pıhtılaşma sağlar."
+    },
+    "combat_tourniquet_cat": {
+      "name": "C-A-T Taktik Turnike",
+      "desc": "Şiddetli uzuv kanamalarını mekanik burguyla kesen taktik turnike."
+    },
+    "softt_wide_tourniquet": {
+      "name": "SOFTT-W Geniş Metal Tokalı Turnike",
+      "desc": "Çamur ve soğuğa dayanıklı askeri uzuv turnikesi."
+    },
+    "emergency_israeli_bandage": {
+      "name": "İsrail Tipi Acil Basınç Bandajı",
+      "desc": "Dahili basınç çubuğuna sahip hepsi bir arada travma sargısı."
+    },
+    "chest_seal_vented": {
+      "name": "Valfli Göğüs Yarası Yaması",
+      "desc": "Göğüs kafesi delinmelerinde akciğer sönmesini engelleyen tek yönlü valfli yama."
+    },
+    "burn_hydrogel_dressing": {
+      "name": "Water-Jel Yanık Hidrojel Örtüsü",
+      "desc": "Termal yanıklarda acıyı anında dindiren ve enfeksiyonu önleyen jel örtü."
+    },
+    "burn_sheet_sterile": {
+      "name": "Steril Geniş Yanık Çarşafı",
+      "desc": "Geniş yüzeyli yanıklarda deriye yapışmayan steril koruyucu örtü."
+    },
+    "adhesive_plaster_strip": {
+      "name": "Yapışkanlı Yara Bandı",
+      "desc": "Küçük kesik ve sıyrıklar için pratik bez yara bandı."
+    },
+    "butterfly_wound_closure": {
+      "name": "Kelebek Yara Kapatma Bantları",
+      "desc": "Dikiş atmadan derin kesik kenarlarını birleştiren yapışkan kelebek bantlar."
+    },
+    "liquid_skin_adhesive": {
+      "name": "Tıbbi Sıvı Doku Yapıştırıcısı",
+      "desc": "Yara kenarlarını saniyeler içinde kapatan su geçirmez tıbbi yapıştırıcı."
+    },
+    "sam_splint_roll": {
+      "name": "SAM Alüminyum Köpük Atel",
+      "desc": "Kırık ve çıkık uzuvları sabitlemek için bükülebilir süngerli alüminyum atel."
+    },
+    "triangular_bandage_sling": {
+      "name": "Üçgen Kol Askı Bezi",
+      "desc": "Kırık kol ve omuzları göğse sabitleyen pamuklu askı bezi."
+    },
+    "suture_needle_silk": {
+      "name": "İpek Cerrahi Dikiş İpliği ve İğnesi",
+      "desc": "Derin yırtıkları dikmek için eğri iğneli steril cerrahi ipek ip."
+    },
+    "disposable_skin_stapler": {
+      "name": "Tek Kullanımlık Deri Zımbası (Stapler)",
+      "desc": "Saha şartlarında derin yaraları saniyeler içinde tutturan zımba aleti."
+    },
+    "povidone_iodine_bottle": {
+      "name": "Batikon / Povidon İyot %10",
+      "desc": "Yara temizliğinde bakteri ve mantarları yok eden koyu kırmızı antiseptik."
+    },
+    "rubbing_alcohol_bottle": {
+      "name": "İzopropil Alkol Şişesi (%70)",
+      "desc": "Aletleri ve yara çevresini sterilize eden tıbbi alkol."
+    },
+    "alcohol_prep_swabs": {
+      "name": "Alkollü Dezenfektan Mendiller",
+      "desc": "İğne ve neşter öncesi cildi silmek için steril alkollü pedler."
+    },
+    "hydrogen_peroxide_bottle": {
+      "name": "Oksijenli Su Şişesi (%3)",
+      "desc": "Yaradaki pıhtı ve kiri köpürterek temizleyen hidrojen peroksit."
+    },
+    "chlorhexidine_scrub": {
+      "name": "Klorheksidin Cerrahi Yıkama Sıvısı",
+      "desc": "Ciltte 24 saat kalıcı mikrop kırıcı etki bırakan ameliyat solüsyonu."
+    },
+    "antibacterial_triple_ointment": {
+      "name": "Üçlü Antibiyotikli Yara Merhemi",
+      "desc": "Enfeksiyonu engelleyen ve doku iyileşmesini hızlandıran yoğun merhem."
+    },
+    "silver_sulfadiazine_burn_cream": {
+      "name": "Gümüş Sülfadiazin Yanık Kremi",
+      "desc": "İkinci ve üçüncü derece yanıklarda iltihabı durduran gümüşlü yanık kremi."
+    },
+    "potassium_permanganate_crystals": {
+      "name": "Potasyum Permanganat Kristalleri",
+      "desc": "Suya karıştırıldığında mor renkli dezenfektan oluşturan güçlü kimyasal."
+    },
+    "amoxicillin_capsules": {
+      "name": "Amoksisilin 500mg Kapsül",
+      "desc": "Solunum yolu ve doku enfeksiyonlarını temizleyen temel antibiyotik."
+    },
+    "ciprofloxacin_antibiotic": {
+      "name": "Siprofloksasin 500mg Tablet",
+      "desc": "Ağır karın ve kemik enfeksiyonlarına karşı güçlü geniş spektrumlu antibiyotik."
+    },
+    "doxycycline_hyclate": {
+      "name": "Doksisiklin 100mg Kapsül",
+      "desc": "Kene ateşi, veba ve şarbona karşı etkili askeri antibiyotik."
+    },
+    "paracetamol_500mg": {
+      "name": "Parasetamol 500mg Tablet",
+      "desc": "Ateş düşürücü ve hafif ağrı kesici; mideyi yormaz."
+    },
+    "ibuprofen_400mg": {
+      "name": "İbuprofen 400mg İltihap Giderici",
+      "desc": "Eklem iltihabını, kas ağrılarını ve burkulma sızılarını dindiren antienflamatuar."
+    },
+    "naproxen_sodium": {
+      "name": "Naproksen Sodyum Ağrı Kesici",
+      "desc": "12 saat kesintisiz etki sağlayan uzun süreli eklem ve bel ağrısı hapı."
+    },
+    "aspirin_cardio_bottle": {
+      "name": "Aspirin Şişesi",
+      "desc": "Ateş düşürücü ve kan sulandırıcı asetilsalisilik asit tabletleri."
+    },
+    "codeine_phosphate_pills": {
+      "name": "Kodein Fosfat 30mg Tablet",
+      "desc": "Kırık ve ağır travma ağrılarını kesen opiat türevi kuvvetli ağrı kesici."
+    },
+    "tramadol_analgesic_caps": {
+      "name": "Tramadol 50mg Kapsül",
+      "desc": "Ağır ateşli silah ve darbe yaralanmalarında ağrıyı bloke eden güçlü analjezik."
+    },
+    "morphine_syrette_military": {
+      "name": "Askeri Morfin Ampulü (10mg)",
+      "desc": "Tek kullanımlık enjektörlü askeri morfin. Şiddetli travma şokunu önler."
+    },
+    "epinephrine_autoinjector": {
+      "name": "Epinefrin / Adrenalin Oto-Enjektörü",
+      "desc": "Alerjik şok ve ani kalp durmasında hayat kurtaran acil adrenalin iğnesi."
+    },
+    "atropine_sulfate_autoinjector": {
+      "name": "Atropin Sülfat Sinir Gazı Panzehiri",
+      "desc": "Zehirli kimyasallar ve böcek zehirlerine karşı askeri otomatik panzehir iğnesi."
+    },
+    "naloxone_narcan_nasal_spray": {
+      "name": "Nalokson / Narcan Burun Spreyi",
+      "desc": "Ağır uyuşukluk ve zehirlenmelerde solunumu açan opioid panzehiri."
+    },
+    "potassium_iodide_radiation_tabs": {
+      "name": "Potasyum İyodür Radyasyon Hapı",
+      "desc": "Tiroit bezini doyurarak radyoaktif serpintinin vücuda yerleşmesini önleyen tablet."
+    },
+    "activated_charcoal_powder": {
+      "name": "Aktif Kömür Zehir Emici Toz",
+      "desc": "Ağızdan alınan zehirleri ve bozuk gıdaları midede emen aktif karbon tozu."
+    },
+    "oral_rehydration_salts_who": {
+      "name": "DSÖ Ağızdan Sıvı Tedavisi Tuzu (ORS)",
+      "desc": "Dizanteri ve aşırı su kaybında sıvı dengesini düzelten elektrolit paketi."
+    },
+    "loperamide_diarrhea_relief": {
+      "name": "Loperamid İshal Kesici Hap",
+      "desc": "Bağırsak hareketlerini durdurarak su kaybını önleyen ishal kesici."
+    },
+    "diphenhydramine_antihistamine": {
+      "name": "Difenhidramin Antihistaminik",
+      "desc": "Böcek sokması ve zehirlenmelerde alerjik reaksiyonu bastıran ilaç."
+    },
+    "pulse_oximeter_fingertip": {
+      "name": "Parmak Tipi Nabız ve Oksimetre",
+      "desc": "Kandaki oksijen seviyesini ve nabzı anında ölçen dijital cihaz."
+    },
+    "dual_head_stethoscope": {
+      "name": "Çift Taraflı Tıbbi Steteskop",
+      "desc": "Akciğer hırıltılarını ve kalp ritmini dinlemeye yarayan steteskop."
+    },
+    "aneroid_blood_pressure_cuff": {
+      "name": "Manuel Tansiyon Aleti",
+      "desc": "İç kanama şokunu ve kan basıncını ölçmeye yarayan kolluklu tansiyon aleti."
+    },
+    "iv_saline_bag_500ml": {
+      "name": "Serum Fizyolojik Torbası (500ml)",
+      "desc": "Damardan verilen steril tuzlu serum. Kan kaybı ve şokta hacim kazandırır."
+    },
+    "iv_giving_infusion_set": {
+      "name": "Serum Hortumu ve Kelebek Seti",
+      "desc": "Serum torbasını damar yoluna bağlayan damla ayarlı hortum seti."
+    },
+    "trauma_shears_scissors": {
+      "name": "Ağır Hizmet Travma Makası",
+      "desc": "Kot kumaşı, deri bot ve kemerleri yaralıya zarar vermeden kesen küt uçlu makas."
+    },
+    "surgical_forceps": {
+      "name": "Dişli Cerrahi Penset / Cımbız",
+      "desc": "Yaradan şarapnel, mermi çekirdeği ve yabancı cisim çıkarmaya yarayan çelik penset."
+    },
+    "wooden_baseball_bat": {
+      "name": "Ahşap Beyzbol Sopası",
+      "desc": "Dolu dişbudak ağacından beyzbol sopası. Güçlü ezici darbe indirir."
+    },
+    "aluminum_baseball_bat": {
+      "name": "Alüminyum Beyzbol Sopası",
+      "desc": "Ahşaba göre daha hafif ve hızlı savrulan içi boş metal sopa."
+    },
+    "nailed_baseball_bat": {
+      "name": "Çivili Beyzbol Sopası",
+      "desc": "Paslı inşaat çivileri çakılmış ölümcül modifiye sopa."
+    },
+    "barbed_wire_bat": {
+      "name": "Dikenli Telle Sarılı Sopa",
+      "desc": "Paslı dikenli telle sıkıca sarılmış beyzbol sopası. Derin yırtılmalara yol açar."
+    },
+    "lead_pipe_heavy": {
+      "name": "Ağır Kurşun Su Borusu",
+      "desc": "Ağır ve yoğun kurşun boru parçası. Kemikleri ve kaskları ezer."
+    },
+    "rebar_club_heavy": {
+      "name": "İnşaat Demiri Sopa",
+      "desc": "Betonarme inşaat demiri. Koli bandıyla sarılmış tutamağa sahiptir."
+    },
+    "cast_iron_frying_pan": {
+      "name": "Döküm Demir Tava",
+      "desc": "Ağır döküm tava. Beyin sarsıcı darbe vurur ve yemek pişirmede kullanılır."
+    },
+    "heavy_sledgehammer": {
+      "name": "Ağır Balyoz (10 lb)",
+      "desc": "Dövme çelik başlıklı yıkım balyozu. Zırhları ve barikatları paramparça eder."
+    },
+    "claw_hammer_steel": {
+      "name": "Çelik Marangoz Çekici",
+      "desc": "Çivi sökmeye ve kafataslarını delmeye uygun çelik marangoz çekici."
+    },
+    "tire_iron_cross_wrench": {
+      "name": "Dörtlü İstavroz Bijon Anahtarı",
+      "desc": "Kamyon bagajından çıkma dört kollu ağır bijon anahtarı."
+    },
+    "brass_knuckles": {
+      "name": "Pirinç Muşta",
+      "desc": "Yumruk gücünü tek bir noktaya odaklayan döküm metal muşta."
+    },
+    "police_baton_tonfa": {
+      "name": "Polis Tonfası / Cop",
+      "desc": "Kırılmaz polikarbondan üretilmiş yan kulplu çevik kuvvet copu."
+    },
+    "collapsible_steel_baton": {
+      "name": "Teleskopik Çelik Cop",
+      "desc": "Yaylı ve kilitli teleskopik çelik cop. Gizli taşımaya uygundur."
+    },
+    "pickaxe_heavy": {
+      "name": "Madenci Kazması",
+      "desc": "Sivri uçlu ağır kazma; taş, beton ve ağır zırhları delip geçer."
+    },
+    "entrenching_shovel_tactical": {
+      "name": "Katlanır Askeri Tahkimat Küreği",
+      "desc": "Kenarı bilenmiş katlanabilir istihkam küreği."
+    },
+    "chef_knife_8inch": {
+      "name": "Karbon Çelik Şef Bıçağı",
+      "desc": "Geniş ve jilet gibi keskin mutfak bıçağı."
+    },
+    "folding_tactical_knife": {
+      "name": "Taktik Katlanır Çakı",
+      "desc": "Tırtıklı kenarlı ve kilit mekanizmalı dayanıklı tanto cep çakısı."
+    },
+    "bowie_hunting_knife": {
+      "name": "Bowie Avcı Bıçağı",
+      "desc": "Geniş namlulu ve korumalı klasik Amerikan av ve dövüş bıçağı."
+    },
+    "bayonet_m9": {
+      "name": "M9 Askeri Süngü Bıçak",
+      "desc": "Tel kesme özelliğine sahip kınlı ordu süngüsü."
+    },
+    "kukri_gurkha_machete": {
+      "name": "Gurka Kukri Palası",
+      "desc": "İçe eğimli ağır namlusuyla muazzam parçalama gücüne sahip pala."
+    },
+    "wood_splitting_axe": {
+      "name": "Odun Yarma Baltası",
+      "desc": "Dövme çelik kama ağızlı ağır odun baltası."
+    },
+    "tactical_tomahawk": {
+      "name": "Taktik Tomahawk Baltası",
+      "desc": "Arka tarafında zırh delici sivri ucu bulunan hafif taarruz baltası."
+    },
+    "carpenter_hatchet": {
+      "name": "Marangoz Nacağı",
+      "desc": "Arka kısmı çekiç olarak kullanılabilen kısa saplı el nacağı."
+    },
+    "hand_sickle_curved": {
+      "name": "Kavisli Hasat Orağı",
+      "desc": "Hilal biçimli tarım orağı; düşmanı kendine doğru çekip keser."
+    },
+    "combat_wakizashi": {
+      "name": "Karbon Çelik Vakizaşi",
+      "desc": "Geleneksel kısa kılıç; dar koridorlarda hızlı ve ölümcül darbeler indirir."
+    },
+    "folded_steel_katana": {
+      "name": "Dövme Çelik Katana",
+      "desc": "İki elle savrulan kusursuz dengelenmiş samuray kılıcı."
+    },
+    "box_cutter_utility": {
+      "name": "Falcata / Maket Bıçağı",
+      "desc": "Sürgülü jiletli maket bıçağı; kumaş kesmeye ve acil savunmaya uygundur."
+    },
+    "competition_recurve_bow": {
+      "name": "Olimpik Klasik Yay (Recurve)",
+      "desc": "Lamine fiberglastan sessiz ve öldürücü av yayı."
+    },
+    "tactical_compound_bow": {
+      "name": "Makaralı Taktik Av Yayı (70 lb)",
+      "desc": "Makaralı sistemle çekilen aşırı güçlü ve sessiz taarruz yayı."
+    },
+    "hunting_crossbow_150lb": {
+      "name": "150 lb Avcı Tatar Yayı / Kundaklı Yay",
+      "desc": "Tüfek kundaklı ağır arbalet; kalın zırhları deler."
+    },
+    "carbon_hunting_arrows": {
+      "name": "Karbon Av Okları",
+      "desc": "Tüy kanatlı ve çelik uçlu dayanıklı karbon oklar."
+    },
+    "crossbow_bolts_aluminum": {
+      "name": "Alüminyum Arbalet Okları / Cıvata",
+      "desc": "Arbalet rayı için üretilmiş kısa ve rijit alüminyum oklar."
+    },
+    "makarov_pistol_9x18": {
+      "name": "Makarov 9x18mm Tabanca",
+      "desc": "Tozda ve çamurda tutukluk yapmayan efsanevi Sovyet yarı otomatik beylik tabancası."
+    },
+    "pistol_9mm_semi": {
+      "name": "9mm Yarı Otomatik Tabanca",
+      "desc": "Polimer gövdeli standart servis tabancası; güvenilir ve dengeli."
+    },
+    "tactical_handgun_45acp": {
+      "name": "M1911 Taktik .45 ACP Tabanca",
+      "desc": "Ağır çelik gövdeli durdurucu gücü yüksek klasik Amerikan tabancası."
+    },
+    "revolver_38_special": {
+      "name": "Kısa Namlu .38 Özel Toplu Tabanca",
+      "desc": "Asla tutukluk yapmayan 6 patlar mekanik toplu tabanca."
+    },
+    "revolver_357_magnum": {
+      "name": ".357 Magnum Ağır Toplu Tabanca",
+      "desc": "Paslanmaz çelik uzun namlulu el topu. Devasa delip geçme gücü."
+    },
+    "pump_shotgun_12g": {
+      "name": "12 Kalibre Pompalı Av Tüfeği",
+      "desc": "Yakın mesafede önüne çıkan her şeyi süpüren emektar pompalı tüfek."
+    },
+    "side_by_side_double_shotgun": {
+      "name": "Çifte Kırma Av Tüfeği",
+      "desc": "Yana yana iki namlulu geleneksel kırma tüfek; sade ve arıza yapmaz."
+    },
+    "sks_semi_auto_carbine": {
+      "name": "SKS 7.62x39mm Yarı Otomatik Karabin",
+      "desc": "Ahşap kundaklı Sovyet tüfeği; 7.62mm mühimmatı seri ve isabetli ateşler."
+    },
+    "akm_assault_rifle": {
+      "name": "AKM / Kalaşnikof Piyade Tüfeği",
+      "desc": "Dünyanın en dayanıklı taarruz tüfeği; her türlü çamur ve tozda çalışır."
+    },
+    "ar15_carbine_556": {
+      "name": "AR-15 Taktik Karabin (5.56mm)",
+      "desc": "Hafif ve modüler yarı otomatik tüfek; yüksek isabet ve düşük geri tepme."
+    },
+    "bolt_action_rifle_308": {
+      "name": ".308 Kalibre Keskin Nişancı Tüfeği",
+      "desc": "Ağır namlulu uzun menzilli av ve keskin nişancı tüfeği."
+    },
+    "single_shot_flare_gun": {
+      "name": "26.5mm İşaret Fişeği Tabancası",
+      "desc": "Turuncu polimer denizci fişeği tabancası; hedefleri ateşe verir."
+    },
+    "ammo_9mm_fmj": {
+      "name": "9x19mm Tabanca Mermisi Kutusu",
+      "desc": "Şehir harabelerinde en sık bulunan tam metal ceketli tabanca fişekleri."
+    },
+    "ammo_45acp_fmj": {
+      "name": ".45 ACP Ağır Tabanca Mermisi",
+      "desc": "Hedefi yere seren ağır çekirdekli .45 kalibre tabanca mermisi."
+    },
+    "ammo_38_special_lead": {
+      "name": ".38 Özel Toplu Tabanca Mermisi",
+      "desc": "Toplu tabancalar için yumuşak kurşun uçlu klasik fişekler."
+    },
+    "ammo_357_magnum_jsp": {
+      "name": ".357 Magnum Yüksek Basınçlı Fişek",
+      "desc": "Zırhı parçalayan yüksek barutlu magnum mühimmatı."
+    },
+    "ammo_12g_buckshot_00": {
+      "name": "12 Kalibre 9'lu Şevrotin Av Fişeği",
+      "desc": "İçinde 9 iri kurşun bilye barındıran yıkıcı yakın dövüş fişeği."
+    },
+    "ammo_12g_slug_solid": {
+      "name": "12 Kalibre Tek Kurşun (Slug)",
+      "desc": "1 onsluk devasa kurşun kütle; araba motorunu ve betonu deler."
+    },
+    "ammo_556_nato_fmj": {
+      "name": "5.56x45mm NATO Piyade Fişeği",
+      "desc": "Yüksek namlu çıkış hızına sahip askeri piyade tüfeği mermisi."
+    },
+    "ammo_762x39_soviet_fmj": {
+      "name": "7.62x39mm Kalaşnikof Fişeği",
+      "desc": "Çelik kovanlı dayanıklı askeri mühimmat."
+    },
+    "ammo_762x51_winchester": {
+      "name": ".308 Win / 7.62x51mm Keskin Nişancı Mermisi",
+      "desc": "Ağır tüfekler için uzun menzilli pirinç kovanlı fişek."
+    },
+    "ammo_red_signal_flare": {
+      "name": "26.5mm Kırmızı Paraşütlü Fişek",
+      "desc": "Gökyüzünü aydınlatan ve temas ettiği yeri yakan magnezyum fişeği."
+    },
+    "molotov_cocktail_rag": {
+      "name": "Molotof Kokteyli",
+      "desc": "Benzin ve motor yağı dolu cam şişe; fırlatıldığında alev dalgası yayar."
+    },
+    "improvised_pipe_bomb": {
+      "name": "Çivi Dolgulu Boru Bombası",
+      "desc": "Barut, çivi ve bilyeyle doldurulmuş parça tesirli el yapımı bomba."
+    },
+    "military_smoke_grenade": {
+      "name": "M18 Askeri Sis Bombası",
+      "desc": "Görüşü tamamen kapatan yoğun beyaz sis perdesi oluşturur."
+    },
+    "steel_jaw_bear_trap": {
+      "name": "Çelik Ayı Kapanı",
+      "desc": "Yaylı sertleştirilmiş dişli kapan; basan hedefin bacağını kırarak kilitler."
+    },
+    "scrap_iron_plates": {
+      "name": "Paslı Sac Levhalar",
+      "desc": "Araç kapılarından sökülmüş dayanıklı demir saclar."
+    },
+    "sheet_metal_corrugated": {
+      "name": "Oluklu Sac Plaka",
+      "desc": "Sığınak tahkimatı ve barikat için oluklu çatı sacı."
+    },
+    "rusted_steel_mesh": {
+      "name": "Paslı Çelik Tel Kafes",
+      "desc": "Sanayi filtrelerinden sökülmüş sağlam çelik tel örgü."
+    },
+    "steel_wire_galvanized": {
+      "name": "Galvanizli Çelik Tel Rulosu",
+      "desc": "Tuzak ve bağlama işleri için bükülebilir paslanmaz tel."
+    },
+    "barbed_wire_spool": {
+      "name": "Dikenli Tel Yumağı",
+      "desc": "Barikatları ve sığınak çevrelerini korumak için dikenli tel."
+    },
+    "spring_steel_coil": {
+      "name": "Otomobil Helezon Yayı",
+      "desc": "Yüksek karbonlu sert yay çeliği."
+    },
+    "ball_bearings_steel": {
+      "name": "Çelik Bilye Torbası",
+      "desc": "Rulmanlardan çıkarılmış sertleştirilmiş çelik bilyeler."
+    },
+    "chain_links_hardened": {
+      "name": "Ağır Çelik Çekme Zinciri",
+      "desc": "Kapıları kilitlemek ve araç çekmek için kalın zincir."
+    },
+    "box_iron_nails_3inch": {
+      "name": "3 İnç İnşaat Çivisi Kutusu",
+      "desc": "Ahşap tahkimat ve barikat kurmak için çelik çiviler."
+    },
+    "box_wood_screws": {
+      "name": "Yıldız Başlı Ahşap Vidası",
+      "desc": "Çinko kaplı ahşap montaj vidaları."
+    },
+    "lead_solder_wire_rosin": {
+      "name": "Reçineli Lehim Teli Tüpü",
+      "desc": "Devre kartı ve kablo tamirinde kullanılan lehim teli."
+    },
+    "aluminum_can_scraps": {
+      "name": "Ezilmiş Alüminyum Meşrubat Kutusu",
+      "desc": "İnce alüminyum sac; erken uyarı zilleri için uygundur."
+    },
+    "lead_tire_weights": {
+      "name": "Kurşun Lastik Denge Ağırlıkları",
+      "desc": "Eritilip mermi dökümünde kullanılan yumuşak kurşun parçaları."
+    },
+    "gorilla_tape_waterproof": {
+      "name": "Ağır Hizmet Su Geçirmez Bant",
+      "desc": "Zorlu hava koşullarına dayanıklı ekstra güçlü yapışkan bant."
+    },
+    "electrical_tape_vinyl": {
+      "name": "Siyah PVC İzole Elektrik Bandı",
+      "desc": "Elektrik kablolarını yalıtmak için alev almaz esnek bant."
+    },
+    "industrial_superglue_gel": {
+      "name": "Jel Japon Yapıştırıcısı",
+      "desc": "Saniyeler içinde ahşap, metal ve plastiği tutturan hızlı yapıştırıcı."
+    },
+    "epoxy_resin_two_part": {
+      "name": "Çift Komponentli Çelik Epoksi",
+      "desc": "Kuruduğunda metal gibi sertleşen dolgu ve yapıştırma kimyasalı."
+    },
+    "silicone_caulk_tube": {
+      "name": "Silikon Mastik Kartuşu",
+      "desc": "Pencere ve kapı aralıklarını su geçirmez şekilde yalıtan silikon."
+    },
+    "plastic_cable_zip_ties": {
+      "name": "Plastik Cırt Kelepçe Paketi (50'li)",
+      "desc": "Kablo ve ekipman sabitlemede vazgeçilmez kendinden kilitli bağ."
+    },
+    "rubber_inner_tube_strip": {
+      "name": "Bisiklet İç Lastiği Şeritleri",
+      "desc": "Sapan lastiği ve esnek bağlama işleri için dayanıklı kauçuk."
+    },
+    "thick_plastic_tarpaulin": {
+      "name": "Kalın Su Geçirmez Mavi Branda",
+      "desc": "Kuşgözü halkalı su ve rüzgar geçirmez baraka brandası."
+    },
+    "paracord_550_hank": {
+      "name": "Askeri 550 Parakord İpi (15m)",
+      "desc": "7 iç damarlı, 250 kg çekme kapasiteli paraşüt ipi."
+    },
+    "hemp_rope_coil": {
+      "name": "Örme Doğal Kenevir Halatı (10m)",
+      "desc": "Yük kaldırma ve kütük bağlama için kalın lifli urgan."
+    },
+    "salvaged_circuit_boards": {
+      "name": "Sökülmüş Yeşil Devre Kartı",
+      "desc": "Telsiz ve televizyonlardan çıkarılmış yedek elektronik parça."
+    },
+    "integrated_microchip_ic": {
+      "name": "Entegre Mikroçip / Yonga",
+      "desc": "Otomatik tuzak ve cihaz kontrolü için programlanabilir çip."
+    },
+    "miniature_electric_motor": {
+      "name": "Küçük 12V DC Elektrik Motoru",
+      "desc": "Yazıcılardan sökülmüş hassas doğru akım motoru."
+    },
+    "hand_crank_dynamo_unit": {
+      "name": "El Çevirmeli Manyetik Dinamo",
+      "desc": "Kolu çevrildikçe elektrik üreten taşınabilir jeneratör ünitesi."
+    },
+    "damaged_solar_panel_cell": {
+      "name": "Kırık Monokristal Güneş Paneli",
+      "desc": "Hala düşük voltajda akım üretebilen güneş hücresi parçası."
+    },
+    "aa_alkaline_batteries": {
+      "name": "4'lü Kalem Pil Paketi (AA)",
+      "desc": "El fenerleri ve telsizler için standart alkalin piller."
+    },
+    "aaa_alkaline_batteries": {
+      "name": "4'lü İnce Kalem Pil (AAA)",
+      "desc": "Küçük kafa lambaları için ince alkalin piller."
+    },
+    "battery_9v_transistor": {
+      "name": "9V Kare Blok Pil",
+      "desc": "Alarm ve radyasyon sayaçlarında kullanılan kare pil."
+    },
+    "lithium_cell_18650": {
+      "name": "18650 Şarj Edilebilir Lityum Pil",
+      "desc": "Taktik fenerler için yüksek kapasiteli lityum hücre."
+    },
+    "rechargeable_powerbank_10k": {
+      "name": "10.000 mAh Kauçuklu Taşınabilir Batarya",
+      "desc": "Darbe emici kılıflı harici USB şarj cihazı."
+    },
+    "car_battery_lead_acid": {
+      "name": "12V Otomobil Aküsü",
+      "desc": "Sığınak aydınlatması için devasa enerji kaynağı."
+    },
+    "diesel_fuel_canister_5l": {
+      "name": "5 Litre Sac Bidon Dizel Yakıt",
+      "desc": "Jeneratör ve mazot sobası için kaliteli yakıt."
+    },
+    "gasoline_fuel_canister_5l": {
+      "name": "5 Litre Benzin Bidonu",
+      "desc": "Uçucu ve parlayıcı benzin; motorlar ve patlayıcılar için."
+    },
+    "kerosene_fuel_canister": {
+      "name": "2 Litre Gazyağı Tenekesi",
+      "desc": "Fırtına lambaları ve gaz ocakları için kokusuz yakıt."
+    },
+    "gunpowder_smokeless_flask": {
+      "name": "Dumansız Barut Kutusu",
+      "desc": "Mermi doldurmak ve patlayıcı yapmak için nitro barut."
+    },
+    "household_bleach_chlorine": {
+      "name": "Klorlu Çamaşır Suyu Şişesi",
+      "desc": "Suları mikrop ve bakterilerden arındıran klor çözeltisi."
+    },
+    "motor_oil_10w40_bottle": {
+      "name": "1 Litre Motor Yağı (10W-40)",
+      "desc": "Silah ve zincir mekanizmalarını yağlayan sentetik yağ."
+    },
+    "wd40_penetrating_oil": {
+      "name": "WD-40 Pas Sökücü Sprey",
+      "desc": "Paslı kilitleri açan ve nemi kovan sprey."
+    },
+    "wooden_strike_matches": {
+      "name": "Kav Kibriti Kutusu",
+      "desc": "Taşa veya sert zemine sürtülerek yanan ahşap kibritler."
+    },
+    "ferrocerium_spark_rod": {
+      "name": "Magnezyum / Ferroseryum Ateş Başlatıcı Çubuk",
+      "desc": "Islakken bile kıvılcım saçan askeri ateş başlatıcı."
+    },
+    "refillable_zippo_lighter": {
+      "name": "Rüzgar Geçirmez Metal Çakmak",
+      "desc": "Fırtınada sönmeyen dayanıklı benzinli çakmak."
+    },
+    "canvas_tote_bag": {
+      "name": "Bez Pazar Torbası",
+      "desc": "Omuza asılan bez çanta (+4 kg, +2 yuva)."
+    },
+    "school_backpack": {
+      "name": "Fermuarlı Okul Sırt Çantası",
+      "desc": "İki bölmeli standart sırt çantası (+8 kg, +4 yuva)."
+    },
+    "tactical_assault_pack_35l": {
+      "name": "3 Günlük Taktik Taarruz Çantası",
+      "desc": "Dıştan askı ipli sağlam askeri çanta (+15 kg, +6 yuva)."
+    },
+    "internal_frame_hiking_pack_55l": {
+      "name": "Alüminyum İskeletli Dağcı Çantası (55L)",
+      "desc": "Ağırlığı bele dağıtan profesyonel dağ çantası (+22 kg, +9 yuva)."
+    },
+    "military_molle_rucksack_75l": {
+      "name": "75 Litrelik Ağır Sefer Çantası",
+      "desc": "Taşıma devi; komple hayatta kalma kiti taşır (+30 kg, +12 yuva)."
+    },
+    "denim_jeans_rugged": {
+      "name": "Güçlendirilmiş Kot İş Pantolonu",
+      "desc": "Çift kat dikişli kalın kot pantolon; temel koruma sağlar."
+    },
+    "cargo_combat_pants_ripstop": {
+      "name": "Yırtılmaz Kargo Askeri Pantolon",
+      "desc": "Çok cepli ve yırtılmaya dirençli kamuflaj kargo pantolonu."
+    },
+    "flannel_work_shirt": {
+      "name": "Kalın Ekoseli Flanel Gömlek",
+      "desc": "Gece ayazına karşı vücut ısısını koruyan sıcak pamuklu gömlek."
+    },
+    "heavy_wool_sweater": {
+      "name": "Örgü Yün Balıkçı Kazağı",
+      "desc": "Islandığında bile ısı yalıtımını kaybetmeyen kalın koyun yünü kazak."
+    },
+    "heavy_down_parka": {
+      "name": "Kaz Tüyü Kışlık Parka",
+      "desc": "Kar fırtınasına ve dondurucu rüzgara geçit vermeyen kalın parka."
+    },
+    "motorcycle_leather_jacket": {
+      "name": "Korumalı Deri Motosiklet Montu",
+      "desc": "Dirsek ve omuz pedli kalın dana derisi mont (Zırh 2)."
+    },
+    "concealable_kevlar_vest_ii": {
+      "name": "Gizlenebilir Kevlar Yelek (Seviye II)",
+      "desc": "Tabanca mermilerini durduran gizli aramid yelek (Zırh 2)."
+    },
+    "tactical_body_armor_iiia": {
+      "name": "Taktik Polis Yeleği (Seviye IIIA)",
+      "desc": "Boğaz korumalı ağır kurşun geçirmez yelek (Zırh 3)."
+    },
+    "ceramic_ballistic_plate_iv": {
+      "name": "Seviye IV Seramik Zırh Plakalı Taşıyıcı",
+      "desc": "Tüfek mermilerini parçalayan kompozit seramik göğüs zırhı (Zırh 5)."
+    },
+    "ballistic_combat_helmet": {
+      "name": "Askeri Balistik Kask (Kevlar)",
+      "desc": "Şarapnel ve seken mermilere karşı kafatasını koruyan ordu kaskı."
+    },
+    "disposable_n95_dust_mask": {
+      "name": "N95 Toz ve Partikül Maskesi",
+      "desc": "Akciğerleri kül, duman ve zehirli tozdan koruyan filtreli maske."
+    },
+    "gp5_gas_mask_civilian": {
+      "name": "GP-5 Kauçuk Gaz Maskesi ve Filtresi",
+      "desc": "Zehirli gazlara ve dumanlara karşı tam yüz koruması sağlayan gaz maskesi."
+    },
+    "pocket_swiss_multitool": {
+      "name": "Paslanmaz Çakı Pense / Çok Amaçlı Alet",
+      "desc": "Pense, testere ve konserve açacağı içeren profesyonel çakı (+%6 arama)."
+    },
+    "heavy_duty_bolt_cutters": {
+      "name": "Ağır Demir Kesme Makası",
+      "desc": "Asma kilitleri, zincirleri ve tel örgüleri kolayca kesen dev makas (+%15 arama)."
+    },
+    "lockpick_set_professional": {
+      "name": "Çelik Maymuncuk Takımı",
+      "desc": "Kilitli kapı ve kasaları sessizce açmaya yarayan kilit açma seti (+%10 arama)."
+    },
+    "diamond_sharpening_stone": {
+      "name": "Çift Taraflı Elmas Bileme Taşı",
+      "desc": "Körleşmiş pala ve bıçakları jilet gibi keskinleştiren bileme taşı."
+    },
+    "headlamp_rechargeable_led": {
+      "name": "Şarj Edilebilir LED Kafa Lambası",
+      "desc": "Elleri serbest bırakan elastik kafa feneri; gece görüşü sağlar (+%5 arama)."
+    },
+    "military_chem_light_green": {
+      "name": "12 Saatlik Yeşil Kimyasal Işık Çubuğu",
+      "desc": "Kırılarak yakılan alevsiz su altı kimyasal aydınlatma çubuğu."
+    },
+    "geiger_muller_counter": {
+      "name": "El Tipi Geiger Radyasyon Sayacı",
+      "desc": "Radyasyonlu bölgelerde cızırtıyla uyaran dijital radyasyon sayacı."
+    },
+    "compact_binoculars_10x42": {
+      "name": "10x42 Kauçuk Kaplı Dürbün",
+      "desc": "Yol üzerindeki tuzakları ve yağmacıları uzaktan tespit eden kaliteli dürbün."
+    },
+    "mountaineering_rope_50m": {
+      "name": "50 Metre Profesyonel Dağcılık İpi",
+      "desc": "Uçurumlardan iniş ve nehir geçişleri için mukavemetli tırmanış ipi."
+    },
+    "silnylon_backpacking_tarp": {
+      "name": "Su Geçirmez Kamp Brandası / Tarp",
+      "desc": "Şiddetli yağmurda dinlenen kazazedeyi kupkuru tutan silikonlu branda."
+    },
+    "hemostatic_gauze_z_fold": {
+      "name": "Z-Katlamalı Hemostatik Muharebe Gazı",
+      "desc": "Derin atardamar yaralarına tampon yapmak için kitosan emdirilmiş vakumlu gazlı bez."
+    },
+    "pressure_dressing_trauma_4in": {
+      "name": "Acil Travma Basınç Bandajı 10cm",
+      "desc": "Aşırı kanamaları durdurmak için yerleşik baskı köprüsüne sahip elastik bandaj."
+    },
+    "chest_seal_twin_pack": {
+      "name": "Tek Yönlü Valfli Göğüs Bandı İkili Paket",
+      "desc": "Göğüs kafesi delinmelerinde ve akciğer çökmesinde kullanılan tek yönlü valfli yapışkan yama."
+    },
+    "nasopharyngeal_airway_28fr": {
+      "name": "Nazofaringeal Solunum Tüpü (28 Fr)",
+      "desc": "Bilinçsiz kazazedelerde soluk borusunu açık tutmak için burundan sokulan yumuşak tüp."
+    },
+    "decompression_needle_14g": {
+      "name": "Göğüs Dekompresyon İğnesi 14G",
+      "desc": "Göğüs boşluğunda biriken sıkışmış havayı boşaltarak boğulmayı önleyen çelik iğne."
+    },
+    "sam_splint_36inch": {
+      "name": "SAM Alüminyum Şekil Alabilir Atel",
+      "desc": "Kırık ve çıkık kemikleri sabitlemek için bükülebilen süngerli alüminyum levha."
+    },
+    "cervical_extrication_collar": {
+      "name": "Ayarlanabilir Boyunluk (Cervical Collar)",
+      "desc": "Travma sonrası boyun ve omurga hareketini engelleyen sert plastik boyunluk."
+    },
+    "surgical_scalpel_disposable_10": {
+      "name": "Tek Kullanımlık Cerrahi Neşter No:10",
+      "desc": "Doku temizleme ve acil cerrahi müdahaleler için çelik jilet keskinliğinde neşter."
+    },
+    "surgical_hemostat_forceps": {
+      "name": "Kilitli Hemostatik Damar Forsepsi",
+      "desc": "Kopan kan damarlarını sıkıştırıp kilitleyen tıbbi paslanmaz forseps pens."
+    },
+    "bone_saw_gigli_wire": {
+      "name": "Gigli Telli Esnek Kemik Testeresi",
+      "desc": "Acil saha ampütasyonlarında kemikleri kesmek için çelik örgülü tel testere."
+    },
+    "tissue_forceps_toothed": {
+      "name": "Adson Dişli Cerrahi Doku Pensi",
+      "desc": "Yara dikerken dokuları kavrayıp hizalamaya yarayan ince cerrahi cımbız."
+    },
+    "dental_extraction_forceps": {
+      "name": "Diş Çekme Kerpeteni",
+      "desc": "İltihaplı ve çürük azı dişlerini çekmek için kullanılan sağlam paslanmaz alet."
+    },
+    "ciprofloxacin_500mg_box": {
+      "name": "Siprofloksasin 500mg Tablet (14'lü)",
+      "desc": "Şiddetli bağırsak, kemik ve solunum yolu enfeksiyonlarına karşı güçlü antibiyotik."
+    },
+    "doxycycline_100mg_bottle": {
+      "name": "Doksisiklin 100mg Kapsül (20'li)",
+      "desc": "Kolera, veba, tifo ve şarbon gibi tehlikeli enfeksiyonlara karşı etkili antibiyotik."
+    },
+    "amoxicillin_clavulanate_box": {
+      "name": "Amoksisilin + Klavulanik Asit 1000mg (14'lü)",
+      "desc": "Dirençli bakteriyel enfeksiyonları ve iltihaplı yaraları iyileştiren geniş spektrumlu antibiyotik."
+    },
+    "azithromycin_250mg_zpack": {
+      "name": "Azitromisin 250mg Z-Paketi (6 Tablet)",
+      "desc": "Zatürre ve bronşiyal enfeksiyonlara karşı hızlı etkili 5 günlük antibiyotik kürü."
+    },
+    "metronidazole_500mg_bottle": {
+      "name": "Metronidazol 500mg Antimikrobiyal (20'li)",
+      "desc": "Pis su parazitlerini, amipli dizanteriyi ve anaerobik enfeksiyonları temizleyen ilaç."
+    },
+    "chloroquine_phosphate_tabs": {
+      "name": "Klorokin Fosfat 250mg Tablet",
+      "desc": "Sıtma ve tropikal bataklık parazitlerine karşı koruma ve tedavi sağlayan hap."
+    },
+    "tramadol_50mg_capsules": {
+      "name": "Tramadol HCl 50mg Ağrı Kapsülü (10'lu)",
+      "desc": "Şiddetli kırık ve travma ağrılarını dindiren sentetik opioid ağrı kesici."
+    },
+    "ketamine_vial_500mg": {
+      "name": "Enjektabl Ketamin Flakon (500mg/10ml)",
+      "desc": "Saha cerrahisinde ve kemik yerleştirmede derin uyuşturma sağlayan anestezik solüsyon."
+    },
+    "lidocaine_2pct_epinephrine": {
+      "name": "Lidokain %2 + Epinefrin Lokal Anestezi (20ml)",
+      "desc": "Yara dikiminde bölgeyi uyuşturan ve kanamayı yavaşlatan lokal anestezik."
+    },
+    "fentanyl_transdermal_patch": {
+      "name": "Fentanil Transdermal Ağrı Bandı 50mcg",
+      "desc": "Yanık ve ağır ezilme ağrılarını 72 saat boyunca kesen yüksek etkili narkotik bant."
+    },
+    "ibuprofen_400mg_blister": {
+      "name": "İbuprofen 400mg Blister (20 Tablet)",
+      "desc": "İltihap, ateş ve adale ağrılarını dindiren iltihap kurutucu ağrı kesici."
+    },
+    "paracetamol_500mg_box": {
+      "name": "Parasetamol 500mg Tablet (24'lü)",
+      "desc": "Ateşi düşüren, baş ve kas ağrılarını hafifleten temel ağrı kesici."
+    },
+    "epipen_epinephrine_autoinjector": {
+      "name": "EpiPen 0.3mg Epinefrin Oto-Enjektörü",
+      "desc": "Ölümcül alerjik şoklarda ve nefes borusu tıkanmalarında hayat kurtaran adrenalin iğnesi."
+    },
+    "narcan_naloxone_nasal_spray": {
+      "name": "Narcan 4mg Nalokson Burun Spreyi",
+      "desc": "Aşırı doz opioid ve kimyasal zehirlenmelerinde komayı hızla sonlandıran burun spreyi."
+    },
+    "pralidoxime_2pam_chloride": {
+      "name": "Pralidoksim (2-PAM) Klorür Flakonu",
+      "desc": "Sinir gazı felçlerine karşı atropinle birlikte kas fonksiyonunu geri getiren panzehir."
+    },
+    "potassium_iodide_130mg_strips": {
+      "name": "Potasyum İyodür 130mg İyot Tableti (14'lü)",
+      "desc": "Radyoaktif iyot serpintisinin tiroid bezine yerleşmesini engelleyen koruyucu tablet."
+    },
+    "activated_charcoal_slurry": {
+      "name": "Aktif Karbon Süspansiyonu 250ml",
+      "desc": "Yutulan zehirleri ve zehirli mantar toksinlerini midede hapsedip dışarı atan sıvı."
+    },
+    "ringer_lactate_500ml_iv_bag": {
+      "name": "Ringer Laktat 500ml Steril Serum Torbası",
+      "desc": "Ağır kan kaybı ve şok durumlarında damar içi hacmi geri kazandıran elektrolit serumu."
+    },
+    "normal_saline_500ml_iv_bag": {
+      "name": "0.9% İzotonik Sodyum Klorür Serumu (500ml)",
+      "desc": "Damar içi hidrasyon ve açık yara yıkaması için steril tuzlu su serumu."
+    },
+    "iv_infusion_tubing_set": {
+      "name": "Serum Seti ve Damla Ayar Makarası",
+      "desc": "Serum torbalarını damar yoluna bağlayan steril hortum ve damla ayar kiti."
+    },
+    "iv_cannula_catheter_18g": {
+      "name": "Yeşil 18G Damar Yolu İğne Kanülü (Kutu)",
+      "desc": "Hızlı serum ve kan aktarımı için geniş çaplı steril damar yolu kanülü."
+    },
+    "chlorhexidine_gluconate_4pct": {
+      "name": "Klorheksidin %4 Cerrahi Antiseptik Çözelti",
+      "desc": "Ameliyat öncesi cilt temizliğinde kullanılan mikrop öldürücü cerrahi solüsyon."
+    },
+    "hydrocortisone_cream_1pct": {
+      "name": "Hidrokortizon %1 Kaşıntı ve Egzama Kremi",
+      "desc": "Zehirli sarmaşık ve böcek sokmalarındaki iltihap ve kaşıntıyı kesen kortizonlu krem."
+    },
+    "calamine_lotion_bottle": {
+      "name": "Kalamin Losyonu (150ml)",
+      "desc": "Kaşıntılı böcek sokmaları ve alerjik döküntüleri serinletip yatıştıran çinkolu losyon."
+    },
+    "zinc_oxide_petroleum_paste": {
+      "name": "Çinko Oksit Bariyer Pişik Macunu",
+      "desc": "Siper ayak hastalığı, sürtünme pişiği ve açık su yaralarını izole eden kalın macun."
+    },
+    "eye_wash_sterile_saline_bottle": {
+      "name": "Steril Göz Yıkama Solüsyonu (250ml)",
+      "desc": "Göze kaçan asit, kimyasal toz veya biber gazını durulamak için kadeh başlıklı solüsyon."
+    },
+    "burn_gel_hydrogel_packet": {
+      "name": "Steril Su Bazlı Hidrojel Yanık Pakedi",
+      "desc": "Ateş ve sıcak metal yanıklarında doku hasarını donduran ve ağrıyı kesen hidrojel."
+    },
+    "cohesive_flexible_vet_wrap": {
+      "name": "Kendine Yapışan Esnek Bandaj (Coban)",
+      "desc": "Pense ya da bant gerektirmeden birbirine tutunan pratik elastik sabitleme sargısı."
+    },
+    "sterile_disposable_hypodermic_syringes": {
+      "name": "10'lu Steril 5ml Enjektör ve İğne Ucu",
+      "desc": "İlaç ve panzehir enjeksiyonu için kilitli gövdeli steril tek kullanımlık enjektörler."
+    },
+    "barbed_wire_baseball_bat": {
+      "name": "Dikenli Tel Sarılı Beyzbol Sopası",
+      "desc": "Paslı ve jiletli dikenli telle sarılmış, kafataslarını parçalayan sert dişbudak sopası."
+    },
+    "spiked_cricket_bat": {
+      "name": "Çivili Kriket Sopası",
+      "desc": "Gövdesine bilenmiş inşaat çivileri çakılmış ağır ve dengeli kriket sopası."
+    },
+    "police_side_handle_tonfa": {
+      "name": "Polis Tipi Yan Kollu Tonfa Cop",
+      "desc": "Vuruş ve savuşturma teknikleri için polikarbonat gövdeli sağlam çevik kuvvet copu."
+    },
+    "solid_rebar_club": {
+      "name": "Nervürlü İnşaat Demiri Sopa",
+      "desc": "Bisiklet iç lastiğiyle kavrama sapı yapılmış ağır ve eğilmez nervürlü inşaat demiri."
+    },
+    "heavy_railroad_spike_club": {
+      "name": "Demiryolu Çivili Gürz",
+      "desc": "Gövdesine dövme çelik demiryolu ray çivileri monte edilmiş yıkıcı gürz."
+    },
+    "two_handed_splitting_maul": {
+      "name": "8 Librelik Odun Yarma Baltası",
+      "desc": "Bir tarafı keskin yarma kaması diğer tarafı balyoz olan uzun saplı dev balta."
+    },
+    "tactical_tomahawk_black": {
+      "name": "Taktik Kapı Kırma Tomahavkı",
+      "desc": "Arka tarafında zırh delen sivri mahmuz bulunan tek parça dövme çelik taktik balta."
+    },
+    "firemans_flathead_axe": {
+      "name": "İtfaiyeci Düz Ağızlı Yangın Baltası",
+      "desc": "Yanan binalarda kapı ve çatılara dalmak için tasarlanmış ağır kırmızı ordu baltası."
+    },
+    "combat_trench_knife_1918": {
+      "name": "1918 Siper Muharebe Bıçağı (Muştalı)",
+      "desc": "Tunç döküm parmak muştası ve çift ağızlı sivri hançere sahip tarihi siper bıçağı."
+    },
+    "tactical_karambit_blade": {
+      "name": "Taktik Karambit Çengelli Bıçak",
+      "desc": "Kaplan pençesi kavisli namlusu ve parmak halkasıyla ölümcül yakın mesafe bıçağı."
+    },
+    "folding_butterfly_balisong": {
+      "name": "Çelik Kelebek Bıçak (Balisong)",
+      "desc": "Hızla açılıp kapanabilen, cepte taşınabilir jilet gibi keskin çelik kelebek bıçak."
+    },
+    "improvised_rebar_spear": {
+      "name": "Sivrilmiş İnşaat Demiri Av Mızrağı",
+      "desc": "Ucu taşa sürtülerek sivriltilmiş, mesafeli saplama sağlayan 2 metrelik çelik mızrak."
+    },
+    "scythe_blade_war_pike": {
+      "name": "Düzeltilmiş Tırpan Namlulu Savaş Pikesi",
+      "desc": "Tarım tırpanı namlusunun düzleştirilerek uzun dişbudak sırığa perçinlenmesiyle yapılmış pike."
+    },
+    "fiberglass_recurve_bow_45lb": {
+      "name": "45 Librelik Katlanabilir Olimpik Yay",
+      "desc": "Sessizce ve ölümcül isabetle ok fırlatan dayanıklı lamine fiberglas yay."
+    },
+    "tactical_compound_crossbow_175lb": {
+      "name": "175 Librelik Makaralı Taktik Kundaklı Yay",
+      "desc": "Yüksek çekiş gücüyle çelik uçlu okları kurşun hızında fırlatan profesyonel arbalet."
+    },
+    "bundle_carbon_hunting_arrows": {
+      "name": "6'lı Karbon Gövdeli Çelik Av Oku Demeti",
+      "desc": "Kemikleri delen 3 jiletli çelik uca sahip hafif ve dengeli karbon fiber oklar."
+    },
+    "bundle_aluminum_crossbow_bolts": {
+      "name": "6'lı Alüminyum Arbalet Oku Sadakı",
+      "desc": "175 libreye kadar arbaletlerle uyumlu, sert alaşımlı 20 inçlik çelik uçlu oklar."
+    },
+    "hunting_slingshot_steel_balls": {
+      "name": "Bilek Destekli Avcı Sapanı",
+      "desc": "Lateks lastikli ve bilek destekli profesyonel sapan; çelik bilyeleri kemik kırıcı hızla fırlatır."
+    },
+    "glock_19_9mm_pistol": {
+      "name": "Glock 19 Kompakt 9mm Tabanca",
+      "desc": "Çamurda ve tozda asla tutukluk yapmayan dünyaca ünlü polimer gövdeli 9x19mm beylik tabancası."
+    },
+    "beretta_92fs_pistol": {
+      "name": "Beretta 92FS 9mm Hizmet Tabancası",
+      "desc": "Açık kızaklı alüminyum alaşım gövdeli, 15 mermi kapasiteli İtalyan ordu tabancası."
+    },
+    "colt_1911_45acp_pistol": {
+      "name": "Colt M1911A1 .45 ACP Çelik Tabanca",
+      "desc": "Ağır .45 kalibre mermisiyle tek vuruşta hedefi yıkan efsanevi Amerikan çelik tabancası."
+    },
+    "tokarev_tt33_pistol": {
+      "name": "Sovyet Tokarev TT-33 7.62x25mm Tabanca",
+      "desc": "Hızlı ve zırh delen 7.62mm mermiler ateşleyen son derece dayanıklı Sovyet tabancası."
+    },
+    "makarov_pm_9x18_pistol": {
+      "name": "Makarov PM 9x18mm Subay Tabancası",
+      "desc": "Basit mekanizmalı, neredeyse hiç bozulmayan kompakt Sovyet subay tabancası."
+    },
+    "sw_model_29_44mag_revolver": {
+      "name": "S&W Model 29 .44 Magnum Altıpatlar",
+      "desc": "Ayıları bile durdurabilecek korkunç balistik güce sahip devasa çelik revolver."
+    },
+    "ruger_sp101_357_revolver": {
+      "name": "Ruger SP101 .357 Magnum Paslanmaz Revolver",
+      "desc": "Geri tepmeye dayanıklı masif çelik gövdeli 5 atımlık magnum altıpatlar."
+    },
+    "remington_870_express_12g": {
+      "name": "Remington 870 12 Kalibre Pompalı Tüfek",
+      "desc": "Çelik gövdesi ve çift çekme koluyla asla takılmayan efsanevi pompalı av tüfeği."
+    },
+    "mossberg_590_tactical_12g": {
+      "name": "Mossberg 590A1 Askeri Pompalı Tüfek",
+      "desc": "8 fişek kapasiteli boru şarjörü ve kalınlaştırılmış namlusuyla askeri standart pompalı tüfek."
+    },
+    "sawed_off_double_barrel_12g": {
+      "name": "Namlu ve Kundak Kesik Çifte Av Tüfeği",
+      "desc": "Namluları ve dipçiği testereyle kesilmiş, sıfır mesafede dehşet saçan çift kırma tüfek."
+    },
+    "single_shot_break_action_20g": {
+      "name": "H&R Tek Kırma 20 Kalibre Av Tüfeği",
+      "desc": "Dıştan horozlu, tek fişek alan hafif ve basit kırık namlu av tüfeği."
+    },
+    "sks_carbine_762x39": {
+      "name": "Sovyet SKS Yarı Otomatik Karabin 7.62mm",
+      "desc": "10 mermilik dahili şarjörü ve katlanır süngüsü bulunan sağlam yarı otomatik tüfek."
+    },
+    "mosin_nagant_9130_rifle": {
+      "name": "Mosin-Nagant M91/30 Kurmalı Piyade Tüfeği",
+      "desc": "Ağır 7.62x54mm fişeğiyle yüzlerce metreden çelik levhaları delen efsanevi tüfek."
+    },
+    "remington_700_scoped_308": {
+      "name": "Remington 700 .308 Dürbünlü Keskin Nişancı Tüfeği",
+      "desc": "3-9x büyütmeli dürbünü ve hassas tetiğiyle uzak hedefleri tek kurşunda indiren av tüfeği."
+    },
+    "ruger_1022_carbine": {
+      "name": "Ruger 10/22 Yarı Otomatik .22 LR Tüfek",
+      "desc": "Sıfır geri tepmeli, küçük av hayvanlarını sessizce vurmak için ideal hafif tüfek."
+    },
+    "ak74m_assault_rifle_545": {
+      "name": "AK-74M Piyade Tüfeği 5.45x39mm",
+      "desc": "Katlanır dipçikli, yüksek namlu çıkış hızına sahip ölümcül modern Rus piyade tüfeği."
+    },
+    "ar15_carbine_556x45": {
+      "name": "AR-15 Yarı Otomatik Karabin 5.56mm",
+      "desc": "Raylı kundağı ve kırmızı nokta nişangahıyla ergonomik ve isabetli modern tüfek."
+    },
+    "fal_battle_rifle_762x51": {
+      "name": "FN FAL 7.62 NATO Muharebe Tüfeği",
+      "desc": "Beton barikatları ve zırhları delen ağır muharebe mermileri ateşleyen kudretli tüfek."
+    },
+    "mp5a3_submachine_gun": {
+      "name": "H&K MP5A3 9mm Hafif Makineli Tabanca",
+      "desc": "Makaralı kilit mekanizması sayesinde sarsıntısız nokta atışı yapan efsanevi makineli tabanca."
+    },
+    "ammo_9mm_parabellum_box": {
+      "name": "50'lik 9x19mm Parabellum Tabanca Mermisi",
+      "desc": "Glock, Beretta ve MP5 için pirinç kovanlı standart 9mm tabanca mermi kutusu."
+    },
+    "ammo_45_acp_box": {
+      "name": "50'lik .45 ACP Tabanca Mermisi Kutusu",
+      "desc": "Colt 1911 ve klasik tabancalar için ağır kurşun çekirdekli güçlü mermiler."
+    },
+    "ammo_357_magnum_box": {
+      "name": "50'lik .357 Magnum İçi Boşluklu Mermi Kutusu",
+      "desc": "Revolverler için dokuda muazzam tahribat yaratan ceketsiz magnum kurşunları."
+    },
+    "ammo_44_magnum_box": {
+      "name": "25'lik .44 Magnum Yıkıcı Mermi Kutusu",
+      "desc": "S&W Model 29 için üretilmiş canavarca kinetik enerjiye sahip kurşun kutusu."
+    },
+    "ammo_12g_00_buckshot_box": {
+      "name": "25'lik 12 Kalibre Şevrotin (00 Buckshot) Fişek",
+      "desc": "Her bir fişeğinde dokuz adet 8.4mm iri kurşun bilye barındıran yıkıcı fişek kutusu."
+    },
+    "ammo_12g_rifled_slug_box": {
+      "name": "10'luk 12 Kalibre Tek Kurşun (Slug) Fişek",
+      "desc": "Yivli tek parça masif kurşun kütlesi; yüz metreden kapıları ve zırhları deler."
+    },
+    "ammo_22_lr_brick_100": {
+      "name": "100'lük .22 LR Küçük Çap Mermi Paketi",
+      "desc": "Sessiz tüfekler için ağırlık yapmayan, yüzlercesi cebe sığan hafif mermi paketi."
+    },
+    "ammo_556_nato_box": {
+      "name": "30'luk 5.56x45mm NATO M855 Çelik Çekirdekli Mermi",
+      "desc": "AR-15 tüfekleri için çelik delici çekirdeğe sahip askeri yeşil uçlu mermi kutusu."
+    },
+    "ammo_762x39_soviet_box": {
+      "name": "30'luk 7.62x39mm Sovyet Tüfek Mermisi",
+      "desc": "SKS ve AK platformları için vernikli çelik kovanlı standart tüfek mermisi."
+    },
+    "ammo_545x39_soviet_tin": {
+      "name": "30'luk 5.45x39mm 7N6 Sovyet Mermi Kutusu",
+      "desc": "AK-74 tüfekleri için hedefte taklalar atarak ilerleyen çelik çekirdekli mermi."
+    },
+    "ammo_308_winchester_box": {
+      "name": "20'lik .308 Win Keskin Nişancı Mermisi Kutusu",
+      "desc": "Keskin nişancı tüfekleri için aerodinamik süper isabetli poligon mermileri."
+    },
+    "pipe_bomb_shrapnel_fuse": {
+      "name": "Çivi Dolu Boru Bombası",
+      "desc": "Tesisat borusuna doldurulmuş kibrit kükürdü, çiviler ve fitille ateşlenen el yapımı bomba."
+    },
+    "thermite_incendiary_canister": {
+      "name": "Termit Yangın Bombası Kutusu",
+      "desc": "Demir oksit ve alüminyum tozu karışımı; çeliği ve motor bloklarını eriterek yakan yangın bombası."
+    },
+    "m18_smoke_grenade_white": {
+      "name": "M18 Askeri Beyaz Sis Bombası",
+      "desc": "Görüşü tamamen kapatan yoğun beyaz sis bulutu salarak geri çekilmeyi sağlayan sis bombası."
+    },
+    "tripwire_shotgun_blank_trap": {
+      "name": "Tuzak Telli Çevre Güvenlik Alarm Mayını",
+      "desc": "Kampa yaklaşan davetsiz misafirleri patlama sesiyle haber veren tuzak telli tetik mekanizması."
+    },
+    "claymore_antipersonnel_mine": {
+      "name": "M18A1 Claymore Yönlendirilmiş Anti-Personel Mayını",
+      "desc": "700 çelik bilye ve C4 patlayıcı içeren, yöneltildiği alandaki her şeyi yok eden mayın."
+    },
+    "copper_pipe_section_1m": {
+      "name": "1 Metrelik Bakır Su Tesisat Borusu",
+      "desc": "Su arıtma imbikleri ve elektrik projeleri için saf ve değerli bakır boru parçası."
+    },
+    "brass_plumbing_fittings_pack": {
+      "name": "Pirinç Tesisat Rakor ve Manşon Paketi",
+      "desc": "Korozyona dayanıklı, yüksek basınca uygun pirinç dirsek ve rakor bağlantıları."
+    },
+    "galvanized_sheet_metal_plate": {
+      "name": "Galvanizli Çelik Saç Levha",
+      "desc": "Paslanmaz çinko kaplı, araç zırhlama ve soba borusu yapımında kullanılan dayanıklı saç."
+    },
+    "expanded_steel_mesh_grating": {
+      "name": "Genişletilmiş Çelik Izgara Tel",
+      "desc": "Pencere korumaları, zırh kafesleri ve sağlam hayvan tuzakları kaynaklamak için çelik ızgara."
+    },
+    "tungsten_carbide_drill_bits": {
+      "name": "Tungsten Karbür Çelik ve Beton Matkap Uçları",
+      "desc": "Zırh çeliğini, döküm demiri ve sert betonu delebilen elmas sertliğinde matkap uçları."
+    },
+    "heavy_steel_ball_bearings_bag": {
+      "name": "50'li Krom Çelik Bilye Torbası (12mm)",
+      "desc": "Sapan mermisi ya da şarapnel yapımında kullanılan parlatılmış sert çelik bilyeler."
+    },
+    "assorted_steel_springs_box": {
+      "name": "Çeşitli Gergi ve Baskı Çelik Yay Kutusu",
+      "desc": "Tüfek mekanizmaları, tuzaklar ve kilitler tamir etmek için çelik yay seti."
+    },
+    "hex_bolts_and_nuts_assortment": {
+      "name": "8.8 Kalite Çelik Cıvata ve Somun Kovası",
+      "desc": "Araç şasileri ve ağır makine montajlarında kullanılan yüksek mukavemetli çelik cıvatalar."
+    },
+    "blind_rivets_and_pop_riveter": {
+      "name": "Kör Perçin Tabancası ve 200 Perçin",
+      "desc": "Levhaları ve saçları arkasına ulaşmaya gerek kalmadan perçinleyen el aleti seti."
+    },
+    "stainless_steel_hose_clamps": {
+      "name": "20'li Paslanmaz Kelepçe Kutusu",
+      "desc": "Radyatör hortumlarını sıkıştırmak ve acil boru çatlaklarını yamamak için ayarlı kelepçeler."
+    },
+    "car_battery_12v_lead_acid": {
+      "name": "12 Volt 60Ah Kurşun-Asit Oto Aküsü",
+      "desc": "Kamp aydınlatması, telsiz ve dönüştürücülere güç sağlayan ağır araç aküsü."
+    },
+    "lithium_18650_rechargeable_cell": {
+      "name": "3.7V 18650 Şarj Edilebilir Lityum Pil",
+      "desc": "Dizüstü bilgisayar bataryalarından sökülmüş, el feneri ve lazerleri besleyen lityum pil."
+    },
+    "alkaline_9v_transistor_battery": {
+      "name": "9 Volt Alkalin Blok Pil",
+      "desc": "Geiger sayaçları, yangın dedektörleri ve telsizler için gerekli yüksek voltajlı blok pil."
+    },
+    "cr2032_lithium_coin_cells": {
+      "name": "5'li CR2032 3V Düğme Pil Paketi",
+      "desc": "Taktik nişangahlar, optikler ve dijital saatler için minyatür 3V lityum piller."
+    },
+    "solar_charge_controller_mppt": {
+      "name": "MPPT Güneş Paneli Şarj Kontrol Kartı",
+      "desc": "Güneş panellerinden gelen akımı akülere zarar vermeden aktaran akıllı kontrol beyni."
+    },
+    "step_down_buck_voltage_regulator": {
+      "name": "DC-DC Voltaj Düşürücü Regülatör Modülü",
+      "desc": "12V araç elektriğini cep telefonları ve cihazlar için temiz 5V USB'ye çeviren devre."
+    },
+    "brushless_12v_dc_motor": {
+      "name": "12V Fırçasız DC Elektrik Motoru",
+      "desc": "Rüzgar türbini jeneratörü veya körük yapımında kullanılabilen verimli elektrik motoru."
+    },
+    "solder_wire_6040_rosin_core": {
+      "name": "Reçineli 60/40 Kalay-Kurşun Lehim Teli Makarası",
+      "desc": "Elektronik devreleri ve kopuk kabloları birleştirmek için eriyen kaliteli lehim."
+    },
+    "electric_soldering_iron_40w": {
+      "name": "40 Watt İnce Uçlu Kalem Havya",
+      "desc": "Elektronik devreleri tamir etmek ve kabloları lehimlemek için elektrikli havya."
+    },
+    "insulated_copper_wiring_harness": {
+      "name": "Oto Tesisat Kablo Demeti",
+      "desc": "Aydınlatma ve güç hatları kurmak için renk kodlu izole bakır kablo demeti."
+    },
+    "heavy_toggle_switches_pack": {
+      "name": "4'lü Ağır Hizmet Tipi Mandal Şalter Paketi",
+      "desc": "Elektrik hatlarını ve farları açıp kapatmak için su geçirmez mandallı anahtarlar."
+    },
+    "neodymium_rare_earth_magnets": {
+      "name": "6'lı N52 Güçlü Neodimyum Mıknatıs",
+      "desc": "Jeneratör bobinleri ve gizli bölme kilitleri için inanılmaz çekim gücüne sahip mıknatıslar."
+    },
+    "epoxy_resin_and_hardener_tubes": {
+      "name": "Çift Şırıngalı 5 Dakikalık Epoksi Yapıştırıcı",
+      "desc": "Metali, ahşabı ve kırık tüfek dipçiklerini taş gibi yapıştıran iki bileşenli reçine."
+    },
+    "cyanoacrylate_super_glue_bottle": {
+      "name": "Endüstriyel Siyanoakrilat Hızlı Yapıştırıcı (50g)",
+      "desc": "Saniyeler içinde yapışan kuvvetli yapıştırıcı; acil kesik kapamada da kullanılır."
+    },
+    "silicone_rtv_gasket_maker": {
+      "name": "RTV Yüksek Isı Sıvı Conta Silikonu",
+      "desc": "Motor kapaklarını, egzoz bağlantılarını ve su borularını sızdırmaz hale getiren kırmızı silikon."
+    },
+    "polyurethane_expanding_foam_can": {
+      "name": "Poliüretan Şişen Montaj Köpüğü (750ml)",
+      "desc": "Duvar çatlaklarını, rüzgar deliklerini ve su kaçaklarını tıkayan dev köpük sprey."
+    },
+    "fiberglass_cloth_and_resin_kit": {
+      "name": "Fiberglas Elyaf ve Reçine Tamir Kiti",
+      "desc": "Delik su depolarını, kayıkları ve araç panellerini onarmak için cam elyaf kumaş kiti."
+    },
+    "wd40_penetrating_lubricant_can": {
+      "name": "WD-40 Pas Sökücü ve Yağlayıcı Sprey",
+      "desc": "Paslı kilitleri açan, suyu kovan ve silah mekanizmalarını temizleyen mucize sprey."
+    },
+    "motor_oil_synthetic_10w40": {
+      "name": "1 Litre Tam Sentetik 10W-40 Motor Yağı",
+      "desc": "Jeneratör ve araç motorlarının kilitlenmesini önleyen kaliteli motor yağı."
+    },
+    "brake_fluid_dot4_can": {
+      "name": "DOT 4 Sentetik Hidrolik Fren Yağı (500ml)",
+      "desc": "Araç fren sistemleri ve hidrolik debriyajlar için yüksek kaynama noktalı hidrolik yağ."
+    },
+    "acetone_solvent_metal_can": {
+      "name": "Saf Kimyasal Aseton Çözücü (1 Litre)",
+      "desc": "Boya sökücü, silah temizleyici ve kimyasal sentezlerde kullanılan uçucu çözücü."
+    },
+    "kerosene_fuel_plastic_jug": {
+      "name": "5 Litrelik Gazyağı (Kerosene) Bidonu",
+      "desc": "Gaz lambaları, kamp sobaları ve mekanik parça yıkamak için rafine yakıt."
+    },
+    "diesel_fuel_canister_10l": {
+      "name": "10 Litrelik Çelik Mazot (Dizel) Bidonu",
+      "desc": "Dizel jeneratörler, ağır kamyonlar ve ısıtıcılar için saf dizel yakıtı."
+    },
+    "butane_gas_canister_camping": {
+      "name": "220g Vidalı Kamp Gazı Kartuşu (Bütan-Propan)",
+      "desc": "Taşınabilir kamp ocakları ve pürmüzler için vidalı gaz tüpü."
+    },
+    "rubber_tire_patch_vulcanizing_kit": {
+      "name": "Lastik Yama ve Soğuk Vulkanize Kiti",
+      "desc": "Patlak bisiklet ve araç lastiklerini kalıcı olarak yamamak için solüsyon ve yama takımı."
+    },
+    "neoprene_gasket_sheet_thick": {
+      "name": "Yağa Dayanıklı Kalın Neopren Kauçuk Levha",
+      "desc": "Su geçirmez contalar, gaz maskesi pulları ve yalıtım parçaları kesmek için levha."
+    },
+    "heavy_duty_cable_ties_pack_100": {
+      "name": "100'lü UV Dayanımlı Ağır Hizmet Cırt Kelepçe",
+      "desc": "Telsiz anteni sabitlemeden barikat kurmaya kadar her işte kullanılan sağlam plastik kelepçeler."
+    },
+    "aluminum_foil_heavy_duty_roll": {
+      "name": "Kalın Mutfak Alüminyum Folyo Rulosu",
+      "desc": "Yemek pişirme, ısı reflektörü ve sinyal engelleme için kullanılan dayanıklı folyo."
+    },
+    "heat_shrink_tubing_assortment": {
+      "name": "150 Parça Isıyla Daralan Kablo Makaron Seti",
+      "desc": "Açıkta kalan lehimli kabloları ısıtılarak su geçirmez şekilde kaplayan yalıtım makaronu."
+    },
+    "welding_rods_e6013_pack": {
+      "name": "30'lu E6013 Rutil Çelik Kaynak Elektrodu",
+      "desc": "Jeneratörle çalışan kaynak makinelerinde demir ve çelik kaynatmak için kaynak teli."
+    },
+    "graphite_powder_lock_lubricant": {
+      "name": "Kuru Grafit Tozu Kilit Yağlayıcı",
+      "desc": "Donma yapmayan, kilit mekanizmalarını ve tetikleri pürüzsüzleştiren kuru grafit tozu."
+    },
+    "bungee_cargo_cords_pack": {
+      "name": "4'lü Çelik Kancalı Elastik Bagaj Lastiği",
+      "desc": "Yükleri araç bagajına veya sırt çantasına sıkıca bağlamaya yarayan esnek kordonlar."
+    },
+    "polyethylene_tarp_repair_tape": {
+      "name": "Su Geçirmez Branda ve Çadır Tamir Bandı",
+      "desc": "Güneşten ve sudan etkilenmeyen, yırtılan çadır ve brandaları mühürleyen kalın yapışkan bant."
+    },
+    "ratchet_tie_down_strap_5m": {
+      "name": "5 Metrelik 2 Tonluk Mandallı Yük Spanzeti",
+      "desc": "Ağır yükleri, jeneratörleri ve araçları taşırken sabitleyen krikolu polyester kayış."
+    },
+    "silica_gel_desiccant_packs": {
+      "name": "20'li Nem Alıcı Silika Jel Poşeti",
+      "desc": "Mühimmat sandıklarını, telsizleri ve ilaçları rutubetten ve pastan koruyan nem alıcı paketler."
+    },
+    "chlorine_bleach_sodium_hypochlorite": {
+      "name": "1 Litre Kokusuz Çamaşır Suyu (Sodyum Hipoklorit)",
+      "desc": "Ortam dezenfeksiyonu ve şüpheli suları arıtmak için kullanılan klorlu sıvı."
+    },
+    "calcium_carbide_chunks": {
+      "name": "Hava Geçirmez Kutuda Karpit (Kalsiyum Karbür)",
+      "desc": "Suyla temas ettiğinde yanıcı asetilen gazı üreten karpit madeni."
+    },
+    "beeswax_pure_block": {
+      "name": "Saf Doğal Sarı Balmumu Kalıbı",
+      "desc": "Kumaş ve botları su geçirmez yapmada, ip cilalamada ve mum dökümünde kullanılan doğal balmumu."
+    },
+    "tactical_plate_carrier_level4": {
+      "name": "Seramik Seviye IV Balistik Hücum Yeleği",
+      "desc": "Tüfek mermilerini göğüste durduran seramik kompozit zırh plakalarına sahip hücum yeleği."
+    },
+    "concealable_kevlar_vest_level2": {
+      "name": "Gizlenebilir Seviye IIIA Kevlar Çelik Yelek",
+      "desc": "Kıyafet altına giyilebilen, tabanca ve şarapnel darbelerini emen hafif kevlar yelek."
+    },
+    "stab_proof_security_vest": {
+      "name": "Bıçak ve Kesik Korumalı Güvenlik Yeleği",
+      "desc": "Hançer, şiş ve kesici alet saldırılarına karşı gövdeyi koruyan çelik pullu yelek."
+    },
+    "riot_police_hard_armor_suit": {
+      "name": "Çevik Kuvvet Tam Zırh Takımı (Robocop)",
+      "desc": "Sopa ve taş darbelerine karşı göğüs, kol ve kaval kemiklerini koruyan polikarbonat zırh."
+    },
+    "firefighter_turnout_bunker_coat": {
+      "name": "İtfaiyeci Nomex Yangın Koruyucu Mont",
+      "desc": "Doğrudan aleve, kıvılcıma ve aşındırıcı kimyasallara dayanıklı kalın itfaiyeci montu."
+    },
+    "waxed_canvas_hunting_jacket": {
+      "name": "Ağır Mumlu Kanvas Avcı Ceketi",
+      "desc": "Dikenlere, yağmura ve vahşi hayvan pençelerine karşı son derece dirençli mumlu ceket."
+    },
+    "military_m65_field_jacket_liner": {
+      "name": "M-65 Askeri Parka ve Kapitoneli İçlik",
+      "desc": "Soğuk rüzgarları kesen, çıkartılabilir kapitone astara sahip efsanevi askeri kaban."
+    },
+    "goretex_waterproof_parka_camo": {
+      "name": "Gore-Tex Su Geçirmez Kamuflaj Parka",
+      "desc": "Şiddetli yağmuru ve sulusepkeni dışarıda tutan, terletmeyen nefes alabilir askeri yağmurluk."
+    },
+    "merino_wool_thermal_base_layer": {
+      "name": "Termal Merinos Yün İçlik Takımı",
+      "desc": "Sırılsıklam olsa dahi vücut ısısını muhafaza eden yüksek kaliteli doğal termal içlik."
+    },
+    "tactical_ripstop_cargo_pants": {
+      "name": "Yırtılmaz Taktik Kargo Pantolon",
+      "desc": "Diz kapaklarında koruma yuvaları ve çok sayıda cebe sahip yırtılmaz kumaşlı pantolon."
+    },
+    "vibram_sole_combat_boots": {
+      "name": "Vibram Tabanlı Su Geçirmez Taktik Bot",
+      "desc": "Enkaz ve moloz üzerinde ayak bileğini burkulmaktan ve paslı çivilerden koruyan bot."
+    },
+    "insulated_extreme_cold_snow_boots": {
+      "name": "-40°C Kar ve Buz Seferi Botu",
+      "desc": "Dondurucu nükleer kış şartlarında ayakların donmasını önleyen kalın keçe astarlı kar botu."
+    },
+    "heavy_neoprene_wading_boots": {
+      "name": "Su Geçirmez Neopren Çizme",
+      "desc": "Kanalizasyon ve bataklıklardan geçerken kazazedeyi sülüklerden ve sudan koruyan boy çizmesi."
+    },
+    "kevlar_reinforced_tactical_gloves": {
+      "name": "Karbon Korumalı Kevlar Taktik Eldiven",
+      "desc": "Cam kırıkları ve bıçak kesiklerine dayanıklı, eklem yerleri karbon zırhlı eldiven."
+    },
+    "insulated_leather_work_gauntlets": {
+      "name": "Kalın Deri İş ve Kaynakçı Eldiveni",
+      "desc": "Kızgın metalleri tutmaya, paslı saçları taşımaya ve ısırıklara dayanıklı kalın deri eldiven."
+    },
+    "ballistic_mtek_bump_helmet": {
+      "name": "Raylı Taktik Operasyon Kaskı",
+      "desc": "Gece görüş ve fener montaj raylarına sahip, kafayı darbelere karşı koruyan kompozit kask."
+    },
+    "welding_goggles_shade_5": {
+      "name": "5 Numara Oksijen Kaynakçı Gözlüğü",
+      "desc": "Kör edici ışık parlamalarını ve göz yakan ultraviyole ışınları kesen koyu camlı gözlük."
+    },
+    "polarized_ballistic_sunglasses": {
+      "name": "Balistik Korumalı Polarize Güneş Gözlüğü",
+      "desc": "Güneş yansımasını kesen ve seken küçük parçacıklara karşı gözü koruyan polikarbonat gözlük."
+    },
+    "nomex_flame_resistant_balaclava": {
+      "name": "Nomex Yanmaz Kar Maskesi (Balaklava)",
+      "desc": "Yüzü ve boynu ani alev parlamalarından koruyan ve kimliği gizleyen askeri kar maskesi."
+    },
+    "boonie_hat_woodland_camo": {
+      "name": "Geniş Kenarlı Kamuflajlı Boonie Şapka",
+      "desc": "Güneş çarpmasını engelleyen ve etrafa kamufle olmak için yaprak takılabilen fötr şapka."
+    },
+    "internal_frame_expedition_pack_75l": {
+      "name": "75 Litrelik Alüminyum İskeletli Sefer Çantası",
+      "desc": "Ağır yükleri bele eşit dağıtarak taşımayı kolaylaştıran dev sırt çantası (+35 kg)."
+    },
+    "assault_pack_3_day_40l": {
+      "name": "40 Litrelik 3 Günlük Taktik Taarruz Çantası",
+      "desc": "Hidrasyon hortumu yuvası ve modüler bağlantı kayışları olan operasyon çantası (+20 kg)."
+    },
+    "tactical_chest_rig_vest": {
+      "name": "Göğüs Tipi Taktik Şarjör Yeleği (Chest Rig)",
+      "desc": "Şarjörleri, telsizi ve ilk yardım paketini göğüs üzerinde hazır tutan taşıyıcı yelek (+8 kg)."
+    },
+    "canvas_messenger_satchel_heavy": {
+      "name": "Mumlu Kanvas Postacı Omuz Çantası",
+      "desc": "Hızlı erişim sağlayan, su geçirmez astarlı dayanıklı çapraz omuz çantası (+10 kg)."
+    },
+    "waterproof_roll_top_dry_bag_30l": {
+      "name": "30 Litrelik Su Geçirmez Sızdırmaz Torba (Dry Bag)",
+      "desc": "Suya düşse bile batmayan ve içindekileri kupkuru tutan kalın PVC torba (+12 kg)."
+    },
+    "folding_camp_wood_stove": {
+      "name": "Katlanabilir Titanyum Odun Sobası",
+      "desc": "Kitap gibi düz katlanan, çalı çırpıyla duman çıkarmadan su kaynatan kamp sobası."
+    },
+    "titanium_pot_and_pan_mess_kit": {
+      "name": "İki Parçalı Titanyum Kamp Tencere Seti",
+      "desc": "Açık ateşte paslanmayan ve deforme olmayan ultra hafif titanyum pişirme seti."
+    },
+    "handheld_crank_solar_emergency_radio": {
+      "name": "Dinamolu ve Güneş Enerjili Acil Durum Telsiz-Radyosu",
+      "desc": "Elle çevrilerek veya güneşle şarj olan, acil yayınları dinleyen ve ışık veren radyo."
+    },
+    "high_lumen_tactical_flashlight": {
+      "name": "2000 Lümen Şarj Edilebilir Taktik El Feneri",
+      "desc": "Karanlık tünelleri yüzlerce metre aydınlatan kör edici uçak alüminyumu el feneri (+%8 arama)."
+    },
+    "silva_sighting_mirror_compass": {
+      "name": "Silva Aynalı Profesyonel Askeri Pusula",
+      "desc": "Aynalı hedefleme kapağıyla harita üzerinde kusursuz rota belirleyen hassas pusula (+%6 hız)."
+    },
+    "bushcraft_parang_heavy_machete": {
+      "name": "El Dövmesi 35cm Bushcraft Parang Palası",
+      "desc": "Sığınak inşasında ve kalın dalları biçmede üstün performans gösteren ağır pala."
+    },
+    "folding_entrenching_spade_pick": {
+      "name": "Katlanabilir Askeri Tahkimat Küreği ve Kazması",
+      "desc": "Siper kazmak, kök sökmek ve yakın dövüşte kafatası kırmak için askeri kürek."
+    },
+    "magnesium_fire_starter_block": {
+      "name": "Magnezyum Bloklu Kıvılcım Ateş Başlatıcı",
+      "desc": "Islak odunları bile tutuşturan, binlerce derece sıcaklıkta yanan magnezyum çubuğu."
+    },
+    "stormproof_matches_sealed_case": {
+      "name": "Su ve Fırtına Geçirmez Kibrit Kapsülü",
+      "desc": "Suya batırılsa bile sönmeyen, contalı kapsül içinde 25 adet fırtına kibriti."
+    },
+    "tactical_pen_tungsten_glassbreaker": {
+      "name": "Tungsten Cam Kırıcı Uçlu Taktik Kalem",
+      "desc": "Soğukta yazabilen, arka ucundaki elmas sertliğindeki tungstenle oto camlarını patlatan kalem."
+    },
+    "mechanical_automatic_field_watch": {
+      "name": "Otomatik Mekanik Kurmalı Asker Saati",
+      "desc": "Pil gerektirmeyen, koldaki hareketle kurulan ve nükleer EMP dalgasından etkilenmeyen saat."
+    },
+    "monocular_telescope_12x50": {
+      "name": "12x50 Azot Gazlı Monoküler El Dürbünü",
+      "desc": "Buğu yapmayan mercekleriyle düşman hareketlerini uzaktan gözetleyen tek göz dürbün (+%4 hız)."
+    },
+    "thermal_mylar_bivvy_emergency_sleeping_bag": {
+      "name": "Mylar Termal Acil Durum Uyku Tulumu",
+      "desc": "Vücut ısısının %90'ını içeri yansıtarak donarak ölümü engelleyen metalize tulum."
+    },
+    "down_filled_subzero_sleeping_bag": {
+      "name": "-20°C Kaz Tüyü Mumya Uyku Tulumu",
+      "desc": "Dondurucu kış gecelerinde kazazedeyi sıcacık tutan hafif ve hacimli profesyonel tulum."
+    },
+    "self_inflating_camp_sleeping_pad": {
+      "name": "Kendiliğinden Şişen Yalıtımlı Kamp Matı",
+      "desc": "Buz tutmuş topraktan gelen soğuğu keserek omurgayı koruyan şişme konfor matı."
+    },
+    "heavy_canteen_1l_molle_cup": {
+      "name": "Paslanmaz Çelik Kupalı Askeri Matara 1L",
+      "desc": "Köz üzerinde su kaynatmaya yarayan çelik kupasıyla birlikte taşınan askeri su matarası."
+    },
+    "sawyer_gravity_water_filter_4l": {
+      "name": "4 Litrelik Yerçekimli Membran Su Arıtma Çantası",
+      "desc": "Ağaca asılarak çamurlu gölet suyunu mikron düzeyinde süzüp temiz içme suyuna dönüştürür."
+    },
+    "tactical_entry_crowbar_short": {
+      "name": "18 İnç Kısa Kapı Patlatma Levyesi",
+      "desc": "Kilitli sandıkları ve kapı menteşelerini sessizce sökmek için dövme çelik taktik levyecik (+%12 arama)."
+    },
+    "heavy_snatch_strap_tow_rope_5t": {
+      "name": "9 Metrelik 5 Tonluk Kinetik Araç Çekme Halatı",
+      "desc": "Çamura batmış araçları esneyerek sarsıntısız çekip kurtaran elastik çelik kancalı halat."
+    },
+    "handheld_laser_rangefinder_600m": {
+      "name": "600 Metre Lazerli Mesafe Ölçer",
+      "desc": "Nişancılıkta ve hedef tespitinde metre cinsinden kesin mesafeyi hesaplayan lazer cihazı."
+    },
+    "signal_mirror_heliograph": {
+      "name": "Nişangahlı Cam İmdat Sinyal Aynası",
+      "desc": "Güneş ışığını kilometrelerce ötedeki gözlemcilere çaktıran askeri yardım aynası."
+    },
+    "camp_bow_saw_folding": {
+      "name": "Katlanabilir Alüminyum Kamp Kol Testeresi",
+      "desc": "Devrilmiş ağaç gövdelerini saniyeler içinde yakacak odun haline getiren keskin testere."
+    },
+    "portable_waterproof_solar_panel_28w": {
+      "name": "28 Watt Katlanabilir Güneş Paneli Şarj Cihazı",
+      "desc": "Yürürken çantaya asılarak telsiz ve pilleri şarj eden su geçirmez solar panel."
+    },
+    "geiger_tube_pouch_sensor": {
+      "name": "SBM-20 Geiger Sayacı Yedek Algılama Tüpü",
+      "desc": "Radyasyon sayaçlarının beyni olan, gama ve beta ışınlarını algılayan cam vakum tüp."
+    },
+    "hydraulic_bottle_jack_6t": {
+      "name": "6 Tonluk Çelik Hidrolik Şişe Kriko",
+      "desc": "Yıkılmış beton kirişleri ve araçları kaldırmak için kompakt hidrolik kriko."
+    },
+    "industrial_wire_strippers_crimper": {
+      "name": "Otomatik Kablo Soyma ve Pabuç Sıkma Pensesi",
+      "desc": "Kablo tesisatını bakırına zarar vermeden saniyede soyan profesyonel elektrikçi pensesi."
+    },
+    "heavy_canvas_tool_roll_organizer": {
+      "name": "Kalın Mumlu Bez Takım Çantası Rulosu",
+      "desc": "Anahtar ve tornavidaları ses çıkarmadan derli toplu taşımaya yarayan rulo alet çantası."
+    },
+    "tactical_modular_hydration_bladder_3l": {
+      "name": "3 Litrelik Isırık Valfli Askeri Su Torbası",
+      "desc": "Çantanın içine yerleştirilip hortumuyla yürürken su içmeyi sağlayan taktik suluk."
+    },
+    "brass_emergency_whistle_pea_less": {
+      "name": "120 Desibel Masif Pirinç Düdük",
+      "desc": "Kar fırtınalarında ve siste kilometrelerce öteden duyulan bilyesiz metal acil düdüğü."
+    },
+    "leather_sheath_folding_pocket_knife": {
+      "name": "Kilitli Çakı ve Deri Kılıfı",
+      "desc": "Pirinç perçinli, odun yontmak ve ip kesmek için pratik kilit mekanizmalı cep çakısı."
+    }
+  },
+  "faction": {
+    "title": "ÇORAK TOPRAK FRAKSİYONLARI & DİPLOMASİ",
+    "iron_guard": {
+      "name": "Demir Muhafızlar",
+      "desc": "Yeraltı askeri garnizonlarının kalıntıları; teknokratik, disiplinli, merkezi hat üzerinde acımasız karantina protokolleri uygulayan birlik."
+    },
+    "nomad_guild": {
+      "name": "Göçebe Loncası",
+      "desc": "Kıtalararası ticaret kervanları ve hurdacı esnafı; pragmatik, barışçıl, hurda karşılığında takas ve güvenli geçiş sağlayan tüccarlar."
+    },
+    "ash_marauders": {
+      "name": "Kül Yağmacıları",
+      "desc": "Sınır harabelerinde kol gezen başıboş çeteler; haraç odaklı, fırsatçı ve acımasız haydutlar."
+    },
+    "tier": {
+      "allied": "MÜTTEFİK (%30 Takas İndirimi)",
+      "friendly": "DOSTANE (%15 Takas İndirimi)",
+      "neutral": "TARAFSIZ (Standart Şartlar)",
+      "suspicious": "ŞÜPHELİ (%30 Fiyat Artışı)",
+      "hostile": "DÜŞMAN (Görüldüğü Yerde Ateş)"
+    }
+  },
+  "environment": {
+    "weather": {
+      "clear_sky": "Açık Gökyüzü",
+      "radiation_ash_fog": "Zehirli Kül Sisi",
+      "corrosive_acid_rain": "Aşındırıcı Asit Yağmuru",
+      "subzero_cold_front": "Sıfırın Altında Soğuk Cephe",
+      "gale_windstorm": "Şiddetli Fırtına"
+    },
+    "alert": {
+      "shivering": "Vücut ısısı düşüyor ({coreTemp}°C). Şiddetli titreme başladı, kalori tüketimi hızlandı.",
+      "hypothermia": "Evre II Hipotermi ({coreTemp}°C)! Uzuvlar donuyor, kondisyon ve sağlık çöküyor.",
+      "acid_burn": "Yakıcı asit yağmuru korumasız cilde temas ediyor ve donanımı eritiyor!",
+      "ash_inhalation": "Yoğun radyoaktif kül solunuyor ({dose} mSv). Bronşlar tahriş oluyor!",
+      "windstorm_fatigue": "Şiddetli rüzgar yürüyüşü zorlaştırıyor ve boğazı kurutuyor."
+    },
+    "flashlight_on": "Fener AÇIK. Arama hızı arttı ancak ışık hüzmesi yağmacıların dikkatini çekiyor!",
+    "flashlight_off": "Fener KAPALI. Gölgelerin içine adım atılıyor."
+  },
+  "pwa": {
+    "install_title": "UYGULAMAYI YÜKLE (PWA)",
+    "install_desc": "Last Breath'i ana ekranınıza ekleyerek tam ekran, sıfır gecikme ve çevrimdışı oynayın.",
+    "install_btn": "ANA EKRANA EKLE 📲",
+    "already_installed": "Uygulama zaten yüklü.",
+    "ios_guide_title": "iPHONE / iPAD YÜKLEME ADIMLARI",
+    "ios_guide_step1": "1. Safari alt çubuğundaki Paylaş (Share) butonuna dokunun.",
+    "ios_guide_step2": "2. Açılan menüden 'Ana Ekrana Ekle'yi seçin.",
+    "ios_guide_step3": "3. Sağ üstteki 'Ekle' butonuna dokunun. Oyun ana ekranınıza eklenecektir.",
+    "installed_success": "Uygulama başarıyla yüklendi! Çevrimdışı oynayabilirsiniz.",
+    "close": "KAPAT"
+  },
+  "encounter": {
+    "decompression_chamber": {
+      "title": "Çökmüş Karayolu Sahra Kliniği",
+      "text": "Yaralı bir asker devrilmiş bir oksijen manifoldu altında sıkışmış, akut basınçlı pnömotoraks geçiriyor. Nefesi hırıltılı ve soluk borusu sola kaymış. Hemen yanında mühürlü bir askeri çanta duruyor.",
+      "choice": {
+        "decompress": "Dekompresyon İğnesi (Göğüs boşluğu basıncını tahliye et)",
+        "loot_pack": "Çantayı kesip molozların arasına çekil",
+        "leave": "Onu susan monitörlerle baş başa bırak"
+      },
+      "outcome": {
+        "decompress_success": "Basınçlı havanın ve koyu kanın fıslamasıyla göğüs rahatlar. Asker öksürerek minnetle morfin ampullerini size uzatır.",
+        "decompress_failure": "İğne kırık kaburga kıkırdağına çarparak kayar, yumuşak dokuyu zedeler.",
+        "loot_pack": "Askı kayışlarını kesip acil durum tayınlarını alırken askerin botları zemine vurmaya devam eder.",
+        "leave": "Geri adım atıp koğuşu derin sessizliğe terk edersiniz."
+      }
+    },
+    "checkpoint_siphon": {
+      "title": "Viyadük Barikatı (Demir Yolcuları)",
+      "text": "Kalın kaputlu asker kaçakları, tren traversleri ve kum torbalarıyla köprüyü tahkim etmiş; ağır bir makineli tüfek yolu kesiyor. Liderleri kalori veya mermi haraç istiyor.",
+      "choice": {
+        "pay_toll": "Geçiş için 2x yiyecek/içecek haraç ver",
+        "fight_sentry": "Silahını çek ve barikatı zorla aş",
+        "scale_gorge": "Buz gibi kanyona inip viyadük ayağına tırman"
+      },
+      "outcome": {
+        "pay_toll": "Nöbetçi tayınları tartıp işaret eder: 'Tünelde başını eğik tut yolcu, tavan çökebilir.'",
+        "fight_sentry_success": "İsabetli savunma ateşi kum torbası mevzilerini dağıtır; hayatta kalan nöbetçiler geri çekilir.",
+        "fight_sentry_failure": "Yoğun makineli tüfek ateşi sizi betonun arkasına hapseder; şarapnel bacağınızı sıyırır.",
+        "scale_gorge_success": "Beline kadar gelen kimyasal atık suyunu yarıp kayalara tırmanır, kontrol noktasını fark edilmeden geçersiniz.",
+        "scale_gorge_failure": "Buz gibi balçık ellerinizi hissizleştirir; ıslak çakılda kayıp dizinizi betona çarparsınız."
+      }
+    },
+    "protocol47_cache": {
+      "title": "Zırhlı Sivil Savunma Terminali",
+      "text": "Patlamaya dayanıklı bir nişin içinde analog bir ekran kehribar renginde parıldıyor. Yanıp sönen komut satırında 'PROTOKOL 47' başlıklı gizli askeri kayıtlar görünüyor.",
+      "choice": {
+        "decrypt": "Mantık kilidini baypas edip kayıtları kopyala",
+        "salvage": "Terminalin bakır bobinlerini ve pil hücrelerini sök",
+        "ignore": "Terminali karanlıkta vızıldamaya bırak"
+      },
+      "outcome": {
+        "decrypt_success": "Manyetik bellek, Karadeniz EMP patlamasının gerçek iç yüzünü ortaya döken şifreli emirleri deşifre eder.",
+        "decrypt_failure": "Devre kartından sıçrayan kıvılcım parmaklarınızı yakar ve mantık çiplerini eritir.",
+        "salvage": "Kasanın içinden yalıtımlı bakır kablolar ve sağlam hurda parçaları sökersiniz.",
+        "ignore": "CRT ekranının fosforlu ışıltısını sığınağın gölgelerinde bırakırsınız."
+      }
+    }
+  },
+  "log": {
+    "boot": {
+      "telemetry": "SYS_BOOT // SAHA TELEMETRİ v4.19-REL // RAD: 14.8 mSv/s // SİNYAL: 142.85 MHz",
+      "beacon": "TELSİZ 142.85 MHz: 'Sektör 09 Bozkır Sığınağı aktif... sığınak kapıları 45 gün içinde kilitlenecektir. İntikali tamamlayın.'",
+      "awakened": "Soğuk cızırtı dağılıyor. {location} harabelerinde teçhizat kayışlarını sıkıyorsun."
+    },
+    "scavenge": {
+      "started": "{location} harabelerinde erzak ve hurda aranıyor...",
+      "empty": "{location} içindeki yıkıntılar tarandı ancak işe yarar bir şey bulunamadı.",
+      "field_log": "[ELE GEÇİRİLEN SAHA KAYDI] {text}"
     }
   }
 };
@@ -1774,12 +6295,15 @@ const coreModule = {
   // --- src/core/saveManager.js ---
 
 
-const SAVE_KEY = 'lastbreath.save';
+const TOTAL_SLOTS = 10;
+const FREE_SLOTS = 2;
+const LEGACY_SAVE_KEY = 'lastbreath.save';
+const ACTIVE_SLOT_KEY = 'lastbreath.active_slot';
+const PREMIUM_KEY = 'lastbreath.is_premium';
 const AUTOSAVE_DELAY_MS = 600;
 
 /**
  * Ordered upgrade steps. MIGRATIONS[n] upgrades a version-n payload to n + 1.
- * Add an entry here whenever the persisted shape changes incompatibly.
  */
 const MIGRATIONS = {};
 
@@ -1798,44 +6322,230 @@ class SaveManager {
   #rng;
   #storage;
   #timer = null;
+  #activeSlot = 1;
 
   constructor({ store, rng, storage = globalThis.localStorage }) {
     this.#store = store;
     this.#rng = rng;
     this.#storage = storage;
+
+    // Determine initial active slot
+    const savedActive = this.#storage?.getItem(ACTIVE_SLOT_KEY);
+    const parsedSlot = Number(savedActive);
+    if (parsedSlot >= 1 && parsedSlot <= TOTAL_SLOTS) {
+      this.#activeSlot = parsedSlot;
+    } else {
+      this.#activeSlot = 1;
+    }
+
+    // Auto-migrate legacy save to slot 1 if slot 1 is empty
+    this.#migrateLegacySave();
   }
 
-  save() {
+  get activeSlot() {
+    return this.#activeSlot;
+  }
+
+  setActiveSlot(slotNumber) {
+    const slot = Number(slotNumber);
+    if (slot >= 1 && slot <= TOTAL_SLOTS) {
+      this.#activeSlot = slot;
+      this.#storage?.setItem(ACTIVE_SLOT_KEY, String(slot));
+    }
+  }
+
+  isPremium() {
+    try {
+      return this.#storage?.getItem(PREMIUM_KEY) === 'true';
+    } catch {
+      return false;
+    }
+  }
+
+  setPremium(enabled) {
+    try {
+      if (enabled) {
+        this.#storage?.setItem(PREMIUM_KEY, 'true');
+      } else {
+        this.#storage?.removeItem(PREMIUM_KEY);
+      }
+      return true;
+    } catch (e) {
+      console.error('[save] failed to toggle premium', e);
+      return false;
+    }
+  }
+
+  #getSlotKey(slot) {
+    return `lastbreath.save.slot.${slot}`;
+  }
+
+  #migrateLegacySave() {
+    try {
+      const slot1Key = this.#getSlotKey(1);
+      const slot1Data = this.#storage?.getItem(slot1Key);
+      const legacyData = this.#storage?.getItem(LEGACY_SAVE_KEY);
+      if (!slot1Data && legacyData) {
+        this.#storage?.setItem(slot1Key, legacyData);
+      }
+    } catch {
+      // Ignored in non-browser contexts
+    }
+  }
+
+  listSlots() {
+    const premiumUnlocked = this.isPremium();
+    const slots = [];
+
+    for (let slot = 1; slot <= TOTAL_SLOTS; slot++) {
+      const isPremiumSlot = slot > FREE_SLOTS;
+      const isLocked = isPremiumSlot && !premiumUnlocked;
+      let hasSave = false;
+      let meta = null;
+
+      try {
+        const raw = this.#storage?.getItem(this.#getSlotKey(slot));
+        if (raw) {
+          const payload = JSON.parse(raw);
+          if (payload && payload.state) {
+            hasSave = true;
+            meta = {
+              name: payload.state.player?.name || null,
+              archetype: payload.state.player?.archetype || 'scavenger',
+              locationId: payload.state.world?.currentNodeId || 'istanbul',
+              minutes: payload.state.time?.minutes || 0,
+              health: Math.round(payload.state.player?.health ?? 100),
+              alive: Boolean(payload.state.player?.alive),
+              savedAt: payload.savedAt || Date.now(),
+              active: slot === this.#activeSlot,
+            };
+          }
+        }
+      } catch (err) {
+        console.warn(`[save] Failed to parse slot ${slot}`, err);
+      }
+
+      slots.push({
+        slot,
+        isPremiumSlot,
+        isLocked,
+        hasSave,
+        meta,
+        isActive: slot === this.#activeSlot,
+      });
+    }
+
+    return slots;
+  }
+
+  saveSlot(slotNumber) {
+    const slot = Number(slotNumber);
+    if (slot < 1 || slot > TOTAL_SLOTS) return false;
+    if (slot > FREE_SLOTS && !this.isPremium()) {
+      console.warn(`[save] Slot ${slot} requires premium`);
+      return false;
+    }
+
     const payload = {
       version: SAVE_VERSION,
       savedAt: Date.now(),
       rng: this.#rng.state,
       state: this.#store.state,
     };
+
     try {
-      this.#storage.setItem(SAVE_KEY, JSON.stringify(payload));
+      const str = JSON.stringify(payload);
+      this.#storage?.setItem(this.#getSlotKey(slot), str);
+      if (slot === 1) {
+        this.#storage?.setItem(LEGACY_SAVE_KEY, str);
+      }
+      this.setActiveSlot(slot);
       return true;
     } catch (error) {
-      console.error('[save] write failed', error);
+      console.error(`[save] write failed for slot ${slot}`, error);
       return false;
     }
   }
 
-  load() {
-    const raw = this.#storage.getItem(SAVE_KEY);
-    if (!raw) return null;
+  loadSlot(slotNumber) {
+    const slot = Number(slotNumber);
+    if (slot < 1 || slot > TOTAL_SLOTS) return null;
+    if (slot > FREE_SLOTS && !this.isPremium()) {
+      console.warn(`[save] Slot ${slot} requires premium`);
+      return null;
+    }
+
     try {
+      const raw = this.#storage?.getItem(this.#getSlotKey(slot));
+      if (!raw) return null;
       const payload = migrate(JSON.parse(raw));
-      return { state: payload.state, rng: payload.rng, savedAt: payload.savedAt };
+      this.setActiveSlot(slot);
+      return { state: payload.state, rng: payload.rng, savedAt: payload.savedAt, slot };
     } catch (error) {
-      console.error('[save] unreadable save discarded', error);
+      console.error(`[save] unreadable save in slot ${slot}`, error);
+      return null;
+    }
+  }
+
+  deleteSlot(slotNumber) {
+    const slot = Number(slotNumber);
+    if (slot < 1 || slot > TOTAL_SLOTS) return false;
+    try {
+      this.#storage?.removeItem(this.#getSlotKey(slot));
+      if (slot === 1) {
+        this.#storage?.removeItem(LEGACY_SAVE_KEY);
+      }
+      return true;
+    } catch (err) {
+      console.error(`[save] failed to delete slot ${slot}`, err);
+      return false;
+    }
+  }
+
+  save() {
+    return this.saveSlot(this.#activeSlot);
+  }
+
+  load() {
+    // Try active slot first
+    const fromActive = this.loadSlot(this.#activeSlot);
+    if (fromActive) return fromActive;
+
+    // Fall back to slot 1
+    const fromSlot1 = this.loadSlot(1);
+    if (fromSlot1) return fromSlot1;
+
+    // Fall back to legacy key
+    try {
+      const raw = this.#storage?.getItem(LEGACY_SAVE_KEY);
+      if (!raw) return null;
+      const payload = migrate(JSON.parse(raw));
+      return { state: payload.state, rng: payload.rng, savedAt: payload.savedAt, slot: 1 };
+    } catch {
       return null;
     }
   }
 
   clear() {
     clearTimeout(this.#timer);
-    this.#storage.removeItem(SAVE_KEY);
+    this.deleteSlot(this.#activeSlot);
+  }
+
+  clearAllData() {
+    clearTimeout(this.#timer);
+    try {
+      for (let s = 1; s <= TOTAL_SLOTS; s++) {
+        this.#storage?.removeItem(this.#getSlotKey(s));
+      }
+      this.#storage?.removeItem(LEGACY_SAVE_KEY);
+      this.#storage?.removeItem(ACTIVE_SLOT_KEY);
+      this.#storage?.removeItem(PREMIUM_KEY);
+      this.#activeSlot = 1;
+      return true;
+    } catch (err) {
+      console.error('[save] clear all data failed', err);
+      return false;
+    }
   }
 
   watch(bus) {
@@ -1845,7 +6555,6 @@ class SaveManager {
     });
   }
 }
-
 
 
   // --- src/i18n/i18n.js ---
@@ -2158,140 +6867,8290 @@ const BALANCE = Object.freeze({
 
 
   // --- src/data/items.js ---
-/**
- * Item registry. Display text lives in the locale under `item.<id>.name` and
- * `item.<id>.desc`.
- *
- *   category  supplies | medical | weapons | scrap | gear
- *   stack     max quantity per inventory slot
- *   use       { minutes, effects[] } — consumed on use
- *   equip     { slot, power?, armor?, capacityKg?, slots?, flags?, ammo? }
- *   passive   bonuses granted while carried (not stacked per unit)
- */
+// Post-apocalyptic survival item database
+// Autogenerated comprehensive item catalog
+
 const CATEGORIES = ['supplies', 'medical', 'weapons', 'scrap', 'gear'];
 const EQUIPMENT_SLOTS = ['weapon', 'body', 'pack'];
 
 const ITEMS = {
-  canned_beans: {
-    category: 'supplies', weight: 0.45, stack: 6, tags: ['food'], glyph: '▤',
-    use: { minutes: 10, effects: [{ type: 'vital', vital: 'satiety', amount: 28 }] },
+  "canned_beans": {
+    "category": "supplies",
+    "weight": 0.45,
+    "stack": 6,
+    "tags": [
+      "food"
+    ],
+    "glyph": "▤",
+    "use": {
+      "minutes": 10,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 28
+        }
+      ]
+    }
   },
-  jerky: {
-    category: 'supplies', weight: 0.15, stack: 10, tags: ['food'], glyph: '≋',
-    use: { minutes: 5, effects: [
-      { type: 'vital', vital: 'satiety', amount: 16 },
-      { type: 'vital', vital: 'hydration', amount: -4 },
-    ] },
+  "jerky": {
+    "category": "supplies",
+    "weight": 0.15,
+    "stack": 10,
+    "tags": [
+      "food"
+    ],
+    "glyph": "≋",
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 16
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": -4
+        }
+      ]
+    }
   },
-  mre: {
-    category: 'supplies', weight: 0.7, stack: 3, tags: ['food'], glyph: '▣',
-    use: { minutes: 15, effects: [
-      { type: 'vital', vital: 'satiety', amount: 45 },
-      { type: 'vital', vital: 'hydration', amount: 6 },
-    ] },
+  "mre": {
+    "category": "supplies",
+    "weight": 0.7,
+    "stack": 3,
+    "tags": [
+      "food"
+    ],
+    "glyph": "▣",
+    "use": {
+      "minutes": 15,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 45
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 6
+        }
+      ]
+    }
   },
-  energy_bar: {
-    category: 'supplies', weight: 0.08, stack: 10, tags: ['food'], glyph: '▬',
-    use: { minutes: 2, effects: [
-      { type: 'vital', vital: 'satiety', amount: 10 },
-      { type: 'vital', vital: 'energy', amount: 6 },
-    ] },
+  "energy_bar": {
+    "category": "supplies",
+    "weight": 0.08,
+    "stack": 10,
+    "tags": [
+      "food"
+    ],
+    "glyph": "▬",
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 10
+        },
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 6
+        }
+      ]
+    }
   },
-  bottled_water: {
-    category: 'supplies', weight: 0.55, stack: 6, tags: ['drink'], glyph: '◊',
-    use: { minutes: 2, effects: [{ type: 'vital', vital: 'hydration', amount: 32 }] },
+  "bottled_water": {
+    "category": "supplies",
+    "weight": 0.55,
+    "stack": 6,
+    "tags": [
+      "drink"
+    ],
+    "glyph": "◊",
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 32
+        }
+      ]
+    }
   },
-  dirty_water: {
-    category: 'supplies', weight: 0.55, stack: 6, tags: ['drink'], glyph: '◇',
-    use: { minutes: 2, effects: [
-      { type: 'vital', vital: 'hydration', amount: 24 },
-      { type: 'ailment', id: 'infection', chance: 0.25 },
-    ] },
+  "dirty_water": {
+    "category": "supplies",
+    "weight": 0.55,
+    "stack": 6,
+    "tags": [
+      "drink"
+    ],
+    "glyph": "◇",
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 24
+        },
+        {
+          "type": "ailment",
+          "id": "infection",
+          "chance": 0.25
+        }
+      ]
+    }
   },
-  instant_coffee: {
-    category: 'supplies', weight: 0.05, stack: 10, tags: ['drink'], glyph: '◘',
-    use: { minutes: 5, effects: [
-      { type: 'vital', vital: 'energy', amount: 14 },
-      { type: 'vital', vital: 'hydration', amount: -3 },
-    ] },
+  "instant_coffee": {
+    "category": "supplies",
+    "weight": 0.05,
+    "stack": 10,
+    "tags": [
+      "drink"
+    ],
+    "glyph": "◘",
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 14
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": -3
+        }
+      ]
+    }
   },
-
-  bandage: {
-    category: 'medical', weight: 0.04, stack: 10, glyph: '+',
-    use: { minutes: 5, effects: [
-      { type: 'cure', id: 'bleeding' },
-      { type: 'xp', skill: 'medical', amount: 4 },
-    ] },
+  "bandage": {
+    "category": "medical",
+    "weight": 0.04,
+    "stack": 10,
+    "glyph": "+",
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "bleeding"
+        },
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 4
+        }
+      ]
+    }
   },
-  antiseptic: {
-    category: 'medical', weight: 0.25, stack: 4, glyph: '¤',
-    use: { minutes: 5, effects: [
-      { type: 'cure', id: 'infection', amount: 35 },
-      { type: 'xp', skill: 'medical', amount: 6 },
-    ] },
+  "antiseptic": {
+    "category": "medical",
+    "weight": 0.25,
+    "stack": 4,
+    "glyph": "¤",
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "infection",
+          "amount": 35
+        },
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 6
+        }
+      ]
+    }
   },
-  antibiotics: {
-    category: 'medical', weight: 0.03, stack: 10, glyph: '∘',
-    use: { minutes: 2, effects: [
-      { type: 'cure', id: 'infection' },
-      { type: 'xp', skill: 'medical', amount: 8 },
-    ] },
+  "antibiotics": {
+    "category": "medical",
+    "weight": 0.03,
+    "stack": 10,
+    "glyph": "∘",
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "infection"
+        },
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 8
+        }
+      ]
+    }
   },
-  painkillers: {
-    category: 'medical', weight: 0.03, stack: 12, glyph: '·',
-    use: { minutes: 2, effects: [
-      { type: 'vital', vital: 'energy', amount: 8 },
-      { type: 'cure', id: 'sprain', amount: 12 },
-      { type: 'xp', skill: 'medical', amount: 3 },
-    ] },
+  "painkillers": {
+    "category": "medical",
+    "weight": 0.03,
+    "stack": 12,
+    "glyph": "·",
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 8
+        },
+        {
+          "type": "cure",
+          "id": "sprain",
+          "amount": 12
+        },
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 3
+        }
+      ]
+    }
   },
-  first_aid_kit: {
-    category: 'medical', weight: 0.9, stack: 2, glyph: '⊞',
-    use: { minutes: 20, effects: [
-      { type: 'heal', amount: 30 },
-      { type: 'cure', id: 'bleeding' },
-      { type: 'xp', skill: 'medical', amount: 10 },
-    ] },
+  "first_aid_kit": {
+    "category": "medical",
+    "weight": 0.9,
+    "stack": 2,
+    "glyph": "⊞",
+    "use": {
+      "minutes": 20,
+      "effects": [
+        {
+          "type": "heal",
+          "amount": 30
+        },
+        {
+          "type": "cure",
+          "id": "bleeding"
+        },
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 10
+        }
+      ]
+    }
   },
-
-  kitchen_knife: { category: 'weapons', weight: 0.3, stack: 1, glyph: '/', equip: { slot: 'weapon', power: 2 } },
-  crowbar: {
-    category: 'weapons', weight: 1.9, stack: 1, glyph: '⌐',
-    equip: { slot: 'weapon', power: 3 }, passive: { scavengeBonus: 0.12 },
+  "kitchen_knife": {
+    "category": "weapons",
+    "weight": 0.3,
+    "stack": 1,
+    "glyph": "/",
+    "equip": {
+      "slot": "weapon",
+      "power": 2
+    }
   },
-  machete: { category: 'weapons', weight: 0.9, stack: 1, glyph: '⟋', equip: { slot: 'weapon', power: 4 } },
-  fire_axe: {
-    category: 'weapons', weight: 2.6, stack: 1, glyph: '¶',
-    equip: { slot: 'weapon', power: 5 }, passive: { scavengeBonus: 0.08 },
+  "crowbar": {
+    "category": "weapons",
+    "weight": 1.9,
+    "stack": 1,
+    "glyph": "⌐",
+    "equip": {
+      "slot": "weapon",
+      "power": 3
+    },
+    "passive": {
+      "scavengeBonus": 0.12
+    }
   },
-  hunting_rifle: {
-    category: 'weapons', weight: 4.1, stack: 1, glyph: '╾',
-    equip: { slot: 'weapon', power: 7, ammo: 'rifle_rounds', unloadedPower: 1 },
+  "machete": {
+    "category": "weapons",
+    "weight": 0.9,
+    "stack": 1,
+    "glyph": "⟋",
+    "equip": {
+      "slot": "weapon",
+      "power": 4
+    }
   },
-  rifle_rounds: { category: 'weapons', weight: 0.02, stack: 30, glyph: '⁝' },
-
-  scrap_metal: { category: 'scrap', weight: 1.0, stack: 10, glyph: '#' },
-  copper_wire: { category: 'scrap', weight: 0.2, stack: 15, glyph: '~' },
-  electronics: { category: 'scrap', weight: 0.3, stack: 10, glyph: '≡' },
-  cloth_rags: { category: 'scrap', weight: 0.1, stack: 20, glyph: '%' },
-  duct_tape: { category: 'scrap', weight: 0.15, stack: 5, glyph: 'o' },
-
-  duffel_bag: { category: 'gear', weight: 1.0, stack: 1, glyph: 'U', equip: { slot: 'pack', capacityKg: 6, slots: 3 } },
-  hiking_pack: { category: 'gear', weight: 1.4, stack: 1, glyph: 'Ů', equip: { slot: 'pack', capacityKg: 12, slots: 5 } },
-  military_rucksack: { category: 'gear', weight: 2.2, stack: 1, glyph: 'Ŵ', equip: { slot: 'pack', capacityKg: 18, slots: 8 } },
-  leather_jacket: { category: 'gear', weight: 1.6, stack: 1, glyph: 'Ʌ', equip: { slot: 'body', armor: 1 } },
-  hazmat_poncho: { category: 'gear', weight: 0.8, stack: 1, glyph: 'Δ', equip: { slot: 'body', armor: 0, flags: ['acidProof'] } },
-  riot_vest: { category: 'gear', weight: 3.4, stack: 1, glyph: 'Ш', equip: { slot: 'body', armor: 3 } },
-  flashlight: { category: 'gear', weight: 0.3, stack: 1, glyph: '¡', passive: { scavengeBonus: 0.04, nightVision: 1 } },
-  compass: { category: 'gear', weight: 0.1, stack: 1, glyph: '⊕', passive: { travelSpeed: 0.08 } },
+  "fire_axe": {
+    "category": "weapons",
+    "weight": 2.6,
+    "stack": 1,
+    "glyph": "¶",
+    "equip": {
+      "slot": "weapon",
+      "power": 5
+    },
+    "passive": {
+      "scavengeBonus": 0.08
+    }
+  },
+  "hunting_rifle": {
+    "category": "weapons",
+    "weight": 4.1,
+    "stack": 1,
+    "glyph": "╾",
+    "equip": {
+      "slot": "weapon",
+      "power": 7,
+      "ammo": "rifle_rounds",
+      "unloadedPower": 1
+    }
+  },
+  "rifle_rounds": {
+    "category": "weapons",
+    "weight": 0.02,
+    "stack": 30,
+    "glyph": "⁝"
+  },
+  "scrap_metal": {
+    "category": "scrap",
+    "weight": 1,
+    "stack": 10,
+    "glyph": "#"
+  },
+  "copper_wire": {
+    "category": "scrap",
+    "weight": 0.2,
+    "stack": 15,
+    "glyph": "~"
+  },
+  "electronics": {
+    "category": "scrap",
+    "weight": 0.3,
+    "stack": 10,
+    "glyph": "≡"
+  },
+  "cloth_rags": {
+    "category": "scrap",
+    "weight": 0.1,
+    "stack": 20,
+    "glyph": "%"
+  },
+  "duct_tape": {
+    "category": "scrap",
+    "weight": 0.15,
+    "stack": 5,
+    "glyph": "o"
+  },
+  "duffel_bag": {
+    "category": "gear",
+    "weight": 1,
+    "stack": 1,
+    "glyph": "U",
+    "equip": {
+      "slot": "pack",
+      "capacityKg": 6,
+      "slots": 3
+    }
+  },
+  "hiking_pack": {
+    "category": "gear",
+    "weight": 1.4,
+    "stack": 1,
+    "glyph": "Ů",
+    "equip": {
+      "slot": "pack",
+      "capacityKg": 12,
+      "slots": 5
+    }
+  },
+  "military_rucksack": {
+    "category": "gear",
+    "weight": 2.2,
+    "stack": 1,
+    "glyph": "Ŵ",
+    "equip": {
+      "slot": "pack",
+      "capacityKg": 18,
+      "slots": 8
+    }
+  },
+  "leather_jacket": {
+    "category": "gear",
+    "weight": 1.6,
+    "stack": 1,
+    "glyph": "Ʌ",
+    "equip": {
+      "slot": "body",
+      "armor": 1
+    }
+  },
+  "hazmat_poncho": {
+    "category": "gear",
+    "weight": 0.8,
+    "stack": 1,
+    "glyph": "Δ",
+    "equip": {
+      "slot": "body",
+      "armor": 0,
+      "flags": [
+        "acidProof"
+      ]
+    }
+  },
+  "riot_vest": {
+    "category": "gear",
+    "weight": 3.4,
+    "stack": 1,
+    "glyph": "Ш",
+    "equip": {
+      "slot": "body",
+      "armor": 3
+    }
+  },
+  "flashlight": {
+    "category": "gear",
+    "weight": 0.3,
+    "stack": 1,
+    "glyph": "¡",
+    "passive": {
+      "scavengeBonus": 0.04,
+      "nightVision": 1
+    }
+  },
+  "compass": {
+    "category": "gear",
+    "weight": 0.1,
+    "stack": 1,
+    "glyph": "⊕",
+    "passive": {
+      "travelSpeed": 0.08
+    }
+  },
+  "canned_sardines": {
+    "category": "supplies",
+    "weight": 0.25,
+    "stack": 8,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 22
+        }
+      ]
+    }
+  },
+  "canned_tuna": {
+    "category": "supplies",
+    "weight": 0.3,
+    "stack": 8,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 24
+        }
+      ]
+    }
+  },
+  "canned_mackerel": {
+    "category": "supplies",
+    "weight": 0.35,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 26
+        }
+      ]
+    }
+  },
+  "canned_salmon": {
+    "category": "supplies",
+    "weight": 0.4,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 8,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 28
+        }
+      ]
+    }
+  },
+  "canned_corned_beef": {
+    "category": "supplies",
+    "weight": 0.45,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 8,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 32
+        }
+      ]
+    }
+  },
+  "canned_spam": {
+    "category": "supplies",
+    "weight": 0.4,
+    "stack": 8,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 30
+        }
+      ]
+    }
+  },
+  "canned_vienna_sausages": {
+    "category": "supplies",
+    "weight": 0.25,
+    "stack": 10,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 20
+        }
+      ]
+    }
+  },
+  "canned_meatballs": {
+    "category": "supplies",
+    "weight": 0.5,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 10,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 34
+        }
+      ]
+    }
+  },
+  "canned_beef_stew": {
+    "category": "supplies",
+    "weight": 0.6,
+    "stack": 4,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 12,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 40
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 4
+        }
+      ]
+    }
+  },
+  "canned_chicken_noodle": {
+    "category": "supplies",
+    "weight": 0.5,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 8,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 24
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 8
+        }
+      ]
+    }
+  },
+  "canned_tomato_soup": {
+    "category": "supplies",
+    "weight": 0.45,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 6,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 20
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 10
+        }
+      ]
+    }
+  },
+  "canned_chili_con_carne": {
+    "category": "supplies",
+    "weight": 0.55,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 10,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 38
+        }
+      ]
+    }
+  },
+  "canned_ravioli": {
+    "category": "supplies",
+    "weight": 0.55,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 8,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 32
+        }
+      ]
+    }
+  },
+  "canned_pork_beans": {
+    "category": "supplies",
+    "weight": 0.5,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 8,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 30
+        }
+      ]
+    }
+  },
+  "canned_black_beans": {
+    "category": "supplies",
+    "weight": 0.45,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 6,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 26
+        }
+      ]
+    }
+  },
+  "canned_chickpeas": {
+    "category": "supplies",
+    "weight": 0.45,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 6,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 25
+        }
+      ]
+    }
+  },
+  "canned_sweet_corn": {
+    "category": "supplies",
+    "weight": 0.4,
+    "stack": 8,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 18
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 5
+        }
+      ]
+    }
+  },
+  "canned_green_peas": {
+    "category": "supplies",
+    "weight": 0.4,
+    "stack": 8,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 16
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 6
+        }
+      ]
+    }
+  },
+  "canned_mushrooms": {
+    "category": "supplies",
+    "weight": 0.35,
+    "stack": 8,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 14
+        }
+      ]
+    }
+  },
+  "canned_peaches": {
+    "category": "supplies",
+    "weight": 0.5,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 6,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 22
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 12
+        }
+      ]
+    }
+  },
+  "canned_pineapple_chunks": {
+    "category": "supplies",
+    "weight": 0.5,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 6,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 20
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 14
+        }
+      ]
+    }
+  },
+  "canned_pears": {
+    "category": "supplies",
+    "weight": 0.5,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 6,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 20
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 12
+        }
+      ]
+    }
+  },
+  "canned_mandarins": {
+    "category": "supplies",
+    "weight": 0.35,
+    "stack": 8,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 16
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 10
+        }
+      ]
+    }
+  },
+  "canned_condensed_milk": {
+    "category": "supplies",
+    "weight": 0.4,
+    "stack": 8,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 35
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": -4
+        }
+      ]
+    }
+  },
+  "canned_evaporated_milk": {
+    "category": "supplies",
+    "weight": 0.4,
+    "stack": 8,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 25
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 6
+        }
+      ]
+    }
+  },
+  "canned_olives_black": {
+    "category": "supplies",
+    "weight": 0.35,
+    "stack": 8,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 15
+        }
+      ]
+    }
+  },
+  "canned_olives_green": {
+    "category": "supplies",
+    "weight": 0.35,
+    "stack": 8,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 14
+        }
+      ]
+    }
+  },
+  "canned_pickled_cucumbers": {
+    "category": "supplies",
+    "weight": 0.6,
+    "stack": 4,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 8
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 12
+        }
+      ]
+    }
+  },
+  "canned_sauerkraut": {
+    "category": "supplies",
+    "weight": 0.5,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 12
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 8
+        }
+      ]
+    }
+  },
+  "canned_anchovies": {
+    "category": "supplies",
+    "weight": 0.15,
+    "stack": 12,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 14
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": -4
+        }
+      ]
+    }
+  },
+  "canned_liver_pate": {
+    "category": "supplies",
+    "weight": 0.25,
+    "stack": 10,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 26
+        }
+      ]
+    }
+  },
+  "canned_artichoke_hearts": {
+    "category": "supplies",
+    "weight": 0.4,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 14
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 6
+        }
+      ]
+    }
+  },
+  "canned_baked_beans": {
+    "category": "supplies",
+    "weight": 0.45,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 8,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 28
+        }
+      ]
+    }
+  },
+  "canned_tomato_paste": {
+    "category": "supplies",
+    "weight": 0.35,
+    "stack": 8,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 10
+        }
+      ]
+    }
+  },
+  "canned_grape_leaves": {
+    "category": "supplies",
+    "weight": 0.4,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 6,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 22
+        }
+      ]
+    }
+  },
+  "hardtack_biscuit": {
+    "category": "supplies",
+    "weight": 0.12,
+    "stack": 16,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 6,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 18
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": -3
+        }
+      ]
+    }
+  },
+  "pilot_bread": {
+    "category": "supplies",
+    "weight": 0.15,
+    "stack": 12,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 20
+        }
+      ]
+    }
+  },
+  "rusk_toast": {
+    "category": "supplies",
+    "weight": 0.1,
+    "stack": 15,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 12
+        }
+      ]
+    }
+  },
+  "pemmican_bar": {
+    "category": "supplies",
+    "weight": 0.2,
+    "stack": 8,
+    "glyph": "≋",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 6,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 35
+        }
+      ]
+    }
+  },
+  "beef_jerky_peppered": {
+    "category": "supplies",
+    "weight": 0.15,
+    "stack": 10,
+    "glyph": "≋",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 18
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": -4
+        }
+      ]
+    }
+  },
+  "turkey_jerky_smoke": {
+    "category": "supplies",
+    "weight": 0.12,
+    "stack": 10,
+    "glyph": "≋",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 16
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": -3
+        }
+      ]
+    }
+  },
+  "dried_sausage_link": {
+    "category": "supplies",
+    "weight": 0.25,
+    "stack": 8,
+    "glyph": "≋",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 6,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 26
+        }
+      ]
+    }
+  },
+  "dried_salt_cod": {
+    "category": "supplies",
+    "weight": 0.35,
+    "stack": 6,
+    "glyph": "≋",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 10,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 28
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": -8
+        }
+      ]
+    }
+  },
+  "dried_figs_string": {
+    "category": "supplies",
+    "weight": 0.25,
+    "stack": 8,
+    "glyph": "·",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 18
+        },
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 8
+        }
+      ]
+    }
+  },
+  "dried_apricots_pack": {
+    "category": "supplies",
+    "weight": 0.2,
+    "stack": 10,
+    "glyph": "·",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 16
+        },
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 6
+        }
+      ]
+    }
+  },
+  "raisins_box": {
+    "category": "supplies",
+    "weight": 0.15,
+    "stack": 12,
+    "glyph": "·",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 14
+        },
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 6
+        }
+      ]
+    }
+  },
+  "dried_dates_packet": {
+    "category": "supplies",
+    "weight": 0.25,
+    "stack": 8,
+    "glyph": "·",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 22
+        },
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 10
+        }
+      ]
+    }
+  },
+  "dried_cranberries": {
+    "category": "supplies",
+    "weight": 0.15,
+    "stack": 12,
+    "glyph": "·",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 12
+        },
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 4
+        }
+      ]
+    }
+  },
+  "trail_mix_pouch": {
+    "category": "supplies",
+    "weight": 0.25,
+    "stack": 8,
+    "glyph": "·",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 25
+        },
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 8
+        }
+      ]
+    }
+  },
+  "salted_peanuts": {
+    "category": "supplies",
+    "weight": 0.15,
+    "stack": 10,
+    "glyph": "·",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 18
+        }
+      ]
+    }
+  },
+  "roasted_almonds": {
+    "category": "supplies",
+    "weight": 0.15,
+    "stack": 10,
+    "glyph": "·",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 20
+        }
+      ]
+    }
+  },
+  "walnut_halves": {
+    "category": "supplies",
+    "weight": 0.18,
+    "stack": 8,
+    "glyph": "·",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 22
+        }
+      ]
+    }
+  },
+  "sunflower_seeds_pack": {
+    "category": "supplies",
+    "weight": 0.12,
+    "stack": 12,
+    "glyph": "·",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 12
+        }
+      ]
+    }
+  },
+  "pumpkin_seeds": {
+    "category": "supplies",
+    "weight": 0.15,
+    "stack": 10,
+    "glyph": "·",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 15
+        }
+      ]
+    }
+  },
+  "instant_ramen_beef": {
+    "category": "supplies",
+    "weight": 0.1,
+    "stack": 15,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 22
+        }
+      ]
+    }
+  },
+  "instant_ramen_chicken": {
+    "category": "supplies",
+    "weight": 0.1,
+    "stack": 15,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 20
+        }
+      ]
+    }
+  },
+  "instant_ramen_spicy": {
+    "category": "supplies",
+    "weight": 0.1,
+    "stack": 15,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 22
+        },
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 4
+        }
+      ]
+    }
+  },
+  "instant_oatmeal_apple": {
+    "category": "supplies",
+    "weight": 0.08,
+    "stack": 15,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 16
+        }
+      ]
+    }
+  },
+  "instant_mashed_potatoes": {
+    "category": "supplies",
+    "weight": 0.15,
+    "stack": 10,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 24
+        }
+      ]
+    }
+  },
+  "dry_white_rice_bag": {
+    "category": "supplies",
+    "weight": 1.0,
+    "stack": 4,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 15,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 45
+        }
+      ]
+    }
+  },
+  "dry_brown_rice_bag": {
+    "category": "supplies",
+    "weight": 1.0,
+    "stack": 4,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 20,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 48
+        }
+      ]
+    }
+  },
+  "red_lentils_sack": {
+    "category": "supplies",
+    "weight": 1.0,
+    "stack": 4,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 15,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 42
+        }
+      ]
+    }
+  },
+  "green_lentils_sack": {
+    "category": "supplies",
+    "weight": 1.0,
+    "stack": 4,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 20,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 44
+        }
+      ]
+    }
+  },
+  "rolled_oats_tin": {
+    "category": "supplies",
+    "weight": 0.8,
+    "stack": 5,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 8,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 38
+        }
+      ]
+    }
+  },
+  "cornmeal_flour_bag": {
+    "category": "supplies",
+    "weight": 0.9,
+    "stack": 4,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 10,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 36
+        }
+      ]
+    }
+  },
+  "wheat_flour_sack": {
+    "category": "supplies",
+    "weight": 1.2,
+    "stack": 4,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 10,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 40
+        }
+      ]
+    }
+  },
+  "dry_pasta_spaghetti": {
+    "category": "supplies",
+    "weight": 0.5,
+    "stack": 8,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 12,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 32
+        }
+      ]
+    }
+  },
+  "dry_pasta_macaroni": {
+    "category": "supplies",
+    "weight": 0.5,
+    "stack": 8,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 10,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 30
+        }
+      ]
+    }
+  },
+  "sugar_cubes_box": {
+    "category": "supplies",
+    "weight": 0.5,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 16
+        }
+      ]
+    }
+  },
+  "brown_sugar_pouch": {
+    "category": "supplies",
+    "weight": 0.4,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 15
+        }
+      ]
+    }
+  },
+  "raw_honey_jar": {
+    "category": "supplies",
+    "weight": 0.6,
+    "stack": 4,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 25
+        },
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 12
+        }
+      ]
+    }
+  },
+  "strawberry_jam_jar": {
+    "category": "supplies",
+    "weight": 0.45,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 20
+        },
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 8
+        }
+      ]
+    }
+  },
+  "creamy_peanut_butter": {
+    "category": "supplies",
+    "weight": 0.5,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 38
+        }
+      ]
+    }
+  },
+  "hazelnut_cocoa_spread": {
+    "category": "supplies",
+    "weight": 0.4,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 30
+        },
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 12
+        }
+      ]
+    }
+  },
+  "powdered_whole_milk": {
+    "category": "supplies",
+    "weight": 0.5,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 28
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 5
+        }
+      ]
+    }
+  },
+  "powdered_eggs_can": {
+    "category": "supplies",
+    "weight": 0.45,
+    "stack": 6,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 6,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 32
+        }
+      ]
+    }
+  },
+  "table_salt_shaker": {
+    "category": "supplies",
+    "weight": 0.3,
+    "stack": 10,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ]
+  },
+  "black_peppercorns_tin": {
+    "category": "supplies",
+    "weight": 0.15,
+    "stack": 12,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ]
+  },
+  "bouillon_cubes_beef": {
+    "category": "supplies",
+    "weight": 0.08,
+    "stack": 20,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 6
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 4
+        }
+      ]
+    }
+  },
+  "baking_yeast_packet": {
+    "category": "supplies",
+    "weight": 0.05,
+    "stack": 20,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ]
+  },
+  "hot_chili_sauce": {
+    "category": "supplies",
+    "weight": 0.25,
+    "stack": 8,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 1,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 4
+        }
+      ]
+    }
+  },
+  "olive_oil_canister": {
+    "category": "supplies",
+    "weight": 1.0,
+    "stack": 4,
+    "glyph": "▤",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 40
+        }
+      ]
+    }
+  },
+  "freeze_dried_beef_stroganoff": {
+    "category": "supplies",
+    "weight": 0.25,
+    "stack": 8,
+    "glyph": "▣",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 10,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 42
+        }
+      ]
+    }
+  },
+  "freeze_dried_chicken_rice": {
+    "category": "supplies",
+    "weight": 0.25,
+    "stack": 8,
+    "glyph": "▣",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 10,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 40
+        }
+      ]
+    }
+  },
+  "freeze_dried_scrambled_eggs": {
+    "category": "supplies",
+    "weight": 0.2,
+    "stack": 8,
+    "glyph": "▣",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 8,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 34
+        }
+      ]
+    }
+  },
+  "emergency_ration_bar_500": {
+    "category": "supplies",
+    "weight": 0.12,
+    "stack": 10,
+    "glyph": "▬",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 25
+        },
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 10
+        }
+      ]
+    }
+  },
+  "emergency_ration_bar_1000": {
+    "category": "supplies",
+    "weight": 0.25,
+    "stack": 6,
+    "glyph": "▬",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 50
+        },
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 15
+        }
+      ]
+    }
+  },
+  "energy_gel_caffeine": {
+    "category": "supplies",
+    "weight": 0.05,
+    "stack": 15,
+    "glyph": "▬",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 1,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 16
+        },
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 6
+        }
+      ]
+    }
+  },
+  "glucose_dextrose_tablets": {
+    "category": "supplies",
+    "weight": 0.06,
+    "stack": 12,
+    "glyph": "·",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 1,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 12
+        }
+      ]
+    }
+  },
+  "protein_cookie_double_choc": {
+    "category": "supplies",
+    "weight": 0.1,
+    "stack": 10,
+    "glyph": "▬",
+    "tags": [
+      "food"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 22
+        },
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 8
+        }
+      ]
+    }
+  },
+  "purified_water_canteen": {
+    "category": "supplies",
+    "weight": 1.1,
+    "stack": 2,
+    "glyph": "◊",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 65
+        }
+      ]
+    }
+  },
+  "spring_water_gallon": {
+    "category": "supplies",
+    "weight": 3.8,
+    "stack": 1,
+    "glyph": "◊",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 95
+        }
+      ]
+    }
+  },
+  "boiled_tap_water": {
+    "category": "supplies",
+    "weight": 0.6,
+    "stack": 4,
+    "glyph": "◊",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 35
+        }
+      ]
+    }
+  },
+  "filtered_rainwater": {
+    "category": "supplies",
+    "weight": 0.55,
+    "stack": 6,
+    "glyph": "◊",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 30
+        }
+      ]
+    }
+  },
+  "rainwater_jar": {
+    "category": "supplies",
+    "weight": 0.55,
+    "stack": 6,
+    "glyph": "◇",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 22
+        },
+        {
+          "type": "ailment",
+          "id": "infection",
+          "chance": 0.1
+        }
+      ]
+    }
+  },
+  "river_water_flask": {
+    "category": "supplies",
+    "weight": 0.6,
+    "stack": 4,
+    "glyph": "◇",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 24
+        },
+        {
+          "type": "ailment",
+          "id": "infection",
+          "chance": 0.2
+        }
+      ]
+    }
+  },
+  "stagnant_puddle_water": {
+    "category": "supplies",
+    "weight": 0.5,
+    "stack": 6,
+    "glyph": "◇",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 18
+        },
+        {
+          "type": "ailment",
+          "id": "infection",
+          "chance": 0.35
+        }
+      ]
+    }
+  },
+  "chemically_treated_water": {
+    "category": "supplies",
+    "weight": 0.55,
+    "stack": 6,
+    "glyph": "◊",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 32
+        }
+      ]
+    }
+  },
+  "electrolyte_rehydration_drink": {
+    "category": "supplies",
+    "weight": 0.5,
+    "stack": 6,
+    "glyph": "◊",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 45
+        },
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 8
+        }
+      ]
+    }
+  },
+  "energy_drink_can": {
+    "category": "supplies",
+    "weight": 0.35,
+    "stack": 8,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 22
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 5
+        }
+      ]
+    }
+  },
+  "citrus_soda_can": {
+    "category": "supplies",
+    "weight": 0.35,
+    "stack": 8,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 16
+        },
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 10
+        }
+      ]
+    }
+  },
+  "root_beer_can": {
+    "category": "supplies",
+    "weight": 0.35,
+    "stack": 8,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 16
+        },
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 10
+        }
+      ]
+    }
+  },
+  "tonic_water_bottle": {
+    "category": "supplies",
+    "weight": 0.5,
+    "stack": 6,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 20
+        }
+      ]
+    }
+  },
+  "black_tea_loose_tin": {
+    "category": "supplies",
+    "weight": 0.2,
+    "stack": 10,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ]
+  },
+  "black_tea_bags_box": {
+    "category": "supplies",
+    "weight": 0.15,
+    "stack": 12,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 8
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 10
+        }
+      ]
+    }
+  },
+  "green_tea_tin": {
+    "category": "supplies",
+    "weight": 0.2,
+    "stack": 10,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 10
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 12
+        }
+      ]
+    }
+  },
+  "chamomile_herbal_tea": {
+    "category": "supplies",
+    "weight": 0.1,
+    "stack": 15,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": -4
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 12
+        }
+      ]
+    }
+  },
+  "rosehip_wild_tea": {
+    "category": "supplies",
+    "weight": 0.15,
+    "stack": 12,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 14
+        },
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 6
+        }
+      ]
+    }
+  },
+  "linden_flower_tea": {
+    "category": "supplies",
+    "weight": 0.1,
+    "stack": 15,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 12
+        }
+      ]
+    }
+  },
+  "roasted_chicory_coffee": {
+    "category": "supplies",
+    "weight": 0.25,
+    "stack": 8,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 10
+        }
+      ]
+    }
+  },
+  "ground_espresso_tin": {
+    "category": "supplies",
+    "weight": 0.25,
+    "stack": 8,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 18
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": -4
+        }
+      ]
+    }
+  },
+  "coffee_beans_roasted": {
+    "category": "supplies",
+    "weight": 0.3,
+    "stack": 6,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ]
+  },
+  "hot_cocoa_mix_pouch": {
+    "category": "supplies",
+    "weight": 0.2,
+    "stack": 10,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 12
+        },
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 10
+        }
+      ]
+    }
+  },
+  "malt_beer_can": {
+    "category": "supplies",
+    "weight": 0.5,
+    "stack": 6,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 18
+        },
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 8
+        }
+      ]
+    }
+  },
+  "craft_ipa_bottle": {
+    "category": "supplies",
+    "weight": 0.6,
+    "stack": 4,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 16
+        },
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 10
+        }
+      ]
+    }
+  },
+  "cheap_lager_can": {
+    "category": "supplies",
+    "weight": 0.35,
+    "stack": 8,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 14
+        }
+      ]
+    }
+  },
+  "red_table_wine_bottle": {
+    "category": "supplies",
+    "weight": 1.2,
+    "stack": 2,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 12
+        },
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 4
+        }
+      ]
+    }
+  },
+  "moonshine_mason_jar": {
+    "category": "supplies",
+    "weight": 0.8,
+    "stack": 3,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 15
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": -10
+        }
+      ]
+    }
+  },
+  "corn_whiskey_flask": {
+    "category": "supplies",
+    "weight": 0.4,
+    "stack": 6,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 12
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": -6
+        }
+      ]
+    }
+  },
+  "clear_vodka_bottle": {
+    "category": "supplies",
+    "weight": 0.9,
+    "stack": 3,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 14
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": -8
+        }
+      ]
+    }
+  },
+  "apple_cider_jug": {
+    "category": "supplies",
+    "weight": 1.5,
+    "stack": 2,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 35
+        },
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 15
+        }
+      ]
+    }
+  },
+  "canned_tomato_juice": {
+    "category": "supplies",
+    "weight": 0.35,
+    "stack": 8,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 25
+        },
+        {
+          "type": "vital",
+          "vital": "satiety",
+          "amount": 8
+        }
+      ]
+    }
+  },
+  "grapefruit_juice_carton": {
+    "category": "supplies",
+    "weight": 0.4,
+    "stack": 6,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 24
+        }
+      ]
+    }
+  },
+  "powdered_orange_drink_tang": {
+    "category": "supplies",
+    "weight": 0.15,
+    "stack": 10,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 10
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 5
+        }
+      ]
+    }
+  },
+  "powdered_lemonade_mix": {
+    "category": "supplies",
+    "weight": 0.15,
+    "stack": 10,
+    "glyph": "◘",
+    "tags": [
+      "drink"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 10
+        },
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 5
+        }
+      ]
+    }
+  },
+  "gauze_roll_sterile": {
+    "category": "medical",
+    "weight": 0.05,
+    "stack": 10,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "bleeding"
+        },
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 3
+        }
+      ]
+    }
+  },
+  "elastic_compression_wrap": {
+    "category": "medical",
+    "weight": 0.08,
+    "stack": 8,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "sprain",
+          "amount": 25
+        },
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 4
+        }
+      ]
+    }
+  },
+  "quikclot_hemostatic_gauze": {
+    "category": "medical",
+    "weight": 0.05,
+    "stack": 6,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "bleeding"
+        },
+        {
+          "type": "heal",
+          "amount": 10
+        },
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 6
+        }
+      ]
+    }
+  },
+  "combat_tourniquet_cat": {
+    "category": "medical",
+    "weight": 0.1,
+    "stack": 4,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "bleeding"
+        },
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 6
+        }
+      ]
+    }
+  },
+  "softt_wide_tourniquet": {
+    "category": "medical",
+    "weight": 0.12,
+    "stack": 4,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "bleeding"
+        },
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 6
+        }
+      ]
+    }
+  },
+  "emergency_israeli_bandage": {
+    "category": "medical",
+    "weight": 0.1,
+    "stack": 6,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "bleeding"
+        },
+        {
+          "type": "heal",
+          "amount": 8
+        },
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 5
+        }
+      ]
+    }
+  },
+  "chest_seal_vented": {
+    "category": "medical",
+    "weight": 0.04,
+    "stack": 8,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "bleeding"
+        },
+        {
+          "type": "heal",
+          "amount": 15
+        },
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 8
+        }
+      ]
+    }
+  },
+  "burn_hydrogel_dressing": {
+    "category": "medical",
+    "weight": 0.12,
+    "stack": 6,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "heal",
+          "amount": 18
+        },
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 6
+        }
+      ]
+    }
+  },
+  "burn_sheet_sterile": {
+    "category": "medical",
+    "weight": 0.2,
+    "stack": 4,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 6,
+      "effects": [
+        {
+          "type": "heal",
+          "amount": 22
+        },
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 7
+        }
+      ]
+    }
+  },
+  "adhesive_plaster_strip": {
+    "category": "medical",
+    "weight": 0.01,
+    "stack": 30,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 1,
+      "effects": [
+        {
+          "type": "heal",
+          "amount": 3
+        }
+      ]
+    }
+  },
+  "butterfly_wound_closure": {
+    "category": "medical",
+    "weight": 0.01,
+    "stack": 20,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "bleeding"
+        },
+        {
+          "type": "heal",
+          "amount": 6
+        }
+      ]
+    }
+  },
+  "liquid_skin_adhesive": {
+    "category": "medical",
+    "weight": 0.03,
+    "stack": 6,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "bleeding"
+        },
+        {
+          "type": "heal",
+          "amount": 5
+        }
+      ]
+    }
+  },
+  "sam_splint_roll": {
+    "category": "medical",
+    "weight": 0.18,
+    "stack": 4,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 6,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "sprain",
+          "amount": 50
+        },
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 8
+        }
+      ]
+    }
+  },
+  "triangular_bandage_sling": {
+    "category": "medical",
+    "weight": 0.05,
+    "stack": 10,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "sprain",
+          "amount": 20
+        }
+      ]
+    }
+  },
+  "suture_needle_silk": {
+    "category": "medical",
+    "weight": 0.02,
+    "stack": 12,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 8,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "bleeding"
+        },
+        {
+          "type": "heal",
+          "amount": 14
+        },
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 8
+        }
+      ]
+    }
+  },
+  "disposable_skin_stapler": {
+    "category": "medical",
+    "weight": 0.15,
+    "stack": 3,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "bleeding"
+        },
+        {
+          "type": "heal",
+          "amount": 18
+        },
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 10
+        }
+      ]
+    }
+  },
+  "povidone_iodine_bottle": {
+    "category": "medical",
+    "weight": 0.2,
+    "stack": 6,
+    "glyph": "¤",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "infection",
+          "amount": 40
+        },
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 5
+        }
+      ]
+    }
+  },
+  "rubbing_alcohol_bottle": {
+    "category": "medical",
+    "weight": 0.35,
+    "stack": 4,
+    "glyph": "¤",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "infection",
+          "amount": 30
+        }
+      ]
+    }
+  },
+  "alcohol_prep_swabs": {
+    "category": "medical",
+    "weight": 0.04,
+    "stack": 20,
+    "glyph": "¤",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 1,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "infection",
+          "amount": 10
+        }
+      ]
+    }
+  },
+  "hydrogen_peroxide_bottle": {
+    "category": "medical",
+    "weight": 0.3,
+    "stack": 4,
+    "glyph": "¤",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "infection",
+          "amount": 25
+        }
+      ]
+    }
+  },
+  "chlorhexidine_scrub": {
+    "category": "medical",
+    "weight": 0.25,
+    "stack": 4,
+    "glyph": "¤",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "infection",
+          "amount": 45
+        },
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 6
+        }
+      ]
+    }
+  },
+  "antibacterial_triple_ointment": {
+    "category": "medical",
+    "weight": 0.05,
+    "stack": 8,
+    "glyph": "¤",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "infection",
+          "amount": 35
+        },
+        {
+          "type": "heal",
+          "amount": 8
+        }
+      ]
+    }
+  },
+  "silver_sulfadiazine_burn_cream": {
+    "category": "medical",
+    "weight": 0.08,
+    "stack": 6,
+    "glyph": "¤",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "heal",
+          "amount": 20
+        },
+        {
+          "type": "cure",
+          "id": "infection",
+          "amount": 25
+        }
+      ]
+    }
+  },
+  "potassium_permanganate_crystals": {
+    "category": "medical",
+    "weight": 0.05,
+    "stack": 12,
+    "glyph": "¤",
+    "tags": [
+      "medical"
+    ]
+  },
+  "amoxicillin_capsules": {
+    "category": "medical",
+    "weight": 0.03,
+    "stack": 10,
+    "glyph": "∘",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "infection"
+        },
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 8
+        }
+      ]
+    }
+  },
+  "ciprofloxacin_antibiotic": {
+    "category": "medical",
+    "weight": 0.03,
+    "stack": 10,
+    "glyph": "∘",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "infection"
+        },
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 10
+        }
+      ]
+    }
+  },
+  "doxycycline_hyclate": {
+    "category": "medical",
+    "weight": 0.03,
+    "stack": 10,
+    "glyph": "∘",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "infection"
+        },
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 8
+        }
+      ]
+    }
+  },
+  "paracetamol_500mg": {
+    "category": "medical",
+    "weight": 0.02,
+    "stack": 15,
+    "glyph": "·",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 6
+        },
+        {
+          "type": "heal",
+          "amount": 4
+        }
+      ]
+    }
+  },
+  "ibuprofen_400mg": {
+    "category": "medical",
+    "weight": 0.02,
+    "stack": 15,
+    "glyph": "·",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 8
+        },
+        {
+          "type": "cure",
+          "id": "sprain",
+          "amount": 15
+        }
+      ]
+    }
+  },
+  "naproxen_sodium": {
+    "category": "medical",
+    "weight": 0.03,
+    "stack": 12,
+    "glyph": "·",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 10
+        },
+        {
+          "type": "cure",
+          "id": "sprain",
+          "amount": 25
+        }
+      ]
+    }
+  },
+  "aspirin_cardio_bottle": {
+    "category": "medical",
+    "weight": 0.05,
+    "stack": 12,
+    "glyph": "·",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 6
+        }
+      ]
+    }
+  },
+  "codeine_phosphate_pills": {
+    "category": "medical",
+    "weight": 0.02,
+    "stack": 10,
+    "glyph": "·",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 14
+        },
+        {
+          "type": "cure",
+          "id": "sprain",
+          "amount": 30
+        }
+      ]
+    }
+  },
+  "tramadol_analgesic_caps": {
+    "category": "medical",
+    "weight": 0.03,
+    "stack": 8,
+    "glyph": "·",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 18
+        },
+        {
+          "type": "heal",
+          "amount": 10
+        },
+        {
+          "type": "cure",
+          "id": "sprain",
+          "amount": 40
+        }
+      ]
+    }
+  },
+  "morphine_syrette_military": {
+    "category": "medical",
+    "weight": 0.05,
+    "stack": 4,
+    "glyph": "·",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 1,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 25
+        },
+        {
+          "type": "heal",
+          "amount": 20
+        },
+        {
+          "type": "cure",
+          "id": "sprain",
+          "amount": 80
+        }
+      ]
+    }
+  },
+  "epinephrine_autoinjector": {
+    "category": "medical",
+    "weight": 0.08,
+    "stack": 3,
+    "glyph": "∘",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 1,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 30
+        },
+        {
+          "type": "heal",
+          "amount": 15
+        }
+      ]
+    }
+  },
+  "atropine_sulfate_autoinjector": {
+    "category": "medical",
+    "weight": 0.08,
+    "stack": 3,
+    "glyph": "∘",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 1,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "infection",
+          "amount": 50
+        },
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 15
+        }
+      ]
+    }
+  },
+  "naloxone_narcan_nasal_spray": {
+    "category": "medical",
+    "weight": 0.06,
+    "stack": 4,
+    "glyph": "∘",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 1,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "infection",
+          "amount": 20
+        },
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 20
+        }
+      ]
+    }
+  },
+  "potassium_iodide_radiation_tabs": {
+    "category": "medical",
+    "weight": 0.02,
+    "stack": 15,
+    "glyph": "∘",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 1,
+      "effects": [
+        {
+          "type": "heal",
+          "amount": 10
+        },
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 5
+        }
+      ]
+    }
+  },
+  "activated_charcoal_powder": {
+    "category": "medical",
+    "weight": 0.15,
+    "stack": 6,
+    "glyph": "·",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "infection",
+          "amount": 35
+        }
+      ]
+    }
+  },
+  "oral_rehydration_salts_who": {
+    "category": "medical",
+    "weight": 0.03,
+    "stack": 15,
+    "glyph": "·",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 40
+        },
+        {
+          "type": "vital",
+          "vital": "energy",
+          "amount": 8
+        }
+      ]
+    }
+  },
+  "loperamide_diarrhea_relief": {
+    "category": "medical",
+    "weight": 0.02,
+    "stack": 12,
+    "glyph": "·",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 15
+        }
+      ]
+    }
+  },
+  "diphenhydramine_antihistamine": {
+    "category": "medical",
+    "weight": 0.02,
+    "stack": 12,
+    "glyph": "·",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "heal",
+          "amount": 5
+        }
+      ]
+    }
+  },
+  "pulse_oximeter_fingertip": {
+    "category": "medical",
+    "weight": 0.08,
+    "stack": 2,
+    "glyph": "⊞",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 1,
+      "effects": [
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 4
+        }
+      ]
+    }
+  },
+  "dual_head_stethoscope": {
+    "category": "medical",
+    "weight": 0.25,
+    "stack": 1,
+    "glyph": "⊞",
+    "tags": [
+      "medical"
+    ]
+  },
+  "aneroid_blood_pressure_cuff": {
+    "category": "medical",
+    "weight": 0.35,
+    "stack": 1,
+    "glyph": "⊞",
+    "tags": [
+      "medical"
+    ]
+  },
+  "iv_saline_bag_500ml": {
+    "category": "medical",
+    "weight": 0.55,
+    "stack": 4,
+    "glyph": "⊞",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 15,
+      "effects": [
+        {
+          "type": "vital",
+          "vital": "hydration",
+          "amount": 75
+        },
+        {
+          "type": "heal",
+          "amount": 15
+        },
+        {
+          "type": "xp",
+          "skill": "medical",
+          "amount": 10
+        }
+      ]
+    }
+  },
+  "iv_giving_infusion_set": {
+    "category": "medical",
+    "weight": 0.08,
+    "stack": 6,
+    "glyph": "⊞",
+    "tags": [
+      "medical"
+    ]
+  },
+  "trauma_shears_scissors": {
+    "category": "medical",
+    "weight": 0.12,
+    "stack": 2,
+    "glyph": "⊞",
+    "tags": [
+      "medical"
+    ]
+  },
+  "surgical_forceps": {
+    "category": "medical",
+    "weight": 0.06,
+    "stack": 4,
+    "glyph": "⊞",
+    "tags": [
+      "medical"
+    ]
+  },
+  "wooden_baseball_bat": {
+    "category": "weapons",
+    "weight": 1.1,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "blunt"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 3
+    }
+  },
+  "aluminum_baseball_bat": {
+    "category": "weapons",
+    "weight": 0.9,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "blunt"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 3
+    }
+  },
+  "nailed_baseball_bat": {
+    "category": "weapons",
+    "weight": 1.3,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "blunt"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 4
+    }
+  },
+  "barbed_wire_bat": {
+    "category": "weapons",
+    "weight": 1.4,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "blunt"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 4
+    }
+  },
+  "lead_pipe_heavy": {
+    "category": "weapons",
+    "weight": 2.2,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "blunt"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 4
+    }
+  },
+  "rebar_club_heavy": {
+    "category": "weapons",
+    "weight": 2.5,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "blunt"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 4
+    }
+  },
+  "cast_iron_frying_pan": {
+    "category": "weapons",
+    "weight": 2.0,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "blunt"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 3
+    }
+  },
+  "heavy_sledgehammer": {
+    "category": "weapons",
+    "weight": 5.0,
+    "stack": 1,
+    "glyph": "¶",
+    "tags": [
+      "weapon",
+      "blunt"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 6
+    },
+    "passive": {
+      "scavengeBonus": 0.1
+    }
+  },
+  "claw_hammer_steel": {
+    "category": "weapons",
+    "weight": 1.0,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "blunt"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 2
+    }
+  },
+  "tire_iron_cross_wrench": {
+    "category": "weapons",
+    "weight": 1.8,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "blunt"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 3
+    }
+  },
+  "brass_knuckles": {
+    "category": "weapons",
+    "weight": 0.3,
+    "stack": 1,
+    "glyph": "⌐",
+    "tags": [
+      "weapon",
+      "blunt"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 2
+    }
+  },
+  "police_baton_tonfa": {
+    "category": "weapons",
+    "weight": 0.7,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "blunt"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 3
+    }
+  },
+  "collapsible_steel_baton": {
+    "category": "weapons",
+    "weight": 0.5,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "blunt"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 3
+    }
+  },
+  "pickaxe_heavy": {
+    "category": "weapons",
+    "weight": 3.2,
+    "stack": 1,
+    "glyph": "¶",
+    "tags": [
+      "weapon",
+      "blunt"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 5
+    },
+    "passive": {
+      "scavengeBonus": 0.1
+    }
+  },
+  "entrenching_shovel_tactical": {
+    "category": "weapons",
+    "weight": 1.2,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "blunt"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 3
+    },
+    "passive": {
+      "scavengeBonus": 0.05
+    }
+  },
+  "chef_knife_8inch": {
+    "category": "weapons",
+    "weight": 0.35,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "blade"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 2
+    }
+  },
+  "folding_tactical_knife": {
+    "category": "weapons",
+    "weight": 0.15,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "blade"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 2
+    }
+  },
+  "bowie_hunting_knife": {
+    "category": "weapons",
+    "weight": 0.6,
+    "stack": 1,
+    "glyph": "⟋",
+    "tags": [
+      "weapon",
+      "blade"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 3
+    }
+  },
+  "bayonet_m9": {
+    "category": "weapons",
+    "weight": 0.5,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "blade"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 3
+    }
+  },
+  "kukri_gurkha_machete": {
+    "category": "weapons",
+    "weight": 0.8,
+    "stack": 1,
+    "glyph": "⟋",
+    "tags": [
+      "weapon",
+      "blade"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 4
+    }
+  },
+  "wood_splitting_axe": {
+    "category": "weapons",
+    "weight": 2.2,
+    "stack": 1,
+    "glyph": "¶",
+    "tags": [
+      "weapon",
+      "blade"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 5
+    },
+    "passive": {
+      "scavengeBonus": 0.06
+    }
+  },
+  "tactical_tomahawk": {
+    "category": "weapons",
+    "weight": 0.9,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "blade"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 4
+    }
+  },
+  "carpenter_hatchet": {
+    "category": "weapons",
+    "weight": 1.1,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "blade"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 3
+    }
+  },
+  "hand_sickle_curved": {
+    "category": "weapons",
+    "weight": 0.5,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "blade"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 3
+    }
+  },
+  "combat_wakizashi": {
+    "category": "weapons",
+    "weight": 0.8,
+    "stack": 1,
+    "glyph": "⟋",
+    "tags": [
+      "weapon",
+      "blade"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 5
+    }
+  },
+  "folded_steel_katana": {
+    "category": "weapons",
+    "weight": 1.2,
+    "stack": 1,
+    "glyph": "⟋",
+    "tags": [
+      "weapon",
+      "blade"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 6
+    }
+  },
+  "box_cutter_utility": {
+    "category": "weapons",
+    "weight": 0.08,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "blade"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 1
+    }
+  },
+  "competition_recurve_bow": {
+    "category": "weapons",
+    "weight": 1.3,
+    "stack": 1,
+    "glyph": "{",
+    "tags": [
+      "weapon",
+      "ranged"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 4,
+      "ammo": "carbon_hunting_arrows",
+      "unloadedPower": 1
+    }
+  },
+  "tactical_compound_bow": {
+    "category": "weapons",
+    "weight": 1.8,
+    "stack": 1,
+    "glyph": "{",
+    "tags": [
+      "weapon",
+      "ranged"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 6,
+      "ammo": "carbon_hunting_arrows",
+      "unloadedPower": 1
+    }
+  },
+  "hunting_crossbow_150lb": {
+    "category": "weapons",
+    "weight": 3.2,
+    "stack": 1,
+    "glyph": "╾",
+    "tags": [
+      "weapon",
+      "ranged"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 6,
+      "ammo": "crossbow_bolts_aluminum",
+      "unloadedPower": 1
+    }
+  },
+  "carbon_hunting_arrows": {
+    "category": "weapons",
+    "weight": 0.03,
+    "stack": 20,
+    "glyph": "⁝",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "crossbow_bolts_aluminum": {
+    "category": "weapons",
+    "weight": 0.04,
+    "stack": 20,
+    "glyph": "⁝",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "makarov_pistol_9x18": {
+    "category": "weapons",
+    "weight": 0.75,
+    "stack": 1,
+    "glyph": "╾",
+    "tags": [
+      "weapon",
+      "gun"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 5,
+      "ammo": "ammo_9mm_fmj",
+      "unloadedPower": 1
+    }
+  },
+  "pistol_9mm_semi": {
+    "category": "weapons",
+    "weight": 0.9,
+    "stack": 1,
+    "glyph": "╾",
+    "tags": [
+      "weapon",
+      "gun"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 5,
+      "ammo": "ammo_9mm_fmj",
+      "unloadedPower": 1
+    }
+  },
+  "tactical_handgun_45acp": {
+    "category": "weapons",
+    "weight": 1.1,
+    "stack": 1,
+    "glyph": "╾",
+    "tags": [
+      "weapon",
+      "gun"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 6,
+      "ammo": "ammo_45acp_fmj",
+      "unloadedPower": 1
+    }
+  },
+  "revolver_38_special": {
+    "category": "weapons",
+    "weight": 0.8,
+    "stack": 1,
+    "glyph": "╾",
+    "tags": [
+      "weapon",
+      "gun"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 5,
+      "ammo": "ammo_38_special_lead",
+      "unloadedPower": 1
+    }
+  },
+  "revolver_357_magnum": {
+    "category": "weapons",
+    "weight": 1.3,
+    "stack": 1,
+    "glyph": "╾",
+    "tags": [
+      "weapon",
+      "gun"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 7,
+      "ammo": "ammo_357_magnum_jsp",
+      "unloadedPower": 1
+    }
+  },
+  "pump_shotgun_12g": {
+    "category": "weapons",
+    "weight": 3.2,
+    "stack": 1,
+    "glyph": "╾",
+    "tags": [
+      "weapon",
+      "gun"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 7,
+      "ammo": "ammo_12g_buckshot_00",
+      "unloadedPower": 1
+    }
+  },
+  "side_by_side_double_shotgun": {
+    "category": "weapons",
+    "weight": 2.9,
+    "stack": 1,
+    "glyph": "╾",
+    "tags": [
+      "weapon",
+      "gun"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 7,
+      "ammo": "ammo_12g_buckshot_00",
+      "unloadedPower": 1
+    }
+  },
+  "sks_semi_auto_carbine": {
+    "category": "weapons",
+    "weight": 3.8,
+    "stack": 1,
+    "glyph": "╾",
+    "tags": [
+      "weapon",
+      "gun"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 7,
+      "ammo": "ammo_762x39_soviet_fmj",
+      "unloadedPower": 1
+    }
+  },
+  "akm_assault_rifle": {
+    "category": "weapons",
+    "weight": 3.6,
+    "stack": 1,
+    "glyph": "╾",
+    "tags": [
+      "weapon",
+      "gun"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 8,
+      "ammo": "ammo_762x39_soviet_fmj",
+      "unloadedPower": 1
+    }
+  },
+  "ar15_carbine_556": {
+    "category": "weapons",
+    "weight": 3.1,
+    "stack": 1,
+    "glyph": "╾",
+    "tags": [
+      "weapon",
+      "gun"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 8,
+      "ammo": "ammo_556_nato_fmj",
+      "unloadedPower": 1
+    }
+  },
+  "bolt_action_rifle_308": {
+    "category": "weapons",
+    "weight": 4.2,
+    "stack": 1,
+    "glyph": "╾",
+    "tags": [
+      "weapon",
+      "gun"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 8,
+      "ammo": "ammo_762x51_winchester",
+      "unloadedPower": 1
+    }
+  },
+  "single_shot_flare_gun": {
+    "category": "weapons",
+    "weight": 0.6,
+    "stack": 1,
+    "glyph": "╾",
+    "tags": [
+      "weapon",
+      "gun"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 3,
+      "ammo": "ammo_red_signal_flare",
+      "unloadedPower": 1
+    }
+  },
+  "ammo_9mm_fmj": {
+    "category": "weapons",
+    "weight": 0.01,
+    "stack": 50,
+    "glyph": "⁝",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "ammo_45acp_fmj": {
+    "category": "weapons",
+    "weight": 0.02,
+    "stack": 40,
+    "glyph": "⁝",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "ammo_38_special_lead": {
+    "category": "weapons",
+    "weight": 0.02,
+    "stack": 50,
+    "glyph": "⁝",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "ammo_357_magnum_jsp": {
+    "category": "weapons",
+    "weight": 0.02,
+    "stack": 40,
+    "glyph": "⁝",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "ammo_12g_buckshot_00": {
+    "category": "weapons",
+    "weight": 0.05,
+    "stack": 25,
+    "glyph": "⁝",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "ammo_12g_slug_solid": {
+    "category": "weapons",
+    "weight": 0.05,
+    "stack": 20,
+    "glyph": "⁝",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "ammo_556_nato_fmj": {
+    "category": "weapons",
+    "weight": 0.01,
+    "stack": 60,
+    "glyph": "⁝",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "ammo_762x39_soviet_fmj": {
+    "category": "weapons",
+    "weight": 0.02,
+    "stack": 40,
+    "glyph": "⁝",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "ammo_762x51_winchester": {
+    "category": "weapons",
+    "weight": 0.03,
+    "stack": 30,
+    "glyph": "⁝",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "ammo_red_signal_flare": {
+    "category": "weapons",
+    "weight": 0.08,
+    "stack": 10,
+    "glyph": "⁝",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "molotov_cocktail_rag": {
+    "category": "weapons",
+    "weight": 0.7,
+    "stack": 3,
+    "glyph": "♨",
+    "tags": [
+      "weapon",
+      "explosive"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 5
+    }
+  },
+  "improvised_pipe_bomb": {
+    "category": "weapons",
+    "weight": 0.8,
+    "stack": 3,
+    "glyph": "♨",
+    "tags": [
+      "weapon",
+      "explosive"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 7
+    }
+  },
+  "military_smoke_grenade": {
+    "category": "weapons",
+    "weight": 0.4,
+    "stack": 4,
+    "glyph": "♨",
+    "tags": [
+      "weapon"
+    ]
+  },
+  "steel_jaw_bear_trap": {
+    "category": "weapons",
+    "weight": 3.5,
+    "stack": 2,
+    "glyph": "♨",
+    "tags": [
+      "trap"
+    ]
+  },
+  "scrap_iron_plates": {
+    "category": "scrap",
+    "weight": 1.5,
+    "stack": 10,
+    "glyph": "#",
+    "tags": [
+      "scrap",
+      "metal"
+    ]
+  },
+  "sheet_metal_corrugated": {
+    "category": "scrap",
+    "weight": 2.0,
+    "stack": 5,
+    "glyph": "#",
+    "tags": [
+      "scrap",
+      "metal"
+    ]
+  },
+  "rusted_steel_mesh": {
+    "category": "scrap",
+    "weight": 0.8,
+    "stack": 8,
+    "glyph": "#",
+    "tags": [
+      "scrap",
+      "metal"
+    ]
+  },
+  "steel_wire_galvanized": {
+    "category": "scrap",
+    "weight": 0.4,
+    "stack": 15,
+    "glyph": "~",
+    "tags": [
+      "scrap",
+      "metal"
+    ]
+  },
+  "barbed_wire_spool": {
+    "category": "scrap",
+    "weight": 2.5,
+    "stack": 4,
+    "glyph": "~",
+    "tags": [
+      "scrap",
+      "metal"
+    ]
+  },
+  "spring_steel_coil": {
+    "category": "scrap",
+    "weight": 0.3,
+    "stack": 12,
+    "glyph": "~",
+    "tags": [
+      "scrap",
+      "metal"
+    ]
+  },
+  "ball_bearings_steel": {
+    "category": "scrap",
+    "weight": 0.25,
+    "stack": 20,
+    "glyph": "·",
+    "tags": [
+      "scrap",
+      "metal"
+    ]
+  },
+  "chain_links_hardened": {
+    "category": "scrap",
+    "weight": 1.2,
+    "stack": 6,
+    "glyph": "#",
+    "tags": [
+      "scrap",
+      "metal"
+    ]
+  },
+  "box_iron_nails_3inch": {
+    "category": "scrap",
+    "weight": 0.8,
+    "stack": 8,
+    "glyph": "#",
+    "tags": [
+      "scrap",
+      "metal"
+    ]
+  },
+  "box_wood_screws": {
+    "category": "scrap",
+    "weight": 0.4,
+    "stack": 12,
+    "glyph": "#",
+    "tags": [
+      "scrap",
+      "metal"
+    ]
+  },
+  "lead_solder_wire_rosin": {
+    "category": "scrap",
+    "weight": 0.15,
+    "stack": 15,
+    "glyph": "~",
+    "tags": [
+      "scrap",
+      "metal"
+    ]
+  },
+  "aluminum_can_scraps": {
+    "category": "scrap",
+    "weight": 0.1,
+    "stack": 25,
+    "glyph": "#",
+    "tags": [
+      "scrap",
+      "metal"
+    ]
+  },
+  "lead_tire_weights": {
+    "category": "scrap",
+    "weight": 0.6,
+    "stack": 12,
+    "glyph": "#",
+    "tags": [
+      "scrap",
+      "metal"
+    ]
+  },
+  "gorilla_tape_waterproof": {
+    "category": "scrap",
+    "weight": 0.2,
+    "stack": 6,
+    "glyph": "o",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "electrical_tape_vinyl": {
+    "category": "scrap",
+    "weight": 0.08,
+    "stack": 15,
+    "glyph": "o",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "industrial_superglue_gel": {
+    "category": "scrap",
+    "weight": 0.04,
+    "stack": 12,
+    "glyph": "o",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "epoxy_resin_two_part": {
+    "category": "scrap",
+    "weight": 0.2,
+    "stack": 8,
+    "glyph": "o",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "silicone_caulk_tube": {
+    "category": "scrap",
+    "weight": 0.4,
+    "stack": 6,
+    "glyph": "o",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "plastic_cable_zip_ties": {
+    "category": "scrap",
+    "weight": 0.1,
+    "stack": 20,
+    "glyph": "~",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "rubber_inner_tube_strip": {
+    "category": "scrap",
+    "weight": 0.3,
+    "stack": 10,
+    "glyph": "~",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "thick_plastic_tarpaulin": {
+    "category": "scrap",
+    "weight": 1.2,
+    "stack": 4,
+    "glyph": "#",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "paracord_550_hank": {
+    "category": "scrap",
+    "weight": 0.25,
+    "stack": 8,
+    "glyph": "~",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "hemp_rope_coil": {
+    "category": "scrap",
+    "weight": 1.0,
+    "stack": 5,
+    "glyph": "~",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "salvaged_circuit_boards": {
+    "category": "scrap",
+    "weight": 0.35,
+    "stack": 10,
+    "glyph": "≡",
+    "tags": [
+      "scrap",
+      "electronics"
+    ]
+  },
+  "integrated_microchip_ic": {
+    "category": "scrap",
+    "weight": 0.02,
+    "stack": 25,
+    "glyph": "≡",
+    "tags": [
+      "scrap",
+      "electronics"
+    ]
+  },
+  "miniature_electric_motor": {
+    "category": "scrap",
+    "weight": 0.2,
+    "stack": 8,
+    "glyph": "≡",
+    "tags": [
+      "scrap",
+      "electronics"
+    ]
+  },
+  "hand_crank_dynamo_unit": {
+    "category": "scrap",
+    "weight": 0.45,
+    "stack": 4,
+    "glyph": "≡",
+    "tags": [
+      "scrap",
+      "electronics"
+    ]
+  },
+  "damaged_solar_panel_cell": {
+    "category": "scrap",
+    "weight": 0.8,
+    "stack": 4,
+    "glyph": "≡",
+    "tags": [
+      "scrap",
+      "electronics"
+    ]
+  },
+  "aa_alkaline_batteries": {
+    "category": "scrap",
+    "weight": 0.1,
+    "stack": 15,
+    "glyph": "·",
+    "tags": [
+      "scrap",
+      "electronics"
+    ]
+  },
+  "aaa_alkaline_batteries": {
+    "category": "scrap",
+    "weight": 0.08,
+    "stack": 15,
+    "glyph": "·",
+    "tags": [
+      "scrap",
+      "electronics"
+    ]
+  },
+  "battery_9v_transistor": {
+    "category": "scrap",
+    "weight": 0.05,
+    "stack": 12,
+    "glyph": "·",
+    "tags": [
+      "scrap",
+      "electronics"
+    ]
+  },
+  "lithium_cell_18650": {
+    "category": "scrap",
+    "weight": 0.05,
+    "stack": 12,
+    "glyph": "·",
+    "tags": [
+      "scrap",
+      "electronics"
+    ]
+  },
+  "rechargeable_powerbank_10k": {
+    "category": "scrap",
+    "weight": 0.25,
+    "stack": 4,
+    "glyph": "≡",
+    "tags": [
+      "scrap",
+      "electronics"
+    ]
+  },
+  "car_battery_lead_acid": {
+    "category": "scrap",
+    "weight": 14.0,
+    "stack": 1,
+    "glyph": "#",
+    "tags": [
+      "scrap",
+      "electronics"
+    ]
+  },
+  "diesel_fuel_canister_5l": {
+    "category": "scrap",
+    "weight": 4.5,
+    "stack": 2,
+    "glyph": "♨",
+    "tags": [
+      "fuel"
+    ]
+  },
+  "gasoline_fuel_canister_5l": {
+    "category": "scrap",
+    "weight": 4.2,
+    "stack": 2,
+    "glyph": "♨",
+    "tags": [
+      "fuel"
+    ]
+  },
+  "kerosene_fuel_canister": {
+    "category": "scrap",
+    "weight": 1.8,
+    "stack": 3,
+    "glyph": "♨",
+    "tags": [
+      "fuel"
+    ]
+  },
+  "gunpowder_smokeless_flask": {
+    "category": "scrap",
+    "weight": 0.5,
+    "stack": 4,
+    "glyph": "♨",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "household_bleach_chlorine": {
+    "category": "scrap",
+    "weight": 1.1,
+    "stack": 4,
+    "glyph": "¤",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "motor_oil_10w40_bottle": {
+    "category": "scrap",
+    "weight": 0.95,
+    "stack": 4,
+    "glyph": "♨",
+    "tags": [
+      "fuel"
+    ]
+  },
+  "wd40_penetrating_oil": {
+    "category": "scrap",
+    "weight": 0.3,
+    "stack": 6,
+    "glyph": "♨",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "wooden_strike_matches": {
+    "category": "scrap",
+    "weight": 0.05,
+    "stack": 15,
+    "glyph": "♨",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "ferrocerium_spark_rod": {
+    "category": "scrap",
+    "weight": 0.08,
+    "stack": 6,
+    "glyph": "♨",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "refillable_zippo_lighter": {
+    "category": "scrap",
+    "weight": 0.08,
+    "stack": 4,
+    "glyph": "♨",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "canvas_tote_bag": {
+    "category": "gear",
+    "weight": 0.3,
+    "stack": 1,
+    "glyph": "U",
+    "tags": [
+      "pack"
+    ],
+    "equip": {
+      "slot": "pack",
+      "capacityKg": 4,
+      "slots": 2
+    }
+  },
+  "school_backpack": {
+    "category": "gear",
+    "weight": 0.6,
+    "stack": 1,
+    "glyph": "U",
+    "tags": [
+      "pack"
+    ],
+    "equip": {
+      "slot": "pack",
+      "capacityKg": 8,
+      "slots": 4
+    }
+  },
+  "tactical_assault_pack_35l": {
+    "category": "gear",
+    "weight": 1.8,
+    "stack": 1,
+    "glyph": "Ů",
+    "tags": [
+      "pack"
+    ],
+    "equip": {
+      "slot": "pack",
+      "capacityKg": 15,
+      "slots": 6
+    }
+  },
+  "internal_frame_hiking_pack_55l": {
+    "category": "gear",
+    "weight": 2.0,
+    "stack": 1,
+    "glyph": "Ů",
+    "tags": [
+      "pack"
+    ],
+    "equip": {
+      "slot": "pack",
+      "capacityKg": 22,
+      "slots": 9
+    }
+  },
+  "military_molle_rucksack_75l": {
+    "category": "gear",
+    "weight": 3.0,
+    "stack": 1,
+    "glyph": "Ŵ",
+    "tags": [
+      "pack"
+    ],
+    "equip": {
+      "slot": "pack",
+      "capacityKg": 30,
+      "slots": 12
+    }
+  },
+  "denim_jeans_rugged": {
+    "category": "gear",
+    "weight": 0.8,
+    "stack": 1,
+    "glyph": "Ʌ",
+    "tags": [
+      "body"
+    ],
+    "equip": {
+      "slot": "body",
+      "armor": 1
+    }
+  },
+  "cargo_combat_pants_ripstop": {
+    "category": "gear",
+    "weight": 0.7,
+    "stack": 1,
+    "glyph": "Ʌ",
+    "tags": [
+      "body"
+    ],
+    "equip": {
+      "slot": "body",
+      "armor": 1
+    }
+  },
+  "flannel_work_shirt": {
+    "category": "gear",
+    "weight": 0.5,
+    "stack": 1,
+    "glyph": "Ʌ",
+    "tags": [
+      "body"
+    ],
+    "equip": {
+      "slot": "body",
+      "armor": 0
+    }
+  },
+  "heavy_wool_sweater": {
+    "category": "gear",
+    "weight": 0.9,
+    "stack": 1,
+    "glyph": "Ʌ",
+    "tags": [
+      "body"
+    ],
+    "equip": {
+      "slot": "body",
+      "armor": 1
+    }
+  },
+  "heavy_down_parka": {
+    "category": "gear",
+    "weight": 1.8,
+    "stack": 1,
+    "glyph": "Ʌ",
+    "tags": [
+      "body"
+    ],
+    "equip": {
+      "slot": "body",
+      "armor": 1
+    }
+  },
+  "motorcycle_leather_jacket": {
+    "category": "gear",
+    "weight": 2.2,
+    "stack": 1,
+    "glyph": "Ʌ",
+    "tags": [
+      "body"
+    ],
+    "equip": {
+      "slot": "body",
+      "armor": 2
+    }
+  },
+  "concealable_kevlar_vest_ii": {
+    "category": "gear",
+    "weight": 1.8,
+    "stack": 1,
+    "glyph": "Ш",
+    "tags": [
+      "body"
+    ],
+    "equip": {
+      "slot": "body",
+      "armor": 2
+    }
+  },
+  "tactical_body_armor_iiia": {
+    "category": "gear",
+    "weight": 3.2,
+    "stack": 1,
+    "glyph": "Ш",
+    "tags": [
+      "body"
+    ],
+    "equip": {
+      "slot": "body",
+      "armor": 3
+    }
+  },
+  "ceramic_ballistic_plate_iv": {
+    "category": "gear",
+    "weight": 4.5,
+    "stack": 1,
+    "glyph": "Ш",
+    "tags": [
+      "body"
+    ],
+    "equip": {
+      "slot": "body",
+      "armor": 5
+    }
+  },
+  "ballistic_combat_helmet": {
+    "category": "gear",
+    "weight": 1.5,
+    "stack": 1,
+    "glyph": "Ш",
+    "tags": [
+      "gear"
+    ]
+  },
+  "disposable_n95_dust_mask": {
+    "category": "gear",
+    "weight": 0.02,
+    "stack": 20,
+    "glyph": "Δ",
+    "tags": [
+      "gear"
+    ]
+  },
+  "gp5_gas_mask_civilian": {
+    "category": "gear",
+    "weight": 0.9,
+    "stack": 2,
+    "glyph": "Δ",
+    "tags": [
+      "gear"
+    ],
+    "equip": {
+      "slot": "body",
+      "armor": 0,
+      "flags": [
+        "gasProof"
+      ]
+    }
+  },
+  "pocket_swiss_multitool": {
+    "category": "gear",
+    "weight": 0.25,
+    "stack": 2,
+    "glyph": "¡",
+    "tags": [
+      "tool"
+    ],
+    "passive": {
+      "scavengeBonus": 0.06
+    }
+  },
+  "heavy_duty_bolt_cutters": {
+    "category": "gear",
+    "weight": 2.8,
+    "stack": 1,
+    "glyph": "¡",
+    "tags": [
+      "tool"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 3
+    },
+    "passive": {
+      "scavengeBonus": 0.15
+    }
+  },
+  "lockpick_set_professional": {
+    "category": "gear",
+    "weight": 0.1,
+    "stack": 4,
+    "glyph": "¡",
+    "tags": [
+      "tool"
+    ],
+    "passive": {
+      "scavengeBonus": 0.1
+    }
+  },
+  "diamond_sharpening_stone": {
+    "category": "gear",
+    "weight": 0.3,
+    "stack": 4,
+    "glyph": "¡",
+    "tags": [
+      "tool"
+    ]
+  },
+  "headlamp_rechargeable_led": {
+    "category": "gear",
+    "weight": 0.12,
+    "stack": 2,
+    "glyph": "¡",
+    "tags": [
+      "tool"
+    ],
+    "passive": {
+      "scavengeBonus": 0.05,
+      "nightVision": 1
+    }
+  },
+  "military_chem_light_green": {
+    "category": "gear",
+    "weight": 0.05,
+    "stack": 12,
+    "glyph": "¡",
+    "tags": [
+      "tool"
+    ]
+  },
+  "geiger_muller_counter": {
+    "category": "gear",
+    "weight": 0.45,
+    "stack": 1,
+    "glyph": "¡",
+    "tags": [
+      "tool"
+    ]
+  },
+  "compact_binoculars_10x42": {
+    "category": "gear",
+    "weight": 0.6,
+    "stack": 1,
+    "glyph": "¡",
+    "tags": [
+      "tool"
+    ],
+    "passive": {
+      "travelSpeed": 0.05
+    }
+  },
+  "mountaineering_rope_50m": {
+    "category": "gear",
+    "weight": 3.5,
+    "stack": 1,
+    "glyph": "¡",
+    "tags": [
+      "tool"
+    ],
+    "passive": {
+      "travelSpeed": 0.06
+    }
+  },
+  "silnylon_backpacking_tarp": {
+    "category": "gear",
+    "weight": 0.6,
+    "stack": 2,
+    "glyph": "¡",
+    "tags": [
+      "tool"
+    ]
+  },
+  "hemostatic_gauze_z_fold": {
+    "category": "medical",
+    "weight": 0.08,
+    "stack": 6,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "bleeding"
+        },
+        {
+          "type": "heal",
+          "amount": 8
+        }
+      ]
+    }
+  },
+  "pressure_dressing_trauma_4in": {
+    "category": "medical",
+    "weight": 0.1,
+    "stack": 5,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "bleeding"
+        },
+        {
+          "type": "heal",
+          "amount": 10
+        }
+      ]
+    }
+  },
+  "chest_seal_twin_pack": {
+    "category": "medical",
+    "weight": 0.05,
+    "stack": 4,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 4,
+      "effects": [
+        {
+          "type": "heal",
+          "amount": 15
+        }
+      ]
+    }
+  },
+  "nasopharyngeal_airway_28fr": {
+    "category": "medical",
+    "weight": 0.03,
+    "stack": 5,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "heal",
+          "amount": 6
+        }
+      ]
+    }
+  },
+  "decompression_needle_14g": {
+    "category": "medical",
+    "weight": 0.04,
+    "stack": 6,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "heal",
+          "amount": 12
+        }
+      ]
+    }
+  },
+  "sam_splint_36inch": {
+    "category": "medical",
+    "weight": 0.18,
+    "stack": 3,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "sprain",
+          "amount": 35
+        }
+      ]
+    }
+  },
+  "cervical_extrication_collar": {
+    "category": "medical",
+    "weight": 0.25,
+    "stack": 2,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 5,
+      "effects": [
+        {
+          "type": "heal",
+          "amount": 8
+        }
+      ]
+    }
+  },
+  "surgical_scalpel_disposable_10": {
+    "category": "medical",
+    "weight": 0.02,
+    "stack": 10,
+    "glyph": "+",
+    "tags": [
+      "medical",
+      "tool"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 1
+    }
+  },
+  "surgical_hemostat_forceps": {
+    "category": "medical",
+    "weight": 0.08,
+    "stack": 4,
+    "glyph": "+",
+    "tags": [
+      "medical",
+      "tool"
+    ]
+  },
+  "bone_saw_gigli_wire": {
+    "category": "medical",
+    "weight": 0.05,
+    "stack": 5,
+    "glyph": "+",
+    "tags": [
+      "medical",
+      "tool"
+    ]
+  },
+  "tissue_forceps_toothed": {
+    "category": "medical",
+    "weight": 0.04,
+    "stack": 5,
+    "glyph": "+",
+    "tags": [
+      "medical",
+      "tool"
+    ]
+  },
+  "dental_extraction_forceps": {
+    "category": "medical",
+    "weight": 0.22,
+    "stack": 2,
+    "glyph": "+",
+    "tags": [
+      "medical",
+      "tool"
+    ]
+  },
+  "ciprofloxacin_500mg_box": {
+    "category": "medical",
+    "weight": 0.05,
+    "stack": 4,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "infection"
+        },
+        {
+          "type": "heal",
+          "amount": 10
+        }
+      ]
+    }
+  },
+  "doxycycline_100mg_bottle": {
+    "category": "medical",
+    "weight": 0.06,
+    "stack": 4,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "infection"
+        },
+        {
+          "type": "heal",
+          "amount": 8
+        }
+      ]
+    }
+  },
+  "amoxicillin_clavulanate_box": {
+    "category": "medical",
+    "weight": 0.06,
+    "stack": 4,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "infection"
+        },
+        {
+          "type": "heal",
+          "amount": 12
+        }
+      ]
+    }
+  },
+  "azithromycin_250mg_zpack": {
+    "category": "medical",
+    "weight": 0.04,
+    "stack": 5,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "infection"
+        },
+        {
+          "type": "heal",
+          "amount": 10
+        }
+      ]
+    }
+  },
+  "metronidazole_500mg_bottle": {
+    "category": "medical",
+    "weight": 0.06,
+    "stack": 4,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "parasites"
+        },
+        {
+          "type": "heal",
+          "amount": 8
+        }
+      ]
+    }
+  },
+  "chloroquine_phosphate_tabs": {
+    "category": "medical",
+    "weight": 0.05,
+    "stack": 5,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "malaria"
+        },
+        {
+          "type": "heal",
+          "amount": 6
+        }
+      ]
+    }
+  },
+  "tramadol_50mg_capsules": {
+    "category": "medical",
+    "weight": 0.03,
+    "stack": 6,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "pain",
+          "amount": 50
+        },
+        {
+          "type": "stat",
+          "id": "morale",
+          "amount": 15
+        }
+      ]
+    }
+  },
+  "ketamine_vial_500mg": {
+    "category": "medical",
+    "weight": 0.05,
+    "stack": 4,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "pain",
+          "amount": 70
+        },
+        {
+          "type": "stat",
+          "id": "morale",
+          "amount": 10
+        }
+      ]
+    }
+  },
+  "lidocaine_2pct_epinephrine": {
+    "category": "medical",
+    "weight": 0.05,
+    "stack": 5,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "pain",
+          "amount": 35
+        }
+      ]
+    }
+  },
+  "fentanyl_transdermal_patch": {
+    "category": "medical",
+    "weight": 0.01,
+    "stack": 8,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "pain",
+          "amount": 90
+        },
+        {
+          "type": "stat",
+          "id": "morale",
+          "amount": 20
+        }
+      ]
+    }
+  },
+  "ibuprofen_400mg_blister": {
+    "category": "medical",
+    "weight": 0.04,
+    "stack": 6,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "pain",
+          "amount": 25
+        },
+        {
+          "type": "cure",
+          "id": "fever",
+          "amount": 30
+        }
+      ]
+    }
+  },
+  "paracetamol_500mg_box": {
+    "category": "medical",
+    "weight": 0.04,
+    "stack": 6,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "fever",
+          "amount": 40
+        },
+        {
+          "type": "cure",
+          "id": "pain",
+          "amount": 20
+        }
+      ]
+    }
+  },
+  "epipen_epinephrine_autoinjector": {
+    "category": "medical",
+    "weight": 0.08,
+    "stack": 3,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 1,
+      "effects": [
+        {
+          "type": "heal",
+          "amount": 20
+        },
+        {
+          "type": "stat",
+          "id": "stamina",
+          "amount": 40
+        }
+      ]
+    }
+  },
+  "narcan_naloxone_nasal_spray": {
+    "category": "medical",
+    "weight": 0.04,
+    "stack": 4,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 1,
+      "effects": [
+        {
+          "type": "heal",
+          "amount": 15
+        }
+      ]
+    }
+  },
+  "pralidoxime_2pam_chloride": {
+    "category": "medical",
+    "weight": 0.07,
+    "stack": 3,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 1,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "poison",
+          "amount": 60
+        }
+      ]
+    }
+  },
+  "potassium_iodide_130mg_strips": {
+    "category": "medical",
+    "weight": 0.02,
+    "stack": 10,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 1,
+      "effects": [
+        {
+          "type": "stat",
+          "id": "radResistance",
+          "amount": 50
+        }
+      ]
+    }
+  },
+  "activated_charcoal_slurry": {
+    "category": "medical",
+    "weight": 0.15,
+    "stack": 4,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "poison",
+          "amount": 75
+        }
+      ]
+    }
+  },
+  "ringer_lactate_500ml_iv_bag": {
+    "category": "medical",
+    "weight": 0.55,
+    "stack": 3,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 15,
+      "effects": [
+        {
+          "type": "heal",
+          "amount": 25
+        },
+        {
+          "type": "stat",
+          "id": "thirst",
+          "amount": 40
+        }
+      ]
+    }
+  },
+  "normal_saline_500ml_iv_bag": {
+    "category": "medical",
+    "weight": 0.55,
+    "stack": 3,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 15,
+      "effects": [
+        {
+          "type": "heal",
+          "amount": 20
+        },
+        {
+          "type": "stat",
+          "id": "thirst",
+          "amount": 35
+        }
+      ]
+    }
+  },
+  "iv_infusion_tubing_set": {
+    "category": "medical",
+    "weight": 0.06,
+    "stack": 5,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ]
+  },
+  "iv_cannula_catheter_18g": {
+    "category": "medical",
+    "weight": 0.01,
+    "stack": 15,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ]
+  },
+  "chlorhexidine_gluconate_4pct": {
+    "category": "medical",
+    "weight": 0.25,
+    "stack": 3,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 3,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "infectionRisk"
+        }
+      ]
+    }
+  },
+  "hydrocortisone_cream_1pct": {
+    "category": "medical",
+    "weight": 0.05,
+    "stack": 4,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "heal",
+          "amount": 6
+        }
+      ]
+    }
+  },
+  "calamine_lotion_bottle": {
+    "category": "medical",
+    "weight": 0.18,
+    "stack": 3,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "heal",
+          "amount": 5
+        }
+      ]
+    }
+  },
+  "zinc_oxide_petroleum_paste": {
+    "category": "medical",
+    "weight": 0.1,
+    "stack": 4,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "heal",
+          "amount": 5
+        }
+      ]
+    }
+  },
+  "eye_wash_sterile_saline_bottle": {
+    "category": "medical",
+    "weight": 0.28,
+    "stack": 2,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "heal",
+          "amount": 6
+        }
+      ]
+    }
+  },
+  "burn_gel_hydrogel_packet": {
+    "category": "medical",
+    "weight": 0.04,
+    "stack": 10,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "burn",
+          "amount": 25
+        },
+        {
+          "type": "heal",
+          "amount": 8
+        }
+      ]
+    }
+  },
+  "cohesive_flexible_vet_wrap": {
+    "category": "medical",
+    "weight": 0.05,
+    "stack": 8,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ],
+    "use": {
+      "minutes": 2,
+      "effects": [
+        {
+          "type": "cure",
+          "id": "sprain",
+          "amount": 15
+        }
+      ]
+    }
+  },
+  "sterile_disposable_hypodermic_syringes": {
+    "category": "medical",
+    "weight": 0.08,
+    "stack": 6,
+    "glyph": "+",
+    "tags": [
+      "medical"
+    ]
+  },
+  "barbed_wire_baseball_bat": {
+    "category": "weapons",
+    "weight": 1.8,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "melee",
+      "blunt"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 9
+    }
+  },
+  "spiked_cricket_bat": {
+    "category": "weapons",
+    "weight": 1.9,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "melee",
+      "blunt"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 10
+    }
+  },
+  "police_side_handle_tonfa": {
+    "category": "weapons",
+    "weight": 0.8,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "melee",
+      "blunt"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 6
+    }
+  },
+  "solid_rebar_club": {
+    "category": "weapons",
+    "weight": 2.2,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "melee",
+      "blunt"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 8
+    }
+  },
+  "heavy_railroad_spike_club": {
+    "category": "weapons",
+    "weight": 2.5,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "melee",
+      "blunt"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 11
+    }
+  },
+  "two_handed_splitting_maul": {
+    "category": "weapons",
+    "weight": 3.8,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "melee",
+      "axe"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 15
+    }
+  },
+  "tactical_tomahawk_black": {
+    "category": "weapons",
+    "weight": 0.9,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "melee",
+      "axe"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 8
+    }
+  },
+  "firemans_flathead_axe": {
+    "category": "weapons",
+    "weight": 3.2,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "melee",
+      "axe"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 13
+    }
+  },
+  "combat_trench_knife_1918": {
+    "category": "weapons",
+    "weight": 0.6,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "melee",
+      "blade"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 7
+    }
+  },
+  "tactical_karambit_blade": {
+    "category": "weapons",
+    "weight": 0.25,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "melee",
+      "blade"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 6
+    }
+  },
+  "folding_butterfly_balisong": {
+    "category": "weapons",
+    "weight": 0.15,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "melee",
+      "blade"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 5
+    }
+  },
+  "improvised_rebar_spear": {
+    "category": "weapons",
+    "weight": 1.8,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "melee",
+      "polearm"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 9
+    }
+  },
+  "scythe_blade_war_pike": {
+    "category": "weapons",
+    "weight": 2.4,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "melee",
+      "polearm"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 12
+    }
+  },
+  "fiberglass_recurve_bow_45lb": {
+    "category": "weapons",
+    "weight": 1.1,
+    "stack": 1,
+    "glyph": "}",
+    "tags": [
+      "weapon",
+      "ranged",
+      "bow"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 10
+    }
+  },
+  "tactical_compound_crossbow_175lb": {
+    "category": "weapons",
+    "weight": 3.4,
+    "stack": 1,
+    "glyph": "}",
+    "tags": [
+      "weapon",
+      "ranged",
+      "crossbow"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 18
+    }
+  },
+  "bundle_carbon_hunting_arrows": {
+    "category": "weapons",
+    "weight": 0.4,
+    "stack": 4,
+    "glyph": "}",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "bundle_aluminum_crossbow_bolts": {
+    "category": "weapons",
+    "weight": 0.35,
+    "stack": 4,
+    "glyph": "}",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "hunting_slingshot_steel_balls": {
+    "category": "weapons",
+    "weight": 0.3,
+    "stack": 1,
+    "glyph": "}",
+    "tags": [
+      "weapon",
+      "ranged"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 4
+    }
+  },
+  "glock_19_9mm_pistol": {
+    "category": "weapons",
+    "weight": 0.85,
+    "stack": 1,
+    "glyph": "}",
+    "tags": [
+      "weapon",
+      "ranged",
+      "firearm",
+      "pistol"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 14
+    }
+  },
+  "beretta_92fs_pistol": {
+    "category": "weapons",
+    "weight": 1.1,
+    "stack": 1,
+    "glyph": "}",
+    "tags": [
+      "weapon",
+      "ranged",
+      "firearm",
+      "pistol"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 14
+    }
+  },
+  "colt_1911_45acp_pistol": {
+    "category": "weapons",
+    "weight": 1.25,
+    "stack": 1,
+    "glyph": "}",
+    "tags": [
+      "weapon",
+      "ranged",
+      "firearm",
+      "pistol"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 17
+    }
+  },
+  "tokarev_tt33_pistol": {
+    "category": "weapons",
+    "weight": 0.95,
+    "stack": 1,
+    "glyph": "}",
+    "tags": [
+      "weapon",
+      "ranged",
+      "firearm",
+      "pistol"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 15
+    }
+  },
+  "makarov_pm_9x18_pistol": {
+    "category": "weapons",
+    "weight": 0.75,
+    "stack": 1,
+    "glyph": "}",
+    "tags": [
+      "weapon",
+      "ranged",
+      "firearm",
+      "pistol"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 12
+    }
+  },
+  "sw_model_29_44mag_revolver": {
+    "category": "weapons",
+    "weight": 1.45,
+    "stack": 1,
+    "glyph": "}",
+    "tags": [
+      "weapon",
+      "ranged",
+      "firearm",
+      "revolver"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 22
+    }
+  },
+  "ruger_sp101_357_revolver": {
+    "category": "weapons",
+    "weight": 0.9,
+    "stack": 1,
+    "glyph": "}",
+    "tags": [
+      "weapon",
+      "ranged",
+      "firearm",
+      "revolver"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 18
+    }
+  },
+  "remington_870_express_12g": {
+    "category": "weapons",
+    "weight": 3.4,
+    "stack": 1,
+    "glyph": "}",
+    "tags": [
+      "weapon",
+      "ranged",
+      "firearm",
+      "shotgun"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 21
+    }
+  },
+  "mossberg_590_tactical_12g": {
+    "category": "weapons",
+    "weight": 3.5,
+    "stack": 1,
+    "glyph": "}",
+    "tags": [
+      "weapon",
+      "ranged",
+      "firearm",
+      "shotgun"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 22
+    }
+  },
+  "sawed_off_double_barrel_12g": {
+    "category": "weapons",
+    "weight": 2.2,
+    "stack": 1,
+    "glyph": "}",
+    "tags": [
+      "weapon",
+      "ranged",
+      "firearm",
+      "shotgun"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 24
+    }
+  },
+  "single_shot_break_action_20g": {
+    "category": "weapons",
+    "weight": 2.5,
+    "stack": 1,
+    "glyph": "}",
+    "tags": [
+      "weapon",
+      "ranged",
+      "firearm",
+      "shotgun"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 16
+    }
+  },
+  "sks_carbine_762x39": {
+    "category": "weapons",
+    "weight": 3.8,
+    "stack": 1,
+    "glyph": "}",
+    "tags": [
+      "weapon",
+      "ranged",
+      "firearm",
+      "rifle"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 19
+    }
+  },
+  "mosin_nagant_9130_rifle": {
+    "category": "weapons",
+    "weight": 4.0,
+    "stack": 1,
+    "glyph": "}",
+    "tags": [
+      "weapon",
+      "ranged",
+      "firearm",
+      "rifle"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 23
+    }
+  },
+  "remington_700_scoped_308": {
+    "category": "weapons",
+    "weight": 4.2,
+    "stack": 1,
+    "glyph": "}",
+    "tags": [
+      "weapon",
+      "ranged",
+      "firearm",
+      "rifle"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 25
+    }
+  },
+  "ruger_1022_carbine": {
+    "category": "weapons",
+    "weight": 2.3,
+    "stack": 1,
+    "glyph": "}",
+    "tags": [
+      "weapon",
+      "ranged",
+      "firearm",
+      "rifle"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 11
+    }
+  },
+  "ak74m_assault_rifle_545": {
+    "category": "weapons",
+    "weight": 3.6,
+    "stack": 1,
+    "glyph": "}",
+    "tags": [
+      "weapon",
+      "ranged",
+      "firearm",
+      "rifle"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 22
+    }
+  },
+  "ar15_carbine_556x45": {
+    "category": "weapons",
+    "weight": 3.3,
+    "stack": 1,
+    "glyph": "}",
+    "tags": [
+      "weapon",
+      "ranged",
+      "firearm",
+      "rifle"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 21
+    }
+  },
+  "fal_battle_rifle_762x51": {
+    "category": "weapons",
+    "weight": 4.4,
+    "stack": 1,
+    "glyph": "}",
+    "tags": [
+      "weapon",
+      "ranged",
+      "firearm",
+      "rifle"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 26
+    }
+  },
+  "mp5a3_submachine_gun": {
+    "category": "weapons",
+    "weight": 3.1,
+    "stack": 1,
+    "glyph": "}",
+    "tags": [
+      "weapon",
+      "ranged",
+      "firearm"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 17
+    }
+  },
+  "ammo_9mm_parabellum_box": {
+    "category": "weapons",
+    "weight": 0.65,
+    "stack": 4,
+    "glyph": "}",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "ammo_45_acp_box": {
+    "category": "weapons",
+    "weight": 0.95,
+    "stack": 3,
+    "glyph": "}",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "ammo_357_magnum_box": {
+    "category": "weapons",
+    "weight": 0.8,
+    "stack": 3,
+    "glyph": "}",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "ammo_44_magnum_box": {
+    "category": "weapons",
+    "weight": 0.7,
+    "stack": 3,
+    "glyph": "}",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "ammo_12g_00_buckshot_box": {
+    "category": "weapons",
+    "weight": 1.1,
+    "stack": 3,
+    "glyph": "}",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "ammo_12g_rifled_slug_box": {
+    "category": "weapons",
+    "weight": 0.5,
+    "stack": 4,
+    "glyph": "}",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "ammo_22_lr_brick_100": {
+    "category": "weapons",
+    "weight": 0.4,
+    "stack": 5,
+    "glyph": "}",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "ammo_556_nato_box": {
+    "category": "weapons",
+    "weight": 0.5,
+    "stack": 4,
+    "glyph": "}",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "ammo_762x39_soviet_box": {
+    "category": "weapons",
+    "weight": 0.65,
+    "stack": 4,
+    "glyph": "}",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "ammo_545x39_soviet_tin": {
+    "category": "weapons",
+    "weight": 0.6,
+    "stack": 4,
+    "glyph": "}",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "ammo_308_winchester_box": {
+    "category": "weapons",
+    "weight": 0.7,
+    "stack": 3,
+    "glyph": "}",
+    "tags": [
+      "ammo"
+    ]
+  },
+  "pipe_bomb_shrapnel_fuse": {
+    "category": "weapons",
+    "weight": 0.7,
+    "stack": 3,
+    "glyph": "*",
+    "tags": [
+      "weapon",
+      "explosive",
+      "thrown"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 25
+    }
+  },
+  "thermite_incendiary_canister": {
+    "category": "weapons",
+    "weight": 0.9,
+    "stack": 2,
+    "glyph": "*",
+    "tags": [
+      "weapon",
+      "explosive",
+      "thrown"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 30
+    }
+  },
+  "m18_smoke_grenade_white": {
+    "category": "weapons",
+    "weight": 0.5,
+    "stack": 3,
+    "glyph": "*",
+    "tags": [
+      "weapon",
+      "thrown"
+    ]
+  },
+  "tripwire_shotgun_blank_trap": {
+    "category": "weapons",
+    "weight": 0.4,
+    "stack": 3,
+    "glyph": "*",
+    "tags": [
+      "weapon",
+      "trap"
+    ]
+  },
+  "claymore_antipersonnel_mine": {
+    "category": "weapons",
+    "weight": 1.6,
+    "stack": 1,
+    "glyph": "*",
+    "tags": [
+      "weapon",
+      "explosive"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 45
+    }
+  },
+  "copper_pipe_section_1m": {
+    "category": "scrap",
+    "weight": 1.2,
+    "stack": 3,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "metal"
+    ]
+  },
+  "brass_plumbing_fittings_pack": {
+    "category": "scrap",
+    "weight": 0.6,
+    "stack": 5,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "metal"
+    ]
+  },
+  "galvanized_sheet_metal_plate": {
+    "category": "scrap",
+    "weight": 2.1,
+    "stack": 2,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "metal"
+    ]
+  },
+  "expanded_steel_mesh_grating": {
+    "category": "scrap",
+    "weight": 2.5,
+    "stack": 2,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "metal"
+    ]
+  },
+  "tungsten_carbide_drill_bits": {
+    "category": "scrap",
+    "weight": 0.3,
+    "stack": 3,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "metal",
+      "tool"
+    ]
+  },
+  "heavy_steel_ball_bearings_bag": {
+    "category": "scrap",
+    "weight": 0.8,
+    "stack": 4,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "metal"
+    ]
+  },
+  "assorted_steel_springs_box": {
+    "category": "scrap",
+    "weight": 0.4,
+    "stack": 4,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "metal"
+    ]
+  },
+  "hex_bolts_and_nuts_assortment": {
+    "category": "scrap",
+    "weight": 1.5,
+    "stack": 3,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "metal"
+    ]
+  },
+  "blind_rivets_and_pop_riveter": {
+    "category": "scrap",
+    "weight": 0.9,
+    "stack": 2,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "tool"
+    ]
+  },
+  "stainless_steel_hose_clamps": {
+    "category": "scrap",
+    "weight": 0.3,
+    "stack": 5,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "metal"
+    ]
+  },
+  "car_battery_12v_lead_acid": {
+    "category": "scrap",
+    "weight": 12.0,
+    "stack": 1,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "electronics"
+    ]
+  },
+  "lithium_18650_rechargeable_cell": {
+    "category": "scrap",
+    "weight": 0.05,
+    "stack": 12,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "electronics"
+    ]
+  },
+  "alkaline_9v_transistor_battery": {
+    "category": "scrap",
+    "weight": 0.05,
+    "stack": 8,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "electronics"
+    ]
+  },
+  "cr2032_lithium_coin_cells": {
+    "category": "scrap",
+    "weight": 0.02,
+    "stack": 10,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "electronics"
+    ]
+  },
+  "solar_charge_controller_mppt": {
+    "category": "scrap",
+    "weight": 0.45,
+    "stack": 2,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "electronics"
+    ]
+  },
+  "step_down_buck_voltage_regulator": {
+    "category": "scrap",
+    "weight": 0.06,
+    "stack": 5,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "electronics"
+    ]
+  },
+  "brushless_12v_dc_motor": {
+    "category": "scrap",
+    "weight": 0.65,
+    "stack": 2,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "electronics"
+    ]
+  },
+  "solder_wire_6040_rosin_core": {
+    "category": "scrap",
+    "weight": 0.25,
+    "stack": 4,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "electronics"
+    ]
+  },
+  "electric_soldering_iron_40w": {
+    "category": "scrap",
+    "weight": 0.35,
+    "stack": 2,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "electronics",
+      "tool"
+    ]
+  },
+  "insulated_copper_wiring_harness": {
+    "category": "scrap",
+    "weight": 0.8,
+    "stack": 3,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "electronics"
+    ]
+  },
+  "heavy_toggle_switches_pack": {
+    "category": "scrap",
+    "weight": 0.15,
+    "stack": 6,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "electronics"
+    ]
+  },
+  "neodymium_rare_earth_magnets": {
+    "category": "scrap",
+    "weight": 0.12,
+    "stack": 5,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "metal"
+    ]
+  },
+  "epoxy_resin_and_hardener_tubes": {
+    "category": "scrap",
+    "weight": 0.2,
+    "stack": 4,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "chemical"
+    ]
+  },
+  "cyanoacrylate_super_glue_bottle": {
+    "category": "scrap",
+    "weight": 0.05,
+    "stack": 8,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "chemical"
+    ]
+  },
+  "silicone_rtv_gasket_maker": {
+    "category": "scrap",
+    "weight": 0.18,
+    "stack": 4,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "chemical"
+    ]
+  },
+  "polyurethane_expanding_foam_can": {
+    "category": "scrap",
+    "weight": 0.6,
+    "stack": 2,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "chemical"
+    ]
+  },
+  "fiberglass_cloth_and_resin_kit": {
+    "category": "scrap",
+    "weight": 1.2,
+    "stack": 2,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "chemical"
+    ]
+  },
+  "wd40_penetrating_lubricant_can": {
+    "category": "scrap",
+    "weight": 0.35,
+    "stack": 3,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "chemical"
+    ]
+  },
+  "motor_oil_synthetic_10w40": {
+    "category": "scrap",
+    "weight": 0.95,
+    "stack": 2,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "chemical"
+    ]
+  },
+  "brake_fluid_dot4_can": {
+    "category": "scrap",
+    "weight": 0.55,
+    "stack": 3,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "chemical"
+    ]
+  },
+  "acetone_solvent_metal_can": {
+    "category": "scrap",
+    "weight": 0.85,
+    "stack": 2,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "chemical"
+    ]
+  },
+  "kerosene_fuel_plastic_jug": {
+    "category": "scrap",
+    "weight": 4.2,
+    "stack": 1,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "fuel"
+    ]
+  },
+  "diesel_fuel_canister_10l": {
+    "category": "scrap",
+    "weight": 8.8,
+    "stack": 1,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "fuel"
+    ]
+  },
+  "butane_gas_canister_camping": {
+    "category": "scrap",
+    "weight": 0.32,
+    "stack": 6,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "fuel"
+    ]
+  },
+  "rubber_tire_patch_vulcanizing_kit": {
+    "category": "scrap",
+    "weight": 0.15,
+    "stack": 4,
+    "glyph": "%",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "neoprene_gasket_sheet_thick": {
+    "category": "scrap",
+    "weight": 0.4,
+    "stack": 3,
+    "glyph": "%",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "heavy_duty_cable_ties_pack_100": {
+    "category": "scrap",
+    "weight": 0.25,
+    "stack": 4,
+    "glyph": "%",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "aluminum_foil_heavy_duty_roll": {
+    "category": "scrap",
+    "weight": 0.35,
+    "stack": 3,
+    "glyph": "%",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "heat_shrink_tubing_assortment": {
+    "category": "scrap",
+    "weight": 0.1,
+    "stack": 5,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "electronics"
+    ]
+  },
+  "welding_rods_e6013_pack": {
+    "category": "scrap",
+    "weight": 1.8,
+    "stack": 2,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "metal"
+    ]
+  },
+  "graphite_powder_lock_lubricant": {
+    "category": "scrap",
+    "weight": 0.08,
+    "stack": 5,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "tool"
+    ]
+  },
+  "bungee_cargo_cords_pack": {
+    "category": "scrap",
+    "weight": 0.5,
+    "stack": 3,
+    "glyph": "%",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "polyethylene_tarp_repair_tape": {
+    "category": "scrap",
+    "weight": 0.2,
+    "stack": 3,
+    "glyph": "%",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "ratchet_tie_down_strap_5m": {
+    "category": "scrap",
+    "weight": 1.1,
+    "stack": 2,
+    "glyph": "%",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "silica_gel_desiccant_packs": {
+    "category": "scrap",
+    "weight": 0.1,
+    "stack": 6,
+    "glyph": "%",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "chlorine_bleach_sodium_hypochlorite": {
+    "category": "scrap",
+    "weight": 1.1,
+    "stack": 2,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "chemical"
+    ]
+  },
+  "calcium_carbide_chunks": {
+    "category": "scrap",
+    "weight": 0.8,
+    "stack": 3,
+    "glyph": "%",
+    "tags": [
+      "scrap",
+      "chemical"
+    ]
+  },
+  "beeswax_pure_block": {
+    "category": "scrap",
+    "weight": 0.25,
+    "stack": 4,
+    "glyph": "%",
+    "tags": [
+      "scrap"
+    ]
+  },
+  "tactical_plate_carrier_level4": {
+    "category": "gear",
+    "weight": 6.8,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "armor"
+    ],
+    "equip": {
+      "slot": "body",
+      "armor": 12
+    },
+    "passive": {
+      "travelSpeed": -0.06
+    }
+  },
+  "concealable_kevlar_vest_level2": {
+    "category": "gear",
+    "weight": 2.2,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "armor"
+    ],
+    "equip": {
+      "slot": "body",
+      "armor": 6
+    }
+  },
+  "stab_proof_security_vest": {
+    "category": "gear",
+    "weight": 1.8,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "armor"
+    ],
+    "equip": {
+      "slot": "body",
+      "armor": 4
+    }
+  },
+  "riot_police_hard_armor_suit": {
+    "category": "gear",
+    "weight": 5.5,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "armor"
+    ],
+    "equip": {
+      "slot": "body",
+      "armor": 8
+    },
+    "passive": {
+      "travelSpeed": -0.04
+    }
+  },
+  "firefighter_turnout_bunker_coat": {
+    "category": "gear",
+    "weight": 3.2,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "clothing"
+    ],
+    "equip": {
+      "slot": "body",
+      "armor": 4,
+      "flags": [
+        "fireProof"
+      ]
+    }
+  },
+  "waxed_canvas_hunting_jacket": {
+    "category": "gear",
+    "weight": 1.8,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "clothing"
+    ],
+    "equip": {
+      "slot": "body",
+      "armor": 2
+    }
+  },
+  "military_m65_field_jacket_liner": {
+    "category": "gear",
+    "weight": 1.6,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "clothing"
+    ],
+    "equip": {
+      "slot": "body",
+      "armor": 2
+    }
+  },
+  "goretex_waterproof_parka_camo": {
+    "category": "gear",
+    "weight": 1.2,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "clothing"
+    ],
+    "equip": {
+      "slot": "body",
+      "armor": 1
+    }
+  },
+  "merino_wool_thermal_base_layer": {
+    "category": "gear",
+    "weight": 0.45,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "clothing"
+    ],
+    "equip": {
+      "slot": "body",
+      "armor": 0
+    }
+  },
+  "tactical_ripstop_cargo_pants": {
+    "category": "gear",
+    "weight": 0.7,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "clothing"
+    ],
+    "equip": {
+      "slot": "body",
+      "armor": 1
+    }
+  },
+  "vibram_sole_combat_boots": {
+    "category": "gear",
+    "weight": 1.6,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "clothing"
+    ],
+    "equip": {
+      "slot": "feet",
+      "armor": 2
+    },
+    "passive": {
+      "travelSpeed": 0.05
+    }
+  },
+  "insulated_extreme_cold_snow_boots": {
+    "category": "gear",
+    "weight": 2.1,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "clothing"
+    ],
+    "equip": {
+      "slot": "feet",
+      "armor": 2
+    }
+  },
+  "heavy_neoprene_wading_boots": {
+    "category": "gear",
+    "weight": 1.8,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "clothing"
+    ],
+    "equip": {
+      "slot": "feet",
+      "armor": 1
+    }
+  },
+  "kevlar_reinforced_tactical_gloves": {
+    "category": "gear",
+    "weight": 0.2,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "clothing"
+    ],
+    "equip": {
+      "slot": "hands",
+      "armor": 2
+    }
+  },
+  "insulated_leather_work_gauntlets": {
+    "category": "gear",
+    "weight": 0.35,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "clothing"
+    ],
+    "equip": {
+      "slot": "hands",
+      "armor": 1
+    }
+  },
+  "ballistic_mtek_bump_helmet": {
+    "category": "gear",
+    "weight": 1.1,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "armor"
+    ],
+    "equip": {
+      "slot": "head",
+      "armor": 5
+    }
+  },
+  "welding_goggles_shade_5": {
+    "category": "gear",
+    "weight": 0.15,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "clothing"
+    ],
+    "equip": {
+      "slot": "head",
+      "armor": 0
+    }
+  },
+  "polarized_ballistic_sunglasses": {
+    "category": "gear",
+    "weight": 0.08,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "clothing"
+    ],
+    "equip": {
+      "slot": "head",
+      "armor": 0
+    }
+  },
+  "nomex_flame_resistant_balaclava": {
+    "category": "gear",
+    "weight": 0.08,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "clothing"
+    ],
+    "equip": {
+      "slot": "head",
+      "armor": 1
+    }
+  },
+  "boonie_hat_woodland_camo": {
+    "category": "gear",
+    "weight": 0.1,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "clothing"
+    ],
+    "equip": {
+      "slot": "head",
+      "armor": 0
+    }
+  },
+  "internal_frame_expedition_pack_75l": {
+    "category": "gear",
+    "weight": 2.8,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "container"
+    ],
+    "passive": {
+      "carryBonus": 35
+    }
+  },
+  "assault_pack_3_day_40l": {
+    "category": "gear",
+    "weight": 1.6,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "container"
+    ],
+    "passive": {
+      "carryBonus": 20
+    }
+  },
+  "tactical_chest_rig_vest": {
+    "category": "gear",
+    "weight": 0.85,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "container"
+    ],
+    "passive": {
+      "carryBonus": 8
+    }
+  },
+  "canvas_messenger_satchel_heavy": {
+    "category": "gear",
+    "weight": 0.75,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "container"
+    ],
+    "passive": {
+      "carryBonus": 10
+    }
+  },
+  "waterproof_roll_top_dry_bag_30l": {
+    "category": "gear",
+    "weight": 0.45,
+    "stack": 1,
+    "glyph": "[",
+    "tags": [
+      "gear",
+      "container"
+    ],
+    "passive": {
+      "carryBonus": 12
+    }
+  },
+  "folding_camp_wood_stove": {
+    "category": "gear",
+    "weight": 1.2,
+    "stack": 1,
+    "glyph": "!",
+    "tags": [
+      "tool"
+    ]
+  },
+  "titanium_pot_and_pan_mess_kit": {
+    "category": "gear",
+    "weight": 0.35,
+    "stack": 1,
+    "glyph": "!",
+    "tags": [
+      "tool"
+    ]
+  },
+  "handheld_crank_solar_emergency_radio": {
+    "category": "gear",
+    "weight": 0.48,
+    "stack": 1,
+    "glyph": "!",
+    "tags": [
+      "tool"
+    ]
+  },
+  "high_lumen_tactical_flashlight": {
+    "category": "gear",
+    "weight": 0.28,
+    "stack": 2,
+    "glyph": "!",
+    "tags": [
+      "tool"
+    ],
+    "passive": {
+      "scavengeBonus": 0.08,
+      "nightVision": 1
+    }
+  },
+  "silva_sighting_mirror_compass": {
+    "category": "gear",
+    "weight": 0.1,
+    "stack": 2,
+    "glyph": "!",
+    "tags": [
+      "tool"
+    ],
+    "passive": {
+      "travelSpeed": 0.06
+    }
+  },
+  "bushcraft_parang_heavy_machete": {
+    "category": "gear",
+    "weight": 0.95,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "tool"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 10
+    },
+    "passive": {
+      "scavengeBonus": 0.05
+    }
+  },
+  "folding_entrenching_spade_pick": {
+    "category": "gear",
+    "weight": 1.4,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "tool"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 7
+    },
+    "passive": {
+      "scavengeBonus": 0.06
+    }
+  },
+  "magnesium_fire_starter_block": {
+    "category": "gear",
+    "weight": 0.08,
+    "stack": 4,
+    "glyph": "!",
+    "tags": [
+      "tool"
+    ]
+  },
+  "stormproof_matches_sealed_case": {
+    "category": "gear",
+    "weight": 0.06,
+    "stack": 5,
+    "glyph": "!",
+    "tags": [
+      "tool"
+    ]
+  },
+  "tactical_pen_tungsten_glassbreaker": {
+    "category": "gear",
+    "weight": 0.06,
+    "stack": 3,
+    "glyph": "!",
+    "tags": [
+      "tool"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 2
+    }
+  },
+  "mechanical_automatic_field_watch": {
+    "category": "gear",
+    "weight": 0.12,
+    "stack": 1,
+    "glyph": "!",
+    "tags": [
+      "gear"
+    ]
+  },
+  "monocular_telescope_12x50": {
+    "category": "gear",
+    "weight": 0.35,
+    "stack": 1,
+    "glyph": "!",
+    "tags": [
+      "tool"
+    ],
+    "passive": {
+      "travelSpeed": 0.04
+    }
+  },
+  "thermal_mylar_bivvy_emergency_sleeping_bag": {
+    "category": "gear",
+    "weight": 0.12,
+    "stack": 4,
+    "glyph": "!",
+    "tags": [
+      "gear"
+    ]
+  },
+  "down_filled_subzero_sleeping_bag": {
+    "category": "gear",
+    "weight": 1.6,
+    "stack": 1,
+    "glyph": "!",
+    "tags": [
+      "gear"
+    ]
+  },
+  "self_inflating_camp_sleeping_pad": {
+    "category": "gear",
+    "weight": 0.85,
+    "stack": 1,
+    "glyph": "!",
+    "tags": [
+      "gear"
+    ]
+  },
+  "heavy_canteen_1l_molle_cup": {
+    "category": "gear",
+    "weight": 0.4,
+    "stack": 2,
+    "glyph": "!",
+    "tags": [
+      "gear"
+    ]
+  },
+  "sawyer_gravity_water_filter_4l": {
+    "category": "gear",
+    "weight": 0.38,
+    "stack": 1,
+    "glyph": "!",
+    "tags": [
+      "tool"
+    ]
+  },
+  "tactical_entry_crowbar_short": {
+    "category": "gear",
+    "weight": 1.4,
+    "stack": 1,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "tool"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 6
+    },
+    "passive": {
+      "scavengeBonus": 0.12
+    }
+  },
+  "heavy_snatch_strap_tow_rope_5t": {
+    "category": "gear",
+    "weight": 2.2,
+    "stack": 1,
+    "glyph": "!",
+    "tags": [
+      "tool"
+    ]
+  },
+  "handheld_laser_rangefinder_600m": {
+    "category": "gear",
+    "weight": 0.25,
+    "stack": 1,
+    "glyph": "!",
+    "tags": [
+      "tool"
+    ]
+  },
+  "signal_mirror_heliograph": {
+    "category": "gear",
+    "weight": 0.05,
+    "stack": 5,
+    "glyph": "!",
+    "tags": [
+      "tool"
+    ]
+  },
+  "camp_bow_saw_folding": {
+    "category": "gear",
+    "weight": 0.65,
+    "stack": 2,
+    "glyph": "!",
+    "tags": [
+      "tool"
+    ]
+  },
+  "portable_waterproof_solar_panel_28w": {
+    "category": "gear",
+    "weight": 0.95,
+    "stack": 1,
+    "glyph": "!",
+    "tags": [
+      "tool"
+    ]
+  },
+  "geiger_tube_pouch_sensor": {
+    "category": "gear",
+    "weight": 0.15,
+    "stack": 2,
+    "glyph": "!",
+    "tags": [
+      "tool"
+    ]
+  },
+  "hydraulic_bottle_jack_6t": {
+    "category": "gear",
+    "weight": 4.5,
+    "stack": 1,
+    "glyph": "!",
+    "tags": [
+      "tool"
+    ]
+  },
+  "industrial_wire_strippers_crimper": {
+    "category": "gear",
+    "weight": 0.22,
+    "stack": 2,
+    "glyph": "!",
+    "tags": [
+      "tool"
+    ]
+  },
+  "heavy_canvas_tool_roll_organizer": {
+    "category": "gear",
+    "weight": 0.4,
+    "stack": 2,
+    "glyph": "!",
+    "tags": [
+      "gear"
+    ]
+  },
+  "tactical_modular_hydration_bladder_3l": {
+    "category": "gear",
+    "weight": 0.25,
+    "stack": 2,
+    "glyph": "!",
+    "tags": [
+      "gear"
+    ]
+  },
+  "brass_emergency_whistle_pea_less": {
+    "category": "gear",
+    "weight": 0.04,
+    "stack": 8,
+    "glyph": "!",
+    "tags": [
+      "tool"
+    ]
+  },
+  "leather_sheath_folding_pocket_knife": {
+    "category": "gear",
+    "weight": 0.15,
+    "stack": 3,
+    "glyph": "/",
+    "tags": [
+      "weapon",
+      "tool"
+    ],
+    "equip": {
+      "slot": "weapon",
+      "power": 4
+    }
+  }
 };
 
-function getItem(itemId) {
-  const item = ITEMS[itemId];
-  if (!item) throw new Error(`Unknown item "${itemId}"`);
-  return item;
-}
-
+const getItem = (id) => ITEMS[id] || null;
 
 
   // --- src/modules/inventory/inventoryModel.js ---
@@ -2818,7 +15677,519 @@ function meetsRequirement(state, requires) {
 
 
 
+  // --- src/modules/status/bodyStatus.js ---
+/**
+ * Last Breath // Targeted Body Trauma & Anatomical Status Engine
+ * Zero-dependency Vanilla JS module replacing flat hit points
+ * with realistic multi-part trauma, arterial hemodynamics, and targeted treatments.
+ */
+
+const BODY_PARTS = ['head', 'torso', 'leftArm', 'rightArm', 'leftLeg', 'rightLeg'];
+
+const BLEED_LEVELS = {
+  NONE: 'none',
+  MINOR: 'minor',
+  ARTERIAL: 'arterial',
+};
+
+// EventBus event channel names
+const EVENT_BODY_UPDATED = 'body:updated';
+const EVENT_BLEEDING_ALERT = 'body:bleeding_alert';
+const EVENT_FRACTURE_ALERT = 'body:fracture_alert';
+const EVENT_PNEUMOTHORAX_ALERT = 'body:pneumothorax_alert';
+const EVENT_INFECTION_ALERT = 'body:infection_alert';
+
+// Hourly blood loss rates in absolute HP
+const BLEED_RATES_PER_HOUR = {
+  none: 0,
+  minor: 3.5,
+  arterial: 22.0, // High-speed pulsatile loss leading to rapid shock
+};
+
+// Anatomical hit probability distribution when target part is unspecified
+const DEFAULT_HIT_WEIGHTS = {
+  torso: 0.38,
+  leftLeg: 0.16,
+  rightLeg: 0.16,
+  leftArm: 0.12,
+  rightArm: 0.12,
+  head: 0.06,
+};
+
+// Weight of each part in computing overall body integrity (0..100)
+const VITAL_PART_WEIGHTS = {
+  head: 0.25,
+  torso: 0.35,
+  leftArm: 0.10,
+  rightArm: 0.10,
+  leftLeg: 0.10,
+  rightLeg: 0.10,
+};
+
+/**
+ * Creates default state for a single anatomical part.
+ */
+function createDefaultBodyPart() {
+  return {
+    health: 100,
+    bleeding: BLEED_LEVELS.NONE,
+    fractures: false,
+    burns: false,
+    infectionRisk: 0, // 0 to 100
+    punctured: false, // Tension pneumothorax flag for torso / deep puncture
+  };
+}
+
+/**
+ * Creates default complete body trauma state.
+ */
+function createDefaultBodyState() {
+  return {
+    head: createDefaultBodyPart(),
+    torso: createDefaultBodyPart(),
+    leftArm: createDefaultBodyPart(),
+    rightArm: createDefaultBodyPart(),
+    leftLeg: createDefaultBodyPart(),
+    rightLeg: createDefaultBodyPart(),
+  };
+}
+
+/**
+ * Checks if a body part is a limb (compatible with windlass tourniquets and splints).
+ */
+function isLimb(partName) {
+  return ['leftArm', 'rightArm', 'leftLeg', 'rightLeg'].includes(partName);
+}
+
+/**
+ * Applies targeted physical trauma to a specific or weighted body part.
+ * Emits specific EventBus alerts when arterial bleeds, fractures, or pneumothorax occur.
+ */
+function applyBodyDamage(bodyState, {
+  part = null,
+  amount = 10,
+  damageType = 'blunt', // 'blunt', 'ballistic', 'slashing', 'puncture', 'burn', 'blast'
+  puncture = false,
+  fractureChance = 0,
+  arterialChance = 0,
+  rng = null,
+  bus = null,
+} = {}) {
+  const current = bodyState || createDefaultBodyState();
+
+  // Select target part
+  let targetPart = part;
+  if (!targetPart || !BODY_PARTS.includes(targetPart)) {
+    if (rng && typeof rng.weighted === 'function') {
+      const pool = Object.entries(DEFAULT_HIT_WEIGHTS).map(([k, w]) => ({ part: k, weight: w }));
+      targetPart = rng.weighted(pool, (entry) => entry.weight).part;
+    } else {
+      targetPart = 'torso';
+    }
+  }
+
+  const p = current[targetPart] || (current[targetPart] = createDefaultBodyPart());
+  const beforeHealth = p.health;
+  p.health = Math.max(0, Math.min(100, p.health - amount));
+
+  const alerts = [];
+
+  // Ballistic, slashing, or puncture wounds trigger bleeding
+  const isPenetrating = ['ballistic', 'slashing', 'puncture', 'blast'].includes(damageType);
+  if (isPenetrating && amount > 4) {
+    const defaultArterial = damageType === 'ballistic' ? 0.25 : (damageType === 'puncture' ? 0.20 : 0.12);
+    const calcArterialChance = arterialChance || defaultArterial;
+    const isArterial = rng ? rng.chance(calcArterialChance) : (Math.random() < calcArterialChance);
+
+    if (isArterial && p.bleeding !== BLEED_LEVELS.ARTERIAL) {
+      p.bleeding = BLEED_LEVELS.ARTERIAL;
+      alerts.push({ type: EVENT_BLEEDING_ALERT, part: targetPart, level: BLEED_LEVELS.ARTERIAL });
+      if (bus) bus.emit(EVENT_BLEEDING_ALERT, { part: targetPart, level: BLEED_LEVELS.ARTERIAL });
+    } else if (p.bleeding === BLEED_LEVELS.NONE) {
+      p.bleeding = BLEED_LEVELS.MINOR;
+      alerts.push({ type: EVENT_BLEEDING_ALERT, part: targetPart, level: BLEED_LEVELS.MINOR });
+      if (bus) bus.emit(EVENT_BLEEDING_ALERT, { part: targetPart, level: BLEED_LEVELS.MINOR });
+    }
+
+    // Dirt/particulate in wound raises infection risk
+    p.infectionRisk = Math.min(100, p.infectionRisk + Math.round(amount * 0.6));
+  }
+
+  // Torso tension pneumothorax risk
+  if (targetPart === 'torso' && (puncture || damageType === 'puncture' || (damageType === 'ballistic' && amount >= 18))) {
+    if (!p.punctured) {
+      p.punctured = true;
+      alerts.push({ type: EVENT_PNEUMOTHORAX_ALERT, part: 'torso' });
+      if (bus) bus.emit(EVENT_PNEUMOTHORAX_ALERT, { part: 'torso' });
+    }
+  }
+
+  // Fracture check on limbs/head
+  const isBluntOrBlast = ['blunt', 'blast'].includes(damageType);
+  const calcFractureChance = fractureChance || (isBluntOrBlast && amount >= 15 ? 0.45 : (amount >= 28 ? 0.35 : 0));
+  if (!p.fractures && calcFractureChance > 0) {
+    const fractured = rng ? rng.chance(calcFractureChance) : (Math.random() < calcFractureChance);
+    if (fractured) {
+      p.fractures = true;
+      alerts.push({ type: EVENT_FRACTURE_ALERT, part: targetPart });
+      if (bus) bus.emit(EVENT_FRACTURE_ALERT, { part: targetPart });
+    }
+  }
+
+  // Thermal burns
+  if (damageType === 'burn') {
+    p.burns = true;
+    p.infectionRisk = Math.min(100, p.infectionRisk + 30);
+  }
+
+  if (bus) {
+    bus.emit(EVENT_BODY_UPDATED, { part: targetPart, bodyState: current, alerts });
+  }
+
+  return {
+    targetPart,
+    damageDealt: beforeHealth - p.health,
+    partState: { ...p },
+    alerts,
+  };
+}
+
+/**
+ * Resolves medical item application to a specific body part.
+ * Returns { success: boolean, reasonKey: string, effectDesc: string }
+ */
+function applyMedicalTreatment(bodyState, itemId, targetPart = 'torso', { bus = null } = {}) {
+  if (!bodyState || !bodyState[targetPart]) {
+    return { success: false, reasonKey: 'invalid_part' };
+  }
+
+  const part = bodyState[targetPart];
+  let treated = false;
+  let actionDesc = '';
+
+  // 1. CAT Tourniquet / Tactical Tourniquets
+  if (itemId === 'combat_tourniquet_cat' || itemId === 'softt_wide_tourniquet') {
+    if (!isLimb(targetPart)) {
+      return { success: false, reasonKey: 'tourniquet_requires_limb' };
+    }
+    if (part.bleeding === BLEED_LEVELS.NONE) {
+      return { success: false, reasonKey: 'no_active_bleed' };
+    }
+    part.bleeding = BLEED_LEVELS.NONE;
+    treated = true;
+    actionDesc = 'Arterial windlass applied. Hemorrhage halted immediately.';
+  }
+
+  // 2. Hemostatic Combat Gauze / QuikClot
+  else if (itemId === 'quikclot_hemostatic_gauze' || itemId === 'hemostatic_gauze_z_fold' || itemId === 'gauze_roll_sterile') {
+    if (part.bleeding === BLEED_LEVELS.NONE && part.health >= 100) {
+      return { success: false, reasonKey: 'no_bleeding_wound' };
+    }
+    if (part.bleeding === BLEED_LEVELS.ARTERIAL) {
+      part.bleeding = BLEED_LEVELS.MINOR; // Demotes arterial to manageable minor bleed
+      actionDesc = 'Wound cavity packed with hemostatic kaolin. Arterial jet stemmed to oozing.';
+    } else {
+      part.bleeding = BLEED_LEVELS.NONE;
+      actionDesc = 'Laceration packed and dressed. Bleeding stopped.';
+    }
+    part.health = Math.min(100, part.health + 8);
+    part.infectionRisk = Math.max(0, part.infectionRisk - 15);
+    treated = true;
+  }
+
+  // 3. Vented Chest Seal / Decompression Needle (Tension Pneumothorax / Torso Puncture)
+  else if (itemId === 'chest_seal_vented' || itemId === 'chest_seal_twin_pack' || itemId === 'decompression_needle_14g') {
+    if (targetPart !== 'torso') {
+      return { success: false, reasonKey: 'chest_seal_requires_torso' };
+    }
+    if (!part.punctured && part.bleeding === BLEED_LEVELS.NONE) {
+      return { success: false, reasonKey: 'no_chest_puncture' };
+    }
+    part.punctured = false;
+    if (part.bleeding === BLEED_LEVELS.MINOR) part.bleeding = BLEED_LEVELS.NONE;
+    part.health = Math.min(100, part.health + 12);
+    treated = true;
+    actionDesc = itemId.includes('needle')
+      ? '14G cannula driven into 2nd intercostal space. Pleural cavity decompressed.'
+      : 'Vented flutter hydrogel adhered over sucking chest wound. Airway re-established.';
+  }
+
+  // 4. SAM Splint Universal (Fractures)
+  else if (itemId === 'sam_splint_roll' || itemId === 'sam_splint_36inch') {
+    if (!isLimb(targetPart)) {
+      return { success: false, reasonKey: 'splint_requires_limb' };
+    }
+    if (!part.fractures) {
+      return { success: false, reasonKey: 'no_fracture' };
+    }
+    part.fractures = false;
+    part.health = Math.min(100, part.health + 10);
+    treated = true;
+    actionDesc = 'Malleable aluminum-foam splint shaped and taped around fracture. Mobility restored.';
+  }
+
+  // 5. Broad-Spectrum Antibiotics (Ciprofloxacin)
+  else if (itemId === 'ciprofloxacin_antibiotic' || itemId === 'ciprofloxacin_500mg_box' || itemId === 'antibiotics') {
+    let hadInfection = false;
+    for (const p of Object.values(bodyState)) {
+      if (p.infectionRisk > 0) {
+        p.infectionRisk = Math.max(0, p.infectionRisk - 60);
+        hadInfection = true;
+      }
+    }
+    treated = true;
+    actionDesc = hadInfection
+      ? '500mg Ciprofloxacin administered. Systemic bacterial proliferation suppressed.'
+      : 'Prophylactic antibiotic dose ingested.';
+  }
+
+  // 6. Basic Bandage
+  else if (itemId === 'bandage') {
+    if (part.bleeding === BLEED_LEVELS.NONE && part.health >= 100) {
+      return { success: false, reasonKey: 'no_wounds' };
+    }
+    if (part.bleeding === BLEED_LEVELS.MINOR) {
+      part.bleeding = BLEED_LEVELS.NONE;
+      actionDesc = 'Bandage wrapped securely over laceration. Bleeding ceased.';
+    } else if (part.bleeding === BLEED_LEVELS.ARTERIAL) {
+      return { success: false, reasonKey: 'bandage_insufficient_for_arterial' };
+    } else {
+      actionDesc = 'Clean dressing applied.';
+    }
+    part.health = Math.min(100, part.health + 6);
+    treated = true;
+  }
+
+  if (treated && bus) {
+    bus.emit(EVENT_BODY_UPDATED, { part: targetPart, bodyState, actionDesc });
+  }
+
+  return { success: treated, actionDesc };
+}
+
+/**
+ * Hourly biological degradation, infection proliferation, and hemodynamic blood loss tick.
+ */
+function tickBodyState(bodyState, hours = 1, { rng = null, bus = null } = {}) {
+  if (!bodyState) return { totalBleedLoss: 0, alerts: [] };
+
+  let totalBleedLoss = 0;
+  const alerts = [];
+
+  for (const partName of BODY_PARTS) {
+    const part = bodyState[partName];
+    if (!part) continue;
+
+    // Blood loss calculation
+    const bleedRate = BLEED_RATES_PER_HOUR[part.bleeding] || 0;
+    if (bleedRate > 0) {
+      const bleedLoss = bleedRate * hours;
+      totalBleedLoss += bleedLoss;
+      part.health = Math.max(0, part.health - bleedLoss * 0.4);
+
+      if (part.bleeding === BLEED_LEVELS.ARTERIAL) {
+        alerts.push({
+          type: EVENT_BLEEDING_ALERT,
+          part: partName,
+          text: `Severe pulsatile arterial bleed on ${partName}! Immediate tourniquet required.`,
+        });
+      }
+    }
+
+    // Infection progression if wound is open
+    if (part.bleeding !== BLEED_LEVELS.NONE || part.burns || part.punctured) {
+      part.infectionRisk = Math.min(100, part.infectionRisk + 2.5 * hours);
+      if (part.infectionRisk >= 75) {
+        alerts.push({
+          type: EVENT_INFECTION_ALERT,
+          part: partName,
+          text: `Purulent bacterial infection developing on ${partName} (${Math.round(part.infectionRisk)}%).`,
+        });
+        part.health = Math.max(0, part.health - 2.0 * hours);
+      }
+    }
+
+    // Natural recovery of healthy closed tissue
+    if (part.bleeding === BLEED_LEVELS.NONE && !part.fractures && !part.punctured && part.infectionRisk < 20) {
+      part.health = Math.min(100, part.health + 0.8 * hours);
+    }
+  }
+
+  if (bus && alerts.length > 0) {
+    bus.emit(EVENT_BODY_UPDATED, { bodyState, alerts });
+  }
+
+  return {
+    totalBleedLoss,
+    alerts,
+  };
+}
+
+/**
+ * Aggregates all active physiological debuffs produced by the current body trauma state.
+ */
+function getBodyDebuffs(bodyState) {
+  if (!bodyState) {
+    return {
+      travelTimeMultiplier: 1.0,
+      travelCalorieMultiplier: 1.0,
+      travelStaminaMultiplier: 1.0,
+      weaponAccuracyPenalty: 0.0,
+      scavengeSpeedMultiplier: 1.0,
+      hasTensionPneumothorax: false,
+      maxStaminaCap: 100,
+      hasArterialBleed: false,
+      totalBleedRate: 0,
+      isImmobilized: false,
+    };
+  }
+
+  let travelTimeMult = 1.0;
+  let travelCalorieMult = 1.0;
+  let travelStaminaMult = 1.0;
+  let accuracyPenalty = 0.0;
+  let scavengeMult = 1.0;
+  let hasPneumothorax = Boolean(bodyState.torso?.punctured);
+  let maxStaminaCap = hasPneumothorax ? 40 : 100;
+  let hasArterial = false;
+  let totalBleedRate = 0;
+
+  // Leg Damage & Fractures:
+  // Leg damage or fracture doubles sector travel time, increases stamina/calorie cost
+  const leftLeg = bodyState.leftLeg;
+  const rightLeg = bodyState.rightLeg;
+  const leftLegCompromised = leftLeg && (leftLeg.fractures || leftLeg.health < 40);
+  const rightLegCompromised = rightLeg && (rightLeg.fractures || rightLeg.health < 40);
+
+  if (leftLegCompromised || rightLegCompromised) {
+    travelTimeMult *= 2.0; // Doubles sector travel time
+    travelCalorieMult *= 1.45; // Increases calorie cost
+    travelStaminaMult *= 1.60; // Increases stamina expenditure
+  }
+  if (leftLegCompromised && rightLegCompromised) {
+    travelTimeMult *= 1.5; // Additional compounding penalty if both legs wrecked
+  }
+
+  // Arm Damage:
+  // Lowers weapon accuracy and scavenging speed
+  const leftArm = bodyState.leftArm;
+  const rightArm = bodyState.rightArm;
+  if (rightArm && (rightArm.fractures || rightArm.health < 50)) {
+    accuracyPenalty += 0.25; // Dominant arm penalty
+    scavengeMult *= 1.40;
+  }
+  if (leftArm && (leftArm.fractures || leftArm.health < 50)) {
+    accuracyPenalty += 0.12; // Support arm penalty
+    scavengeMult *= 1.25;
+  }
+
+  // Check Arterial Bleeds across all parts
+  for (const p of Object.values(bodyState)) {
+    if (p.bleeding === BLEED_LEVELS.ARTERIAL) {
+      hasArterial = true;
+    }
+    totalBleedRate += BLEED_RATES_PER_HOUR[p.bleeding] || 0;
+  }
+
+  return {
+    travelTimeMultiplier: travelTimeMult,
+    travelCalorieMultiplier: travelCalorieMult,
+    travelStaminaMultiplier: travelStaminaMult,
+    weaponAccuracyPenalty: Math.min(0.60, accuracyPenalty),
+    scavengeSpeedMultiplier: scavengeMult,
+    hasTensionPneumothorax: hasPneumothorax,
+    maxStaminaCap,
+    hasArterialBleed: hasArterial,
+    totalBleedRate,
+    isImmobilized: Boolean(leftLeg?.health === 0 && rightLeg?.health === 0),
+  };
+}
+
+/**
+ * Calculates weighted composite overall body health percentage (0..100).
+ */
+function getOverallBodyHealth(bodyState) {
+  if (!bodyState) return 100;
+  let total = 0;
+  for (const [part, weight] of Object.entries(VITAL_PART_WEIGHTS)) {
+    const hp = bodyState[part]?.health ?? 100;
+    total += hp * weight;
+  }
+  return Math.round(Math.max(0, Math.min(100, total)));
+}
+
+/**
+ * Automatically selects the most medically urgent target part for a given item.
+ */
+function getRecommendedTargetPart(bodyState, itemId) {
+  if (!bodyState) return 'torso';
+
+  // Tourniquets must go on bleeding limbs (arterial prioritized)
+  if (itemId === 'combat_tourniquet_cat' || itemId === 'softt_wide_tourniquet') {
+    const arterialLimb = ['leftLeg', 'rightLeg', 'leftArm', 'rightArm'].find(
+      (part) => bodyState[part]?.bleeding === BLEED_LEVELS.ARTERIAL
+    );
+    if (arterialLimb) return arterialLimb;
+    const bleedingLimb = ['leftLeg', 'rightLeg', 'leftArm', 'rightArm'].find(
+      (part) => bodyState[part]?.bleeding !== BLEED_LEVELS.NONE
+    );
+    if (bleedingLimb) return bleedingLimb;
+    return 'leftArm';
+  }
+
+  // Splints target fractured limbs
+  if (itemId === 'sam_splint_roll' || itemId === 'sam_splint_36inch') {
+    const fracturedLimb = ['leftLeg', 'rightLeg', 'leftArm', 'rightArm'].find(
+      (part) => bodyState[part]?.fractures
+    );
+    if (fracturedLimb) return fracturedLimb;
+    return 'leftLeg';
+  }
+
+  // Chest seal / Decompression needle always targets torso
+  if (itemId === 'chest_seal_vented' || itemId === 'chest_seal_twin_pack' || itemId === 'decompression_needle_14g') {
+    return 'torso';
+  }
+
+  // Hemostatic gauze / bandages target the part with most severe bleeding or lowest HP
+  let worstBleedPart = null;
+  for (const partName of BODY_PARTS) {
+    if (bodyState[partName]?.bleeding === BLEED_LEVELS.ARTERIAL) {
+      worstBleedPart = partName;
+      break;
+    }
+  }
+  if (!worstBleedPart) {
+    worstBleedPart = BODY_PARTS.find((p) => bodyState[p]?.bleeding === BLEED_LEVELS.MINOR);
+  }
+  if (worstBleedPart) return worstBleedPart;
+
+  // Otherwise target lowest health part
+  let lowestHpPart = 'torso';
+  let minHp = 100;
+  for (const partName of BODY_PARTS) {
+    const hp = bodyState[partName]?.health ?? 100;
+    if (hp < minHp) {
+      minHp = hp;
+      lowestHpPart = partName;
+    }
+  }
+  return lowestHpPart;
+}
+
+/**
+ * Checks for instantly fatal conditions (e.g. brain death from head collapse or heart rupture).
+ */
+function isBodyConditionFatal(bodyState) {
+  if (!bodyState) return false;
+  if ((bodyState.head?.health ?? 100) <= 0) return true;
+  if ((bodyState.torso?.health ?? 100) <= 0) return true;
+  return false;
+}
+
+
   // --- src/modules/status/statusSelectors.js ---
+
 
 
 
@@ -2852,6 +16223,10 @@ function statusTravelMultiplier(state) {
   let multiplier = 1;
   if (player.energy < BALANCE.travel.exhaustedThreshold) multiplier *= BALANCE.travel.exhaustedTimeMultiplier;
   if (player.ailments.sprain) multiplier *= AILMENTS.sprain.travelTimeMultiplier;
+  if (player.body) {
+    const debuffs = getBodyDebuffs(player.body);
+    multiplier *= debuffs.travelTimeMultiplier;
+  }
   return multiplier;
 }
 
@@ -2876,6 +16251,7 @@ function ailmentIntensity(id, data) {
 
 
 
+
 const BAND_ORDER = ['fine', 'low', 'critical', 'depleted'];
 const DEPRIVATION_CAUSE = { satiety: 'starvation', hydration: 'dehydration', energy: 'exhaustion' };
 const clampVital = (value) => Math.max(0, Math.min(BALANCE.vitals.max, value));
@@ -2888,6 +16264,7 @@ function createPlayer() {
     trait: 'stoic',
     archetype: 'scavenger',
     ...BALANCE.vitals.start,
+    body: createDefaultBodyState(),
     ailments: {},
     alive: true,
     causeOfDeath: null,
@@ -3011,6 +16388,28 @@ function tickStatus(ctx, { hours, activity }) {
   if (ailments.infection) tickInfection(ctx, ailments.infection, hours, harm);
   if (ailments.sprain) tickSprain(ctx, ailments.sprain, hours);
 
+  if (store.state.player.body) {
+    const bodyTick = tickBodyState(store.state.player.body, hours, { rng: ctx.rng, bus: ctx.bus });
+    if (bodyTick.totalBleedLoss > 0) {
+      harm.add('bleeding', bodyTick.totalBleedLoss);
+    }
+    if (isBodyConditionFatal(store.state.player.body)) {
+      harm.add('critical_organ_failure', 999);
+    }
+    const debuffs = getBodyDebuffs(store.state.player.body);
+    if (activity === 'travel') {
+      if (debuffs.travelCalorieMultiplier > 1) {
+        adjustVital(ctx, 'satiety', -(profile.satiety * (debuffs.travelCalorieMultiplier - 1) * hours));
+      }
+      if (debuffs.travelStaminaMultiplier > 1) {
+        adjustVital(ctx, 'energy', -(profile.energy * (debuffs.travelStaminaMultiplier - 1) * hours));
+      }
+    }
+    if (debuffs.hasTensionPneumothorax && store.state.player.energy > debuffs.maxStaminaCap) {
+      store.commit('player/changeVital', { vital: 'energy', delta: debuffs.maxStaminaCap - store.state.player.energy });
+    }
+  }
+
   if (harm.isEmpty() && canRegenerate(store.state.player)) {
     let rate = activity === 'rest' ? BALANCE.regeneration.rest : BALANCE.regeneration.idle;
     if (store.state.player.trait === 'fast_metabolism') rate *= 1.25;
@@ -3029,15 +16428,33 @@ function registerStatusEffects(ctx) {
     engine.log(key, { vital: ref(`status.vital.${vital}`), amount: Math.abs(Math.round(applied)) });
   });
 
-  effects.register('heal', ({ amount }) => {
+  effects.register('heal', ({ amount }, options) => {
     const healed = adjustVital(ctx, 'health', rollRange(rng, amount) * skillMultiplier(store.state, 'medical'));
     engine.log('log.effect.healed', { amount: Math.round(healed) }, 'good');
+    if (store.state.player.body && options?.itemId) {
+      const target = getRecommendedTargetPart(store.state.player.body, options.itemId);
+      const res = applyMedicalTreatment(store.state.player.body, options.itemId, target, { bus: ctx.bus });
+      if (res.actionDesc) {
+        engine.log(res.actionDesc, {}, 'good');
+      }
+    }
   });
 
-  effects.register('damage', ({ amount, cause = 'wounds' }) => {
+  effects.register('damage', ({ amount, cause = 'wounds', part = null, damageType = null }) => {
     const raw = rollRange(rng, amount) * incomingDamageMultiplier(store.state);
     const dealt = inflictDamage(ctx, Math.max(1, Math.round(raw)), cause);
-    if (store.state.player.alive) engine.log('log.effect.damaged', { amount: Math.round(dealt) }, 'bad');
+    if (store.state.player.alive) {
+      engine.log('log.effect.damaged', { amount: Math.round(dealt) }, 'bad');
+      if (store.state.player.body) {
+        applyBodyDamage(store.state.player.body, {
+          part,
+          amount: Math.round(dealt),
+          damageType: damageType || (cause === 'burn' ? 'burn' : 'blunt'),
+          rng,
+          bus: ctx.bus,
+        });
+      }
+    }
   });
 
   effects.register('ailment', ({ id, severity = 1 }) => {
@@ -3055,7 +16472,14 @@ function registerStatusEffects(ctx) {
     engine.log(current ? `log.ailment.${id}.worse` : `log.ailment.${id}.gained`, {}, 'bad');
   });
 
-  effects.register('cure', ({ id, amount }) => {
+  effects.register('cure', ({ id, amount }, options) => {
+    if (store.state.player.body && options?.itemId) {
+      const target = getRecommendedTargetPart(store.state.player.body, options.itemId);
+      const res = applyMedicalTreatment(store.state.player.body, options.itemId, target, { bus: ctx.bus });
+      if (res.actionDesc) {
+        engine.log(res.actionDesc, {}, 'good');
+      }
+    }
     const current = store.state.player.ailments[id];
     if (!current) return;
     const field = Object.keys(AILMENTS[id].initial)[0];
@@ -3101,6 +16525,17 @@ const statusModule = {
         state.player.health = 0;
         state.player.causeOfDeath = cause;
         state.player.diedAt = state.time.minutes;
+      },
+      applyBodyTrauma(state, params) {
+        if (!state.player.body) state.player.body = createDefaultBodyState();
+        return applyBodyDamage(state.player.body, params);
+      },
+      treatBodyPart(state, { itemId, targetPart }) {
+        if (!state.player.body) state.player.body = createDefaultBodyState();
+        return applyMedicalTreatment(state.player.body, itemId, targetPart);
+      },
+      updateBody(state, bodyState) {
+        state.player.body = bodyState;
       },
     });
 
@@ -3176,12 +16611,17 @@ const ENCOUNTERS = {
 
   raider_toll: {
     contexts: ['travel', 'scavenge'], biomes: [...SETTLED, 'military', 'wasteland'], weight: 3, minDanger: 2,
+    faction: 'ash_marauders',
     choices: [
-      { id: 'pay', requires: FOOD_OR_DRINK, effects: [{ type: 'take', tags: ['food', 'drink'], qty: 2 }] },
+      { id: 'pay', requires: FOOD_OR_DRINK, effects: [
+        { type: 'take', tags: ['food', 'drink'], qty: 2 },
+        { type: 'reputation', factionId: 'ash_marauders', delta: 5, reason: 'submitted_tribute' },
+      ] },
       { id: 'fight', check: { kind: 'combat', base: 0.25 },
         success: [
           { type: 'xp', skill: 'marksmanship', amount: 20 },
           { type: 'loot', table: 'raider', rolls: [1, 2] },
+          { type: 'reputation', factionId: 'ash_marauders', delta: -15, reason: 'killed_marauder' },
         ],
         failure: [
           { type: 'damage', amount: [14, 24] },
@@ -3278,11 +16718,13 @@ const ENCOUNTERS = {
 
   lone_survivor: {
     contexts: ['travel', 'rest'], terrain: 'any', weight: 2,
+    faction: 'nomad_guild',
     choices: [
       { id: 'share', requires: FOOD_OR_DRINK, effects: [
         { type: 'take', tags: ['food', 'drink'], qty: 1 },
         { type: 'loot', table: 'survivor_gift', rolls: 1 },
         { type: 'xp', skill: 'medical', amount: 6 },
+        { type: 'reputation', factionId: 'nomad_guild', delta: 12, reason: 'aided_caravan_scout' },
       ] },
       { id: 'ignore', effects: [] },
     ],
@@ -3313,7 +16755,228 @@ const ENCOUNTERS = {
       { id: 'ignore', effects: [] },
     ],
   },
+
+  decompression_chamber: {
+    contexts: ['travel', 'scavenge'], biomes: ['urban', 'suburban', 'industrial', 'military'], weight: 3,
+    choices: [
+      { id: 'decompress', check: { kind: 'skill', skill: 'medical', base: 0.5, perLevel: 0.08 },
+        success: [
+          { type: 'give', itemId: 'morphine_syrette_military', qty: 2 },
+          { type: 'give', itemId: 'ammo_9mm_fmj', qty: 2 },
+          { type: 'xp', skill: 'medical', amount: 25 },
+        ],
+        failure: [
+          { type: 'damage', amount: [6, 12] },
+          { type: 'ailment', id: 'bleeding', chance: 0.4 },
+          { type: 'xp', skill: 'medical', amount: 8 },
+        ] },
+      { id: 'loot_pack', effects: [
+        { type: 'give', itemId: 'energy_bar', qty: 2 },
+        { type: 'give', itemId: 'bottled_water', qty: 1 },
+        { type: 'xp', skill: 'foraging', amount: 8 },
+      ] },
+      { id: 'leave', effects: [] },
+    ],
+  },
+
+  checkpoint_siphon: {
+    contexts: ['travel'], biomes: ['industrial', 'wasteland', 'rural', 'military'], weight: 3, minDanger: 2,
+    faction: 'iron_guard',
+    choices: [
+      { id: 'pay_toll', requires: FOOD_OR_DRINK, effects: [
+        { type: 'take', tags: ['food', 'drink'], qty: 2 },
+        { type: 'reputation', factionId: 'iron_guard', delta: 8, reason: 'obeyed_checkpoint_toll' },
+      ] },
+      { id: 'fight_sentry', check: { kind: 'combat', base: 0.35 },
+        success: [
+          { type: 'xp', skill: 'marksmanship', amount: 25 },
+          { type: 'loot', table: 'raider', rolls: [2, 3] },
+          { type: 'give', itemId: 'ammo_556_nato_fmj', qty: 1 },
+          { type: 'reputation', factionId: 'iron_guard', delta: -30, reason: 'killed_checkpoint_sentry' },
+        ],
+        failure: [
+          { type: 'damage', amount: [16, 28] },
+          { type: 'ailment', id: 'bleeding', severity: 2, chance: 0.8 },
+          { type: 'reputation', factionId: 'iron_guard', delta: -15, reason: 'attacked_sentry' },
+        ] },
+      { id: 'scale_gorge', check: { kind: 'skill', skill: 'foraging', base: 0.45, perLevel: 0.07 },
+        success: [
+          { type: 'vital', vital: 'energy', amount: -15 },
+          { type: 'xp', skill: 'foraging', amount: 12 },
+        ],
+        failure: [
+          { type: 'damage', amount: [8, 15] },
+          { type: 'vital', vital: 'energy', amount: -25 },
+          { type: 'ailment', id: 'sprain', chance: 0.6 },
+        ] },
+    ],
+  },
+
+  protocol47_cache: {
+    contexts: ['travel', 'scavenge'], biomes: ['urban', 'military', 'industrial'], weight: 3,
+    choices: [
+      { id: 'decrypt', check: { kind: 'skill', skill: 'engineering', base: 0.4, perLevel: 0.08 },
+        success: [
+          { type: 'give', itemId: 'electronics', qty: 2 },
+          { type: 'give', itemId: 'batteries', qty: 2 },
+          { type: 'reveal', count: 3 },
+          { type: 'xp', skill: 'engineering', amount: 25 },
+        ],
+        failure: [
+          { type: 'damage', amount: [5, 10] },
+          { type: 'time', minutes: 60 },
+          { type: 'xp', skill: 'engineering', amount: 6 },
+        ] },
+      { id: 'salvage', effects: [
+        { type: 'give', itemId: 'copper_wire', qty: 2 },
+        { type: 'give', itemId: 'scrap_metal', qty: 3 },
+        { type: 'time', minutes: 30 },
+      ] },
+      { id: 'ignore', effects: [] },
+    ],
+  },
 };
+
+
+
+  // --- src/data/narratives.js ---
+/**
+ * Last Breath // Core Narrative & Atmospheric Telemetry System
+ * Zero-dependency dark post-apocalyptic narrative engine
+ */
+
+const BOOT_TELEMETRY = {
+  kernel: 'TACTICAL TELEMETRY KERNEL v4.19-REL',
+  geigerThreshold: '14.8 mSv/h [ATTENUATION COEFFICIENT: HIGH]',
+  carrierFrequency: '142.85 MHz [CARRIER LOCKED]',
+  radioIntercept: 'SEC-09 DEEP VAULT OPERATIONAL // AIRWAY SCRUBBERS STABLE // AUTONOMOUS SEAL IN T-MINUS 45 DAYS. SURVIVE THE TRAVERSE.',
+};
+
+const ARCHETYPE_HOOKS = {
+  scavenger: {
+    title: 'The Silt Walker',
+    hook_en: 'Your lungs remember the taste of every cellar between the coastline and the marshlands. You woke up under a collapsed zinc awning with two cracked ribs, a crowbar bent from prying rusted hatch-seals, and a radio spitting static into the mud.',
+    hook_tr: 'Ciğerlerin, kıyı şeridi ile bataklıklar arasındaki her sığınağın zehirli tozunu hatırlar. İki çatlak kaburga, paslı ambar kapaklarını kanırtmaktan eğrilmiş bir levye ve çamura statik cızırtı kusan bir telsizle çökmüş çinko sundurmanın altında uyandın.',
+  },
+  soldier: {
+    title: 'The Deserter',
+    hook_en: 'The brass abandoned the checkpoint at 0400 hours, taking the clean diesel and leaving sixty conscripts to choke on sulfur dust. You stripped your unit insignia, pocketed your service sidearm with twelve rounds, and took to the tree lines.',
+    hook_tr: 'Komuta kademesi saat 04:00\'te temiz mazotu alıp kaçtı; altmış eri kükürt tozunda boğulmaya terk etti. Üniforma forslarını söktün, hizmet tabancanı on iki mermiyle cebe indirdin ve orman hattına daldın.',
+  },
+  medic: {
+    title: 'The Field Surgeon',
+    hook_en: 'The last triage tag you tied was red, placed on a child with chemical pneumonitis whose parents gave you their last wedding ring for clean oxygen. You keep forty milligrams of morphine, two suture needles, and dry iodine in your waterproof kit.',
+    hook_tr: 'Bağladığın son triyaj etiketi kırmızıydı; temiz oksijen için sana evlilik yüzüklerini veren ailenin kimyasal pnömonili çocuğuna aitti. Su geçirmez çantanda kırk miligram morfin, iki dikiş iğnesi ve kuru iyot saklıyorsun.',
+  },
+  survivor: {
+    title: 'The Civilian Root',
+    hook_en: 'Before the grid went black, you managed shipping ledgers in an air-conditioned office; now your entire life is measured in milliliters of boiled rainwater and dry socks. The voice on 142.85 MHz is the only human thing left in this graveyard.',
+    hook_tr: 'Şebeke kararmadan önce klimalı bir ofiste sevkiyat defterlerini tutardın; şimdi tüm hayatın kaynatılmış yağmur suyu mililitreleri ve kuru çoraplarla ölçülüyor. 142.85 MHz frekansındaki ses bu mezarlıkta kalan tek insani şey.',
+  },
+  engineer: {
+    title: 'The Grid Machinist',
+    hook_en: 'You watched the transformer yards detonate during the high-altitude EMP. You know copper gauge, capacitor life, and which sub-station relays still hold dry sulfur hexafluoride. Your tools are the difference between life and suffocation.',
+    hook_tr: 'Yüksek irtifa EMP patlamasında trafo merkezlerinin infilak edişini izledin. Bakır kesitlerini, kapasitör ömrünü ve hangi trafo rölelerinde kuru gaz kaldığını iyi bilirsin. Aletlerin, yaşam ile boğulma arasındaki tek ince çizgidir.',
+  },
+  veteran: {
+    title: 'The Iron Guard',
+    hook_en: 'Twenty-four years in mechanized armor battalions taught you that civilian panic spreads faster than nerve gas. Your knees creak in the morning frost, but your trigger finger hasn\'t forgotten how to double-tap.',
+    hook_tr: 'Zırhlı mekanize taburlarında geçen yirmi dört yıl, sana sivil paniğinin sinir gazından daha hızlı yayıldığını öğretti. Sabah ayazında dizlerin sızlar ama tetik parmağın çift vuruş yapmayı asla unutmadı.',
+  },
+};
+
+const FIELD_LOGS = [
+  {
+    id: 'LOG_01',
+    source: 'Torn Note / Clinic Ward 3',
+    text_en: '[SCRAP: WARD 3 TRIAGE] "Do not waste alcohol on the patients in Ward 3; the sputum is already black. Captain Vural took the remaining epinephrine westward at sundown. Tell him his wife died at 03:15, cursing his uniform."',
+    text_tr: '[NOT: 3. KOĞUŞ TRİYAJI] "3. Koğuştaki hastalar için alkolü ziyan etmeyin; balgamları çoktan kömür karası oldu. Yüzbaşı Vural kalan epinefrini alıp gün batımında batıya kaçtı. Görürseniz söyleyin, karısı saat 03:15\'te üniformasına lanet okuyarak öldü."',
+  },
+  {
+    id: 'LOG_02',
+    source: 'Thermal Paper Strip / Gendarmerie Radio',
+    text_en: '[DISPATCH 74.20 MHz] "STATION 4 TO COMMAND: Out of riot foam. Refugee surge at river crossing reached critical density. Permission to withdraw pickets?" // COMMAND: "NEGATIVE. ENGAGE CROWD LEADERS WITH CONTROLLED SEMI-AUTOMATIC FIRE. BRIDGE MUST REMAIN CLEAR."',
+    text_tr: '[TELSİZ ÇIKTISI 74.20 MHz] "KARAKOL 4\'TEN KOMUTAYA: İsyan köpüğü tükendi. Nehir geçişindeki sivil akını kritik eşiğe ulaştı. Geri çekilme izni?" // KOMUTA: "OLUMSUZ. ELEBAŞLARINA KONTROLLÜ YARI OTOMATİK ATEŞ AÇIN. KÖPRÜ ASKERİ KONVOYA AÇIK KALMALIDIR."',
+  },
+  {
+    id: 'LOG_03',
+    source: 'Scratched into Freight Car Bogie',
+    text_en: '[CARVED IN STEEL] "Three days pinned in this freight wagon. Radio silent. Mehmet drank radiator runoff; his kidneys shut down. I have three cartridges left. One for the axle rust, one for what\'s scratching outside, the last stays in my pocket."',
+    text_tr: '[ÇELİĞE KAZINMIŞ] "Yük vagonunda üç gündür mahsuruz. Telsiz çekmiyor. Mehmet radyatör suyu içti; böbrekleri iflas etti. Üç mermim kaldı. Biri paslı aks yayına, biri dışarıda tırmalayan şeye, sonuncusu gömlek cebimde kalacak."',
+  },
+  {
+    id: 'LOG_04',
+    source: 'MET-SURV Weather Station Buffer',
+    text_en: '[BUFFER #08] AIR PARTICULATE: 840 PPM [LETHAL TO UNFILTERED TISSUE]. ASH-LUNG MARKER: 91% CONFIDENCE MATCH. RECIRCULATION FANS FAILED. MECHANICAL OVERRIDE CORRUPTED. DISPENSING HALON INERT GAS.',
+    text_tr: '[İSTASYON #08 BELLEĞİ] HAVA PARTİKÜLÜ: 840 PPM [FİLTRESİZ DOKU İÇİN ÖLÜMCÜL]. KÜL CİĞER GÖSTERGESİ: %91 POZİTİF. SİRKÜLASYON FANLARI ÇÖKTÜ. MANUEL KİLİT BOZULDU. HALON GAZI BOŞALTILIYOR.',
+  },
+  {
+    id: 'LOG_05',
+    source: 'Child\'s Stained Exercise Notebook',
+    text_en: '[NOTEBOOK] "Baba says the rain isn\'t water anymore, it\'s angry dust from the clouds that broke. We only breathe through the wet towel. Baba told me to count to ten thousand while he traded the watch. I am at forty-two thousand now."',
+    text_tr: '[DEFTER YAPRAĞI] "Babam artık yağmurun su olmadığını, kırılan bulutların öfkeli külü olduğunu söyledi. Islak havlunun ardından nefes alıyoruz. Babam saati takas etmeye giderken ona kadar saymamı istedi. Şimdi kırk iki bindeyim."',
+  },
+  {
+    id: 'LOG_06',
+    source: 'Classified Perimeter Cleanse Directive',
+    text_en: '[OMEGA DIRECTIVE] "Evacuation infrastructure insufficient by factor of 82:1. Directing civilian mass into coastal corridors will serve as kinetic buffer. Allow pulmonary agent to run natural course. Maintain radio beacon 142.85 MHz to funnel high-utility survivors."',
+    text_tr: '[OMEGA DİREKTİFİ] "Tahliye altyapısı 82:1 oranında yetersizdir. Sivil kitlenin sahil sektörlerine yönlendirilmesi tampon görevi görecektir. Biyolojik ajanın seyrine müdahale edilmeyecektir. 142.85 MHz frekansı açık tutularak vasıflı hayatta kalanlar Bozkır tesisine çekilmelidir."',
+  },
+];
+
+const TRAUMA_ALERTS = {
+  tension_pneumothorax: {
+    en: 'ALERT: Tension pneumothorax imminent. Trachea displaced, pleural cavity hyper-pressurized. 14G needle decompression urgently required.',
+    tr: 'UYARI: Basınçlı pnömotoraks tehlikesi. Trakea kayması ve plevral basınç. Acilen 14G dekompresyon iğnesi gerekir.',
+  },
+  arterial_bleed: {
+    en: 'ALERT: Pulsatile arterial hemorrhage (-120 mL/min). Blood pressure crashing. Windlass C-A-T tourniquet must be applied high & tight.',
+    tr: 'UYARI: Atardamar fışkırmalı kanaması (-120 mL/dk). Tansiyon çöküyor. C-A-T turnikeyi ivedilikle yukarıdan ve sıkıca uygulayın.',
+  },
+  ash_lung_flare: {
+    en: 'ALERT: Acute chemical alveolitis flare. Sputum dark, alveoli ulcerating. Replace N95/GOST filter and inhale mucolytic aerosol.',
+    tr: 'UYARI: Akut kimyasal alveolit krizi. Balgam koyulaşıyor, doku erimesi. N95/GOST filtrenizi yenileyin ve mukolitik aerosol soluyun.',
+  },
+};
+
+const PROTOCOL_47 = {
+  title: 'Protocol 47 Archival Core',
+  summary_en: 'The Black Sea EMP was not an enemy first strike. It was an automated domestic containment protocol to immobilize 40 million civilians before they overwhelmed the deep limestone shelters of Bozkır (Sector 09).',
+  summary_tr: 'Karadeniz EMP patlaması düşman saldırısı değildi. Bozkır (Sektör 09) derin kireçtaşı sığınakları dolup taşmadan önce 40 milyon sivili hareketsiz kılmak için devreye sokulan dahili bir imha protokolüydü.',
+};
+
+const CAMPAIGN_ENDINGS = {
+  endingA: {
+    id: 'ASSET_REQUISITION',
+    title_en: 'Ending A: The Requisitioned Asset',
+    title_tr: 'Son A: Zimmetli Envanter',
+    text_en: 'The blast doors lock behind you with guillotine finality. Your boots and knife are incinerated. You stand in a paper smock as a barcode is inked on your forearm. You are Asset #1184. You have a warm bunk and nutrient paste; outside, hundreds pound on the steel in the dark.',
+    text_tr: 'Ağır çelik kapılar ardınızdan giyotin kesinliğiyle kilitlendi. Botlarınız ve bıçağınız fırında yakıldı. Kolunuza mavi barkod basılırken kağıt önlükle duruyorsunuz. Artık 1184 Nolu Zimmetlisiniz. Sıcak yatağınız ve tayınınız var; dışarıda ise yüzlerce insan karanlıkta kapıya vuruyor.',
+  },
+  endingB: {
+    id: 'ATMOSPHERIC_EQUALIZER',
+    title_en: 'Ending B: The Atmospheric Equalizer',
+    title_tr: 'Son B: Atmosferik Dengeleyici',
+    text_en: 'You jammed the crowbar into the scrubber bypass and blew the intake valves. The toxic steppe wind roared down into the sanitized halls, teaching the generals what coughing blood feels like. The refugees outside breached the food vaults. The world is broken, but today it is broken equally.',
+    text_tr: 'Levyeyi hava filtrelerinin baypas vanasına sıkıştırıp emiş kanallarını havaya uçurdun. Bozkırın zehirli kül fırtınası steril koridorlara hücum etti; generallere kan tükürmenin ne demek olduğunu öğretti. Dışarıdaki aç kitle ambarları yağmaladı. Dünya mahvoldu, ama bugün en azından eşit şekilde mahvoldu.',
+  },
+  endingC: {
+    id: 'BASTION_CHALK',
+    title_en: 'Ending C: The Bastion on the Chalk',
+    title_tr: 'Son C: Kireçtaşındaki Tabya',
+    text_en: 'You tapped the bunker\'s auxiliary geothermal line, bleeding heat and water into the surface barracks. Seventeen froze in the first winter, but the children wear no barcodes. The radio mast on 142.85 MHz now broadcasts weather warnings and clean water coordinates across the steppe.',
+    text_tr: 'Sığınağın yardımcı jeotermal hattını yüzey kışlalarına bağlayarak ısı ve su sağladın. İlk kışta on yedi kişi dondu ama çocuklar asla barkod taşımıyor. 142.85 MHz kulesi artık bozkıra infaz çağrıları değil, hava durumu uyarıları ve temiz kuyu koordinatları yayıyor.',
+  },
+};
+
+/**
+ * Returns a random field log for scavenge discovery.
+ */
+function getRandomFieldLog(rng) {
+  if (!rng || !FIELD_LOGS.length) return FIELD_LOGS[0];
+  const idx = rng.int(0, FIELD_LOGS.length - 1);
+  return FIELD_LOGS[idx];
+}
 
 
 
@@ -3532,7 +17195,455 @@ function greatCircleKm(a, b) {
 
 
 
+  // --- src/modules/environment/weatherEngine.js ---
+/**
+ * Last Breath // Environmental Weather & Thermal Exposure Engine
+ * Zero-dependency Vanilla JS simulation governing dynamic weather states,
+ * ambient temperature curves, thermal hypothermia, acid gear corrosion,
+ * respiratory ash exposure, and light-based stealth/visibility multipliers.
+ */
+
+
+
+
+
+function safeCount(inventory, itemId) {
+  if (!inventory || !Array.isArray(inventory.stacks)) return 0;
+  return countItem(inventory, itemId);
+}
+
+const WEATHER_STATES = {
+  CLEAR_SKY: 'clear_sky',
+  ASH_FOG: 'radiation_ash_fog',
+  ACID_RAIN: 'corrosive_acid_rain',
+  COLD_FRONT: 'subzero_cold_front',
+  WINDSTORM: 'gale_windstorm',
+};
+
+// EventBus Event Channels
+const EVENT_WEATHER_CHANGED = 'environment:weather_changed';
+const EVENT_EXPOSURE_WARNING = 'environment:exposure_warning';
+const EVENT_FLASHLIGHT_TOGGLED = 'environment:flashlight_toggled';
+
+// Weather probability weights per biome
+const BIOME_WEATHER_DISTRIBUTIONS = {
+  arctic: {
+    [WEATHER_STATES.COLD_FRONT]: 0.50,
+    [WEATHER_STATES.WINDSTORM]: 0.25,
+    [WEATHER_STATES.CLEAR_SKY]: 0.20,
+    [WEATHER_STATES.ASH_FOG]: 0.05,
+    [WEATHER_STATES.ACID_RAIN]: 0.00,
+  },
+  coastal: {
+    [WEATHER_STATES.ACID_RAIN]: 0.40,
+    [WEATHER_STATES.WINDSTORM]: 0.30,
+    [WEATHER_STATES.CLEAR_SKY]: 0.25,
+    [WEATHER_STATES.ASH_FOG]: 0.05,
+    [WEATHER_STATES.COLD_FRONT]: 0.00,
+  },
+  industrial: {
+    [WEATHER_STATES.ASH_FOG]: 0.40,
+    [WEATHER_STATES.ACID_RAIN]: 0.30,
+    [WEATHER_STATES.CLEAR_SKY]: 0.20,
+    [WEATHER_STATES.WINDSTORM]: 0.10,
+    [WEATHER_STATES.COLD_FRONT]: 0.00,
+  },
+  urban: {
+    [WEATHER_STATES.ASH_FOG]: 0.35,
+    [WEATHER_STATES.ACID_RAIN]: 0.25,
+    [WEATHER_STATES.CLEAR_SKY]: 0.30,
+    [WEATHER_STATES.WINDSTORM]: 0.10,
+    [WEATHER_STATES.COLD_FRONT]: 0.00,
+  },
+  wasteland: {
+    [WEATHER_STATES.ASH_FOG]: 0.45,
+    [WEATHER_STATES.WINDSTORM]: 0.25,
+    [WEATHER_STATES.CLEAR_SKY]: 0.20,
+    [WEATHER_STATES.COLD_FRONT]: 0.10,
+    [WEATHER_STATES.ACID_RAIN]: 0.00,
+  },
+  forest: {
+    [WEATHER_STATES.CLEAR_SKY]: 0.45,
+    [WEATHER_STATES.COLD_FRONT]: 0.25,
+    [WEATHER_STATES.ACID_RAIN]: 0.15,
+    [WEATHER_STATES.WINDSTORM]: 0.15,
+    [WEATHER_STATES.ASH_FOG]: 0.00,
+  },
+  rural: {
+    [WEATHER_STATES.CLEAR_SKY]: 0.45,
+    [WEATHER_STATES.COLD_FRONT]: 0.20,
+    [WEATHER_STATES.WINDSTORM]: 0.20,
+    [WEATHER_STATES.ACID_RAIN]: 0.15,
+    [WEATHER_STATES.ASH_FOG]: 0.00,
+  },
+  military: {
+    [WEATHER_STATES.ASH_FOG]: 0.35,
+    [WEATHER_STATES.ACID_RAIN]: 0.25,
+    [WEATHER_STATES.WINDSTORM]: 0.20,
+    [WEATHER_STATES.CLEAR_SKY]: 0.20,
+    [WEATHER_STATES.COLD_FRONT]: 0.00,
+  },
+};
+
+// Base environmental temperature and radiation profiles per state
+const WEATHER_PROFILES = {
+  [WEATHER_STATES.CLEAR_SKY]: {
+    ambientTempC: 18.0,
+    radiationRateMsvPerHour: 0.6,
+    scavengeEfficiencyMod: 1.0,
+    stealthRiskMultiplier: 1.0,
+    visibilityClass: 'clear',
+  },
+  [WEATHER_STATES.ASH_FOG]: {
+    ambientTempC: 14.0,
+    radiationRateMsvPerHour: 24.0, // Extreme airborne particulate spike
+    scavengeEfficiencyMod: 0.70,   // -30% scavenge efficiency in toxic fog
+    stealthRiskMultiplier: 0.45,   // -55% ambush risk (concealment)
+    visibilityClass: 'dense_fog',
+  },
+  [WEATHER_STATES.ACID_RAIN]: {
+    ambientTempC: 11.0,
+    radiationRateMsvPerHour: 4.5,
+    scavengeEfficiencyMod: 0.85,
+    stealthRiskMultiplier: 0.80,
+    visibilityClass: 'rain',
+  },
+  [WEATHER_STATES.COLD_FRONT]: {
+    ambientTempC: -12.0,           // Severe sub-zero freeze
+    radiationRateMsvPerHour: 0.8,
+    scavengeEfficiencyMod: 0.80,
+    stealthRiskMultiplier: 0.90,
+    visibilityClass: 'frost_haze',
+  },
+  [WEATHER_STATES.WINDSTORM]: {
+    ambientTempC: 9.0,
+    radiationRateMsvPerHour: 3.5,
+    scavengeEfficiencyMod: 0.75,
+    stealthRiskMultiplier: 0.50,   // Noise of storm masks survivor movement
+    visibilityClass: 'turbulent',
+  },
+};
+
+/**
+ * WeatherEngine: Simulates atmospheric cycles, thermal regulation,
+ * chemical exposure, and illumination stealth trade-offs.
+ */
+class WeatherEngine {
+  /**
+   * Generates default environment state for a fresh game run.
+   */
+  static getInitialState() {
+    return {
+      currentWeather: WEATHER_STATES.CLEAR_SKY,
+      weatherDurationHours: 6,
+      ambientTempC: 18.0,
+      radiationRate: 0.6,
+      coreBodyTemp: 37.0, // Normal physiological baseline: 37.0°C
+      shivering: false,
+      flashlightActive: false,
+      absorbedRadiationTotal: 12.0, // Starting baseline load in mSv
+      exposureAlert: null,
+    };
+  }
+
+  /**
+   * Checks if survivor has equipped gear that provides full waterproof/chemical acid shielding.
+   */
+  static hasAcidProtection(state) {
+    const bodyGear = state?.inventory?.equipment?.body;
+    if (!bodyGear) return false;
+    const protectiveItems = [
+      'hazmat_poncho',
+      'goretex_waterproof_parka_camo',
+      'chemical_protective_suit',
+      'heavy_neoprene_wading_boots',
+    ];
+    return protectiveItems.some((item) => bodyGear.includes(item));
+  }
+
+  /**
+   * Checks if survivor has equipped an airtight respirator or gas mask against toxic ash particulate.
+   */
+  static hasAshProtection(state) {
+    const headGear = state?.inventory?.equipment?.head;
+    const bodyGear = state?.inventory?.equipment?.body;
+    const gasMasks = [
+      'gp5_gas_mask_civilian',
+      'gas_mask_m40_filter',
+      'half_face_chemical_respirator',
+      'pmg_soviet_gas_mask',
+      'hazmat_poncho',
+    ];
+    const hasHeadMask = headGear && gasMasks.some((mask) => headGear.includes(mask));
+    const hasBodyMask = bodyGear && gasMasks.some((mask) => bodyGear.includes(mask));
+    // Also check if survivor holds a spare filter/mask in inventory
+    const hasPackFilter = safeCount(state?.inventory, 'gp5_gas_mask_civilian') > 0 ||
+      safeCount(state?.inventory, 'half_face_chemical_respirator') > 0;
+    return Boolean(hasHeadMask || hasBodyMask || hasPackFilter);
+  }
+
+  /**
+   * Calculates thermal insulation value (0 to 100) provided by clothing and gear.
+   */
+  static getThermalInsulation(state) {
+    let insulation = 10; // Baseline street clothes
+    const body = state?.inventory?.equipment?.body;
+    if (body) {
+      if (body.includes('parka') || body.includes('snow') || body.includes('heavy_down')) insulation += 50;
+      else if (body.includes('wool') || body.includes('jacket') || body.includes('sweater')) insulation += 30;
+      else insulation += 15;
+    }
+    // Thermal underwear or sleeping bivvy in pack adds passive comfort
+    if (safeCount(state?.inventory, 'merino_wool_thermal_base_layer') > 0) insulation += 25;
+    if (safeCount(state?.inventory, 'thermal_mylar_bivvy_emergency_sleeping_bag') > 0) insulation += 20;
+    return Math.min(100, insulation);
+  }
+
+  /**
+   * Checks if survivor is in proximity to an active heat source (camp stove or outpost).
+   */
+  static hasActiveHeatSource(state, activity) {
+    if (activity === 'rest' && (safeCount(state?.inventory, 'folding_camp_wood_stove') > 0 || state?.base?.outpostNodeId === state?.world?.currentNodeId)) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Checks if a flashlight or active light source is switched on.
+   */
+  static isFlashlightActive(state) {
+    if (!state?.environment?.flashlightActive) return false;
+    const inv = state?.inventory;
+    const hasLight = safeCount(inv, 'flashlight') > 0 ||
+      safeCount(inv, 'headlamp_rechargeable_led') > 0 ||
+      safeCount(inv, 'high_lumen_tactical_flashlight') > 0 ||
+      (Array.isArray(inv?.stacks) && inv.stacks.some((s) => s.itemId?.includes('flashlight') || s.itemId?.includes('headlamp')));
+    return Boolean(hasLight);
+  }
+
+  /**
+   * Computes visibility, scavenge efficiency, and ambush encounter risk multipliers.
+   * - Night and heavy fog reduce scavenge speed, but grant stealth concealment against raiders.
+   * - Using a flashlight restores scavenge search speed, but triples (+300%) encounter risk!
+   */
+  static getStealthAndVisibilityModifiers(state) {
+    const env = state?.environment || this.getInitialState();
+    const weatherCfg = WEATHER_PROFILES[env.currentWeather] || WEATHER_PROFILES[WEATHER_STATES.CLEAR_SKY];
+    const totalMinutes = state?.time?.minutes ?? (state?.clock?.hour !== undefined ? state.clock.hour * 60 : 360);
+    const night = isNight(totalMinutes);
+    const lightOn = this.isFlashlightActive(state);
+
+    let scavengeEfficiency = weatherCfg.scavengeEfficiencyMod;
+    let encounterRisk = weatherCfg.stealthRiskMultiplier;
+
+    if (night) {
+      if (lightOn) {
+        // Flashlight cuts through the dark: +40% search speed
+        scavengeEfficiency = Math.min(1.25, scavengeEfficiency * 1.40);
+        // BUT illuminates the survivor: triples enemy encounter rate (x3.0 / +300%)
+        encounterRisk *= 3.0;
+      } else {
+        // Darkness impairs search efficiency (-35%), but hides survivor (-50% ambush chance)
+        scavengeEfficiency *= 0.65;
+        encounterRisk *= 0.50;
+      }
+    } else if (lightOn) {
+      // Flashlight on during daytime: slightly noticeable
+      encounterRisk *= 1.25;
+    }
+
+    return {
+      isNight: night,
+      flashlightActive: lightOn,
+      scavengeEfficiency: Math.max(0.35, Math.min(1.5, scavengeEfficiency)),
+      encounterRiskMultiplier: Math.max(0.20, Math.min(3.5, encounterRisk)),
+    };
+  }
+
+  /**
+   * Hourly simulation tick processing:
+   * 1. Rolls dynamic weather transitions upon duration expiration.
+   * 2. Evaluates core body temperature drop & hypothermia during Sub-zero Cold Front.
+   * 3. Applies chemical burn damage and equipment corrosion during Corrosive Acid Rain.
+   * 4. Accelerates radiation load and respiratory distress during Radiation Ash Fog.
+   * 5. Applies windstorm fatigue and hydration drain.
+   */
+  static tickEnvironment(state, { hours = 1, activity = 'idle', biome = 'urban', rng = null, bus = null } = {}) {
+    if (!state.environment) {
+      state.environment = this.getInitialState();
+    }
+
+    const env = state.environment;
+    const alerts = [];
+
+    // 1. Weather State Transition Cycle
+    env.weatherDurationHours -= hours;
+    if (env.weatherDurationHours <= 0) {
+      const dist = BIOME_WEATHER_DISTRIBUTIONS[biome] || BIOME_WEATHER_DISTRIBUTIONS.urban;
+      const weatherPool = Object.entries(dist).map(([weatherKey, weight]) => ({
+        weatherKey,
+        weight,
+      }));
+
+      const nextWeather = (rng && typeof rng.weighted === 'function')
+        ? rng.weighted(weatherPool, (entry) => entry.weight).weatherKey
+        : WEATHER_STATES.CLEAR_SKY;
+
+      const previousWeather = env.currentWeather;
+      env.currentWeather = nextWeather;
+      // Weather persists between 4 and 10 hours
+      env.weatherDurationHours = rng ? rng.int(4, 10) : 6;
+
+      const cfg = WEATHER_PROFILES[nextWeather];
+      env.ambientTempC = cfg.ambientTempC;
+      env.radiationRate = cfg.radiationRateMsvPerHour;
+
+      if (bus && previousWeather !== nextWeather) {
+        bus.emit(EVENT_WEATHER_CHANGED, {
+          from: previousWeather,
+          to: nextWeather,
+          temperature: env.ambientTempC,
+          radiationRate: env.radiationRate,
+        });
+      }
+      alerts.push({ type: 'weather_shift', weather: nextWeather });
+    }
+
+    // 2. Weather Condition Processing:
+    const current = env.currentWeather;
+
+    // --- CASE A: SUB-ZERO COLD FRONT (Thermal Exposure & Hypothermia) ---
+    if (current === WEATHER_STATES.COLD_FRONT) {
+      const insulation = this.getThermalInsulation(state);
+      const hasHeat = this.hasActiveHeatSource(state, activity);
+
+      if (hasHeat) {
+        // Outpost or camp stove: Core temp warms back to equilibrium
+        env.coreBodyTemp = Math.min(37.0, env.coreBodyTemp + 0.6 * hours);
+        env.shivering = false;
+      } else {
+        // Thermal deficit: insulation protects against subzero chill
+        const thermalDeficit = Math.max(0, (100 - insulation) / 100);
+        const tempDrop = (0.35 * thermalDeficit) * hours;
+        env.coreBodyTemp = Math.max(32.0, env.coreBodyTemp - tempDrop);
+
+        // Core temp drops below 35.5°C triggers shivering and extra calorie burn
+        if (env.coreBodyTemp < 35.5) {
+          env.shivering = true;
+          // Shivering increases calorie burn by +60% to produce metabolic heat
+          if (state.player && state.player.satiety > 0) {
+            state.player.satiety = Math.max(0, state.player.satiety - 2.5 * hours);
+          }
+          alerts.push({
+            type: EVENT_EXPOSURE_WARNING,
+            hazard: 'cold',
+            textKey: 'environment.alert.shivering',
+            coreTemp: env.coreBodyTemp.toFixed(1),
+          });
+        }
+
+        // Severe hypothermia (Core Temp < 34.0°C) directly drains stamina and life
+        if (env.coreBodyTemp < 34.0) {
+          if (state.player) {
+            state.player.energy = Math.max(0, state.player.energy - 8.0 * hours);
+            state.player.health = Math.max(0, state.player.health - 3.0 * hours);
+          }
+          alerts.push({
+            type: EVENT_EXPOSURE_WARNING,
+            hazard: 'hypothermia',
+            textKey: 'environment.alert.hypothermia',
+            coreTemp: env.coreBodyTemp.toFixed(1),
+          });
+        }
+      }
+    } else {
+      // Ambient temperatures above freezing allow natural recovery toward 37.0°C
+      if (env.coreBodyTemp < 37.0) {
+        env.coreBodyTemp = Math.min(37.0, env.coreBodyTemp + 0.5 * hours);
+        if (env.coreBodyTemp >= 35.5) env.shivering = false;
+      }
+    }
+
+    // --- CASE B: CORROSIVE ACID RAIN (Chemical Burns & Gear Degradation) ---
+    if (current === WEATHER_STATES.ACID_RAIN) {
+      const hasShielding = this.hasAcidProtection(state);
+
+      if (!hasShielding) {
+        // Direct caustic contact burns exposed skin and facial tissues
+        if (state.player?.body) {
+          applyBodyDamage(state.player.body, {
+            part: 'torso',
+            amount: Math.round(4.0 * hours),
+            damageType: 'burn',
+            rng,
+            bus,
+          });
+        } else if (state.player) {
+          state.player.health = Math.max(0, state.player.health - 4.0 * hours);
+        }
+        alerts.push({
+          type: EVENT_EXPOSURE_WARNING,
+          hazard: 'acid_burn',
+          textKey: 'environment.alert.acid_burn',
+        });
+      }
+    }
+
+    // --- CASE C: RADIATION ASH FOG (Pulmonary & Radiometric Exposure) ---
+    if (current === WEATHER_STATES.ASH_FOG) {
+      const hasRespirator = this.hasAshProtection(state);
+      const radDose = (hasRespirator ? 2.5 : env.radiationRate) * hours;
+      env.absorbedRadiationTotal += radDose;
+
+      if (!hasRespirator) {
+        // Inhaling raw volcanic/industrial sulfur dust irritates lungs and drains stamina
+        if (state.player) {
+          state.player.energy = Math.max(0, state.player.energy - 6.0 * hours);
+          // 25% chance of triggering chemical respiratory ailment
+          if (rng && rng.chance(0.25) && state.player.ailments) {
+            state.player.ailments.infection = { progress: 20 };
+          }
+        }
+        alerts.push({
+          type: EVENT_EXPOSURE_WARNING,
+          hazard: 'ash_lung',
+          textKey: 'environment.alert.ash_inhalation',
+          dose: radDose.toFixed(1),
+        });
+      }
+    }
+
+    // --- CASE D: GALE WINDSTORM (Travel Fatigue & Dehydration) ---
+    if (current === WEATHER_STATES.WINDSTORM) {
+      if (activity === 'travel' && state.player) {
+        state.player.hydration = Math.max(0, state.player.hydration - 3.0 * hours);
+        state.player.energy = Math.max(0, state.player.energy - 4.0 * hours);
+        alerts.push({
+          type: EVENT_EXPOSURE_WARNING,
+          hazard: 'windstorm',
+          textKey: 'environment.alert.windstorm_fatigue',
+        });
+      }
+    }
+
+    if (bus && alerts.length > 0) {
+      bus.emit(EVENT_EXPOSURE_WARNING, { alerts, environment: env });
+    }
+
+    return {
+      currentWeather: env.currentWeather,
+      coreBodyTemp: env.coreBodyTemp,
+      ambientTempC: env.ambientTempC,
+      radiationRate: env.radiationRate,
+      alerts,
+    };
+  }
+}
+
+
   // --- src/modules/map/mapGraph.js ---
+
 
 
 
@@ -3636,6 +17747,8 @@ function estimateJourney(state, fromId, toId) {
   if (isNight(state.time.minutes) && passiveBonus(state, 'nightVision') <= 0) {
     risk *= nightRiskMultiplier;
   }
+  const envMods = WeatherEngine.getStealthAndVisibilityModifiers(state);
+  risk *= envMods.encounterRiskMultiplier;
   risk = Math.min(maxEncounterChance, Math.max(0.05, risk));
 
   return {
@@ -3667,7 +17780,353 @@ function scavengeProfile(state, nodeId = state.world.currentNodeId) {
 
 
 
+  // --- src/modules/factions/factionManager.js ---
+/**
+ * Last Breath // Faction Diplomacy & Dynamic Encounter Weighting System
+ * Zero-dependency Vanilla JS module managing faction standings (-100 to +100),
+ * reputation ripple matrices, economic discount multipliers, and encounter modifications.
+ */
+
+const FACTION_IDS = {
+  IRON_GUARD: 'iron_guard',
+  NOMAD_GUILD: 'nomad_guild',
+  ASH_MARAUDERS: 'ash_marauders',
+};
+
+const FACTIONS = {
+  iron_guard: {
+    id: 'iron_guard',
+    nameKey: 'faction.iron_guard.name',
+    descKey: 'faction.iron_guard.desc',
+    alignment: 'authoritarian_technocrat',
+    defaultStanding: -10, // Suspicious of uncertified wasteland scavengers
+    baseHubNodeId: 'ankara', // Bozkır Sector 09 deep redoubt
+    primaryThreat: 'quarantine_enforcement',
+    icon: '⚡',
+  },
+  nomad_guild: {
+    id: 'nomad_guild',
+    nameKey: 'faction.nomad_guild.name',
+    descKey: 'faction.nomad_guild.desc',
+    alignment: 'pragmatic_mercantile',
+    defaultStanding: 15, // Receptive to peaceful barter and commerce
+    baseHubNodeId: 'bursa', // Caravan road crossroads
+    primaryThreat: 'price_gouging_embargo',
+    icon: '⚖',
+  },
+  ash_marauders: {
+    id: 'ash_marauders',
+    nameKey: 'faction.ash_marauders.name',
+    descKey: 'faction.ash_marauders.desc',
+    alignment: 'opportunistic_raiders',
+    defaultStanding: -40, // Extortion-driven, aggressive rogue bandits
+    baseHubNodeId: 'edirne', // Borderland ruins
+    primaryThreat: 'armed_ambush',
+    icon: '☠',
+  },
+};
+
+const STANDING_TIERS = {
+  ALLIED: {
+    id: 'allied',
+    min: 75,
+    max: 100,
+    labelKey: 'faction.tier.allied',
+    discountMultiplier: 0.70, // 30% discount
+    colorTone: 'good',
+  },
+  FRIENDLY: {
+    id: 'friendly',
+    min: 25,
+    max: 74,
+    labelKey: 'faction.tier.friendly',
+    discountMultiplier: 0.85, // 15% discount
+    colorTone: 'good',
+  },
+  NEUTRAL: {
+    id: 'neutral',
+    min: -24,
+    max: 24,
+    labelKey: 'faction.tier.neutral',
+    discountMultiplier: 1.00, // Standard price
+    colorTone: 'dim',
+  },
+  SUSPICIOUS: {
+    id: 'suspicious',
+    min: -74,
+    max: -25,
+    labelKey: 'faction.tier.suspicious',
+    discountMultiplier: 1.30, // 30% price markup
+    colorTone: 'warn',
+  },
+  HOSTILE: {
+    id: 'hostile',
+    min: -100,
+    max: -75,
+    labelKey: 'faction.tier.hostile',
+    discountMultiplier: null, // Outright refused service / shoot-on-sight
+    colorTone: 'bad',
+  },
+};
+
+// Cross-faction ripple coefficient matrix (Reputation Karma)
+const REPUTATION_RIPPLE_MATRIX = {
+  iron_guard: {
+    ash_marauders: -0.65, // Aiding Iron Guard angers Marauders; attacking Iron Guard pleases Marauders
+    nomad_guild: 0.15,    // Preserving order provides minor security comfort to Nomads
+  },
+  nomad_guild: {
+    iron_guard: 0.20,     // Legitimate commerce supports civil stabilization
+    ash_marauders: -0.50, // Empowering caravan defense starves raiders
+  },
+  ash_marauders: {
+    iron_guard: -0.80,    // Raider collusion directly alienates the military garrison
+    nomad_guild: -0.75,   // Highway piracy directly terrifies the merchant caravans
+  },
+};
+
+// EventBus Channel Identifiers
+const EVENT_FACTION_STANDING_CHANGED = 'faction:standing_changed';
+const EVENT_FACTION_TIER_SHIFTED = 'faction:tier_shifted';
+const EVENT_FACTION_HOSTILE_TRIGGERED = 'faction:hostile_triggered';
+
+/**
+ * FactionManager: Governs survivor diplomatic standings, cross-faction karma ripples,
+ * trade pricing formulas, and procedural encounter mutations.
+ */
+class FactionManager {
+  /**
+   * Generates default initial factions state for a fresh run.
+   */
+  static getInitialState() {
+    return {
+      standings: {
+        iron_guard: FACTIONS.iron_guard.defaultStanding,
+        nomad_guild: FACTIONS.nomad_guild.defaultStanding,
+        ash_marauders: FACTIONS.ash_marauders.defaultStanding,
+      },
+      history: [],
+    };
+  }
+
+  /**
+   * Retrieves numerical standing for a specific faction clamped to [-100, 100].
+   */
+  static getStanding(state, factionId) {
+    const raw = state?.factions?.standings?.[factionId];
+    if (typeof raw !== 'number') {
+      return FACTIONS[factionId]?.defaultStanding ?? 0;
+    }
+    return Math.max(-100, Math.min(100, Math.round(raw)));
+  }
+
+  /**
+   * Maps a numerical standing (-100..100) to its corresponding standing tier.
+   */
+  static getTier(standing) {
+    const val = Math.max(-100, Math.min(100, standing));
+    if (val >= STANDING_TIERS.ALLIED.min) return STANDING_TIERS.ALLIED;
+    if (val >= STANDING_TIERS.FRIENDLY.min) return STANDING_TIERS.FRIENDLY;
+    if (val >= STANDING_TIERS.NEUTRAL.min) return STANDING_TIERS.NEUTRAL;
+    if (val >= STANDING_TIERS.SUSPICIOUS.min) return STANDING_TIERS.SUSPICIOUS;
+    return STANDING_TIERS.HOSTILE;
+  }
+
+  /**
+   * Calculates trade price multiplier based on current diplomatic standing.
+   * Returns null if faction is hostile (trade rejected).
+   */
+  static getDiscountMultiplier(state, factionId) {
+    const standing = this.getStanding(state, factionId);
+    const tier = this.getTier(standing);
+    return tier.discountMultiplier;
+  }
+
+  /**
+   * Adjusts reputation for a primary faction and propagates relational ripple shifts
+   * to all connected wasteland factions.
+   * 
+   * @param {Object} state - Reactive store state.
+   * @param {string} factionId - Target faction ID.
+   * @param {number} delta - Points to add or subtract (-100 to +100).
+   * @param {string} [reason=''] - Log description for historical record.
+   * @param {Object} [options] - Optional EventBus context.
+   * @returns {Object} { primaryChange, ripples, tierShifts }
+   */
+  static adjustStanding(state, factionId, delta, reason = '', { bus = null } = {}) {
+    if (!state.factions) {
+      state.factions = this.getInitialState();
+    }
+
+    const currentStanding = this.getStanding(state, factionId);
+    const oldTier = this.getTier(currentStanding);
+    const newStanding = Math.max(-100, Math.min(100, currentStanding + delta));
+    const newTier = this.getTier(newStanding);
+
+    state.factions.standings[factionId] = newStanding;
+
+    const tierShifts = [];
+    if (oldTier.id !== newTier.id) {
+      tierShifts.push({ factionId, from: oldTier.id, to: newTier.id });
+      if (bus) {
+        bus.emit(EVENT_FACTION_TIER_SHIFTED, { factionId, from: oldTier, to: newTier });
+        if (newTier.id === STANDING_TIERS.HOSTILE.id) {
+          bus.emit(EVENT_FACTION_HOSTILE_TRIGGERED, { factionId });
+        }
+      }
+    }
+
+    // Compute and apply relational karma ripples to rival/allied factions
+    const ripples = [];
+    const rippleConfig = REPUTATION_RIPPLE_MATRIX[factionId];
+    if (rippleConfig) {
+      for (const [linkedId, coefficient] of Object.entries(rippleConfig)) {
+        const rippleDelta = Math.round(delta * coefficient);
+        if (rippleDelta !== 0) {
+          const linkedBefore = this.getStanding(state, linkedId);
+          const linkedOldTier = this.getTier(linkedBefore);
+          const linkedAfter = Math.max(-100, Math.min(100, linkedBefore + rippleDelta));
+          const linkedNewTier = this.getTier(linkedAfter);
+
+          state.factions.standings[linkedId] = linkedAfter;
+          ripples.push({ factionId: linkedId, delta: rippleDelta, resulting: linkedAfter });
+
+          if (linkedOldTier.id !== linkedNewTier.id) {
+            tierShifts.push({ factionId: linkedId, from: linkedOldTier.id, to: linkedNewTier.id });
+            if (bus) {
+              bus.emit(EVENT_FACTION_TIER_SHIFTED, { factionId: linkedId, from: linkedOldTier, to: linkedNewTier });
+            }
+          }
+        }
+      }
+    }
+
+    const entry = {
+      timestamp: Date.now(),
+      primaryFaction: factionId,
+      delta,
+      newStanding,
+      reason,
+      ripples,
+    };
+    state.factions.history.unshift(entry);
+    if (state.factions.history.length > 50) {
+      state.factions.history.pop();
+    }
+
+    if (bus) {
+      bus.emit(EVENT_FACTION_STANDING_CHANGED, entry);
+    }
+
+    return {
+      primaryChange: { factionId, delta, before: currentStanding, after: newStanding },
+      ripples,
+      tierShifts,
+    };
+  }
+
+  /**
+   * Intercepts and procedurally mutates an encounter definition based on faction standings.
+   * If the player is hostile, peaceful choices are stripped or converted to ambushes.
+   * If the player is friendly or allied, tolls are waived and safe barter or aid is added.
+   * 
+   * @param {Object} state - Current game state.
+   * @param {Object} encounterDef - Raw encounter template.
+   * @param {string} factionId - Associated faction ID.
+   * @returns {Object} Mutated encounter template.
+   */
+  static modifyEncounterByFaction(state, encounterDef, factionId) {
+    if (!encounterDef || !factionId || !FACTIONS[factionId]) {
+      return encounterDef;
+    }
+
+    const standing = this.getStanding(state, factionId);
+    const tier = this.getTier(standing);
+    const modified = JSON.parse(JSON.stringify(encounterDef));
+
+    // 1. HOSTILE DISPOSITION:
+    // Strips barter/surrender choices, introduces pre-emptive combat and ambush ambiances
+    if (tier.id === STANDING_TIERS.HOSTILE.id) {
+      modified.textKey = `${encounterDef.id}.text_hostile`;
+      modified.isHostileEncounter = true;
+      modified.choices = modified.choices
+        .filter((c) => c.id !== 'barter' && c.id !== 'pay' && c.id !== 'pay_toll')
+        .map((c) => {
+          if (c.id === 'fight' || c.id === 'fight_sentry' || c.id === 'stand') {
+            return {
+              ...c,
+              labelKey: 'encounter.choice.fight_hostile_ambush',
+              check: c.check ? { ...c.check, base: Math.max(0.10, (c.check.base || 0.3) - 0.15) } : null,
+            };
+          }
+          return c;
+        });
+      // Guarantee at least a combat option if all peaceful ones were stripped
+      if (!modified.choices.some((c) => c.id.includes('fight') || c.check?.kind === 'combat')) {
+        modified.choices.unshift({
+          id: 'defend_ambush',
+          check: { kind: 'combat', base: 0.20 },
+          success: [{ type: 'xp', skill: 'marksmanship', amount: 20 }],
+          failure: [{ type: 'damage', amount: [18, 30] }, { type: 'ailment', id: 'bleeding', severity: 2, chance: 0.8 }],
+        });
+      }
+    }
+
+    // 2. SUSPICIOUS DISPOSITION:
+    // Imposes tariff/toll and disables friendly bartering
+    else if (tier.id === STANDING_TIERS.SUSPICIOUS.id) {
+      modified.textKey = `${encounterDef.id}.text_suspicious`;
+      modified.choices = modified.choices.map((c) => {
+        if (c.id === 'barter') {
+          return { ...c, requires: { tags: ['currency', 'fuel', 'ammo'] } };
+        }
+        return c;
+      });
+    }
+
+    // 3. FRIENDLY DISPOSITION:
+    // Waives tolls, unlocks peaceful dialogue, and improves skill success rates
+    else if (tier.id === STANDING_TIERS.FRIENDLY.id) {
+      modified.textKey = `${encounterDef.id}.text_friendly`;
+      modified.choices = modified.choices.map((c) => {
+        if (c.id === 'pay' || c.id === 'pay_toll') {
+          return {
+            id: 'waived_toll',
+            effects: [{ type: 'time', minutes: 15 }, { type: 'xp', skill: 'foraging', amount: 5 }],
+          };
+        }
+        if (c.check?.kind === 'skill') {
+          return { ...c, check: { ...c.check, base: Math.min(0.90, (c.check.base || 0.4) + 0.15) } };
+        }
+        return c;
+      });
+    }
+
+    // 4. ALLIED DISPOSITION:
+    // Grants free passage, emergency field supplies, and maximum trade discounts
+    else if (tier.id === STANDING_TIERS.ALLIED.id) {
+      modified.textKey = `${encounterDef.id}.text_allied`;
+      modified.choices = [
+        {
+          id: 'allied_safe_passage',
+          effects: [
+            { type: 'time', minutes: 10 },
+            { type: 'give', itemId: 'energy_bar', qty: 1 },
+            { type: 'xp', skill: 'foraging', amount: 10 },
+          ],
+        },
+        ...modified.choices.filter((c) => !c.id.includes('pay')),
+      ];
+    }
+
+    return modified;
+  }
+}
+
+
+
   // --- src/modules/map/encounters.js ---
+
 
 
 
@@ -3718,8 +18177,10 @@ function evaluateCheckChance(state, check) {
 
 function describeEncounter(state, encounterState) {
   if (!encounterState) return null;
-  const def = ENCOUNTERS[encounterState.id];
-  if (!def) return null;
+  const rawDef = ENCOUNTERS[encounterState.id];
+  if (!rawDef) return null;
+
+  const def = rawDef.faction ? FactionManager.modifyEncounterByFaction(state, rawDef, rawDef.faction) : rawDef;
 
   const choices = def.choices.map((choice) => {
     const available = meetsRequirement(state, choice.requires);
@@ -3737,6 +18198,7 @@ function describeEncounter(state, encounterState) {
     context: encounterState.context,
     nodeId: encounterState.nodeId,
     choices,
+    factionId: rawDef.faction ?? null,
   };
 }
 
@@ -3751,6 +18213,8 @@ function consumeCombatAmmo(store, check) {
 
 
   // --- src/modules/map/index.js ---
+
+
 
 
 
@@ -3932,12 +18396,19 @@ function registerMapActions(engine, ctx) {
 
     store.commit('world/depleteNode', { nodeId, amount: BALANCE.scavenge.depletionPerSearch });
 
+    const envMods = WeatherEngine.getStealthAndVisibilityModifiers(store.state);
+
     if (rng.chance(profile.chance)) {
       const bonus = skillMultiplier(store.state, 'foraging');
       const baseRolls = rollRange(rng, profile.biome.yield);
-      const rolls = Math.max(1, Math.round(baseRolls * bonus));
+      const rolls = Math.max(1, Math.round(baseRolls * bonus * envMods.scavengeEfficiency));
       const items = rollLoot(rng, profile.biome.lootTable, rolls);
       effects.apply([{ type: 'xp', skill: 'foraging', amount: 5 }], ctx);
+      if (rng.chance(0.25)) {
+        const dispatch = getRandomFieldLog(rng);
+        const text = i18n.locale === 'tr' ? dispatch.text_tr : dispatch.text_en;
+        engine.log('log.scavenge.field_log', { text });
+      }
       engine.bus.emit('loot:modal', {
         type: 'scavenge',
         titleKey: 'loot.title.scavenge_found',
@@ -3966,7 +18437,7 @@ function registerMapActions(engine, ctx) {
       });
     }
 
-    if (store.state.player.alive && rng.chance(profile.hazardRisk)) {
+    if (store.state.player.alive && rng.chance(profile.hazardRisk * envMods.encounterRiskMultiplier)) {
       startEncounter(ctx, { context: 'scavenge', nodeId });
     }
     return { ok: true };
@@ -4191,7 +18662,619 @@ function getEnemy(enemyId) {
 
 
 
+  // --- src/core/audioEngine.js ---
+/**
+ * Last Breath // Procedural Retro-Terminal Audio Synthesis Engine
+ * Zero external dependencies. Zero audio asset files.
+ * Native Web Audio API procedural synthesis.
+ */
+
+class AudioEngine {
+  #ctx = null;
+  #masterGain = null;
+  #crtFilter = null;
+  #humOsc = null;
+  #humGain = null;
+  #noiseBuffer = null;
+  #isMuted = false;
+  #volume = 0.7;
+  #unlocked = false;
+  #geigerInterval = null;
+  #heartbeatInterval = null;
+
+  constructor() {
+    this.#setupAutoplayUnlock();
+  }
+
+  /* =========================================================================
+     Lifecycle & Autoplay Management
+     ========================================================================= */
+
+  /**
+   * Lazily initializes and returns the Web Audio context.
+   */
+  #getContext() {
+    if (!this.#ctx && typeof window !== 'undefined') {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (AudioContextClass) {
+        this.#ctx = new AudioContextClass();
+        this.#initMasterChain();
+      }
+    }
+    if (this.#ctx && this.#ctx.state === 'suspended' && this.#unlocked) {
+      this.#ctx.resume().catch(() => {});
+    }
+    return this.#ctx;
+  }
+
+  /**
+   * Builds the master signal routing chain:
+   * [Source Nodes] ──► [CRT Warmer Filter] ──► [Master Gain] ──► [Destination]
+   */
+  #initMasterChain() {
+    if (!this.#ctx) return;
+
+    // Warm CRT low-pass filter (cuts harsh >12kHz frequencies like vintage monitor speakers)
+    this.#crtFilter = this.#ctx.createBiquadFilter();
+    this.#crtFilter.type = 'lowpass';
+    this.#crtFilter.frequency.value = 11500;
+    this.#crtFilter.Q.value = 0.7;
+
+    // Master Volume Gain
+    this.#masterGain = this.#ctx.createGain();
+    this.#masterGain.gain.value = this.#isMuted ? 0 : this.#volume;
+
+    this.#crtFilter.connect(this.#masterGain);
+    this.#masterGain.connect(this.#ctx.destination);
+
+    // Generate reusable 2-second white noise buffer
+    this.#noiseBuffer = this.#createNoiseBuffer(2.0);
+  }
+
+  /**
+   * Sets up one-time window listeners to satisfy browser autoplay policies on first gesture.
+   */
+  #setupAutoplayUnlock() {
+    if (typeof window === 'undefined') return;
+
+    const unlock = () => {
+      this.#unlocked = true;
+      const ctx = this.#getContext();
+      if (ctx && ctx.state === 'suspended') {
+        ctx.resume().catch(() => {});
+      }
+      window.removeEventListener('pointerdown', unlock);
+      window.removeEventListener('keydown', unlock);
+      window.removeEventListener('touchstart', unlock);
+    };
+
+    window.addEventListener('pointerdown', unlock, { passive: true });
+    window.addEventListener('keydown', unlock, { passive: true });
+    window.addEventListener('touchstart', unlock, { passive: true });
+  }
+
+  /**
+   * Creates a monophonic white noise AudioBuffer for procedural percussive / ballistic bursts.
+   */
+  #createNoiseBuffer(seconds = 2.0) {
+    if (!this.#ctx) return null;
+    const sampleRate = this.#ctx.sampleRate;
+    const bufferSize = sampleRate * seconds;
+    const buffer = this.#ctx.createBuffer(1, bufferSize, sampleRate);
+    const data = buffer.getChannelData(0);
+
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = Math.random() * 2 - 1;
+    }
+    return buffer;
+  }
+
+  /* =========================================================================
+     Master Controls & CRT Monitor Hum
+     ========================================================================= */
+
+  /**
+   * Sets master audio gain (0.0 to 1.0).
+   */
+  setMasterVolume(val) {
+    this.#volume = Math.max(0, Math.min(1, val));
+    if (this.#masterGain && !this.#isMuted && this.#ctx) {
+      this.#masterGain.gain.setValueAtTime(this.#volume, this.#ctx.currentTime);
+    }
+  }
+
+  /**
+   * Toggles master mute state.
+   */
+  toggleMute() {
+    this.#isMuted = !this.#isMuted;
+    if (this.#masterGain && this.#ctx) {
+      const target = this.#isMuted ? 0 : this.#volume;
+      this.#masterGain.gain.setValueAtTime(target, this.#ctx.currentTime);
+    }
+    return this.#isMuted;
+  }
+
+  get isMuted() {
+    return this.#isMuted;
+  }
+
+  get volume() {
+    return this.#volume;
+  }
+
+  /**
+   * Enables or disables an authentic 50Hz CRT analog transformer ground hum.
+   */
+  enableCrtHum(enable = true, humLevel = 0.015) {
+    const ctx = this.#getContext();
+    if (!ctx) return;
+
+    if (!enable) {
+      if (this.#humOsc) {
+        this.#humOsc.stop();
+        this.#humOsc.disconnect();
+        this.#humOsc = null;
+      }
+      if (this.#humGain) {
+        this.#humGain.disconnect();
+        this.#humGain = null;
+      }
+      return;
+    }
+
+    if (this.#humOsc) return; // already active
+
+    this.#humOsc = ctx.createOscillator();
+    this.#humOsc.type = 'sawtooth';
+    this.#humOsc.frequency.value = 50; // European 50Hz mains hum
+
+    // Lowpass filter to muffle the hum into a deep chassis vibration
+    const humFilter = ctx.createBiquadFilter();
+    humFilter.type = 'lowpass';
+    humFilter.frequency.value = 95;
+
+    this.#humGain = ctx.createGain();
+    this.#humGain.gain.value = humLevel;
+
+    this.#humOsc.connect(humFilter);
+    humFilter.connect(this.#humGain);
+    this.#humGain.connect(this.#crtFilter);
+
+    this.#humOsc.start();
+  }
+
+  /* =========================================================================
+     Procedural Sound Effects
+     ========================================================================= */
+
+  /**
+   * Synthesizes a crisp retro terminal switch / keyboard click.
+   * Dual-stage impulse: Micro-burst noise click followed by an ultra-fast frequency blip.
+   * @param {number} [pitchMultiplier=1.0] - Pitch scaling (0.7 to 1.5).
+   * @param {number} [volume=0.35] - Local amplitude.
+   */
+  playTerminalClick(pitchMultiplier = 1.0, volume = 0.35) {
+    const ctx = this.#getContext();
+    if (!ctx || this.#isMuted) return;
+
+    const t = ctx.currentTime;
+
+    // Stage 1: Sharp mechanical micro-transient (filtered white noise)
+    if (this.#noiseBuffer) {
+      const noise = ctx.createBufferSource();
+      noise.buffer = this.#noiseBuffer;
+
+      const noiseFilter = ctx.createBiquadFilter();
+      noiseFilter.type = 'bandpass';
+      noiseFilter.frequency.setValueAtTime(3200 * pitchMultiplier, t);
+      noiseFilter.Q.value = 3.0;
+
+      const noiseGain = ctx.createGain();
+      noiseGain.gain.setValueAtTime(volume * 0.45, t);
+      noiseGain.gain.exponentialRampToValueAtTime(0.001, t + 0.018);
+
+      noise.connect(noiseFilter);
+      noiseFilter.connect(noiseGain);
+      noiseGain.connect(this.#crtFilter);
+
+      noise.start(t);
+      noise.stop(t + 0.02);
+    }
+
+    // Stage 2: Tactile relay frequency blip (fast downward pitch sweep)
+    const osc = ctx.createOscillator();
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(1400 * pitchMultiplier, t);
+    osc.frequency.exponentialRampToValueAtTime(350 * pitchMultiplier, t + 0.022);
+
+    const oscGain = ctx.createGain();
+    oscGain.gain.setValueAtTime(volume * 0.25, t);
+    oscGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.025);
+
+    osc.connect(oscGain);
+    oscGain.connect(this.#crtFilter);
+
+    osc.start(t);
+    osc.stop(t + 0.028);
+  }
+
+  /**
+   * Synthesizes an authentic Geiger-Müller radiation ionization discharge tick.
+   * Short, dry, irregular electrical pulse.
+   * @param {number} [intensity=0.5] - Radiation intensity factor (0.0 to 1.0).
+   * @param {number} [volume=0.4] - Local amplitude.
+   */
+  playGeigerTick(intensity = 0.5, volume = 0.4) {
+    const ctx = this.#getContext();
+    if (!ctx || this.#isMuted || !this.#noiseBuffer) return;
+
+    const t = ctx.currentTime;
+    // Micro-jitter in frequency and amplitude to reflect natural isotopic decay
+    const jitter = (Math.random() - 0.5) * 0.3;
+    const dur = 0.003 + Math.random() * 0.003;
+
+    const noise = ctx.createBufferSource();
+    noise.buffer = this.#noiseBuffer;
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime((2800 + jitter * 800), t);
+    filter.Q.value = 4.5;
+
+    const gain = ctx.createGain();
+    const peak = Math.max(0.1, Math.min(1, volume * (0.6 + intensity * 0.4)));
+    gain.gain.setValueAtTime(peak, t);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+
+    noise.connect(filter);
+    filter.connect(gain);
+    gain.connect(this.#crtFilter);
+
+    noise.start(t);
+    noise.stop(t + dur + 0.001);
+  }
+
+  /**
+   * Starts a continuous, randomized Geiger counter audio stream calibrated to dosage (mSv/h).
+   * @param {number} dosage - Radiation dosage (e.g. 0 to 50 mSv).
+   */
+  startGeigerStream(dosage = 10) {
+    this.stopGeigerStream();
+    if (dosage <= 0.5) return;
+
+    const normalized = Math.min(1.0, dosage / 40);
+    // Average interval between clicks: 400ms at background down to 25ms at lethal dose
+    const meanInterval = Math.max(25, 420 - normalized * 380);
+
+    const scheduleNext = () => {
+      this.playGeigerTick(normalized);
+      const nextDelay = meanInterval * (0.4 + Math.random() * 1.2);
+      this.#geigerInterval = setTimeout(scheduleNext, nextDelay);
+    };
+
+    scheduleNext();
+  }
+
+  /**
+   * Stops the continuous Geiger stream.
+   */
+  stopGeigerStream() {
+    if (this.#geigerInterval) {
+      clearTimeout(this.#geigerInterval);
+      this.#geigerInterval = null;
+    }
+  }
+
+  /**
+   * Synthesizes a visceral sub-bass double-pulse heartbeat ("lub-dub").
+   * Triggered when health or telemetry drops into critical band (<20%).
+   * @param {number} [bpm=60] - Heart rate in beats per minute.
+   * @param {number} [volume=0.75] - Local amplitude.
+   */
+  playHeartbeat(bpm = 60, volume = 0.75) {
+    const ctx = this.#getContext();
+    if (!ctx || this.#isMuted) return;
+
+    const t = ctx.currentTime;
+
+    // Helper to generate a single ventricular contraction thump
+    const playThump = (startTime, startFreq, endFreq, dur, amp) => {
+      const osc = ctx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(startFreq, startTime);
+      osc.frequency.exponentialRampToValueAtTime(endFreq, startTime + dur);
+
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(110, startTime);
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.001, startTime);
+      gain.gain.linearRampToValueAtTime(amp * volume, startTime + 0.015);
+      gain.gain.exponentialRampToValueAtTime(0.0001, startTime + dur);
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(this.#crtFilter);
+
+      osc.start(startTime);
+      osc.stop(startTime + dur + 0.01);
+    };
+
+    // First sound: S1 "Lub" (atrio-ventricular closure)
+    playThump(t, 58, 38, 0.14, 0.9);
+
+    // Second sound: S2 "Dub" (aortic/pulmonary closure, ~130ms later, slightly higher pitch)
+    playThump(t + 0.13, 76, 44, 0.11, 0.65);
+  }
+
+  /**
+   * Starts or stops automatic looping heartbeat when survivor is in critical status.
+   */
+  setCriticalHeartbeat(active = true, bpm = 75) {
+    if (!active) {
+      if (this.#heartbeatInterval) {
+        clearInterval(this.#heartbeatInterval);
+        this.#heartbeatInterval = null;
+      }
+      return;
+    }
+
+    if (this.#heartbeatInterval) return;
+
+    const intervalMs = (60 / bpm) * 1000;
+    this.playHeartbeat(bpm);
+    this.#heartbeatInterval = setInterval(() => {
+      this.playHeartbeat(bpm);
+    }, intervalMs);
+  }
+
+  /**
+   * Synthesizes procedural ballistic gunshots for distinct weapon calibers.
+   * Features a sharp supersonic shockwave crack, heavy pressure body thump, and reverberant tail.
+   * @param {string} caliberType - '9mm', '12g' (shotgun), or '556' (rifle).
+   * @param {number} [volume=0.85] - Local amplitude.
+   */
+  playGunshot(caliberType = '9mm', volume = 0.85) {
+    const ctx = this.#getContext();
+    if (!ctx || this.#isMuted || !this.#noiseBuffer) return;
+
+    const t = ctx.currentTime;
+    const norm = String(caliberType).toLowerCase();
+
+    // Configuration profile per ballistic family
+    const configs = {
+      '9mm': {
+        crackFreq: 2200,
+        crackDur: 0.035,
+        bodyStartFreq: 260,
+        bodyEndFreq: 48,
+        bodyDur: 0.09,
+        tailDur: 0.38,
+        tailCutoff: 1400,
+      },
+      '12g': {
+        crackFreq: 1100,
+        crackDur: 0.08,
+        bodyStartFreq: 140,
+        bodyEndFreq: 30,
+        bodyDur: 0.22,
+        tailDur: 0.75,
+        tailCutoff: 900,
+      },
+      '556': {
+        crackFreq: 4200,
+        crackDur: 0.022,
+        bodyStartFreq: 450,
+        bodyEndFreq: 65,
+        bodyDur: 0.07,
+        tailDur: 0.48,
+        tailCutoff: 2100,
+      },
+    };
+
+    // Match caliber aliases
+    const cfg = norm.includes('12') || norm.includes('shotgun')
+      ? configs['12g']
+      : (norm.includes('556') || norm.includes('rifle') || norm.includes('762') ? configs['556'] : configs['9mm']);
+
+    // 1. Initial Supersonic Crack / Muzzle Blast (Filtered Noise Burst)
+    const crackSource = ctx.createBufferSource();
+    crackSource.buffer = this.#noiseBuffer;
+
+    const crackFilter = ctx.createBiquadFilter();
+    crackFilter.type = 'highpass';
+    crackFilter.frequency.setValueAtTime(cfg.crackFreq, t);
+
+    const crackGain = ctx.createGain();
+    crackGain.gain.setValueAtTime(volume * 0.95, t);
+    crackGain.gain.exponentialRampToValueAtTime(0.001, t + cfg.crackDur);
+
+    crackSource.connect(crackFilter);
+    crackFilter.connect(crackGain);
+    crackGain.connect(this.#crtFilter);
+
+    crackSource.start(t);
+    crackSource.stop(t + cfg.crackDur + 0.01);
+
+    // 2. Kinetic Body Thump (Pitch-dropping low-end oscillator)
+    const bodyOsc = ctx.createOscillator();
+    bodyOsc.type = 'triangle';
+    bodyOsc.frequency.setValueAtTime(cfg.bodyStartFreq, t);
+    bodyOsc.frequency.exponentialRampToValueAtTime(cfg.bodyEndFreq, t + cfg.bodyDur);
+
+    const bodyGain = ctx.createGain();
+    bodyGain.gain.setValueAtTime(volume * 0.8, t);
+    bodyGain.gain.exponentialRampToValueAtTime(0.001, t + cfg.bodyDur);
+
+    bodyOsc.connect(bodyGain);
+    bodyGain.connect(this.#crtFilter);
+
+    bodyOsc.start(t);
+    bodyOsc.stop(t + cfg.bodyDur + 0.01);
+
+    // 3. Reverberant Atmospheric Decay Tail
+    const tailSource = ctx.createBufferSource();
+    tailSource.buffer = this.#noiseBuffer;
+
+    const tailFilter = ctx.createBiquadFilter();
+    tailFilter.type = 'lowpass';
+    tailFilter.frequency.setValueAtTime(cfg.tailCutoff, t);
+    tailFilter.frequency.linearRampToValueAtTime(200, t + cfg.tailDur);
+
+    const tailGain = ctx.createGain();
+    tailGain.gain.setValueAtTime(volume * 0.4, t + 0.02);
+    tailGain.gain.exponentialRampToValueAtTime(0.0001, t + cfg.tailDur);
+
+    tailSource.connect(tailFilter);
+    tailFilter.connect(tailGain);
+    tailGain.connect(this.#crtFilter);
+
+    tailSource.start(t + 0.01);
+    tailSource.stop(t + cfg.tailDur + 0.02);
+  }
+
+  /**
+   * Synthesizes an authentic CRT analog phosphor terminal power-up whine.
+   * Includes high-voltage flyback transformer sweep (2.5kHz -> 15.6kHz) and degauss relay thump.
+   * @param {number} [volume=0.6] - Local amplitude.
+   */
+  playTerminalBoot(volume = 0.6) {
+    const ctx = this.#getContext();
+    if (!ctx || this.#isMuted) return;
+
+    const t = ctx.currentTime;
+    const dur = 1.1;
+
+    // 1. High-Voltage Flyback Transformer Sweep (Rising whine)
+    const whineOsc = ctx.createOscillator();
+    whineOsc.type = 'sine';
+    whineOsc.frequency.setValueAtTime(2200, t);
+    whineOsc.frequency.exponentialRampToValueAtTime(15625, t + 0.8); // 15.625kHz line rate
+
+    const whineGain = ctx.createGain();
+    whineGain.gain.setValueAtTime(0.001, t);
+    whineGain.gain.linearRampToValueAtTime(volume * 0.22, t + 0.4);
+    whineGain.gain.exponentialRampToValueAtTime(0.001, t + dur);
+
+    whineOsc.connect(whineGain);
+    whineGain.connect(this.#masterGain); // bypass lowpass to retain 15.6kHz whine
+
+    whineOsc.start(t);
+    whineOsc.stop(t + dur + 0.05);
+
+    // 2. Heavy Degauss Coil Thump at t + 0.15s
+    const degaussOsc = ctx.createOscillator();
+    degaussOsc.type = 'sine';
+    degaussOsc.frequency.setValueAtTime(95, t + 0.12);
+    degaussOsc.frequency.exponentialRampToValueAtTime(32, t + 0.45);
+
+    const degaussGain = ctx.createGain();
+    degaussGain.gain.setValueAtTime(0.001, t + 0.12);
+    degaussGain.gain.linearRampToValueAtTime(volume * 0.7, t + 0.15);
+    degaussGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.55);
+
+    degaussOsc.connect(degaussGain);
+    degaussGain.connect(this.#crtFilter);
+
+    degaussOsc.start(t + 0.12);
+    degaussOsc.stop(t + 0.6);
+
+    // 3. Phosphor Static Bloom (Muffled soft noise swell)
+    if (this.#noiseBuffer) {
+      const staticSource = ctx.createBufferSource();
+      staticSource.buffer = this.#noiseBuffer;
+
+      const staticFilter = ctx.createBiquadFilter();
+      staticFilter.type = 'bandpass';
+      staticFilter.frequency.setValueAtTime(1600, t);
+      staticFilter.Q.value = 1.2;
+
+      const staticGain = ctx.createGain();
+      staticGain.gain.setValueAtTime(0.001, t);
+      staticGain.gain.linearRampToValueAtTime(volume * 0.25, t + 0.3);
+      staticGain.gain.exponentialRampToValueAtTime(0.001, t + 0.9);
+
+      staticSource.connect(staticFilter);
+      staticFilter.connect(staticGain);
+      staticGain.connect(this.#crtFilter);
+
+      staticSource.start(t);
+      staticSource.stop(t + 0.95);
+    }
+  }
+
+  /**
+   * Synthesizes an emergency warning klaxon or DEFCON alert tone.
+   * @param {number} [freq=880] - Alert pitch in Hz.
+   * @param {number} [duration=0.3] - Tone length.
+   */
+  playWarningAlarm(freq = 880, duration = 0.3, volume = 0.5) {
+    const ctx = this.#getContext();
+    if (!ctx || this.#isMuted) return;
+
+    const t = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(freq, t);
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(1800, t);
+
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(volume * 0.4, t);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + duration);
+
+    osc.connect(filter);
+    filter.connect(gain);
+    gain.connect(this.#crtFilter);
+
+    osc.start(t);
+    osc.stop(t + duration + 0.01);
+  }
+
+  /**
+   * Synthesizes tactical equipment rustle (for inventory movement / gear equipping).
+   */
+  playGearRustle(volume = 0.25) {
+    const ctx = this.#getContext();
+    if (!ctx || this.#isMuted || !this.#noiseBuffer) return;
+
+    const t = ctx.currentTime;
+    const dur = 0.08;
+
+    const noise = ctx.createBufferSource();
+    noise.buffer = this.#noiseBuffer;
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(950, t);
+    filter.Q.value = 1.8;
+
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(volume * 0.35, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + dur);
+
+    noise.connect(filter);
+    filter.connect(gain);
+    gain.connect(this.#crtFilter);
+
+    noise.start(t);
+    noise.stop(t + dur + 0.01);
+  }
+}
+
+// Export singleton instance as default and class for custom instances
+const audioEngine = new AudioEngine();
+
+
+
+
   // --- src/modules/combat/index.js ---
+
+
 
 
 
@@ -4230,6 +19313,11 @@ function resolveEnemyTurn(ctx, enemyId) {
 
   const dmg = rollRange(rng, enemy.damage);
   engine.log('combat.enemy_hit', { name: enemyName(enemyId), dmg }, 'bad');
+  if (enemy.ranged) {
+    audioEngine.playGunshot('9mm', 0.65);
+  } else {
+    audioEngine.playGearRustle(0.4);
+  }
   const combatEffects = [{ type: 'damage', amount: dmg, cause: 'wounds' }];
   if (enemy.bleedChance && rng.chance(enemy.bleedChance)) {
     combatEffects.push({ type: 'ailment', id: 'bleeding' });
@@ -4351,11 +19439,21 @@ const combatModule = {
         store.commit('inventory/remove', { itemId: weapon.ammoId, qty: 1 });
       }
 
-      const hitChance = Math.min(
-        0.95,
-        (isAimed ? 0.75 : 0.84) + skillLevel(store.state, 'marksmanship') * 0.02 - enemy.evasion,
+      const debuffs = getBodyDebuffs(store.state.player.body);
+      const hitChance = Math.max(
+        0.15,
+        Math.min(
+          0.95,
+          (isAimed ? 0.75 : 0.84) + skillLevel(store.state, 'marksmanship') * 0.02 - enemy.evasion - debuffs.weaponAccuracyPenalty,
+        ),
       );
       effects.apply([{ type: 'vital', vital: 'energy', amount: isAimed ? -5 : -3 }], ctx);
+
+      if (weapon.ammoId) {
+        audioEngine.playGunshot(weapon.ammoId);
+      } else {
+        audioEngine.playTerminalClick(0.7, 0.4);
+      }
 
       if (rng.chance(hitChance)) {
         const baseDmg = Math.round(rating * (isAimed ? 3.4 : 2.4)) + rng.int(2, 6);
@@ -4796,6 +19894,131 @@ const craftingModule = {
     });
   },
 };
+
+
+  // --- src/modules/factions/index.js ---
+/**
+ * Last Breath // Factions Core Engine Module
+ */
+
+
+
+const factionModule = {
+  id: 'factions',
+
+  createState() {
+    return FactionManager.getInitialState();
+  },
+
+  install(ctx) {
+    const { store, engine, bus, effects } = ctx;
+
+    store.registerMutations('factions', {
+      setStanding(state, { factionId, standing }) {
+        if (!state.factions) state.factions = FactionManager.getInitialState();
+        state.factions.standings[factionId] = Math.max(-100, Math.min(100, standing));
+      },
+      adjustStanding(state, { factionId, delta, reason = '' }) {
+        return FactionManager.adjustStanding(state, factionId, delta, reason, { bus });
+      },
+      resetFactions(state) {
+        state.factions = FactionManager.getInitialState();
+      },
+    });
+
+    engine.registerAction('factions/adjust', ({ factionId, delta, reason }, { store }) => {
+      const result = store.commit('factions/adjustStanding', { factionId, delta, reason });
+      return { ok: true, result };
+    });
+
+    effects.register('reputation', ({ factionId, delta, reason = 'field_action' }) => {
+      store.commit('factions/adjustStanding', { factionId, delta, reason });
+    });
+  },
+};
+
+
+
+
+  // --- src/modules/environment/index.js ---
+/**
+ * Last Breath // Environment Engine Module
+ */
+
+
+
+
+const environmentModule = {
+  id: 'environment',
+
+  createState() {
+    return WeatherEngine.getInitialState();
+  },
+
+  install(ctx) {
+    const { store, engine, bus, rng } = ctx;
+
+    store.registerMutations('environment', {
+      setWeather(state, { weather, durationHours = 6 }) {
+        if (!state.environment) state.environment = WeatherEngine.getInitialState();
+        state.environment.currentWeather = weather;
+        state.environment.weatherDurationHours = durationHours;
+      },
+      toggleFlashlight(state) {
+        if (!state.environment) state.environment = WeatherEngine.getInitialState();
+        state.environment.flashlightActive = !state.environment.flashlightActive;
+        return state.environment.flashlightActive;
+      },
+      setCoreTemp(state, temp) {
+        if (!state.environment) state.environment = WeatherEngine.getInitialState();
+        state.environment.coreBodyTemp = Math.max(30.0, Math.min(42.0, temp));
+      },
+      addRadiation(state, dose) {
+        if (!state.environment) state.environment = WeatherEngine.getInitialState();
+        state.environment.absorbedRadiationTotal += dose;
+      },
+    });
+
+    engine.registerAction('environment/toggleFlashlight', (_, { store, bus }) => {
+      const active = store.commit('environment/toggleFlashlight');
+      if (bus) {
+        bus.emit(EVENT_FLASHLIGHT_TOGGLED, { active });
+      }
+      engine.log(active ? 'environment.flashlight_on' : 'environment.flashlight_off', {}, 'warn');
+      return { ok: true, active };
+    });
+
+    // Listen to in-game time advancement
+    bus.on('time:tick', ({ hours, activity }) => {
+      const currentNodeId = store.state?.world?.currentNodeId;
+      const node = currentNodeId ? getNode(currentNodeId) : null;
+      const biome = node?.biome || 'urban';
+
+      const result = WeatherEngine.tickEnvironment(store.state, {
+        hours,
+        activity,
+        biome,
+        rng,
+        bus,
+      });
+
+      // Log exposure warnings to terminal log
+      if (result.alerts && result.alerts.length > 0) {
+        for (const alert of result.alerts) {
+          if (alert.textKey) {
+            engine.log(alert.textKey, {
+              coreTemp: alert.coreTemp,
+              dose: alert.dose,
+            }, 'bad');
+          }
+        }
+      }
+    });
+  },
+};
+
+
+
 
 
   // --- src/data/archetypes.js ---
@@ -6096,6 +21319,7 @@ class CraftBaseView {
 
 
 
+
 class StatusView {
   #root;
 
@@ -6108,9 +21332,70 @@ class StatusView {
     this.#root.replaceChildren(
       this.#renderDossier(player),
       this.#renderVitals(player),
+      this.#renderBodyTrauma(player),
       this.#renderAilments(player),
       this.#renderReadout(state),
       this.#renderSkills(state),
+    );
+  }
+
+  #renderBodyTrauma(player) {
+    const body = player.body;
+    if (!body) return el('div');
+
+    const cards = BODY_PARTS.map((partId) => {
+      const part = body[partId];
+      if (!part) return el('div');
+      const hp = Math.round(part.health);
+      const isDamaged = hp < 100 || part.bleeding !== 'none' || part.fractures || part.burns || part.punctured || part.infectionRisk > 20;
+
+      const badges = [];
+      if (part.bleeding === 'arterial') {
+        badges.push(el('span', { class: 'status-tag tone-bad pulse-alert' }, `▲ ${t('status.body.condition.arterial_bleed')}`));
+      } else if (part.bleeding === 'minor') {
+        badges.push(el('span', { class: 'status-tag tone-bad' }, `● ${t('status.body.condition.minor_bleed')}`));
+      }
+      if (part.fractures) {
+        badges.push(el('span', { class: 'status-tag tone-warn' }, `✖ ${t('status.body.condition.fracture')}`));
+      }
+      if (part.punctured) {
+        badges.push(el('span', { class: 'status-tag tone-bad' }, `☣ ${t('status.body.condition.pneumothorax')}`));
+      }
+      if (part.burns) {
+        badges.push(el('span', { class: 'status-tag tone-warn' }, `♨ ${t('status.body.condition.burn')}`));
+      }
+      if (part.infectionRisk >= 25) {
+        badges.push(el('span', { class: 'status-tag tone-warn' }, `☣ ${t('status.body.condition.infection')} ${Math.round(part.infectionRisk)}%`));
+      }
+      if (badges.length === 0) {
+        badges.push(el('span', { class: 'status-tag tone-good' }, t('status.body.condition.intact')));
+      }
+
+      const meterTone = hp > 65 ? 'good' : (hp > 30 ? 'warn' : 'bad');
+
+      return el(
+        'div',
+        { class: ['body-part-card', isDamaged ? 'part-damaged' : 'part-healthy'] },
+        el(
+          'div',
+          { class: 'body-part-head' },
+          el('span', { class: 'body-part-name' }, t(`status.body.part.${partId}`)),
+          el('strong', { class: ['body-part-hp', `tone-${meterTone}`] }, `${hp}%`),
+        ),
+        el(
+          'div',
+          { class: 'meter-track meter-thin' },
+          el('div', { class: ['meter-fill', `fill-${meterTone}`], style: `width: ${Math.max(0, Math.min(100, hp))}%` }),
+        ),
+        el('div', { class: 'body-part-badges' }, badges),
+      );
+    });
+
+    return el(
+      'section',
+      { class: 'panel-block body-trauma-section' },
+      el('h3', { class: 'block-title' }, t('status.section.body')),
+      el('div', { class: 'body-parts-grid' }, cards),
     );
   }
 
@@ -6422,12 +21707,18 @@ function getAgeBracket(age) {
 
 
 
-
 class MenuView {
   #root;
   #onContinue;
   #onStartNew;
   #onLocaleChange;
+  #saveManager;
+  #pwaManager;
+  #onLoadSlot;
+  #onSaveSlot;
+  #onDeleteSlot;
+  #onResetAll;
+
   #name = 'Mara';
   #age = 28;
   #bloodType = 'A+';
@@ -6436,14 +21727,36 @@ class MenuView {
   #selectedLocation = 'istanbul';
   #hasSave = false;
   #savedState = null;
-  #mode = 'menu'; // 'menu' | 'create'
-  #currentStep = 1; // 1: Identity, 2: Archetype, 3: Sector, 4: Summary
 
-  constructor({ root, onContinue, onStartNew, onLocaleChange }) {
+  #mode = 'menu'; // 'menu' | 'create' | 'load_game' | 'settings' | 'exit_confirm' | 'terminated'
+  #currentStep = 1; // 1: Identity, 2: Archetype, 3: Sector, 4: Summary
+  #lastRenderedStep = 1;
+  #lastRenderedMode = 'menu';
+  #isPremiumModalOpen = false;
+  #slotActionFeedback = '';
+
+  constructor({
+    root,
+    onContinue,
+    onStartNew,
+    onLocaleChange,
+    saveManager,
+    pwaManager,
+    onLoadSlot,
+    onSaveSlot,
+    onDeleteSlot,
+    onResetAll,
+  }) {
     this.#root = root;
     this.#onContinue = onContinue;
     this.#onStartNew = onStartNew;
     this.#onLocaleChange = onLocaleChange;
+    this.#saveManager = saveManager;
+    this.#pwaManager = pwaManager;
+    this.#onLoadSlot = onLoadSlot;
+    this.#onSaveSlot = onSaveSlot;
+    this.#onDeleteSlot = onDeleteSlot;
+    this.#onResetAll = onResetAll;
   }
 
   get isOpen() {
@@ -6455,6 +21768,8 @@ class MenuView {
     this.#savedState = state;
     this.#mode = mode || 'menu';
     this.#currentStep = 1;
+    this.#isPremiumModalOpen = false;
+    this.#slotActionFeedback = '';
     this.#root.hidden = false;
     document.body?.classList.add('is-menu-open');
     this.render();
@@ -6467,6 +21782,10 @@ class MenuView {
 
   render() {
     if (this.#root.hidden) return;
+
+    const prevBody = this.#root.querySelector('.menu-body');
+    const prevScrollTop = prevBody ? prevBody.scrollTop : 0;
+    const isSameStepAndMode = this.#lastRenderedMode === this.#mode && this.#lastRenderedStep === this.#currentStep;
 
     const localeBtn = el(
       'button',
@@ -6484,6 +21803,22 @@ class MenuView {
     );
 
     const isCreate = this.#mode === 'create';
+    const isLoadGame = this.#mode === 'load_game';
+    const isSettings = this.#mode === 'settings';
+    const isExitConfirm = this.#mode === 'exit_confirm';
+    const isTerminated = this.#mode === 'terminated';
+
+    let signalLabel = t('menu.kicker');
+    if (isCreate) signalLabel = t('character.create_title');
+    else if (isLoadGame) signalLabel = t('menu.slots.title');
+    else if (isSettings) signalLabel = t('menu.settings.title');
+    else if (isExitConfirm || isTerminated) signalLabel = t('menu.exit.title');
+
+    let loreText = t('menu.lore');
+    if (isCreate) loreText = t(`character.step_subtitle.${this.#currentStep}`);
+    else if (isLoadGame) loreText = t('menu.slots.subtitle');
+    else if (isSettings) loreText = t('menu.settings.subtitle');
+    else if (isExitConfirm) loreText = t('menu.exit.desc');
 
     const header = el(
       'header',
@@ -6495,19 +21830,16 @@ class MenuView {
           'div',
           { class: 'menu-signal-line' },
           el('span', { class: 'signal-dot' }),
-          el('span', { class: 'menu-signal-label' }, isCreate ? t('character.create_title') : t('menu.kicker')),
+          el('span', { class: 'menu-signal-label' }, signalLabel),
         ),
         localeBtn,
       ),
       el('h1', { class: 'menu-title' }, t('app.title')),
-      el(
-        'p',
-        { class: 'menu-lore' },
-        isCreate ? t(`character.step_subtitle.${this.#currentStep}`) : t('menu.lore'),
-      ),
+      el('p', { class: 'menu-lore' }, loreText),
     );
 
     let frame;
+
     if (isCreate) {
       const stepTabs = [
         { step: 1, key: 'character.steps.identity', glyph: '🆔' },
@@ -6543,7 +21875,36 @@ class MenuView {
         el('div', { class: 'menu-body' }, stepBody),
         navBar,
       );
+    } else if (isLoadGame) {
+      frame = el(
+        'div',
+        { class: 'menu-frame' },
+        header,
+        el('div', { class: 'menu-body' }, this.#renderLoadGameScreen()),
+      );
+    } else if (isSettings) {
+      frame = el(
+        'div',
+        { class: 'menu-frame' },
+        header,
+        el('div', { class: 'menu-body' }, this.#renderSettingsScreen()),
+      );
+    } else if (isExitConfirm) {
+      frame = el(
+        'div',
+        { class: 'menu-frame' },
+        header,
+        el('div', { class: 'menu-body' }, this.#renderExitConfirmScreen()),
+      );
+    } else if (isTerminated) {
+      frame = el(
+        'div',
+        { class: 'menu-frame is-terminated' },
+        header,
+        el('div', { class: 'menu-body' }, this.#renderTerminatedScreen()),
+      );
     } else {
+      // Main Menu ('menu')
       const bodyContent = this.#renderMainMenuScreen();
       frame = el(
         'div',
@@ -6559,81 +21920,125 @@ class MenuView {
       );
     }
 
-    this.#root.replaceChildren(frame);
-  }
+    // Modal overlay if premium modal is open
+    if (this.#isPremiumModalOpen) {
+      const modal = this.#renderPremiumModal();
+      frame.appendChild(modal);
+    }
 
-  #renderActiveStep() {
-    switch (this.#currentStep) {
-      case 1:
-        return this.#renderStepIdentity();
-      case 2:
-        return this.#renderStepArchetype();
-      case 3:
-        return this.#renderStepSector();
-      case 4:
-      default:
-        return this.#renderStepSummary();
+    this.#root.replaceChildren(frame);
+    this.#lastRenderedMode = this.#mode;
+    this.#lastRenderedStep = this.#currentStep;
+
+    if (isSameStepAndMode && prevScrollTop > 0) {
+      const newBody = this.#root.querySelector('.menu-body');
+      if (newBody) {
+        newBody.scrollTop = prevScrollTop;
+      }
     }
   }
 
+  // =========================================================================
+  // 1. MAIN MENU SCREEN (NEW GAME, LOAD GAME, SETTINGS, EXIT + ACTIVE CONTINUE)
+  // =========================================================================
   #renderMainMenuScreen() {
+    const sections = [];
+
+    // If an active expedition is ongoing, offer prominent Continue option
     if (this.#hasSave && this.#savedState) {
       const continueSection = this.#renderContinueCard(this.#savedState);
-
-      const newExpeditionPrompt = el(
-        'section',
-        { class: 'menu-section menu-prompt-card' },
-        el(
-          'div',
-          { class: 'menu-prompt-copy' },
-          el('h2', { class: 'block-title' }, t('menu.new_expedition_title')),
-          el('p', { class: 'muted-note' }, t('character.create_subtitle')),
-        ),
-        el(
-          'button',
-          {
-            type: 'button',
-            class: 'btn btn-ghost menu-cta-btn',
-            onClick: () => {
-              this.#mode = 'create';
-              this.#currentStep = 1;
-              this.render();
-            },
-          },
-          t('menu.action.create_character'),
-        ),
-      );
-
-      return [continueSection, newExpeditionPrompt];
+      sections.push(continueSection);
     }
 
-    // No save: Present prominent New Game landing card
-    const newGameCard = el(
-      'section',
-      { class: 'menu-section menu-welcome-card' },
-      el(
-        'div',
-        { class: 'menu-welcome-header' },
-        el('span', { class: 'meta-label' }, t('menu.no_save_title')),
-        el('h2', { class: 'menu-welcome-title' }, t('menu.new_expedition_title')),
-      ),
-      el('p', { class: 'menu-welcome-lore' }, t('menu.no_save_desc')),
-      el(
+    // Main 4 Core Menu Buttons
+    const menuActions = [
+      {
+        id: 'new_game',
+        glyph: '✦',
+        titleKey: 'menu.action.new_game_main',
+        descKey: 'menu.action.desc_new_game',
+        isAccent: true,
+        onClick: () => {
+          this.#mode = 'create';
+          this.#currentStep = 1;
+          this.render();
+        },
+      },
+      {
+        id: 'load_game',
+        glyph: '💾',
+        titleKey: 'menu.action.load_game',
+        descKey: 'menu.action.desc_load_game',
+        isAccent: false,
+        onClick: () => {
+          this.#mode = 'load_game';
+          this.render();
+        },
+      },
+      {
+        id: 'settings',
+        glyph: '⚙',
+        titleKey: 'menu.action.settings',
+        descKey: 'menu.action.desc_settings',
+        isAccent: false,
+        onClick: () => {
+          this.#mode = 'settings';
+          this.render();
+        },
+      },
+      {
+        id: 'exit',
+        glyph: '⏻',
+        titleKey: 'menu.action.exit',
+        descKey: 'menu.action.desc_exit',
+        isAccent: false,
+        onClick: () => {
+          this.#mode = 'exit_confirm';
+          this.render();
+        },
+      },
+    ];
+
+    if (this.#pwaManager && !this.#pwaManager.isInstalled) {
+      menuActions.push({
+        id: 'install_app',
+        glyph: '📲',
+        titleKey: 'menu.action.install_app',
+        descKey: 'menu.action.desc_install_app',
+        isAccent: false,
+        onClick: () => {
+          this.#pwaManager.install();
+        },
+      });
+    }
+
+    const actionCards = menuActions.map((action) => {
+      return el(
         'button',
         {
           type: 'button',
-          class: 'btn btn-accent menu-cta-btn menu-cta-large',
-          onClick: () => {
-            this.#mode = 'create';
-            this.#currentStep = 1;
-            this.render();
-          },
+          class: ['menu-action-card', action.isAccent && 'is-accent-action'],
+          onClick: action.onClick,
         },
-        t('menu.action.new_game'),
-      ),
+        el('span', { class: 'menu-action-glyph' }, action.glyph),
+        el(
+          'div',
+          { class: 'menu-action-content' },
+          el('strong', { class: 'menu-action-title' }, t(action.titleKey)),
+          el('span', { class: 'menu-action-desc' }, t(action.descKey)),
+        ),
+        el('span', { class: 'menu-action-arrow' }, '→'),
+      );
+    });
+
+    const menuGrid = el(
+      'section',
+      { class: 'menu-section menu-main-nav-section' },
+      el('div', { class: 'menu-action-list' }, actionCards),
     );
 
-    return [newGameCard];
+    sections.push(menuGrid);
+    return sections;
   }
 
   #renderContinueCard(state) {
@@ -6678,8 +22083,615 @@ class MenuView {
     );
   }
 
+  // =========================================================================
+  // 2. LOAD GAME SCREEN (10 SLOTS: 2 FREE, 8 PREMIUM)
+  // =========================================================================
+  #renderLoadGameScreen() {
+    const isPremium = this.#saveManager ? this.#saveManager.isPremium() : false;
+    const slots = this.#saveManager ? this.#saveManager.listSlots() : [];
+
+    const backBtn = el(
+      'button',
+      {
+        type: 'button',
+        class: 'btn btn-ghost menu-back-nav-btn',
+        onClick: () => {
+          this.#mode = 'menu';
+          this.render();
+        },
+      },
+      t('menu.action.back_to_menu'),
+    );
+
+    const premiumStatusPill = el(
+      'div',
+      { class: 'menu-premium-status-bar' },
+      el(
+        'span',
+        { class: ['slot-tier-badge', isPremium ? 'is-tier-premium' : 'is-tier-free'] },
+        isPremium ? t('menu.slots.premium_status_active') : t('menu.slots.premium_status_free'),
+      ),
+      el(
+        'button',
+        {
+          type: 'button',
+          class: 'btn btn-ghost btn-sm menu-premium-toggle-btn',
+          onClick: () => {
+            this.#isPremiumModalOpen = true;
+            this.render();
+          },
+        },
+        isPremium ? '👑 Premium Bilgisi / Test' : `👑 ${t('menu.slots.upgrade_cta')}`,
+      ),
+    );
+
+    const topBar = el('div', { class: 'menu-slots-top-bar' }, backBtn, premiumStatusPill);
+
+    const slotCards = slots.map((slotData) => {
+      const { slot, isPremiumSlot, isLocked, hasSave, meta, isActive } = slotData;
+
+      if (isLocked) {
+        // Locked Premium Slot (Slots 3-10 without premium)
+        return el(
+          'div',
+          { class: 'slot-card is-premium-locked' },
+          el(
+            'div',
+            { class: 'slot-card-header' },
+            el('span', { class: 'slot-index-badge' }, `SLOT ${slot}`),
+            el('span', { class: 'slot-tier-badge is-tier-locked' }, t('menu.slots.locked_badge')),
+          ),
+          el(
+            'div',
+            { class: 'slot-locked-content' },
+            el('span', { class: 'slot-lock-icon' }, '🔒'),
+            el('strong', { class: 'slot-locked-title' }, `YUVA ${slot} // ${t('menu.slots.premium_badge')}`),
+            el('p', { class: 'slot-locked-desc' }, t('menu.slots.locked_desc')),
+          ),
+          el(
+            'div',
+            { class: 'slot-card-actions' },
+            el(
+              'button',
+              {
+                type: 'button',
+                class: 'btn btn-accent btn-sm slot-unlock-btn',
+                onClick: () => {
+                  this.#isPremiumModalOpen = true;
+                  this.render();
+                },
+              },
+              t('menu.slots.unlock_btn'),
+            ),
+          ),
+        );
+      }
+
+      // Unlocked slot (Free slot 1-2, or 3-10 with premium)
+      if (hasSave && meta) {
+        const { day } = readClock(meta.minutes);
+        const clock = formatClock(meta.minutes);
+        const locName = t(`location.${meta.locationId}`);
+        const dateStr = new Date(meta.savedAt).toLocaleDateString(undefined, {
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+        });
+
+        return el(
+          'div',
+          { class: ['slot-card is-unlocked', isActive && 'is-active-slot'] },
+          el(
+            'div',
+            { class: 'slot-card-header' },
+            el('span', { class: 'slot-index-badge' }, `SLOT ${slot}`),
+            el(
+              'span',
+              { class: ['slot-tier-badge', isPremiumSlot ? 'is-tier-premium' : 'is-tier-free'] },
+              isPremiumSlot ? t('menu.slots.premium_badge') : t('menu.slots.free_badge'),
+            ),
+            isActive && el('span', { class: 'slot-active-pill' }, t('menu.slots.active_badge')),
+          ),
+          el(
+            'div',
+            { class: 'slot-save-info' },
+            el(
+              'div',
+              { class: 'slot-survivor-callsign' },
+              el('strong', {}, (meta.name || t('character.default_name')).toUpperCase()),
+              el('span', { class: 'slot-archetype-label' }, `// ${t(`menu.archetype.${meta.archetype}.name`)}`),
+            ),
+            el('div', { class: 'slot-meta-line' }, `${locName} — ${t('hud.day', { day })} · ${clock}`),
+            el(
+              'div',
+              { class: 'slot-vitals-line' },
+              el('span', {}, `${t('status.vital.health')}: ${meta.health}%`),
+              el('span', {}, `·`),
+              el('span', { class: 'slot-timestamp' }, `📅 ${dateStr}`),
+            ),
+          ),
+          el(
+            'div',
+            { class: 'slot-card-actions' },
+            el(
+              'button',
+              {
+                type: 'button',
+                class: 'btn btn-accent btn-sm',
+                onClick: () => {
+                  if (this.#onLoadSlot) {
+                    this.#onLoadSlot(slot);
+                  }
+                },
+              },
+              t('menu.slots.load_btn'),
+            ),
+            this.#savedState &&
+              el(
+                'button',
+                {
+                  type: 'button',
+                  class: 'btn btn-ghost btn-sm',
+                  onClick: () => {
+                    if (this.#onSaveSlot) {
+                      this.#onSaveSlot(slot);
+                      this.render();
+                    }
+                  },
+                },
+                t('menu.slots.save_btn'),
+              ),
+            el(
+              'button',
+              {
+                type: 'button',
+                class: 'btn btn-ghost btn-sm slot-delete-btn',
+                onClick: () => {
+                  if (window.confirm(t('menu.slots.delete_confirm'))) {
+                    if (this.#onDeleteSlot) {
+                      this.#onDeleteSlot(slot);
+                      this.render();
+                    }
+                  }
+                },
+              },
+              t('menu.slots.delete_btn'),
+            ),
+          ),
+        );
+      }
+
+      // Empty unlocked slot
+      return el(
+        'div',
+        { class: 'slot-card is-empty-slot' },
+        el(
+          'div',
+          { class: 'slot-card-header' },
+          el('span', { class: 'slot-index-badge' }, `SLOT ${slot}`),
+          el(
+            'span',
+            { class: ['slot-tier-badge', isPremiumSlot ? 'is-tier-premium' : 'is-tier-free'] },
+            isPremiumSlot ? t('menu.slots.premium_badge') : t('menu.slots.free_badge'),
+          ),
+        ),
+        el(
+          'div',
+          { class: 'slot-empty-content' },
+          el('strong', { class: 'slot-empty-title' }, t('menu.slots.empty')),
+          el('p', { class: 'slot-empty-desc' }, t('menu.slots.empty_desc')),
+        ),
+        el(
+          'div',
+          { class: 'slot-card-actions' },
+          this.#savedState &&
+            el(
+              'button',
+              {
+                type: 'button',
+                class: 'btn btn-accent btn-sm',
+                onClick: () => {
+                  if (this.#onSaveSlot) {
+                    this.#onSaveSlot(slot);
+                    this.render();
+                  }
+                },
+              },
+              t('menu.slots.save_btn'),
+            ),
+          el(
+            'button',
+            {
+              type: 'button',
+              class: 'btn btn-ghost btn-sm',
+              onClick: () => {
+                if (this.#saveManager) {
+                  this.#saveManager.setActiveSlot(slot);
+                }
+                this.#mode = 'create';
+                this.#currentStep = 1;
+                this.render();
+              },
+            },
+            t('menu.action.new_game_main'),
+          ),
+        ),
+      );
+    });
+
+    return [
+      topBar,
+      el('div', { class: 'menu-slots-grid' }, slotCards),
+    ];
+  }
+
+  // =========================================================================
+  // 3. PREMIUM UNLOCK MODAL
+  // =========================================================================
+  #renderPremiumModal() {
+    const isPremium = this.#saveManager ? this.#saveManager.isPremium() : false;
+
+    const featureItems = [
+      t('menu.premium.feature_1'),
+      t('menu.premium.feature_2'),
+      t('menu.premium.feature_3'),
+      t('menu.premium.feature_4'),
+    ].map((f) => el('li', { class: 'premium-feature-item' }, el('span', { class: 'premium-bullet' }, '✦'), el('span', {}, f)));
+
+    return el(
+      'div',
+      { class: 'premium-modal-backdrop' },
+      el(
+        'div',
+        { class: 'premium-modal-dialog' },
+        el(
+          'header',
+          { class: 'premium-modal-header' },
+          el('span', { class: 'premium-kicker' }, t('menu.premium.kicker')),
+          el('h2', { class: 'premium-title' }, `👑 ${t('menu.premium.title')}`),
+          el('p', { class: 'premium-desc' }, t('menu.premium.desc')),
+        ),
+        el('ul', { class: 'premium-feature-list' }, featureItems),
+        el(
+          'div',
+          { class: 'premium-modal-actions' },
+          !isPremium
+            ? el(
+                'button',
+                {
+                  type: 'button',
+                  class: 'btn btn-accent premium-cta-btn',
+                  onClick: () => {
+                    if (this.#saveManager) {
+                      this.#saveManager.setPremium(true);
+                    }
+                    this.#isPremiumModalOpen = false;
+                    this.render();
+                  },
+                },
+                t('menu.premium.unlock_btn'),
+              )
+            : el(
+                'button',
+                {
+                  type: 'button',
+                  class: 'btn btn-ghost premium-revoke-btn',
+                  onClick: () => {
+                    if (this.#saveManager) {
+                      this.#saveManager.setPremium(false);
+                    }
+                    this.#isPremiumModalOpen = false;
+                    this.render();
+                  },
+                },
+                t('menu.premium.revoke_btn'),
+              ),
+          el(
+            'button',
+            {
+              type: 'button',
+              class: 'btn btn-ghost',
+              onClick: () => {
+                this.#isPremiumModalOpen = false;
+                this.render();
+              },
+            },
+            t('menu.premium.close'),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // =========================================================================
+  // 4. SETTINGS SCREEN
+  // =========================================================================
+  #renderSettingsScreen() {
+    const backBtn = el(
+      'button',
+      {
+        type: 'button',
+        class: 'btn btn-ghost menu-back-nav-btn',
+        onClick: () => {
+          this.#mode = 'menu';
+          this.render();
+        },
+      },
+      t('menu.action.back_to_menu'),
+    );
+
+    // Language options
+    const isTr = i18n.locale === 'tr';
+    const langGroup = el(
+      'div',
+      { class: 'settings-row' },
+      el('label', { class: 'settings-label' }, t('menu.settings.language')),
+      el(
+        'div',
+        { class: 'settings-btn-group' },
+        el(
+          'button',
+          {
+            type: 'button',
+            class: ['btn btn-sm', isTr ? 'btn-accent' : 'btn-ghost'],
+            onClick: () => this.#onLocaleChange('tr'),
+          },
+          'Türkçe (TR)',
+        ),
+        el(
+          'button',
+          {
+            type: 'button',
+            class: ['btn btn-sm', !isTr ? 'btn-accent' : 'btn-ghost'],
+            onClick: () => this.#onLocaleChange('en'),
+          },
+          'English (EN)',
+        ),
+      ),
+    );
+
+    // Audio SFX Volume Slider
+    const initialSfx = localStorage.getItem('lastbreath.sfx_volume') || '80';
+    const sfxBadge = el('span', { class: 'settings-val-badge' }, `${initialSfx}%`);
+    const sfxSlider = el('input', {
+      type: 'range',
+      min: '0',
+      max: '100',
+      value: initialSfx,
+      class: 'menu-range-slider',
+      onInput: (e) => {
+        const val = e.target.value;
+        sfxBadge.textContent = `${val}%`;
+        localStorage.setItem('lastbreath.sfx_volume', val);
+      },
+    });
+
+    const sfxRow = el(
+      'div',
+      { class: 'settings-row' },
+      el('div', { class: 'settings-spread' }, el('label', { class: 'settings-label' }, t('menu.settings.sfx')), sfxBadge),
+      sfxSlider,
+    );
+
+    // Ambient / Music Volume Slider
+    const initialAmb = localStorage.getItem('lastbreath.ambient_volume') || '60';
+    const ambBadge = el('span', { class: 'settings-val-badge' }, `${initialAmb}%`);
+    const ambSlider = el('input', {
+      type: 'range',
+      min: '0',
+      max: '100',
+      value: initialAmb,
+      class: 'menu-range-slider',
+      onInput: (e) => {
+        const val = e.target.value;
+        ambBadge.textContent = `${val}%`;
+        localStorage.setItem('lastbreath.ambient_volume', val);
+      },
+    });
+
+    const ambRow = el(
+      'div',
+      { class: 'settings-row' },
+      el('div', { class: 'settings-spread' }, el('label', { class: 'settings-label' }, t('menu.settings.ambient')), ambBadge),
+      ambSlider,
+    );
+
+    // CRT Scanlines Effect Toggle
+    const isCrt = localStorage.getItem('lastbreath.crt_effects') !== 'false';
+    const crtBtn = el(
+      'button',
+      {
+        type: 'button',
+        class: ['btn btn-sm', isCrt ? 'btn-accent' : 'btn-ghost'],
+        onClick: () => {
+          const nextVal = !isCrt;
+          localStorage.setItem('lastbreath.crt_effects', String(nextVal));
+          document.body.classList.toggle('crt-active', nextVal);
+          this.render();
+        },
+      },
+      isCrt ? t('menu.settings.on') : t('menu.settings.off'),
+    );
+
+    const crtRow = el(
+      'div',
+      { class: 'settings-row settings-inline-row' },
+      el('label', { class: 'settings-label' }, t('menu.settings.crt')),
+      crtBtn,
+    );
+
+    // Auto-Save Toggle
+    const isAutosave = localStorage.getItem('lastbreath.autosave') !== 'false';
+    const autosaveBtn = el(
+      'button',
+      {
+        type: 'button',
+        class: ['btn btn-sm', isAutosave ? 'btn-accent' : 'btn-ghost'],
+        onClick: () => {
+          const nextVal = !isAutosave;
+          localStorage.setItem('lastbreath.autosave', String(nextVal));
+          this.render();
+        },
+      },
+      isAutosave ? t('menu.settings.on') : t('menu.settings.off'),
+    );
+
+    const autosaveRow = el(
+      'div',
+      { class: 'settings-row settings-inline-row' },
+      el('label', { class: 'settings-label' }, t('menu.settings.autosave')),
+      autosaveBtn,
+    );
+
+    // Danger Zone / Clear All Data
+    const dangerZone = el(
+      'div',
+      { class: 'settings-danger-card' },
+      el('strong', { class: 'settings-danger-title' }, t('menu.settings.reset_title')),
+      el('p', { class: 'settings-danger-desc' }, t('menu.settings.reset_desc')),
+      el(
+        'button',
+        {
+          type: 'button',
+          class: 'btn btn-ghost slot-delete-btn',
+          onClick: () => {
+            if (window.confirm(t('menu.settings.reset_confirm'))) {
+              if (this.#onResetAll) {
+                this.#onResetAll();
+              }
+              this.#mode = 'menu';
+              this.render();
+            }
+          },
+        },
+        t('menu.settings.reset_btn'),
+      ),
+    );
+
+    // PWA Mobile / Desktop Install Row
+    const pwaRow = el(
+      'div',
+      { class: 'settings-row settings-inline-row' },
+      el(
+        'div',
+        { class: 'settings-label-col' },
+        el('label', { class: 'settings-label' }, t('menu.action.install_app')),
+        el('span', { class: 'settings-sub-note' }, t('menu.action.desc_install_app')),
+      ),
+      el(
+        'button',
+        {
+          type: 'button',
+          class: 'btn btn-sm btn-accent',
+          onClick: () => {
+            if (this.#pwaManager) {
+              this.#pwaManager.install();
+            }
+          },
+        },
+        '📲 ' + t('hud.install_app'),
+      ),
+    );
+
+    const settingsContainer = el(
+      'section',
+      { class: 'menu-section menu-settings-section' },
+      langGroup,
+      pwaRow,
+      sfxRow,
+      ambRow,
+      crtRow,
+      autosaveRow,
+      dangerZone,
+    );
+
+    return [backBtn, settingsContainer];
+  }
+
+  // =========================================================================
+  // 5. EXIT & TERMINATED SCREENS
+  // =========================================================================
+  #renderExitConfirmScreen() {
+    return el(
+      'section',
+      { class: 'menu-section menu-exit-section' },
+      el('h2', { class: 'menu-exit-title' }, `⏻ ${t('menu.exit.title')}`),
+      el('p', { class: 'menu-exit-desc' }, t('menu.exit.desc')),
+      el(
+        'div',
+        { class: 'menu-exit-actions' },
+        el(
+          'button',
+          {
+            type: 'button',
+            class: 'btn btn-accent menu-exit-confirm-btn',
+            onClick: () => {
+              if (this.#saveManager) {
+                this.#saveManager.save();
+              }
+              this.#mode = 'terminated';
+              this.render();
+            },
+          },
+          t('menu.exit.confirm_btn'),
+        ),
+        el(
+          'button',
+          {
+            type: 'button',
+            class: 'btn btn-ghost',
+            onClick: () => {
+              this.#mode = 'menu';
+              this.render();
+            },
+          },
+          t('menu.exit.cancel_btn'),
+        ),
+      ),
+    );
+  }
+
+  #renderTerminatedScreen() {
+    return el(
+      'section',
+      { class: 'menu-section menu-terminated-card' },
+      el('div', { class: 'terminal-static-line' }, '/// NO CARRIER — LINK DROPPED ///'),
+      el('h2', { class: 'terminated-title' }, t('menu.exit.terminated_title')),
+      el('p', { class: 'terminated-desc' }, t('menu.exit.terminated_desc')),
+      el(
+        'button',
+        {
+          type: 'button',
+          class: 'btn btn-accent menu-reconnect-btn',
+          onClick: () => {
+            this.#mode = 'menu';
+            this.render();
+          },
+        },
+        t('menu.exit.reconnect_btn'),
+      ),
+    );
+  }
+
+  // =========================================================================
+  // 6. CHARACTER CREATION STEPS
+  // =========================================================================
+  #renderActiveStep() {
+    switch (this.#currentStep) {
+      case 1:
+        return this.#renderStepIdentity();
+      case 2:
+        return this.#renderStepArchetype();
+      case 3:
+        return this.#renderStepSector();
+      case 4:
+      default:
+        return this.#renderStepSummary();
+    }
+  }
+
   #renderStepIdentity() {
-    // Name & Randomize
     const nameInput = el('input', {
       type: 'text',
       class: 'menu-text-input',
@@ -6704,7 +22716,6 @@ class MenuView {
       t('character.action.random_name'),
     );
 
-    // Age & Bracket
     const ageBracket = getAgeBracket(this.#age);
     const ageValueBadge = el('strong', { class: 'menu-badge-val' }, `${this.#age}`);
     const ageBracketDesc = el('span', { class: 'menu-sub-note' }, t(`character.age_bracket.${ageBracket}`));
@@ -6723,7 +22734,6 @@ class MenuView {
       },
     });
 
-    // Blood Type
     const bloodChips = BLOOD_TYPES.map((type) => {
       const isSelected = this.#bloodType === type;
       return el(
@@ -6731,16 +22741,23 @@ class MenuView {
         {
           type: 'button',
           class: ['menu-blood-chip', isSelected && 'is-selected'],
-          onClick: () => {
+          onClick: (e) => {
             this.#bloodType = type;
-            this.render();
+            const grid = e.currentTarget.closest('.menu-blood-grid');
+            if (grid) {
+              grid.querySelectorAll('.menu-blood-chip').forEach((chip) => {
+                chip.classList.remove('is-selected');
+              });
+              e.currentTarget.classList.add('is-selected');
+            } else {
+              this.render();
+            }
           },
         },
         type,
       );
     });
 
-    // Traits
     const traitCards = Object.entries(TRAITS).map(([id, def]) => {
       const isSelected = this.#selectedTrait === id;
       return el(
@@ -6748,9 +22765,23 @@ class MenuView {
         {
           type: 'button',
           class: ['menu-trait-card', isSelected && 'is-selected'],
-          onClick: () => {
+          onClick: (e) => {
             this.#selectedTrait = id;
-            this.render();
+            const grid = e.currentTarget.closest('.menu-trait-grid');
+            if (grid) {
+              grid.querySelectorAll('.menu-trait-card').forEach((card) => {
+                card.classList.remove('is-selected');
+                const badge = card.querySelector('.menu-check-badge');
+                if (badge) badge.remove();
+              });
+              e.currentTarget.classList.add('is-selected');
+              const head = e.currentTarget.querySelector('.menu-option-head');
+              if (head && !head.querySelector('.menu-check-badge')) {
+                head.appendChild(el('span', { class: 'menu-check-badge' }, '✓'));
+              }
+            } else {
+              this.render();
+            }
           },
         },
         el(
@@ -6809,9 +22840,23 @@ class MenuView {
         {
           type: 'button',
           class: ['menu-option-card', isSelected && 'is-selected'],
-          onClick: () => {
+          onClick: (e) => {
             this.#selectedArchetype = id;
-            this.render();
+            const grid = e.currentTarget.closest('.menu-archetype-grid');
+            if (grid) {
+              grid.querySelectorAll('.menu-option-card').forEach((card) => {
+                card.classList.remove('is-selected');
+                const badge = card.querySelector('.menu-check-badge');
+                if (badge) badge.remove();
+              });
+              e.currentTarget.classList.add('is-selected');
+              const head = e.currentTarget.querySelector('.menu-option-head');
+              if (head && !head.querySelector('.menu-check-badge')) {
+                head.appendChild(el('span', { class: 'menu-check-badge' }, '✓'));
+              }
+            } else {
+              this.render();
+            }
           },
         },
         el(
@@ -6843,9 +22888,23 @@ class MenuView {
         {
           type: 'button',
           class: ['menu-sector-chip', isSelected && 'is-selected'],
-          onClick: () => {
+          onClick: (e) => {
             this.#selectedLocation = nodeId;
-            this.render();
+            const grid = e.currentTarget.closest('.menu-sector-grid');
+            if (grid) {
+              grid.querySelectorAll('.menu-sector-chip').forEach((chip) => {
+                chip.classList.remove('is-selected');
+                const badge = chip.querySelector('.menu-check-badge');
+                if (badge) badge.remove();
+              });
+              e.currentTarget.classList.add('is-selected');
+              const top = e.currentTarget.querySelector('.sector-chip-top');
+              if (top && !top.querySelector('.menu-check-badge')) {
+                top.appendChild(el('span', { class: 'menu-check-badge' }, '✓'));
+              }
+            } else {
+              this.render();
+            }
           },
         },
         el(
@@ -7210,7 +23269,171 @@ class LootModalView {
 
 
 
+  // --- src/pwa.js ---
+
+
+
+class PwaManager {
+  #deferredPrompt = null;
+  #installBtn = null;
+  #isInstalled = false;
+
+  constructor() {
+    this.#isInstalled =
+      window.matchMedia?.('(display-mode: standalone)').matches ||
+      Boolean(window.navigator?.standalone);
+  }
+
+  get isInstalled() {
+    return this.#isInstalled;
+  }
+
+  get canPrompt() {
+    return Boolean(this.#deferredPrompt) || this.isIos;
+  }
+
+  get isIos() {
+    return (
+      /iPad|iPhone|iPod/.test(navigator.userAgent) &&
+      !window.MSStream &&
+      !this.#isInstalled
+    );
+  }
+
+  init({ installBtn = document.getElementById('btn-install-app') } = {}) {
+    this.#installBtn = installBtn;
+
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('./sw.js')
+          .then((reg) => {
+            console.log('[PWA] Service Worker registered:', reg.scope);
+          })
+          .catch((err) => {
+            console.warn('[PWA] Service Worker registration failed:', err);
+          });
+      });
+    }
+
+    // Capture standard install prompt event (Android / Chromium / Edge / Samsung)
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      this.#deferredPrompt = e;
+      this.#updateButtonVisibility();
+      console.log('[PWA] beforeinstallprompt captured.');
+    });
+
+    // Listen for app installed event
+    window.addEventListener('appinstalled', () => {
+      this.#deferredPrompt = null;
+      this.#isInstalled = true;
+      this.#updateButtonVisibility();
+      console.log('[PWA] App successfully installed.');
+    });
+
+    // If on iOS and not yet installed, make button visible
+    if (this.isIos) {
+      this.#updateButtonVisibility();
+    }
+
+    // Bind button click
+    if (this.#installBtn) {
+      this.#installBtn.addEventListener('click', () => {
+        this.install();
+      });
+    }
+  }
+
+  #updateButtonVisibility() {
+    if (!this.#installBtn) return;
+    if (this.#isInstalled) {
+      this.#installBtn.hidden = true;
+    } else if (this.#deferredPrompt || this.isIos) {
+      this.#installBtn.hidden = false;
+    }
+  }
+
+  async install() {
+    if (this.#isInstalled) {
+      window.alert(t('pwa.already_installed'));
+      return;
+    }
+
+    if (this.#deferredPrompt) {
+      this.#deferredPrompt.prompt();
+      const choice = await this.#deferredPrompt.userChoice;
+      console.log('[PWA] User choice:', choice.outcome);
+      if (choice.outcome === 'accepted') {
+        this.#deferredPrompt = null;
+        this.#isInstalled = true;
+        this.#updateButtonVisibility();
+      }
+      return;
+    }
+
+    // iOS or manual install guide
+    this.showIosGuide();
+  }
+
+  showIosGuide() {
+    const existing = document.getElementById('pwa-ios-modal');
+    if (existing) existing.remove();
+
+    const isIos = this.isIos;
+    const titleText = isIos ? t('pwa.ios_guide_title') : t('pwa.install_title');
+
+    const modal = el(
+      'div',
+      { id: 'pwa-ios-modal', class: 'premium-modal-backdrop' },
+      el(
+        'div',
+        { class: 'premium-modal-dialog' },
+        el(
+          'header',
+          { class: 'premium-modal-header' },
+          el('span', { class: 'premium-kicker' }, '📱 PWA // MOBILE INSTALL'),
+          el('h2', { class: 'premium-title' }, titleText),
+          el('p', { class: 'premium-desc' }, t('pwa.install_desc')),
+        ),
+        el(
+          'ul',
+          { class: 'premium-feature-list' },
+          el('li', { class: 'premium-feature-item' }, el('span', { class: 'premium-bullet' }, '1.'), el('span', {}, t('pwa.ios_guide_step1'))),
+          el('li', { class: 'premium-feature-item' }, el('span', { class: 'premium-bullet' }, '2.'), el('span', {}, t('pwa.ios_guide_step2'))),
+          el('li', { class: 'premium-feature-item' }, el('span', { class: 'premium-bullet' }, '3.'), el('span', {}, t('pwa.ios_guide_step3'))),
+        ),
+        el(
+          'div',
+          { class: 'premium-modal-actions' },
+          el(
+            'button',
+            {
+              type: 'button',
+              class: 'btn btn-accent',
+              onClick: () => modal.remove(),
+            },
+            t('pwa.close'),
+          ),
+        ),
+      ),
+    );
+
+    document.body.appendChild(modal);
+  }
+}
+
+const pwaManager = new PwaManager();
+
+
+
   // --- src/main.js ---
+
+
+
+
+
 
 
 
@@ -7288,6 +23511,9 @@ function createNewRunState({
     }
   }
 
+  fresh.factions = FactionManager.getInitialState();
+  fresh.environment = WeatherEngine.getInitialState();
+
   return fresh;
 }
 
@@ -7316,7 +23542,9 @@ async function bootstrap() {
     .register(mapModule)
     .register(combatModule)
     .register(craftingModule)
-    .register(baseModule);
+    .register(baseModule)
+    .register(factionModule)
+    .register(environmentModule);
 
   const saveManager = new SaveManager({ store, rng });
   const defaultState = createNewRunState({ engine, seed, archetypeId: 'scavenger', locationId: 'istanbul' });
@@ -7352,6 +23580,8 @@ async function bootstrap() {
 
   const menuView = new MenuView({
     root: document.getElementById('main-menu'),
+    saveManager,
+    pwaManager,
     onContinue: () => {
       menuView.close();
       mapView.centerOnNode(store.state.world.currentNodeId, 3.2);
@@ -7371,6 +23601,12 @@ async function bootstrap() {
         locationId,
       });
       store.replace(fresh);
+      audioEngine.playTerminalBoot();
+      engine.log('log.boot.telemetry');
+      engine.log('log.boot.beacon');
+      const hook = ARCHETYPE_HOOKS[archetypeId] || ARCHETYPE_HOOKS.scavenger;
+      const hookText = i18n.locale === 'tr' ? hook.hook_tr : hook.hook_en;
+      if (hookText) engine.log(hookText);
       engine.log('log.boot.awakened', {
         location: ref(`location.${store.state.world.currentNodeId}`),
       });
@@ -7378,6 +23614,36 @@ async function bootstrap() {
       lootModalView.close();
       menuView.close();
       mapView.centerOnNode(store.state.world.currentNodeId, 3.2);
+    },
+    onLoadSlot: (slotNumber) => {
+      const loaded = saveManager.loadSlot(slotNumber);
+      if (loaded && loaded.state) {
+        rng.reseed(loaded.rng);
+        const hydrated = engine.hydrateState(defaultState, loaded.state);
+        store.replace(hydrated);
+        lootModalView.close();
+        menuView.close();
+        engine.log('log.boot.awakened', {
+          location: ref(`location.${store.state.world.currentNodeId}`),
+        });
+        mapView.centerOnNode(store.state.world.currentNodeId, 3.2);
+      }
+    },
+    onSaveSlot: (slotNumber) => {
+      saveManager.saveSlot(slotNumber);
+    },
+    onDeleteSlot: (slotNumber) => {
+      saveManager.deleteSlot(slotNumber);
+    },
+    onResetAll: () => {
+      saveManager.clearAllData();
+      const fresh = createNewRunState({
+        engine,
+        seed: randomSeed(),
+        archetypeId: 'scavenger',
+        locationId: 'istanbul',
+      });
+      store.replace(fresh);
     },
     onLocaleChange: async (nextCode) => {
       storePreferredLocale(nextCode);
@@ -7390,6 +23656,14 @@ async function bootstrap() {
   bindTopControls({ engine, store, rng, saveManager, mapView, menuView });
   bindMapControls(mapView, store);
   bindNavigationTabs();
+  pwaManager.init();
+
+  // Global tactile mechanical switch click on interactive UI elements
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('button, .nav-tab, .slot-action-btn, .menu-archetype-chip, .node-marker, .action-btn')) {
+      audioEngine.playTerminalClick();
+    }
+  }, { passive: true });
 
   const renderAll = () => {
     const { state } = store;
@@ -7403,6 +23677,11 @@ async function bootstrap() {
     renderDeathModal(state, menuView);
     const indicator = document.getElementById('locale-indicator');
     if (indicator) indicator.textContent = (i18n.locale || 'en').toUpperCase();
+
+    // Critical heartbeat audio monitor
+    const isCritical = state.player.alive && state.player.health <= 20;
+    audioEngine.setCriticalHeartbeat(isCritical, Math.max(70, Math.round(115 - state.player.health * 2)));
+
     if (menuView.isOpen) {
       menuView.render();
     }

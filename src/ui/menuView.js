@@ -2,7 +2,6 @@ import { formatClock, readClock } from '../core/clock.js';
 import { ARCHETYPES, STARTING_LOCATIONS } from '../data/archetypes.js';
 import { BLOOD_TYPES, TRAITS, getAgeBracket, getRandomName } from '../data/traits.js';
 import { i18n, t } from '../i18n/i18n.js';
-import { LOCALES } from '../i18n/locales.js';
 import { getNode } from '../modules/map/mapGraph.js';
 import { el } from './dom.js';
 
@@ -11,6 +10,13 @@ export class MenuView {
   #onContinue;
   #onStartNew;
   #onLocaleChange;
+  #saveManager;
+  #pwaManager;
+  #onLoadSlot;
+  #onSaveSlot;
+  #onDeleteSlot;
+  #onResetAll;
+
   #name = 'Mara';
   #age = 28;
   #bloodType = 'A+';
@@ -19,14 +25,36 @@ export class MenuView {
   #selectedLocation = 'istanbul';
   #hasSave = false;
   #savedState = null;
-  #mode = 'menu'; // 'menu' | 'create'
-  #currentStep = 1; // 1: Identity, 2: Archetype, 3: Sector, 4: Summary
 
-  constructor({ root, onContinue, onStartNew, onLocaleChange }) {
+  #mode = 'menu'; // 'menu' | 'create' | 'load_game' | 'settings' | 'exit_confirm' | 'terminated'
+  #currentStep = 1; // 1: Identity, 2: Archetype, 3: Sector, 4: Summary
+  #lastRenderedStep = 1;
+  #lastRenderedMode = 'menu';
+  #isPremiumModalOpen = false;
+  #slotActionFeedback = '';
+
+  constructor({
+    root,
+    onContinue,
+    onStartNew,
+    onLocaleChange,
+    saveManager,
+    pwaManager,
+    onLoadSlot,
+    onSaveSlot,
+    onDeleteSlot,
+    onResetAll,
+  }) {
     this.#root = root;
     this.#onContinue = onContinue;
     this.#onStartNew = onStartNew;
     this.#onLocaleChange = onLocaleChange;
+    this.#saveManager = saveManager;
+    this.#pwaManager = pwaManager;
+    this.#onLoadSlot = onLoadSlot;
+    this.#onSaveSlot = onSaveSlot;
+    this.#onDeleteSlot = onDeleteSlot;
+    this.#onResetAll = onResetAll;
   }
 
   get isOpen() {
@@ -38,6 +66,8 @@ export class MenuView {
     this.#savedState = state;
     this.#mode = mode || 'menu';
     this.#currentStep = 1;
+    this.#isPremiumModalOpen = false;
+    this.#slotActionFeedback = '';
     this.#root.hidden = false;
     document.body?.classList.add('is-menu-open');
     this.render();
@@ -50,6 +80,10 @@ export class MenuView {
 
   render() {
     if (this.#root.hidden) return;
+
+    const prevBody = this.#root.querySelector('.menu-body');
+    const prevScrollTop = prevBody ? prevBody.scrollTop : 0;
+    const isSameStepAndMode = this.#lastRenderedMode === this.#mode && this.#lastRenderedStep === this.#currentStep;
 
     const localeBtn = el(
       'button',
@@ -67,6 +101,22 @@ export class MenuView {
     );
 
     const isCreate = this.#mode === 'create';
+    const isLoadGame = this.#mode === 'load_game';
+    const isSettings = this.#mode === 'settings';
+    const isExitConfirm = this.#mode === 'exit_confirm';
+    const isTerminated = this.#mode === 'terminated';
+
+    let signalLabel = t('menu.kicker');
+    if (isCreate) signalLabel = t('character.create_title');
+    else if (isLoadGame) signalLabel = t('menu.slots.title');
+    else if (isSettings) signalLabel = t('menu.settings.title');
+    else if (isExitConfirm || isTerminated) signalLabel = t('menu.exit.title');
+
+    let loreText = t('menu.lore');
+    if (isCreate) loreText = t(`character.step_subtitle.${this.#currentStep}`);
+    else if (isLoadGame) loreText = t('menu.slots.subtitle');
+    else if (isSettings) loreText = t('menu.settings.subtitle');
+    else if (isExitConfirm) loreText = t('menu.exit.desc');
 
     const header = el(
       'header',
@@ -78,19 +128,16 @@ export class MenuView {
           'div',
           { class: 'menu-signal-line' },
           el('span', { class: 'signal-dot' }),
-          el('span', { class: 'menu-signal-label' }, isCreate ? t('character.create_title') : t('menu.kicker')),
+          el('span', { class: 'menu-signal-label' }, signalLabel),
         ),
         localeBtn,
       ),
       el('h1', { class: 'menu-title' }, t('app.title')),
-      el(
-        'p',
-        { class: 'menu-lore' },
-        isCreate ? t(`character.step_subtitle.${this.#currentStep}`) : t('menu.lore'),
-      ),
+      el('p', { class: 'menu-lore' }, loreText),
     );
 
     let frame;
+
     if (isCreate) {
       const stepTabs = [
         { step: 1, key: 'character.steps.identity', glyph: '🆔' },
@@ -126,7 +173,36 @@ export class MenuView {
         el('div', { class: 'menu-body' }, stepBody),
         navBar,
       );
+    } else if (isLoadGame) {
+      frame = el(
+        'div',
+        { class: 'menu-frame' },
+        header,
+        el('div', { class: 'menu-body' }, this.#renderLoadGameScreen()),
+      );
+    } else if (isSettings) {
+      frame = el(
+        'div',
+        { class: 'menu-frame' },
+        header,
+        el('div', { class: 'menu-body' }, this.#renderSettingsScreen()),
+      );
+    } else if (isExitConfirm) {
+      frame = el(
+        'div',
+        { class: 'menu-frame' },
+        header,
+        el('div', { class: 'menu-body' }, this.#renderExitConfirmScreen()),
+      );
+    } else if (isTerminated) {
+      frame = el(
+        'div',
+        { class: 'menu-frame is-terminated' },
+        header,
+        el('div', { class: 'menu-body' }, this.#renderTerminatedScreen()),
+      );
     } else {
+      // Main Menu ('menu')
       const bodyContent = this.#renderMainMenuScreen();
       frame = el(
         'div',
@@ -142,81 +218,125 @@ export class MenuView {
       );
     }
 
-    this.#root.replaceChildren(frame);
-  }
+    // Modal overlay if premium modal is open
+    if (this.#isPremiumModalOpen) {
+      const modal = this.#renderPremiumModal();
+      frame.appendChild(modal);
+    }
 
-  #renderActiveStep() {
-    switch (this.#currentStep) {
-      case 1:
-        return this.#renderStepIdentity();
-      case 2:
-        return this.#renderStepArchetype();
-      case 3:
-        return this.#renderStepSector();
-      case 4:
-      default:
-        return this.#renderStepSummary();
+    this.#root.replaceChildren(frame);
+    this.#lastRenderedMode = this.#mode;
+    this.#lastRenderedStep = this.#currentStep;
+
+    if (isSameStepAndMode && prevScrollTop > 0) {
+      const newBody = this.#root.querySelector('.menu-body');
+      if (newBody) {
+        newBody.scrollTop = prevScrollTop;
+      }
     }
   }
 
+  // =========================================================================
+  // 1. MAIN MENU SCREEN (NEW GAME, LOAD GAME, SETTINGS, EXIT + ACTIVE CONTINUE)
+  // =========================================================================
   #renderMainMenuScreen() {
+    const sections = [];
+
+    // If an active expedition is ongoing, offer prominent Continue option
     if (this.#hasSave && this.#savedState) {
       const continueSection = this.#renderContinueCard(this.#savedState);
-
-      const newExpeditionPrompt = el(
-        'section',
-        { class: 'menu-section menu-prompt-card' },
-        el(
-          'div',
-          { class: 'menu-prompt-copy' },
-          el('h2', { class: 'block-title' }, t('menu.new_expedition_title')),
-          el('p', { class: 'muted-note' }, t('character.create_subtitle')),
-        ),
-        el(
-          'button',
-          {
-            type: 'button',
-            class: 'btn btn-ghost menu-cta-btn',
-            onClick: () => {
-              this.#mode = 'create';
-              this.#currentStep = 1;
-              this.render();
-            },
-          },
-          t('menu.action.create_character'),
-        ),
-      );
-
-      return [continueSection, newExpeditionPrompt];
+      sections.push(continueSection);
     }
 
-    // No save: Present prominent New Game landing card
-    const newGameCard = el(
-      'section',
-      { class: 'menu-section menu-welcome-card' },
-      el(
-        'div',
-        { class: 'menu-welcome-header' },
-        el('span', { class: 'meta-label' }, t('menu.no_save_title')),
-        el('h2', { class: 'menu-welcome-title' }, t('menu.new_expedition_title')),
-      ),
-      el('p', { class: 'menu-welcome-lore' }, t('menu.no_save_desc')),
-      el(
+    // Main 4 Core Menu Buttons
+    const menuActions = [
+      {
+        id: 'new_game',
+        glyph: '✦',
+        titleKey: 'menu.action.new_game_main',
+        descKey: 'menu.action.desc_new_game',
+        isAccent: true,
+        onClick: () => {
+          this.#mode = 'create';
+          this.#currentStep = 1;
+          this.render();
+        },
+      },
+      {
+        id: 'load_game',
+        glyph: '💾',
+        titleKey: 'menu.action.load_game',
+        descKey: 'menu.action.desc_load_game',
+        isAccent: false,
+        onClick: () => {
+          this.#mode = 'load_game';
+          this.render();
+        },
+      },
+      {
+        id: 'settings',
+        glyph: '⚙',
+        titleKey: 'menu.action.settings',
+        descKey: 'menu.action.desc_settings',
+        isAccent: false,
+        onClick: () => {
+          this.#mode = 'settings';
+          this.render();
+        },
+      },
+      {
+        id: 'exit',
+        glyph: '⏻',
+        titleKey: 'menu.action.exit',
+        descKey: 'menu.action.desc_exit',
+        isAccent: false,
+        onClick: () => {
+          this.#mode = 'exit_confirm';
+          this.render();
+        },
+      },
+    ];
+
+    if (this.#pwaManager && !this.#pwaManager.isInstalled) {
+      menuActions.push({
+        id: 'install_app',
+        glyph: '📲',
+        titleKey: 'menu.action.install_app',
+        descKey: 'menu.action.desc_install_app',
+        isAccent: false,
+        onClick: () => {
+          this.#pwaManager.install();
+        },
+      });
+    }
+
+    const actionCards = menuActions.map((action) => {
+      return el(
         'button',
         {
           type: 'button',
-          class: 'btn btn-accent menu-cta-btn menu-cta-large',
-          onClick: () => {
-            this.#mode = 'create';
-            this.#currentStep = 1;
-            this.render();
-          },
+          class: ['menu-action-card', action.isAccent && 'is-accent-action'],
+          onClick: action.onClick,
         },
-        t('menu.action.new_game'),
-      ),
+        el('span', { class: 'menu-action-glyph' }, action.glyph),
+        el(
+          'div',
+          { class: 'menu-action-content' },
+          el('strong', { class: 'menu-action-title' }, t(action.titleKey)),
+          el('span', { class: 'menu-action-desc' }, t(action.descKey)),
+        ),
+        el('span', { class: 'menu-action-arrow' }, '→'),
+      );
+    });
+
+    const menuGrid = el(
+      'section',
+      { class: 'menu-section menu-main-nav-section' },
+      el('div', { class: 'menu-action-list' }, actionCards),
     );
 
-    return [newGameCard];
+    sections.push(menuGrid);
+    return sections;
   }
 
   #renderContinueCard(state) {
@@ -261,8 +381,615 @@ export class MenuView {
     );
   }
 
+  // =========================================================================
+  // 2. LOAD GAME SCREEN (10 SLOTS: 2 FREE, 8 PREMIUM)
+  // =========================================================================
+  #renderLoadGameScreen() {
+    const isPremium = this.#saveManager ? this.#saveManager.isPremium() : false;
+    const slots = this.#saveManager ? this.#saveManager.listSlots() : [];
+
+    const backBtn = el(
+      'button',
+      {
+        type: 'button',
+        class: 'btn btn-ghost menu-back-nav-btn',
+        onClick: () => {
+          this.#mode = 'menu';
+          this.render();
+        },
+      },
+      t('menu.action.back_to_menu'),
+    );
+
+    const premiumStatusPill = el(
+      'div',
+      { class: 'menu-premium-status-bar' },
+      el(
+        'span',
+        { class: ['slot-tier-badge', isPremium ? 'is-tier-premium' : 'is-tier-free'] },
+        isPremium ? t('menu.slots.premium_status_active') : t('menu.slots.premium_status_free'),
+      ),
+      el(
+        'button',
+        {
+          type: 'button',
+          class: 'btn btn-ghost btn-sm menu-premium-toggle-btn',
+          onClick: () => {
+            this.#isPremiumModalOpen = true;
+            this.render();
+          },
+        },
+        isPremium ? '👑 Premium Bilgisi / Test' : `👑 ${t('menu.slots.upgrade_cta')}`,
+      ),
+    );
+
+    const topBar = el('div', { class: 'menu-slots-top-bar' }, backBtn, premiumStatusPill);
+
+    const slotCards = slots.map((slotData) => {
+      const { slot, isPremiumSlot, isLocked, hasSave, meta, isActive } = slotData;
+
+      if (isLocked) {
+        // Locked Premium Slot (Slots 3-10 without premium)
+        return el(
+          'div',
+          { class: 'slot-card is-premium-locked' },
+          el(
+            'div',
+            { class: 'slot-card-header' },
+            el('span', { class: 'slot-index-badge' }, `SLOT ${slot}`),
+            el('span', { class: 'slot-tier-badge is-tier-locked' }, t('menu.slots.locked_badge')),
+          ),
+          el(
+            'div',
+            { class: 'slot-locked-content' },
+            el('span', { class: 'slot-lock-icon' }, '🔒'),
+            el('strong', { class: 'slot-locked-title' }, `YUVA ${slot} // ${t('menu.slots.premium_badge')}`),
+            el('p', { class: 'slot-locked-desc' }, t('menu.slots.locked_desc')),
+          ),
+          el(
+            'div',
+            { class: 'slot-card-actions' },
+            el(
+              'button',
+              {
+                type: 'button',
+                class: 'btn btn-accent btn-sm slot-unlock-btn',
+                onClick: () => {
+                  this.#isPremiumModalOpen = true;
+                  this.render();
+                },
+              },
+              t('menu.slots.unlock_btn'),
+            ),
+          ),
+        );
+      }
+
+      // Unlocked slot (Free slot 1-2, or 3-10 with premium)
+      if (hasSave && meta) {
+        const { day } = readClock(meta.minutes);
+        const clock = formatClock(meta.minutes);
+        const locName = t(`location.${meta.locationId}`);
+        const dateStr = new Date(meta.savedAt).toLocaleDateString(undefined, {
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+        });
+
+        return el(
+          'div',
+          { class: ['slot-card is-unlocked', isActive && 'is-active-slot'] },
+          el(
+            'div',
+            { class: 'slot-card-header' },
+            el('span', { class: 'slot-index-badge' }, `SLOT ${slot}`),
+            el(
+              'span',
+              { class: ['slot-tier-badge', isPremiumSlot ? 'is-tier-premium' : 'is-tier-free'] },
+              isPremiumSlot ? t('menu.slots.premium_badge') : t('menu.slots.free_badge'),
+            ),
+            isActive && el('span', { class: 'slot-active-pill' }, t('menu.slots.active_badge')),
+          ),
+          el(
+            'div',
+            { class: 'slot-save-info' },
+            el(
+              'div',
+              { class: 'slot-survivor-callsign' },
+              el('strong', {}, (meta.name || t('character.default_name')).toUpperCase()),
+              el('span', { class: 'slot-archetype-label' }, `// ${t(`menu.archetype.${meta.archetype}.name`)}`),
+            ),
+            el('div', { class: 'slot-meta-line' }, `${locName} — ${t('hud.day', { day })} · ${clock}`),
+            el(
+              'div',
+              { class: 'slot-vitals-line' },
+              el('span', {}, `${t('status.vital.health')}: ${meta.health}%`),
+              el('span', {}, `·`),
+              el('span', { class: 'slot-timestamp' }, `📅 ${dateStr}`),
+            ),
+          ),
+          el(
+            'div',
+            { class: 'slot-card-actions' },
+            el(
+              'button',
+              {
+                type: 'button',
+                class: 'btn btn-accent btn-sm',
+                onClick: () => {
+                  if (this.#onLoadSlot) {
+                    this.#onLoadSlot(slot);
+                  }
+                },
+              },
+              t('menu.slots.load_btn'),
+            ),
+            this.#savedState &&
+              el(
+                'button',
+                {
+                  type: 'button',
+                  class: 'btn btn-ghost btn-sm',
+                  onClick: () => {
+                    if (this.#onSaveSlot) {
+                      this.#onSaveSlot(slot);
+                      this.render();
+                    }
+                  },
+                },
+                t('menu.slots.save_btn'),
+              ),
+            el(
+              'button',
+              {
+                type: 'button',
+                class: 'btn btn-ghost btn-sm slot-delete-btn',
+                onClick: () => {
+                  if (window.confirm(t('menu.slots.delete_confirm'))) {
+                    if (this.#onDeleteSlot) {
+                      this.#onDeleteSlot(slot);
+                      this.render();
+                    }
+                  }
+                },
+              },
+              t('menu.slots.delete_btn'),
+            ),
+          ),
+        );
+      }
+
+      // Empty unlocked slot
+      return el(
+        'div',
+        { class: 'slot-card is-empty-slot' },
+        el(
+          'div',
+          { class: 'slot-card-header' },
+          el('span', { class: 'slot-index-badge' }, `SLOT ${slot}`),
+          el(
+            'span',
+            { class: ['slot-tier-badge', isPremiumSlot ? 'is-tier-premium' : 'is-tier-free'] },
+            isPremiumSlot ? t('menu.slots.premium_badge') : t('menu.slots.free_badge'),
+          ),
+        ),
+        el(
+          'div',
+          { class: 'slot-empty-content' },
+          el('strong', { class: 'slot-empty-title' }, t('menu.slots.empty')),
+          el('p', { class: 'slot-empty-desc' }, t('menu.slots.empty_desc')),
+        ),
+        el(
+          'div',
+          { class: 'slot-card-actions' },
+          this.#savedState &&
+            el(
+              'button',
+              {
+                type: 'button',
+                class: 'btn btn-accent btn-sm',
+                onClick: () => {
+                  if (this.#onSaveSlot) {
+                    this.#onSaveSlot(slot);
+                    this.render();
+                  }
+                },
+              },
+              t('menu.slots.save_btn'),
+            ),
+          el(
+            'button',
+            {
+              type: 'button',
+              class: 'btn btn-ghost btn-sm',
+              onClick: () => {
+                if (this.#saveManager) {
+                  this.#saveManager.setActiveSlot(slot);
+                }
+                this.#mode = 'create';
+                this.#currentStep = 1;
+                this.render();
+              },
+            },
+            t('menu.action.new_game_main'),
+          ),
+        ),
+      );
+    });
+
+    return [
+      topBar,
+      el('div', { class: 'menu-slots-grid' }, slotCards),
+    ];
+  }
+
+  // =========================================================================
+  // 3. PREMIUM UNLOCK MODAL
+  // =========================================================================
+  #renderPremiumModal() {
+    const isPremium = this.#saveManager ? this.#saveManager.isPremium() : false;
+
+    const featureItems = [
+      t('menu.premium.feature_1'),
+      t('menu.premium.feature_2'),
+      t('menu.premium.feature_3'),
+      t('menu.premium.feature_4'),
+    ].map((f) => el('li', { class: 'premium-feature-item' }, el('span', { class: 'premium-bullet' }, '✦'), el('span', {}, f)));
+
+    return el(
+      'div',
+      { class: 'premium-modal-backdrop' },
+      el(
+        'div',
+        { class: 'premium-modal-dialog' },
+        el(
+          'header',
+          { class: 'premium-modal-header' },
+          el('span', { class: 'premium-kicker' }, t('menu.premium.kicker')),
+          el('h2', { class: 'premium-title' }, `👑 ${t('menu.premium.title')}`),
+          el('p', { class: 'premium-desc' }, t('menu.premium.desc')),
+        ),
+        el('ul', { class: 'premium-feature-list' }, featureItems),
+        el(
+          'div',
+          { class: 'premium-modal-actions' },
+          !isPremium
+            ? el(
+                'button',
+                {
+                  type: 'button',
+                  class: 'btn btn-accent premium-cta-btn',
+                  onClick: () => {
+                    if (this.#saveManager) {
+                      this.#saveManager.setPremium(true);
+                    }
+                    this.#isPremiumModalOpen = false;
+                    this.render();
+                  },
+                },
+                t('menu.premium.unlock_btn'),
+              )
+            : el(
+                'button',
+                {
+                  type: 'button',
+                  class: 'btn btn-ghost premium-revoke-btn',
+                  onClick: () => {
+                    if (this.#saveManager) {
+                      this.#saveManager.setPremium(false);
+                    }
+                    this.#isPremiumModalOpen = false;
+                    this.render();
+                  },
+                },
+                t('menu.premium.revoke_btn'),
+              ),
+          el(
+            'button',
+            {
+              type: 'button',
+              class: 'btn btn-ghost',
+              onClick: () => {
+                this.#isPremiumModalOpen = false;
+                this.render();
+              },
+            },
+            t('menu.premium.close'),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // =========================================================================
+  // 4. SETTINGS SCREEN
+  // =========================================================================
+  #renderSettingsScreen() {
+    const backBtn = el(
+      'button',
+      {
+        type: 'button',
+        class: 'btn btn-ghost menu-back-nav-btn',
+        onClick: () => {
+          this.#mode = 'menu';
+          this.render();
+        },
+      },
+      t('menu.action.back_to_menu'),
+    );
+
+    // Language options
+    const isTr = i18n.locale === 'tr';
+    const langGroup = el(
+      'div',
+      { class: 'settings-row' },
+      el('label', { class: 'settings-label' }, t('menu.settings.language')),
+      el(
+        'div',
+        { class: 'settings-btn-group' },
+        el(
+          'button',
+          {
+            type: 'button',
+            class: ['btn btn-sm', isTr ? 'btn-accent' : 'btn-ghost'],
+            onClick: () => this.#onLocaleChange('tr'),
+          },
+          'Türkçe (TR)',
+        ),
+        el(
+          'button',
+          {
+            type: 'button',
+            class: ['btn btn-sm', !isTr ? 'btn-accent' : 'btn-ghost'],
+            onClick: () => this.#onLocaleChange('en'),
+          },
+          'English (EN)',
+        ),
+      ),
+    );
+
+    // Audio SFX Volume Slider
+    const initialSfx = localStorage.getItem('lastbreath.sfx_volume') || '80';
+    const sfxBadge = el('span', { class: 'settings-val-badge' }, `${initialSfx}%`);
+    const sfxSlider = el('input', {
+      type: 'range',
+      min: '0',
+      max: '100',
+      value: initialSfx,
+      class: 'menu-range-slider',
+      onInput: (e) => {
+        const val = e.target.value;
+        sfxBadge.textContent = `${val}%`;
+        localStorage.setItem('lastbreath.sfx_volume', val);
+      },
+    });
+
+    const sfxRow = el(
+      'div',
+      { class: 'settings-row' },
+      el('div', { class: 'settings-spread' }, el('label', { class: 'settings-label' }, t('menu.settings.sfx')), sfxBadge),
+      sfxSlider,
+    );
+
+    // Ambient / Music Volume Slider
+    const initialAmb = localStorage.getItem('lastbreath.ambient_volume') || '60';
+    const ambBadge = el('span', { class: 'settings-val-badge' }, `${initialAmb}%`);
+    const ambSlider = el('input', {
+      type: 'range',
+      min: '0',
+      max: '100',
+      value: initialAmb,
+      class: 'menu-range-slider',
+      onInput: (e) => {
+        const val = e.target.value;
+        ambBadge.textContent = `${val}%`;
+        localStorage.setItem('lastbreath.ambient_volume', val);
+      },
+    });
+
+    const ambRow = el(
+      'div',
+      { class: 'settings-row' },
+      el('div', { class: 'settings-spread' }, el('label', { class: 'settings-label' }, t('menu.settings.ambient')), ambBadge),
+      ambSlider,
+    );
+
+    // CRT Scanlines Effect Toggle
+    const isCrt = localStorage.getItem('lastbreath.crt_effects') !== 'false';
+    const crtBtn = el(
+      'button',
+      {
+        type: 'button',
+        class: ['btn btn-sm', isCrt ? 'btn-accent' : 'btn-ghost'],
+        onClick: () => {
+          const nextVal = !isCrt;
+          localStorage.setItem('lastbreath.crt_effects', String(nextVal));
+          document.body.classList.toggle('crt-active', nextVal);
+          this.render();
+        },
+      },
+      isCrt ? t('menu.settings.on') : t('menu.settings.off'),
+    );
+
+    const crtRow = el(
+      'div',
+      { class: 'settings-row settings-inline-row' },
+      el('label', { class: 'settings-label' }, t('menu.settings.crt')),
+      crtBtn,
+    );
+
+    // Auto-Save Toggle
+    const isAutosave = localStorage.getItem('lastbreath.autosave') !== 'false';
+    const autosaveBtn = el(
+      'button',
+      {
+        type: 'button',
+        class: ['btn btn-sm', isAutosave ? 'btn-accent' : 'btn-ghost'],
+        onClick: () => {
+          const nextVal = !isAutosave;
+          localStorage.setItem('lastbreath.autosave', String(nextVal));
+          this.render();
+        },
+      },
+      isAutosave ? t('menu.settings.on') : t('menu.settings.off'),
+    );
+
+    const autosaveRow = el(
+      'div',
+      { class: 'settings-row settings-inline-row' },
+      el('label', { class: 'settings-label' }, t('menu.settings.autosave')),
+      autosaveBtn,
+    );
+
+    // Danger Zone / Clear All Data
+    const dangerZone = el(
+      'div',
+      { class: 'settings-danger-card' },
+      el('strong', { class: 'settings-danger-title' }, t('menu.settings.reset_title')),
+      el('p', { class: 'settings-danger-desc' }, t('menu.settings.reset_desc')),
+      el(
+        'button',
+        {
+          type: 'button',
+          class: 'btn btn-ghost slot-delete-btn',
+          onClick: () => {
+            if (window.confirm(t('menu.settings.reset_confirm'))) {
+              if (this.#onResetAll) {
+                this.#onResetAll();
+              }
+              this.#mode = 'menu';
+              this.render();
+            }
+          },
+        },
+        t('menu.settings.reset_btn'),
+      ),
+    );
+
+    // PWA Mobile / Desktop Install Row
+    const pwaRow = el(
+      'div',
+      { class: 'settings-row settings-inline-row' },
+      el(
+        'div',
+        { class: 'settings-label-col' },
+        el('label', { class: 'settings-label' }, t('menu.action.install_app')),
+        el('span', { class: 'settings-sub-note' }, t('menu.action.desc_install_app')),
+      ),
+      el(
+        'button',
+        {
+          type: 'button',
+          class: 'btn btn-sm btn-accent',
+          onClick: () => {
+            if (this.#pwaManager) {
+              this.#pwaManager.install();
+            }
+          },
+        },
+        '📲 ' + t('hud.install_app'),
+      ),
+    );
+
+    const settingsContainer = el(
+      'section',
+      { class: 'menu-section menu-settings-section' },
+      langGroup,
+      pwaRow,
+      sfxRow,
+      ambRow,
+      crtRow,
+      autosaveRow,
+      dangerZone,
+    );
+
+    return [backBtn, settingsContainer];
+  }
+
+  // =========================================================================
+  // 5. EXIT & TERMINATED SCREENS
+  // =========================================================================
+  #renderExitConfirmScreen() {
+    return el(
+      'section',
+      { class: 'menu-section menu-exit-section' },
+      el('h2', { class: 'menu-exit-title' }, `⏻ ${t('menu.exit.title')}`),
+      el('p', { class: 'menu-exit-desc' }, t('menu.exit.desc')),
+      el(
+        'div',
+        { class: 'menu-exit-actions' },
+        el(
+          'button',
+          {
+            type: 'button',
+            class: 'btn btn-accent menu-exit-confirm-btn',
+            onClick: () => {
+              if (this.#saveManager) {
+                this.#saveManager.save();
+              }
+              this.#mode = 'terminated';
+              this.render();
+            },
+          },
+          t('menu.exit.confirm_btn'),
+        ),
+        el(
+          'button',
+          {
+            type: 'button',
+            class: 'btn btn-ghost',
+            onClick: () => {
+              this.#mode = 'menu';
+              this.render();
+            },
+          },
+          t('menu.exit.cancel_btn'),
+        ),
+      ),
+    );
+  }
+
+  #renderTerminatedScreen() {
+    return el(
+      'section',
+      { class: 'menu-section menu-terminated-card' },
+      el('div', { class: 'terminal-static-line' }, '/// NO CARRIER — LINK DROPPED ///'),
+      el('h2', { class: 'terminated-title' }, t('menu.exit.terminated_title')),
+      el('p', { class: 'terminated-desc' }, t('menu.exit.terminated_desc')),
+      el(
+        'button',
+        {
+          type: 'button',
+          class: 'btn btn-accent menu-reconnect-btn',
+          onClick: () => {
+            this.#mode = 'menu';
+            this.render();
+          },
+        },
+        t('menu.exit.reconnect_btn'),
+      ),
+    );
+  }
+
+  // =========================================================================
+  // 6. CHARACTER CREATION STEPS
+  // =========================================================================
+  #renderActiveStep() {
+    switch (this.#currentStep) {
+      case 1:
+        return this.#renderStepIdentity();
+      case 2:
+        return this.#renderStepArchetype();
+      case 3:
+        return this.#renderStepSector();
+      case 4:
+      default:
+        return this.#renderStepSummary();
+    }
+  }
+
   #renderStepIdentity() {
-    // Name & Randomize
     const nameInput = el('input', {
       type: 'text',
       class: 'menu-text-input',
@@ -287,7 +1014,6 @@ export class MenuView {
       t('character.action.random_name'),
     );
 
-    // Age & Bracket
     const ageBracket = getAgeBracket(this.#age);
     const ageValueBadge = el('strong', { class: 'menu-badge-val' }, `${this.#age}`);
     const ageBracketDesc = el('span', { class: 'menu-sub-note' }, t(`character.age_bracket.${ageBracket}`));
@@ -306,7 +1032,6 @@ export class MenuView {
       },
     });
 
-    // Blood Type
     const bloodChips = BLOOD_TYPES.map((type) => {
       const isSelected = this.#bloodType === type;
       return el(
@@ -314,16 +1039,23 @@ export class MenuView {
         {
           type: 'button',
           class: ['menu-blood-chip', isSelected && 'is-selected'],
-          onClick: () => {
+          onClick: (e) => {
             this.#bloodType = type;
-            this.render();
+            const grid = e.currentTarget.closest('.menu-blood-grid');
+            if (grid) {
+              grid.querySelectorAll('.menu-blood-chip').forEach((chip) => {
+                chip.classList.remove('is-selected');
+              });
+              e.currentTarget.classList.add('is-selected');
+            } else {
+              this.render();
+            }
           },
         },
         type,
       );
     });
 
-    // Traits
     const traitCards = Object.entries(TRAITS).map(([id, def]) => {
       const isSelected = this.#selectedTrait === id;
       return el(
@@ -331,9 +1063,23 @@ export class MenuView {
         {
           type: 'button',
           class: ['menu-trait-card', isSelected && 'is-selected'],
-          onClick: () => {
+          onClick: (e) => {
             this.#selectedTrait = id;
-            this.render();
+            const grid = e.currentTarget.closest('.menu-trait-grid');
+            if (grid) {
+              grid.querySelectorAll('.menu-trait-card').forEach((card) => {
+                card.classList.remove('is-selected');
+                const badge = card.querySelector('.menu-check-badge');
+                if (badge) badge.remove();
+              });
+              e.currentTarget.classList.add('is-selected');
+              const head = e.currentTarget.querySelector('.menu-option-head');
+              if (head && !head.querySelector('.menu-check-badge')) {
+                head.appendChild(el('span', { class: 'menu-check-badge' }, '✓'));
+              }
+            } else {
+              this.render();
+            }
           },
         },
         el(
@@ -392,9 +1138,23 @@ export class MenuView {
         {
           type: 'button',
           class: ['menu-option-card', isSelected && 'is-selected'],
-          onClick: () => {
+          onClick: (e) => {
             this.#selectedArchetype = id;
-            this.render();
+            const grid = e.currentTarget.closest('.menu-archetype-grid');
+            if (grid) {
+              grid.querySelectorAll('.menu-option-card').forEach((card) => {
+                card.classList.remove('is-selected');
+                const badge = card.querySelector('.menu-check-badge');
+                if (badge) badge.remove();
+              });
+              e.currentTarget.classList.add('is-selected');
+              const head = e.currentTarget.querySelector('.menu-option-head');
+              if (head && !head.querySelector('.menu-check-badge')) {
+                head.appendChild(el('span', { class: 'menu-check-badge' }, '✓'));
+              }
+            } else {
+              this.render();
+            }
           },
         },
         el(
@@ -426,9 +1186,23 @@ export class MenuView {
         {
           type: 'button',
           class: ['menu-sector-chip', isSelected && 'is-selected'],
-          onClick: () => {
+          onClick: (e) => {
             this.#selectedLocation = nodeId;
-            this.render();
+            const grid = e.currentTarget.closest('.menu-sector-grid');
+            if (grid) {
+              grid.querySelectorAll('.menu-sector-chip').forEach((chip) => {
+                chip.classList.remove('is-selected');
+                const badge = chip.querySelector('.menu-check-badge');
+                if (badge) badge.remove();
+              });
+              e.currentTarget.classList.add('is-selected');
+              const top = e.currentTarget.querySelector('.sector-chip-top');
+              if (top && !top.querySelector('.menu-check-badge')) {
+                top.appendChild(el('span', { class: 'menu-check-badge' }, '✓'));
+              }
+            } else {
+              this.render();
+            }
           },
         },
         el(

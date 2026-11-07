@@ -33,7 +33,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  flex-wrap: wrap;
+  gap: 5px 8px;
   width: 100%;
 }
 
@@ -42,10 +43,11 @@
   align-items: baseline;
   gap: 8px;
   flex-shrink: 0;
+  order: 1;
 }
 
 .brand-title {
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 700;
   letter-spacing: 0.12em;
   color: var(--amber);
@@ -59,36 +61,54 @@
   display: none;
 }
 
+.hud-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  order: 2;
+  margin-left: auto;
+}
+
 .hud-telemetry {
   display: flex;
   align-items: center;
-  gap: 6px;
+  width: 100%;
   min-width: 0;
-  overflow: hidden;
+  box-sizing: border-box;
+  order: 3;
 }
 
 .hud-clock-cluster {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
   gap: 5px;
-  padding: 2px 6px;
+  padding: 3px 6px;
   background: var(--bg-void);
   border: 1px solid var(--line-dim);
-  font-size: 10.5px;
+  font-size: 10px;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  box-sizing: border-box;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.hud-clock-cluster::-webkit-scrollbar {
+  display: none;
 }
 
 .hud-survivor-tag {
   color: var(--amber);
   font-weight: 700;
   letter-spacing: 0.06em;
-  max-width: 84px;
+  max-width: 88px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .hud-phase-badge {
@@ -98,6 +118,7 @@
   background: rgba(127, 169, 107, 0.14);
   color: var(--olive);
   border: 1px solid rgba(127, 169, 107, 0.35);
+  flex-shrink: 0;
 }
 
 .hud-phase-badge.is-night {
@@ -109,6 +130,11 @@
 .hud-sector-tag {
   color: var(--amber);
   font-weight: 600;
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex-shrink: 1;
 }
 
 /* Vitals Strip */
@@ -117,6 +143,7 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 4px;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .hud-vital-pill {
@@ -130,6 +157,7 @@
   font-size: 10px;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+  box-sizing: border-box;
 }
 
 .hud-vital-pill .pill-key {
@@ -148,11 +176,50 @@
   color: var(--rust);
 }
 
-.hud-controls {
-  display: flex;
+.btn-install {
+  display: inline-flex;
   align-items: center;
-  gap: 5px;
-  flex-shrink: 0;
+  gap: 3px;
+  padding: 2px 6px;
+  height: 24px;
+  background: rgba(217, 155, 56, 0.15);
+  border: 1px solid var(--amber);
+  color: var(--amber);
+  font-weight: 700;
+  font-size: 9.5px;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  border-radius: var(--radius-xs);
+  transition: all 140ms ease;
+  animation: pulseInstall 2.2s infinite ease-in-out;
+}
+
+.btn-install[hidden] {
+  display: none !important;
+}
+
+.btn-install:hover {
+  background: rgba(217, 155, 56, 0.28);
+  box-shadow: 0 0 10px rgba(217, 155, 56, 0.45);
+}
+
+.btn-install-icon {
+  font-size: 11px;
+}
+
+@keyframes pulseInstall {
+  0%, 100% {
+    box-shadow: 0 0 0 rgba(217, 155, 56, 0);
+  }
+  50% {
+    box-shadow: 0 0 8px rgba(217, 155, 56, 0.4);
+  }
+}
+
+@media (max-width: 560px) {
+  #btn-new-run {
+    display: none;
+  }
 }
 
 .btn-locale {
@@ -385,7 +452,30 @@
 
   .top-bar-row {
     width: auto;
+    flex-wrap: nowrap;
     gap: 8px;
+  }
+
+  .brand-cluster {
+    order: initial;
+  }
+
+  .hud-telemetry {
+    order: initial;
+    flex: initial;
+    width: auto;
+    margin-top: 0;
+  }
+
+  .hud-clock-cluster {
+    width: auto;
+    padding: 1px 5px;
+    font-size: 9px;
+  }
+
+  .hud-controls {
+    order: initial;
+    margin-left: 0;
   }
 
   .hud-vitals-strip {
@@ -460,11 +550,32 @@
   .top-bar-row {
     width: auto;
     flex: 1;
+    flex-wrap: nowrap;
+  }
+
+  .brand-cluster {
+    order: initial;
+    flex: 0 0 auto;
   }
 
   .hud-telemetry {
-    flex: initial;
+    order: initial;
+    flex: 1;
+    width: auto;
     gap: 12px;
+    margin-top: 0;
+    justify-content: center;
+  }
+
+  .hud-clock-cluster {
+    width: auto;
+    justify-content: flex-start;
+  }
+
+  .hud-controls {
+    order: initial;
+    flex: 0 0 auto;
+    margin-left: 0;
   }
 
   .hud-vitals-strip {

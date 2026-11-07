@@ -6,6 +6,8 @@ import { grantItems } from '../inventory/index.js';
 import { rollLoot } from '../inventory/loot.js';
 import { getNode } from '../map/mapGraph.js';
 import { skillLevel } from '../skills/skillSelectors.js';
+import { getBodyDebuffs } from '../status/bodyStatus.js';
+import { audioEngine } from '../../core/audioEngine.js';
 
 const enemyName = (enemyId) => ref(`enemy.${enemyId}.name`);
 
@@ -36,6 +38,11 @@ function resolveEnemyTurn(ctx, enemyId) {
 
   const dmg = rollRange(rng, enemy.damage);
   engine.log('combat.enemy_hit', { name: enemyName(enemyId), dmg }, 'bad');
+  if (enemy.ranged) {
+    audioEngine.playGunshot('9mm', 0.65);
+  } else {
+    audioEngine.playGearRustle(0.4);
+  }
   const combatEffects = [{ type: 'damage', amount: dmg, cause: 'wounds' }];
   if (enemy.bleedChance && rng.chance(enemy.bleedChance)) {
     combatEffects.push({ type: 'ailment', id: 'bleeding' });
@@ -157,11 +164,21 @@ export const combatModule = {
         store.commit('inventory/remove', { itemId: weapon.ammoId, qty: 1 });
       }
 
-      const hitChance = Math.min(
-        0.95,
-        (isAimed ? 0.75 : 0.84) + skillLevel(store.state, 'marksmanship') * 0.02 - enemy.evasion,
+      const debuffs = getBodyDebuffs(store.state.player.body);
+      const hitChance = Math.max(
+        0.15,
+        Math.min(
+          0.95,
+          (isAimed ? 0.75 : 0.84) + skillLevel(store.state, 'marksmanship') * 0.02 - enemy.evasion - debuffs.weaponAccuracyPenalty,
+        ),
       );
       effects.apply([{ type: 'vital', vital: 'energy', amount: isAimed ? -5 : -3 }], ctx);
+
+      if (weapon.ammoId) {
+        audioEngine.playGunshot(weapon.ammoId);
+      } else {
+        audioEngine.playTerminalClick(0.7, 0.4);
+      }
 
       if (rng.chance(hitChance)) {
         const baseDmg = Math.round(rating * (isAimed ? 3.4 : 2.4)) + rng.int(2, 6);

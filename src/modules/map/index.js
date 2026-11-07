@@ -1,6 +1,7 @@
 import { BALANCE } from '../../data/balance.js';
 import { ENCOUNTERS } from '../../data/encounters.js';
-import { ref } from '../../i18n/i18n.js';
+import { getRandomFieldLog } from '../../data/narratives.js';
+import { i18n, ref } from '../../i18n/i18n.js';
 import { rollRange } from '../../core/rng.js';
 import { grantItems } from '../inventory/index.js';
 import { rollLoot } from '../inventory/loot.js';
@@ -9,6 +10,7 @@ import {
   ALL_NODES, estimateJourney, findRoute, getNode, neighborsOf, scavengeProfile,
 } from './mapGraph.js';
 import { consumeCombatAmmo, evaluateCheckChance, pickEncounter } from './encounters.js';
+import { WeatherEngine } from '../environment/weatherEngine.js';
 
 const locName = (nodeId) => ref(`location.${nodeId}`);
 
@@ -181,12 +183,19 @@ function registerMapActions(engine, ctx) {
 
     store.commit('world/depleteNode', { nodeId, amount: BALANCE.scavenge.depletionPerSearch });
 
+    const envMods = WeatherEngine.getStealthAndVisibilityModifiers(store.state);
+
     if (rng.chance(profile.chance)) {
       const bonus = skillMultiplier(store.state, 'foraging');
       const baseRolls = rollRange(rng, profile.biome.yield);
-      const rolls = Math.max(1, Math.round(baseRolls * bonus));
+      const rolls = Math.max(1, Math.round(baseRolls * bonus * envMods.scavengeEfficiency));
       const items = rollLoot(rng, profile.biome.lootTable, rolls);
       effects.apply([{ type: 'xp', skill: 'foraging', amount: 5 }], ctx);
+      if (rng.chance(0.25)) {
+        const dispatch = getRandomFieldLog(rng);
+        const text = i18n.locale === 'tr' ? dispatch.text_tr : dispatch.text_en;
+        engine.log('log.scavenge.field_log', { text });
+      }
       engine.bus.emit('loot:modal', {
         type: 'scavenge',
         titleKey: 'loot.title.scavenge_found',
@@ -215,7 +224,7 @@ function registerMapActions(engine, ctx) {
       });
     }
 
-    if (store.state.player.alive && rng.chance(profile.hazardRisk)) {
+    if (store.state.player.alive && rng.chance(profile.hazardRisk * envMods.encounterRiskMultiplier)) {
       startEncounter(ctx, { context: 'scavenge', nodeId });
     }
     return { ok: true };

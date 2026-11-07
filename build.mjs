@@ -46,7 +46,7 @@ for (const { fullPath, src } of ordered) {
     .replace(/import\s+[\s\S]*?from\s+['"][^'"]+['"]\s*;?/g, '')
     .replace(/export\s+default\s+/g, '')
     .replace(/export\s+(?=(?:const|let|var|function|async\s+function|class)\s)/g, '')
-    .replace(/export\s*\{[^}]*\}\s*;?/g, '');
+    .replace(/export\s*\{[^}]*\}\s*(?:from\s*['"][^'"]+['"])?\s*;?/g, '');
 
   chunks.push(`\n  // --- ${rel} ---\n${transformed}`);
 }

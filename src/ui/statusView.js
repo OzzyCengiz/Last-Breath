@@ -4,6 +4,7 @@ import { t, i18n } from '../i18n/i18n.js';
 import { armorValue, combatRating, passiveBonus, weaponProfile } from '../modules/inventory/inventorySelectors.js';
 import { SKILL_IDS, skillProgress } from '../modules/skills/skillSelectors.js';
 import { VITALS, ailmentIntensity, vitalBand } from '../modules/status/statusSelectors.js';
+import { BODY_PARTS } from '../modules/status/bodyStatus.js';
 import { el } from './dom.js';
 
 export class StatusView {
@@ -18,9 +19,70 @@ export class StatusView {
     this.#root.replaceChildren(
       this.#renderDossier(player),
       this.#renderVitals(player),
+      this.#renderBodyTrauma(player),
       this.#renderAilments(player),
       this.#renderReadout(state),
       this.#renderSkills(state),
+    );
+  }
+
+  #renderBodyTrauma(player) {
+    const body = player.body;
+    if (!body) return el('div');
+
+    const cards = BODY_PARTS.map((partId) => {
+      const part = body[partId];
+      if (!part) return el('div');
+      const hp = Math.round(part.health);
+      const isDamaged = hp < 100 || part.bleeding !== 'none' || part.fractures || part.burns || part.punctured || part.infectionRisk > 20;
+
+      const badges = [];
+      if (part.bleeding === 'arterial') {
+        badges.push(el('span', { class: 'status-tag tone-bad pulse-alert' }, `▲ ${t('status.body.condition.arterial_bleed')}`));
+      } else if (part.bleeding === 'minor') {
+        badges.push(el('span', { class: 'status-tag tone-bad' }, `● ${t('status.body.condition.minor_bleed')}`));
+      }
+      if (part.fractures) {
+        badges.push(el('span', { class: 'status-tag tone-warn' }, `✖ ${t('status.body.condition.fracture')}`));
+      }
+      if (part.punctured) {
+        badges.push(el('span', { class: 'status-tag tone-bad' }, `☣ ${t('status.body.condition.pneumothorax')}`));
+      }
+      if (part.burns) {
+        badges.push(el('span', { class: 'status-tag tone-warn' }, `♨ ${t('status.body.condition.burn')}`));
+      }
+      if (part.infectionRisk >= 25) {
+        badges.push(el('span', { class: 'status-tag tone-warn' }, `☣ ${t('status.body.condition.infection')} ${Math.round(part.infectionRisk)}%`));
+      }
+      if (badges.length === 0) {
+        badges.push(el('span', { class: 'status-tag tone-good' }, t('status.body.condition.intact')));
+      }
+
+      const meterTone = hp > 65 ? 'good' : (hp > 30 ? 'warn' : 'bad');
+
+      return el(
+        'div',
+        { class: ['body-part-card', isDamaged ? 'part-damaged' : 'part-healthy'] },
+        el(
+          'div',
+          { class: 'body-part-head' },
+          el('span', { class: 'body-part-name' }, t(`status.body.part.${partId}`)),
+          el('strong', { class: ['body-part-hp', `tone-${meterTone}`] }, `${hp}%`),
+        ),
+        el(
+          'div',
+          { class: 'meter-track meter-thin' },
+          el('div', { class: ['meter-fill', `fill-${meterTone}`], style: `width: ${Math.max(0, Math.min(100, hp))}%` }),
+        ),
+        el('div', { class: 'body-part-badges' }, badges),
+      );
+    });
+
+    return el(
+      'section',
+      { class: 'panel-block body-trauma-section' },
+      el('h3', { class: 'block-title' }, t('status.section.body')),
+      el('div', { class: 'body-parts-grid' }, cards),
     );
   }
 

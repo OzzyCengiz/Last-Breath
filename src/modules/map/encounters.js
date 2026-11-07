@@ -3,6 +3,7 @@ import { BALANCE } from '../../data/balance.js';
 import { combatRating, hasGearFlag, meetsRequirement, weaponProfile } from '../inventory/inventorySelectors.js';
 import { skillLevel } from '../skills/skillSelectors.js';
 import { getNode } from './mapGraph.js';
+import { FactionManager } from '../factions/factionManager.js';
 
 const clampChance = (value) =>
   Math.max(BALANCE.checks.minChance, Math.min(BALANCE.checks.maxChance, value));
@@ -48,8 +49,10 @@ export function evaluateCheckChance(state, check) {
 
 export function describeEncounter(state, encounterState) {
   if (!encounterState) return null;
-  const def = ENCOUNTERS[encounterState.id];
-  if (!def) return null;
+  const rawDef = ENCOUNTERS[encounterState.id];
+  if (!rawDef) return null;
+
+  const def = rawDef.faction ? FactionManager.modifyEncounterByFaction(state, rawDef, rawDef.faction) : rawDef;
 
   const choices = def.choices.map((choice) => {
     const available = meetsRequirement(state, choice.requires);
@@ -67,6 +70,7 @@ export function describeEncounter(state, encounterState) {
     context: encounterState.context,
     nodeId: encounterState.nodeId,
     choices,
+    factionId: rawDef.faction ?? null,
   };
 }
 

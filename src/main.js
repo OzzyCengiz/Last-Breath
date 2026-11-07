@@ -17,7 +17,10 @@ import { ALL_NODES, getNode, neighborsOf } from './modules/map/mapGraph.js';
 import { combatModule } from './modules/combat/index.js';
 import { craftingModule } from './modules/crafting/index.js';
 import { baseModule } from './modules/base/index.js';
+import { factionModule, FactionManager } from './modules/factions/index.js';
+import { environmentModule, WeatherEngine } from './modules/environment/index.js';
 import { ARCHETYPES } from './data/archetypes.js';
+import { ARCHETYPE_HOOKS } from './data/narratives.js';
 import { VITALS, vitalBand } from './modules/status/statusSelectors.js';
 import { MapView } from './ui/mapView.js';
 import { InventoryView } from './ui/inventoryView.js';
@@ -26,6 +29,8 @@ import { StatusView } from './ui/statusView.js';
 import { LogView } from './ui/logView.js';
 import { MenuView } from './ui/menuView.js';
 import { LootModalView } from './ui/lootModalView.js';
+import { pwaManager } from './pwa.js';
+import { audioEngine } from './core/audioEngine.js';
 
 function createNewRunState({
   engine,
@@ -75,6 +80,9 @@ function createNewRunState({
     }
   }
 
+  fresh.factions = FactionManager.getInitialState();
+  fresh.environment = WeatherEngine.getInitialState();
+
   return fresh;
 }
 
@@ -103,7 +111,9 @@ async function bootstrap() {
     .register(mapModule)
     .register(combatModule)
     .register(craftingModule)
-    .register(baseModule);
+    .register(baseModule)
+    .register(factionModule)
+    .register(environmentModule);
 
   const saveManager = new SaveManager({ store, rng });
   const defaultState = createNewRunState({ engine, seed, archetypeId: 'scavenger', locationId: 'istanbul' });
@@ -139,6 +149,8 @@ async function bootstrap() {
 
   const menuView = new MenuView({
     root: document.getElementById('main-menu'),
+    saveManager,
+    pwaManager,
     onContinue: () => {
       menuView.close();
       mapView.centerOnNode(store.state.world.currentNodeId, 3.2);
@@ -158,6 +170,12 @@ async function bootstrap() {
         locationId,
       });
       store.replace(fresh);
+      audioEngine.playTerminalBoot();
+      engine.log('log.boot.telemetry');
+      engine.log('log.boot.beacon');
+      const hook = ARCHETYPE_HOOKS[archetypeId] || ARCHETYPE_HOOKS.scavenger;
+      const hookText = i18n.locale === 'tr' ? hook.hook_tr : hook.hook_en;
+      if (hookText) engine.log(hookText);
       engine.log('log.boot.awakened', {
         location: ref(`location.${store.state.world.currentNodeId}`),
       });
@@ -165,6 +183,36 @@ async function bootstrap() {
       lootModalView.close();
       menuView.close();
       mapView.centerOnNode(store.state.world.currentNodeId, 3.2);
+    },
+    onLoadSlot: (slotNumber) => {
+      const loaded = saveManager.loadSlot(slotNumber);
+      if (loaded && loaded.state) {
+        rng.reseed(loaded.rng);
+        const hydrated = engine.hydrateState(defaultState, loaded.state);
+        store.replace(hydrated);
+        lootModalView.close();
+        menuView.close();
+        engine.log('log.boot.awakened', {
+          location: ref(`location.${store.state.world.currentNodeId}`),
+        });
+        mapView.centerOnNode(store.state.world.currentNodeId, 3.2);
+      }
+    },
+    onSaveSlot: (slotNumber) => {
+      saveManager.saveSlot(slotNumber);
+    },
+    onDeleteSlot: (slotNumber) => {
+      saveManager.deleteSlot(slotNumber);
+    },
+    onResetAll: () => {
+      saveManager.clearAllData();
+      const fresh = createNewRunState({
+        engine,
+        seed: randomSeed(),
+        archetypeId: 'scavenger',
+        locationId: 'istanbul',
+      });
+      store.replace(fresh);
     },
     onLocaleChange: async (nextCode) => {
       storePreferredLocale(nextCode);
@@ -177,6 +225,14 @@ async function bootstrap() {
   bindTopControls({ engine, store, rng, saveManager, mapView, menuView });
   bindMapControls(mapView, store);
   bindNavigationTabs();
+  pwaManager.init();
+
+  // Global tactile mechanical switch click on interactive UI elements
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('button, .nav-tab, .slot-action-btn, .menu-archetype-chip, .node-marker, .action-btn')) {
+      audioEngine.playTerminalClick();
+    }
+  }, { passive: true });
 
   const renderAll = () => {
     const { state } = store;
@@ -190,6 +246,11 @@ async function bootstrap() {
     renderDeathModal(state, menuView);
     const indicator = document.getElementById('locale-indicator');
     if (indicator) indicator.textContent = (i18n.locale || 'en').toUpperCase();
+
+    // Critical heartbeat audio monitor
+    const isCritical = state.player.alive && state.player.health <= 20;
+    audioEngine.setCriticalHeartbeat(isCritical, Math.max(70, Math.round(115 - state.player.health * 2)));
+
     if (menuView.isOpen) {
       menuView.render();
     }

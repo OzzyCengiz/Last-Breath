@@ -5,6 +5,16 @@ import { rollRange } from '../../core/rng.js';
 import { skillMultiplier } from '../skills/skillSelectors.js';
 import { incomingDamageMultiplier, isOverloaded } from '../inventory/inventorySelectors.js';
 import { NEEDS, canRegenerate, vitalBand } from './statusSelectors.js';
+import {
+  createDefaultBodyState,
+  applyBodyDamage,
+  applyMedicalTreatment,
+  tickBodyState,
+  getBodyDebuffs,
+  getOverallBodyHealth,
+  isBodyConditionFatal,
+  getRecommendedTargetPart,
+} from './bodyStatus.js';
 
 const BAND_ORDER = ['fine', 'low', 'critical', 'depleted'];
 const DEPRIVATION_CAUSE = { satiety: 'starvation', hydration: 'dehydration', energy: 'exhaustion' };
@@ -18,6 +28,7 @@ function createPlayer() {
     trait: 'stoic',
     archetype: 'scavenger',
     ...BALANCE.vitals.start,
+    body: createDefaultBodyState(),
     ailments: {},
     alive: true,
     causeOfDeath: null,
@@ -141,6 +152,28 @@ function tickStatus(ctx, { hours, activity }) {
   if (ailments.infection) tickInfection(ctx, ailments.infection, hours, harm);
   if (ailments.sprain) tickSprain(ctx, ailments.sprain, hours);
 
+  if (store.state.player.body) {
+    const bodyTick = tickBodyState(store.state.player.body, hours, { rng: ctx.rng, bus: ctx.bus });
+    if (bodyTick.totalBleedLoss > 0) {
+      harm.add('bleeding', bodyTick.totalBleedLoss);
+    }
+    if (isBodyConditionFatal(store.state.player.body)) {
+      harm.add('critical_organ_failure', 999);
+    }
+    const debuffs = getBodyDebuffs(store.state.player.body);
+    if (activity === 'travel') {
+      if (debuffs.travelCalorieMultiplier > 1) {
+        adjustVital(ctx, 'satiety', -(profile.satiety * (debuffs.travelCalorieMultiplier - 1) * hours));
+      }
+      if (debuffs.travelStaminaMultiplier > 1) {
+        adjustVital(ctx, 'energy', -(profile.energy * (debuffs.travelStaminaMultiplier - 1) * hours));
+      }
+    }
+    if (debuffs.hasTensionPneumothorax && store.state.player.energy > debuffs.maxStaminaCap) {
+      store.commit('player/changeVital', { vital: 'energy', delta: debuffs.maxStaminaCap - store.state.player.energy });
+    }
+  }
+
   if (harm.isEmpty() && canRegenerate(store.state.player)) {
     let rate = activity === 'rest' ? BALANCE.regeneration.rest : BALANCE.regeneration.idle;
     if (store.state.player.trait === 'fast_metabolism') rate *= 1.25;
@@ -159,15 +192,33 @@ function registerStatusEffects(ctx) {
     engine.log(key, { vital: ref(`status.vital.${vital}`), amount: Math.abs(Math.round(applied)) });
   });
 
-  effects.register('heal', ({ amount }) => {
+  effects.register('heal', ({ amount }, options) => {
     const healed = adjustVital(ctx, 'health', rollRange(rng, amount) * skillMultiplier(store.state, 'medical'));
     engine.log('log.effect.healed', { amount: Math.round(healed) }, 'good');
+    if (store.state.player.body && options?.itemId) {
+      const target = getRecommendedTargetPart(store.state.player.body, options.itemId);
+      const res = applyMedicalTreatment(store.state.player.body, options.itemId, target, { bus: ctx.bus });
+      if (res.actionDesc) {
+        engine.log(res.actionDesc, {}, 'good');
+      }
+    }
   });
 
-  effects.register('damage', ({ amount, cause = 'wounds' }) => {
+  effects.register('damage', ({ amount, cause = 'wounds', part = null, damageType = null }) => {
     const raw = rollRange(rng, amount) * incomingDamageMultiplier(store.state);
     const dealt = inflictDamage(ctx, Math.max(1, Math.round(raw)), cause);
-    if (store.state.player.alive) engine.log('log.effect.damaged', { amount: Math.round(dealt) }, 'bad');
+    if (store.state.player.alive) {
+      engine.log('log.effect.damaged', { amount: Math.round(dealt) }, 'bad');
+      if (store.state.player.body) {
+        applyBodyDamage(store.state.player.body, {
+          part,
+          amount: Math.round(dealt),
+          damageType: damageType || (cause === 'burn' ? 'burn' : 'blunt'),
+          rng,
+          bus: ctx.bus,
+        });
+      }
+    }
   });
 
   effects.register('ailment', ({ id, severity = 1 }) => {
@@ -185,7 +236,14 @@ function registerStatusEffects(ctx) {
     engine.log(current ? `log.ailment.${id}.worse` : `log.ailment.${id}.gained`, {}, 'bad');
   });
 
-  effects.register('cure', ({ id, amount }) => {
+  effects.register('cure', ({ id, amount }, options) => {
+    if (store.state.player.body && options?.itemId) {
+      const target = getRecommendedTargetPart(store.state.player.body, options.itemId);
+      const res = applyMedicalTreatment(store.state.player.body, options.itemId, target, { bus: ctx.bus });
+      if (res.actionDesc) {
+        engine.log(res.actionDesc, {}, 'good');
+      }
+    }
     const current = store.state.player.ailments[id];
     if (!current) return;
     const field = Object.keys(AILMENTS[id].initial)[0];
@@ -231,6 +289,17 @@ export const statusModule = {
         state.player.health = 0;
         state.player.causeOfDeath = cause;
         state.player.diedAt = state.time.minutes;
+      },
+      applyBodyTrauma(state, params) {
+        if (!state.player.body) state.player.body = createDefaultBodyState();
+        return applyBodyDamage(state.player.body, params);
+      },
+      treatBodyPart(state, { itemId, targetPart }) {
+        if (!state.player.body) state.player.body = createDefaultBodyState();
+        return applyMedicalTreatment(state.player.body, itemId, targetPart);
+      },
+      updateBody(state, bodyState) {
+        state.player.body = bodyState;
       },
     });
 

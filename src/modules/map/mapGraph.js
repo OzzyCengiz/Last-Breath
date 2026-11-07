@@ -5,6 +5,7 @@ import { greatCircleKm, project } from './projection.js';
 import { isNight } from '../../core/clock.js';
 import { isOverloaded, passiveBonus } from '../inventory/inventorySelectors.js';
 import { statusTravelMultiplier } from '../status/statusSelectors.js';
+import { WeatherEngine } from '../environment/weatherEngine.js';
 
 /**
  * Precomputed static graph of real-world anchor nodes and connections,
@@ -101,6 +102,8 @@ export function estimateJourney(state, fromId, toId) {
   if (isNight(state.time.minutes) && passiveBonus(state, 'nightVision') <= 0) {
     risk *= nightRiskMultiplier;
   }
+  const envMods = WeatherEngine.getStealthAndVisibilityModifiers(state);
+  risk *= envMods.encounterRiskMultiplier;
   risk = Math.min(maxEncounterChance, Math.max(0.05, risk));
 
   return {

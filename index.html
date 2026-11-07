@@ -3,8 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0c0e" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Last Breath" />
   <title>Last Breath — Post-Collapse Field Terminal</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230e120f'/%3E%3Ccircle cx='8' cy='8' r='4' fill='%23d99b38'/%3E%3C/svg%3E" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/svg+xml" href="./icons/icon.svg" />
   <link rel="stylesheet" href="./css/main.css" />
   <link rel="stylesheet" href="./css/layout.css" />
   <link rel="stylesheet" href="./css/components/map.css" />
@@ -33,6 +40,10 @@
         </div>
 
         <div class="hud-controls">
+          <button id="btn-install-app" type="button" class="btn btn-ghost btn-xs btn-install" aria-label="Install App" title="Mobil / Masaüstü Uygulamayı Yükle" hidden>
+            <span class="btn-install-icon">📲</span>
+            <span class="btn-install-label" data-i18n="hud.install_app">YÜKLE</span>
+          </button>
           <button id="btn-locale-toggle" type="button" class="btn btn-ghost btn-icon btn-locale" aria-label="Language / Dil" title="Language / Dil">
             <svg class="icon-globe" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="12" cy="12" r="10"></circle>

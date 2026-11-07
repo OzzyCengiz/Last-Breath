@@ -1,5 +1,6 @@
 import { BALANCE } from '../../data/balance.js';
 import { AILMENTS } from '../../data/ailments.js';
+import { getBodyDebuffs } from './bodyStatus.js';
 
 export const VITALS = ['health', 'satiety', 'hydration', 'energy'];
 export const NEEDS = ['satiety', 'hydration', 'energy'];
@@ -31,6 +32,10 @@ export function statusTravelMultiplier(state) {
   let multiplier = 1;
   if (player.energy < BALANCE.travel.exhaustedThreshold) multiplier *= BALANCE.travel.exhaustedTimeMultiplier;
   if (player.ailments.sprain) multiplier *= AILMENTS.sprain.travelTimeMultiplier;
+  if (player.body) {
+    const debuffs = getBodyDebuffs(player.body);
+    multiplier *= debuffs.travelTimeMultiplier;
+  }
   return multiplier;
 }
 
