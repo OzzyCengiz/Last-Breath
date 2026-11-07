@@ -1,289 +1,75 @@
-# ☣️ LAST BREATH // SON NEFES
-### *Taktiksel Kıyamet Sonrası Hayatta Kalma ve Saha Telemetrisi Simülasyonu*
-
-[![PWA Ready](https://img.shields.io/badge/PWA-Ready-orange?style=flat-square&logo=pwa)](./manifest.webmanifest)
-[![Platform](https://img.shields.io/badge/Platform-Web%20%7C%20Mobile%20%7C%20Desktop-green?style=flat-square)](#)
-[![Zero Dependencies](https://img.shields.io/badge/Runtime%20Dependencies-0%20(Pure%20Vanilla%20JS)-blue?style=flat-square)](#)
-[![Item Database](https://img.shields.io/badge/Item%20Catalog-530%2B%20Items-amber?style=flat-square)](#)
-[![Language](https://img.shields.io/badge/Language-TR%20%7C%20EN-purple?style=flat-square)](#)
-
-<p align="center">
-  <img src="./docs/images/terminal-preview.svg" alt="Last Breath Retro Askeri Terminal Arayüzü" width="100%">
-</p>
-
----
-
-## 📌 İçindekiler
-1. [Oyun Hakkında & Evren](#-oyun-hakk%C4%B1nda--evren)
-2. [Öne Çıkan Temel Özellikler](#-öne-%C3%A7%C4%B1kan-temel-özellikler)
-3. [Ekran Görüntüleri & Görsel Arayüz](#-ekran-görüntüleri--görsel-arayüz)
-4. [Oyun Mekanikleri](#-oyun-mekanikleri)
-   - [Karakter Oluşturma & Kimlik](#1-karakter-olu%C5%9Fturma--kimlik)
-   - [Harita & Sektör Keşfi](#2-harita--sektör-ke%C5%9Ffi)
-   - [530+ Gerçekçi Eşya Kataloğu](#3-530-ger%C3%A7ek%C3%A7i-e%C5%9Fya-katalo%C4%9Fu)
-   - [İnteraktif Yağma ve Arama (Loot Modal)](#4-%C4%B0nteraktif-ya%C4%9Fma-ve-arama-loot-modal)
-   - [Sıra Tabanlı Taktiksel Çatışma](#5-s%C4%B1ra-tabanl%C4%B1-taktiksel-%C3%A7at%C4%B1%C5%9Fma)
-   - [Sığınak İnşası & Üretim (Crafting)](#6-s%C4%B1%C4%9F%C4%B1nak-%C4%B0n%C5%9Fas%C4%B1--%C3%9Cretim-crafting)
-5. [Çoklu Kayıt Sistemi (10 Slot // 2 Ücretsiz, 8 Premium)](#-multi-slot-kay%C4%B1t-sistemi)
-6. [Mobil Uyum & PWA (Progressive Web App)](#-mobil-uyum--pwa-deste%C4%9Fi)
-7. [Teknoloji Yığını & Mimari](#-teknoloji-y%C4%B1%C4%9F%C4%B1n%C4%B1--mimari)
-8. [Dizin Yapısı](#-dizin-yap%C4%B1s%C4%B1)
-9. [Kurulum ve Çalıştırma](#-kurulum-ve-%C3%A7al%C4%B1%C5%9Ft%C4%B1rma)
-10. [Katkıda Bulunma & Lisans](#-katk%C4%B1da-bulunma--lisans)
-
----
-
-## 📻 Oyun Hakkında & Evren
-
-**Last Breath (Son Nefes)**, nükleer ve biyolojik çöküş sonrası ıssızlaşan Avrasya ve Akdeniz havzasında geçen, gerçek dünya coğrafyası üzerine kurulu taktiksel bir hayatta kalma RPG simülasyonudur.
-
-Oyuncu; çökmüş metropoller, radyasyonlu bataklıklar, terkedilmiş askeri üsler ve yağmacı çetelerin kol gezdiği sektörler arasında seyahat eder. Hayatta kalmak için açlık, susuzluk, bitkinlik, vücut ısısı ve radyasyon gibi hayati telemetrileri dengede tutmalı; 530'dan fazla gerçekçi eşyayı toplayıp zanaat yapmalı ve kendi sığınağını inşa etmelidir.
-
----
-
-## 🌟 Öne Çıkan Temel Özellikler
-
-- **Retro-Terminal Askeri Arayüz:** Amber, zeytin yeşili ve pas kırmızısı tonlarında; CRT tarama çizgileri ve dinamik sinyal telemetrisiyle donatılmış atmosferik kullanıcı arayüzü.
-- **Sıfır Harici Çalışma Bağımlılığı (Zero Runtime Dependencies):** React, Vue veya harici bir kütüphane olmaksızın, tamamen saf modern JavaScript (ES Modules) ve saf CSS ile geliştirilmiştir.
-- **Dinamik Hava & Termal Simülasyon:** Asit yağmuru, radyoaktif kül sisi, sıfırın altında soğuk cephe ve fırtınalar; çekirdek vücut ısısı (hipotermi), titreme kalori kaybı, kimyasal yanıklar ve taktik fenerin gizlilik riski (%300 pusu tehdidi).
-- **Hedefli Anatomik Travma Şeması:** 6 ayrı uzuvda kırık, atardamar kanaması, göğüs pnömotoraksı ve enfeksiyon takibi; CAT turnike, göğüs mührü, SAM ateli ve siprofloksasin ile klinik tedavi.
-- **Fraksiyon Diplomasisi & Dinamik Karşılaşmalar:** Demir Muhafızlar, Göçebe Loncası ve Kül Yağmacıları arasında -100 ile +100 arası itibar, takas indirimleri ve haraç/çatışma kararları.
-- **530+ Gerçekçi Eşya:** Tıbbi cerrahi gereçlerden geniş spektrumlu antibiyotiklere, 12 kalibre pompalı tüfeklerden Seviye IV seramik hücum yeleklerine kadar zengin envanter.
-- **İnteraktif Yağma Penceresi:** Arama (scavenge) işlemlerinde bulunan eşyaları ağırlık limitine göre tek tek seçip çantaya alma imkanı.
-- **Çoklu Kayıt Yuvaları (10 Slot):** 2 adet ücretsiz ve 8 adet Survivor Premium kayıt yuvası.
-- **Progressive Web App (PWA):** Android, iOS ve masaüstünde doğrudan "Ana Ekrana Ekle" desteği; Service Worker sayesinde internetsiz tam ekran çalışabilme.
-- **Anlık İki Dilli Mimari (TR / EN):** Sayfa yenilemeye gerek kalmadan tüm arayüz, loglar, eşyalar ve mekanikler arasında Türkçe ve İngilizce geçişi.
-
----
-
-## 📸 Ekran Görüntüleri & Görsel Arayüz
-
-Oyun, nükleer kıyamet sonrası sahra bilgisayarlarının monokromatik yeşil-kehribar CRT ekran estetiğini modern mobil ve masaüstü tarayıcılara taşır.
-
-| 🖥️ Masaüstü Taktiksel Terminal & Radar Haritası | 📱 Mobil Uyumlu Saha Telemetrisi & HUD |
-| :---: | :---: |
-| <img src="./docs/images/terminal-preview.svg" alt="Masaüstü Taktiksel Terminal ve Harita" width="620"> | <img src="./docs/images/mobile-gameplay.png" alt="Mobil Ekran ve HUD Arayüzü" width="280"> |
-| *Masaüstü: Vektörel sektör ağı, radar, biyo-telemetri ve olay günlüğü* | *Mobil: Kompakt telemetri, taşmayan hayati göstergeler ve PWA kurulumu* |
-
-> 💡 **CRT & Terminal Deneyimi:** Oyun; tarama çizgileri (scanlines), fosfor ışıması ve retro tipografiyle tasarlanmıştır. En yüksek atmosfer için tarayıcınızı tam ekrana (`F11`) alabilir veya mobil cihazınızda PWA olarak ana ekrana ekleyebilirsiniz.
-
----
-
-## 🎮 Oyun Mekanikleri
-
-### 1. Karakter Oluşturma & Kimlik
-Yeni sefere başlarken 4 aşamalı detaylı bir karakter hazırlığı yapılır:
-- **Kimlik (Identity):** İsim belirleme (veya rastgele kıyamet isimleri üretici).
-- **Yaş Dinamiği:** 18 ile 65 yaş aralığı.
-  - *Genç (18–25):* Yüksek kondisyon, hızlı stamina rejenerasyonu.
-  - *Olgun (26–40):* Dengeli metanet, güç ve çeviklik.
-  - *Kıdemli (41–65):* Hayatta kalma tecrübesi, daha yüksek arama ve üretim verimi.
-- **Kan Grubu:** A+, A-, B+, B-, AB+, AB-, 0+, 0- (Tıbbi müdahalelerde kritik rol oynar).
-- **Mizaçlar (Traits):** *Stoic* (Metanetli), *Scavenger* (Hurdacı Gözü), *Medic* (Sıhhiye), *Athlete* (Atletik), *Insomniac* (Az Uyuyan), *Packmule* (Yükçü).
-- **Geçmiş Arketipi:**
-  - **Hurdacı (Scavenger):** Levye, sırt çantası ve temel tamir kiti ile başlar.
-  - **Askeri Kaçak (Soldier):** Hizmet tabancası, mühimmat ve taktik yelek ile başlar.
-  - **Sıhhiyeci (Medic):** İlk yardım kiti, cerrahi neşter ve antibiyotiklerle başlar.
-  - **Hayatta Kalan (Survivor):** Dayanıklı ceket, av bıçağı ve kamp erzağı ile başlar.
-- **Başlangıç Sektörü:** İstanbul (Harabe Şehir), Ankara (Bozkır Sığınağı), İzmir (Terkedilmiş Liman) vb.
-
-### 2. Harita & Sektör Keşfi
-- Dünya haritası vektörel SVG tabanlıdır; pan/zoom, merkeze odaklanma ve sektörler arası yol ağı bağlantılarını destekler.
-- Her sektörün kendine ait bir biyomu (Harabe Şehir, Çorak Toprak, Orman, Dağlık Arazi, Kıyı Bölgesi) ve tehlike derecesi (`▲ 1` ila `▲ 5`) bulunur.
-- Sektörler arası seyahat zaman harcar, su ve kalori tüketir; gece yolculuklarında pusuya düşme riski artar.
-
-### 3. 530+ Gerçekçi Eşya Kataloğu
-Oyundaki tüm eşyalar [`src/data/items.js`](./src/data/items.js) içinde tanımlanmış olup hem Türkçe hem İngilizce isim ve açıklamalara sahiptir:
-- **Erzak ve İçecekler (`supplies` - 132 Eşya):** Askeri MRE, kurutulmuş et (jerky), arıtılmış su, enerji barları, çay/kahve, vitamin hapları, dayanıklı konserveler.
-- **Tıbbi Malzemeler (`medical` - 95 Eşya):** CAT turnike, Z-katlamalı hemostatik muharebe gazı, tek yönlü valfli göğüs bandı (chest seal), dekompresyon iğnesi, SAM şekil alabilir atel, Siprofloksasin, Fentanil ağrı bandı, Atropin sinir gazı panzehiri, Ringer Laktat serumları.
-- **Silahlar ve Mühimmat (`weapons` - 117 Eşya):**
-  - *Ezici/Kesici:* Dikenli tel sarılı beyzbol sopası, taktik tomahawk, Gurka kukri palası, siper bıçağı.
-  - *Ateşli Silahlar:* Glock 19, Colt 1911 .45 ACP, Remington 870 pompalı, kesik çifte, SKS karabin, Mosin-Nagant, AR-15, FN FAL, MP5.
-  - *Mühimmat Kutuları:* 9mm, .45 ACP, 12G şevrotin, .22 LR, 5.56 NATO, 7.62x39 Sovyet, .308 Win.
-  - *Patlayıcılar:* El yapımı çivili boru bombası, termit yangın bombası, sis bombası, Claymore mayını.
-- **Hurda ve Mühendislik (`scrap` - 97 Eşya):** Bakır boru, galvaniz saç, 12V akü, 18650 lityum piller, MPPT solar şarj devresi, havya teli, RTV kırmızı sıvı conta, motor yağı, karpit, neopren kauçuk.
-- **Teçhizat ve Hayatta Kalma (`gear` - 90 Eşya):** Seviye IV seramik göğüs zırhı, Nomex itfaiyeci montu, Vibram tabanlı botlar, 75L ekspedisyon çantası, titanyum katlanır odun sobası, 2000 lümen fener, dinamolu acil durum radyosu.
-
-### 4. İnteraktif Yağma ve Arama (Loot Modal)
-Bir sektörde arama (scavenge) yapıldığında çıkan eşyalar doğrudan envantere doldurulmaz:
-- Ekrana taktiksel bir **Looting Dialog** açılır.
-- Oyuncu hangi eşyaları almak istediğini kutucukları işaretleyerek seçer.
-- Seçilen eşyaların anlık toplam ağırlığı ve oyuncunun taşıma kapasitesi hesaplanır; aşırı yüklenme (overload) önlenir.
-
-### 5. Sıra Tabanlı Taktiksel Çatışma
-- Haritada yol alırken ya da arama yaparken yağmacılar, enfekteler veya yaban hayvanları ile karşılaşılabilir.
-- Kuşanılan silahın hasar profili, mesafe avantajı, zırh koruması ve cephane seviyesi vuruş şansını belirler.
-- Çatışma sırasında anlık bandaj sarma veya ağrı kesici kullanma seçenekleri mevcuttur.
-
-### 6. Sığınak İnşası & Üretim (Crafting)
-- Bulunan hurda, elektronik ve kimyasallarla çalışma tezgahı (Workbench) kademesi yükseltilir.
-- Yağmur suyu toplama fıçısı, tıbbi damıtma imbikleri, yatak ve güç jeneratörü gibi üs yapıları inşa edilebilir.
-
----
-
-## 💾 Multi-Slot Kayıt Sistemi
-
-Oyun, tek bir kayda bağımlı kalmadan çoklu sefer yönetimine imkan tanır:
-- **10 Kayıt Yuvası:**
-  - **Yuva 1 ve Yuva 2 (Ücretsiz):** Her oyuncuya açık, tam fonksiyonel kayıt yuvaları.
-  - **Yuva 3 ila 10 (Survivor Premium):** Çoklu seferler ve alternatif hayatta kalanlar için ayrılmış genişletilmiş yuvalar.
-- **Slot Yönetimi:** Her yuvada karakter adı, arketipi, bulunduğu sektör, hayatta kalma günü, saati, sağlık durumu ve kayıt zamanı listelenir.
-- **Test ve Geliştirici Modu:** Ayarlar veya slot ekranından tek tıkla **"PREMIUM'U ETKİNLEŞTİR (ÜCRETSİZ DENE)"** ya da **"KİLİTLİ MODU TEST ET"** seçenekleri kullanılabilir.
-
----
-
-## 📱 Mobil Uyum & PWA Desteği
-
-Last Breath, masaüstü monitörlerden küçük telefon ekranlarına kadar dinamik olarak uyarlanır:
-
-### 1. Mobil HUD Optimizasyonu
-- **Telefon Ekranlarında:** Üst bar esnek satırlara bölünür; marka logosu ve menü butonları üstte yer alırken, telemetri alanı (İsim, Gün, Saat, Faz, Sektör) %100 genişliğe açılarak metin sıkışmasını ve taşmasını önler.
-- **Hayati Değerler:** Ekranın alt kısmında taşmayan 4 sütunlu simetrik bir şeritte yer alır.
-
-### 2. PWA (Progressive Web App) Kurulumu
-- **Android / Chrome / Edge:** Sitede gezinirken üst barda beliren **`📲 YÜKLE`** butonuna tıklanarak uygulama tek tıkla cihaza kurulabilir.
-- **iOS Safari:** Apple kısıtlamalarına uygun olarak entegre rehber sunulur (Safari Paylaş Menüsü → "Ana Ekrana Ekle").
-- **Tam Ekran & Offline:** Cihaza kurulduktan sonra adres çubuğu gizlenir, bağımsız bir mobil oyun gibi çevrimdışı dahi çalışır.
-
----
-
-## 🛠 Teknoloji Yığını & Mimari
-
-| Katman | Teknoloji / Yaklaşım |
-| :--- | :--- |
-| **Çekirdek Dil** | Vanilla Modern JavaScript (ES2022+ Modules) |
-| **Arayüz Tasarımı** | Saf CSS3 (CSS Variables, Flexbox, CSS Grid, Custom Theme Engine) |
-| **State Yönetimi** | EventBus & Unidirectional Reactive Store ([`src/core/store.js`](./src/core/store.js)) |
-| **Ses Sentezleyici** | Sıfır ses dosyalı (No-MP3) Prosedürel Web Audio API Sentezleyici ([`src/core/audioEngine.js`](./src/core/audioEngine.js)) |
-| **Harita Render** | İnteraktif SVG Matrix Manipülasyonu & Viewport Culling |
-| **Kayıt Mekanizması** | LocalStorage API tabanlı çoklu slot yöneticisi ([`src/core/saveManager.js`](./src/core/saveManager.js)) |
-| **PWA & Önbellek** | Service Worker Cache-First / Stale-While-Revalidate ([`sw.js`](./sw.js)) |
-| **Derleme Aracı** | Sıfır bağımlılıklı dahili Node derleyicisi ([`build.mjs`](./build.mjs)) |
-| **Geliştirici Sunucusu** | Dahili yerel HTTP sunucusu ([`server.mjs`](./server.mjs)) |
-
----
-
-## 📂 Dizin Yapısı
-
-```
-Last Breath/
+☣️ LAST BREATH // SON NEFESTactical Post-Apocalyptic Survival & Field Telemetry Simulation📌 Table of ContentsAbout the Game & LoreKey HighlightsScreenshots & Visual InterfaceGameplay MechanicsCharacter Creation & IdentityMap & Sector Exploration530+ Authentic Item CatalogInteractive Looting (Loot Modal)Turn-Based Tactical CombatShelter Construction & CraftingMulti-Slot Save System (10 Slots // 2 Free, 8 Premium)Mobile Compatibility & PWA (Progressive Web App)Tech Stack & ArchitectureDirectory StructureInstallation & SetupContributing & License📻 About the Game & LoreLast Breath (Son Nefes) is a tactical survival RPG simulation built on real-world geography, set across the desolate Eurasian and Mediterranean basins following a combined nuclear and biological collapse.The player navigates through ruined metropolises, irradiated marshes, abandoned military outposts, and sectors overrun by roving scavenger gangs. To survive, you must balance critical telemetry indicators—such as hunger, thirst, exhaustion, core body temperature, and radiation—while scavenging and crafting from an catalog of over 530 authentic items and fortifying your own shelter.🌟 Key HighlightsRetro-Terminal Military UI: An atmospheric user interface rendered in amber, olive drab, and rust tones, complete with authentic CRT scanline overlays and dynamic signal telemetry.Zero Runtime Dependencies: Developed strictly using modern vanilla JavaScript (ES Modules) and pure CSS3—free from frameworks like React or Vue, and without third-party runtime libraries.Dynamic Weather & Thermal Simulation: Acid rain, radioactive ash fog, sub-zero cold fronts, and gale windstorms directly affect core body temperature (hypothermia), cause shivering-induced calorie depletion, deliver chemical burns, and alter tactical visibility (tactical flashlights increase ambush hazard by 300%).Targeted Anatomical Trauma Schema: Discrete tracking of 6 body parts for fractures, arterial bleeding, tension pneumothorax, and infection risk; resolved through clinical field treatments including CAT tourniquets, chest seals, SAM splints, and ciprofloxacin.Faction Diplomacy & Dynamic Encounters: Dynamic standing ratings ranging from -100 to +100 across the Iron Guard, Nomad Guild, and Ash Marauders, affecting barter rates, tolls, and engagement rules.530+ Authentic Items: Extensive catalog ranging from specialized surgical tools and broad-spectrum antibiotics to 12-gauge shotguns and Level IV ceramic strike plates.Interactive Looting Modal: Dedicated scavenging dialog allowing selective item looting governed by real-time weight limits to prevent encumbrance.Multi-Slot Save Architecture (10 Slots): 2 standard open slots and 8 extended Survivor Premium save slots.Progressive Web App (PWA): Native "Add to Home Screen" support on Android, iOS, and desktop platforms; full offline execution via Service Worker caching.Instant Dual-Language Localization (TR / EN): Seamless runtime language switching between Turkish and English across all UI elements, logs, items, and mechanics without page reloads.📸 Screenshots & Visual InterfaceThe game channels the monochromatic green and amber CRT visual aesthetic of post-apocalyptic field computer terminals into modern mobile and desktop browsers.🖥️ Desktop Tactical Terminal & Radar Map📱 Mobile-Optimized Field Telemetry & HUDDesktop: Vector sector network, radar, bio-telemetry, and action logMobile: Compact telemetry, overflow-free vitals, and PWA installation💡 CRT & Terminal Experience: Designed with simulated phosphor glow, scanlines, and retro typography. For optimal immersion, run your desktop browser in full-screen mode (F11) or install the game as a PWA on your mobile home screen.🎮 Gameplay Mechanics1. Character Creation & IdentityEvery expedition begins with an in-depth, 4-phase deployment setup:Identity: Manual name entry or randomized apocalyptic callsign generator.Age Dynamics: Scaled between 18 and 65 years old.Young (18–25): Peak physical condition, accelerated stamina regeneration.Mature (26–40): Balanced fortitude, physical strength, and agility.Veteran (41–65): Seasoned field survival experience; enhanced scavenging yield and crafting efficiency.Blood Type: Complete compatibility matrix (A+, A-, B+, B-, AB+, AB-, O+, O-) affecting clinical field transfusions.Traits: Stoic, Scavenger, Medic, Athlete, Insomniac, Packmule.Background Archetypes:Scavenger: Deploys with a pry bar, rucksack, and fundamental tool kit.Soldier (Military Deserter): Deploys with a service sidearm, ammunition reserve, and tactical load-bearing vest.Field Medic: Deploys with a trauma kit, surgical scalpel, and broad-spectrum antibiotics.Civilian Survivor: Deploys with a rugged utility jacket, hunting knife, and basic rations.Deployment Sector: Istanbul (Urban Ruins), Ankara (Steppe Bunker), Izmir (Abandoned Harbor), etc.2. Map & Sector ExplorationWorld navigation relies on an interactive vector SVG engine supporting smooth pan, zoom, center-lock, and inter-sector route plotting.Every sector contains distinct biome profiles (Urban Ruins, Wasteland, Forest, Mountainous Terrain, Coastal Zone) and danger threat ratings (▲ 1 through ▲ 5).Inter-sector transit expends in-game time, water, and calories, while nocturnal movement sharply elevates hostile ambush probabilities.3. 530+ Authentic Item CatalogAll game items are defined in src/data/items.js, fully cataloged with bilingual titles and lore descriptions:Rations & Hydration (supplies - 132 items): Military MREs, beef jerky, purified water, energy bars, field tea/coffee, multivitamins, shelf-stable canned goods.Medical Supplies (medical - 95 items): CAT tourniquets, Z-folded hemostatic combat gauze, vented chest seals, decompression needles, SAM malleable splints, ciprofloxacin, fentanyl transdermal patches, atropine auto-injectors, Ringer's lactate IV bags.Weapons & Ballistics (weapons - 117 items):Blunt/Bladed: Barbed-wire baseball bat, tactical tomahawk, Gurkha kukri, trench knife.Firearms: Glock 19, Colt 1911 .45 ACP, Remington 870 shotgun, sawn-off double-barrel, SKS carbine, Mosin-Nagant, AR-15, FN FAL, MP5.Ammunition Crates: 9mm, .45 ACP, 12G 00 buckshot, .22 LR, 5.56 NATO, 7.62x39 Soviet, .308 Win.Explosives: Improvised nail-pipe bombs, thermite incendiary grenades, smoke canisters, Claymore mines.Scrap & Engineering Components (scrap - 97 items): Copper piping, galvanized sheet metal, 12V lead-acid batteries, 18650 lithium cells, MPPT solar controllers, lead-free solder wire, RTV silicone sealant, motor oil, calcium carbide, neoprene rubber.Gear & Survival Utilities (gear - 90 items): Level IV ceramic body armor, Nomex firefighting coats, Vibram-soled combat boots, 75L expedition rucksacks, folding titanium wood stoves, 2000-lumen torches, hand-crank emergency radios.4. Interactive Looting (Loot Modal)Scavenging runs do not deposit items straight into your bag:Successful searches launch a tactical Looting Dialog.Players manually toggle the items they intend to take.Selected mass is checked dynamically against available carry capacity to avoid overload penalties.5. Turn-Based Tactical CombatTraversing sectors or scavenging ruins may trigger hostile encounters with raiders, infected stragglers, or predatory wildlife.Weapon damage profiles, effective range advantages, ballistic armor classes, and remaining ammo pools determine hit probabilities.Mid-skirmish emergency actions include packing open wounds with hemostatics or administering field analgesics.6. Shelter Construction & CraftingSalvaged scrap, electronics, and chemicals allow players to upgrade their base Workbench tiers.Players can construct critical base infrastructure, including rainwater harvesting barrels, medical distillation retorts, sleeping quarters, and fuel-powered generators.💾 Multi-Slot Save SystemThe engine provides robust multi-session management without overwriting progress:10 Save Slots:Slots 1 & 2 (Free): Fully unlocked, functional save slots available to all players.Slots 3 through 10 (Survivor Premium): Extended expedition slots intended for alternate playstyles and multiple survival runs.Slot Metadata: Displays survivor callsign, archetype, active sector, survival day, in-game timestamp, physical condition, and local save time.Testing & Debug Modes: Toggle options directly from the settings or slot interface using "ENABLE PREMIUM (FREE TRIAL)" or "TEST LOCKED MODE".📱 Mobile Compatibility & PWA SupportLast Breath scales seamlessly from wide-screen desktop displays down to compact smartphone viewports:1. Mobile HUD OptimizationSmartphone Screens: The header bar wraps into fluid tiers; project branding and system buttons remain pinned above, while player telemetry (Name, Day, Hour, Phase, Sector) expands to 100% width to prevent text clipping.Vitals Telemetry: Vitals are positioned in a 4-column balanced grid along the bottom viewport edge.2. PWA (Progressive Web App) SetupAndroid / Chrome / Edge: An 📲 INSTALL action appears in the top navigation bar for single-tap device installation.iOS Safari: Integrated modal guide for Apple devices (Safari Share Menu → "Add to Home Screen").Full Screen & Offline Capability: Once added, browser chrome and address bars are hidden, executing as a standalone application backed by offline caching.🛠 Tech Stack & ArchitectureLayerTechnology / ImplementationCore EngineVanilla Modern JavaScript (ES2022+ Modules)UI StylingPure CSS3 (CSS Variables, Flexbox, CSS Grid, Custom Theme Engine)State ManagementEventBus & Unidirectional Reactive Store (src/core/store.js)Audio SynthesizerZero-Asset Procedural Web Audio API Sound Engine (src/core/audioEngine.js)Map RenderingInteractive SVG Matrix Transformations & Viewport CullingSave SubsystemMulti-slot manager built on the browser LocalStorage API (src/core/saveManager.js)PWA & CachingService Worker Cache-First / Stale-While-Revalidate (sw.js)Build ToolingCustom zero-dependency Node bundler script (build.mjs)Development ServerNative Node.js HTTP server (server.mjs)📂 Directory StructureLast Breath/
 ├── css/
 │   ├── components/
-│   │   ├── map.css              # Harita ve aşama stilleri
-│   │   └── panels.css           # Envanter, menü, modal, slot ve PWA stilleri
-│   ├── layout.css               # Üst HUD barı, gridler, responsive medya sorguları
-│   └── main.css                 # Renk paletleri, font tanımları, CRT filtreleri
+│   │   ├── map.css              # Map viewport and stage styling
+│   │   └── panels.css           # Inventory, menu, modal, slot, and PWA styling
+│   ├── layout.css               # Header HUD, layouts, and responsive media queries
+│   └── main.css                 # Color palettes, typography, and CRT filters
 ├── dist/
-│   └── app.bundle.js            # Derlenmiş tek parça oyun motoru paketi
+│   └── app.bundle.js            # Compiled single-file application bundle
 ├── docs/
-│   └── images/                  # Terminal arayüz önizlemeleri ve mobil ekran görüntüleri
+│   └── images/                  # Terminal interface previews and mobile screenshots
 ├── icons/
-│   ├── apple-touch-icon.png     # iOS ana ekran simgesi (180x180)
-│   ├── icon-192.png             # Android standart PWA simgesi (192x192)
-│   ├── icon-512.png             # Android yüksek çözünürlüklü simge (512x512)
-│   └── icon.svg                 # Vektörel rozet simgesi
+│   ├── apple-touch-icon.png     # iOS home screen icon (180x180)
+│   ├── icon-192.png             # Android standard PWA icon (192x192)
+│   ├── icon-512.png             # Android high-res icon (512x512)
+│   └── icon.svg                 # Vector badge icon
 ├── locales/
-│   ├── en.json                  # İngilizce dil paketi (Tüm menüler, 530+ eşya)
-│   └── tr.json                  # Türkçe dil paketi (Tüm menüler, 530+ eşya)
+│   ├── en.json                  # English localization (Menus, telemetry, 530+ items)
+│   └── tr.json                  # Turkish localization (Menus, telemetry, 530+ items)
 ├── src/
-│   ├── core/                    # Olay yöneticisi, RNG, saat, kayıt yöneticisi, motor
-│   │   ├── audioEngine.js       # Prosedürel Web Audio ses motoru (Tık, Geiger, Kalp, Silah)
+│   ├── core/                    # Event bus, RNG, timekeeper, save managers, engine core
+│   │   ├── audioEngine.js       # Procedural Web Audio engine (Clicks, Geiger, Pulse, Firearm)
 │   │   ├── clock.js
 │   │   ├── coreModule.js
 │   │   ├── effects.js
 │   │   ├── engine.js
 │   │   ├── eventBus.js
 │   │   ├── rng.js
-│   │   ├── saveManager.js       # 10 Slot ve Premium kayıt altyapısı
+│   │   ├── saveManager.js       # 10-slot multi-save & Premium tier mechanics
 │   │   └── store.js
-│   ├── data/                    # Oyun veritabanı
-│   │   ├── archetypes.js        # Başlangıç sınıfları ve kitleri
-│   │   ├── balance.js           # Seyahat ve tüketim sabitleri
-│   │   ├── encounters.js        # Karşılaşma ve saha triyaj mekanikleri
-│   │   ├── items.js             # 530+ post-apokaliptik eşya kataloğu
-│   │   ├── narratives.js        # Boot telemetrileri, saha kayıtları, telsiz ve sonlar
-│   │   ├── recipes.js           # Zanaat tarifleri
-│   │   ├── structures.js        # Üs yapıları
-│   │   └── traits.js            # Mizaçlar, kan grupları, isim havuzu
-│   ├── i18n/                    # Çok dilli yerelleştirme modülleri
+│   ├── data/                    # Core static data structures
+│   │   ├── archetypes.js        # Starting classes and initial loadouts
+│   │   ├── balance.js           # Travel and calorie/hydration balance values
+│   │   ├── encounters.js        # Random encounters and field triage encounters
+│   │   ├── items.js             # 530+ authentic item definitions
+│   │   ├── narratives.js        # Boot telemetries, field logs, radio broadcasts, and endings
+│   │   ├── recipes.js           # Crafting recipes
+│   │   ├── structures.js        # Base construction blueprints
+│   │   └── traits.js            # Traits, blood types, and character name pools
+│   ├── i18n/                    # Localization orchestration
 │   │   ├── i18n.js
 │   │   └── locales.js
-│   ├── modules/                 # Oyun modülleri (Envanter, Harita, Savaş, Durum, Üs)
+│   ├── modules/                 # Game logic modules (Inventory, Map, Combat, Status, Base)
 │   │   ├── base/
 │   │   ├── combat/
 │   │   ├── crafting/
-│   │   ├── environment/           # Dinamik hava koşulları, termal maruziyet, asit/kül telemetrisi (weatherEngine.js)
-│   │   ├── factions/              # Fraksiyon diplomasisi, karma ve karşılaşma filtreleri
+│   │   ├── environment/         # Dynamic weather, thermal exposure, acid/ash simulation (weatherEngine.js)
+│   │   ├── factions/            # Faction diplomacy, karma, and encounter filtering
 │   │   ├── inventory/
 │   │   ├── map/
 │   │   ├── skills/
-│   │   └── status/              # Biyometrik değerler, anatomik travma (bodyStatus.js)
-│   ├── ui/                      # Kullanıcı arayüzü bileşenleri
+│   │   └── status/              # Biometrics and anatomical trauma handling (bodyStatus.js)
+│   ├── ui/                      # DOM view components
 │   │   ├── craftBaseView.js
 │   │   ├── dom.js
 │   │   ├── inventoryView.js
 │   │   ├── logView.js
-│   │   ├── lootModalView.js     # İnteraktif eşya toplama penceresi
+│   │   ├── lootModalView.js     # Tactical item scavenging dialog
 │   │   ├── mapView.js
-│   │   ├── menuView.js          # Ana menü, karakter yaratma, slotlar, ayarlar
+│   │   ├── menuView.js          # Main menu, character creation, slots, settings
 │   │   └── statusView.js
-│   ├── main.js                  # Oyun başlatıcı (Bootstrap)
-│   └── pwa.js                   # Mobil yükleme ve Service Worker yöneticisi
-├── build.mjs                    # Paket derleme betiği
-├── index.html                   # Ana giriş sayfası
-├── manifest.webmanifest         # PWA yapılandırma dosyası
-├── server.mjs                   # Yerel statik test sunucusu
-├── sw.js                        # Çevrimdışı Service Worker
-└── world.svg                    # Vektörel dünya haritası
-```
-
----
-
-## 🚀 Kurulum ve Çalıştırma
-
-Projeyi çalıştırmak için herhangi bir paket yöneticisine (`npm install` vb.) ihtiyaç yoktur. Tek gereksinim bilgisayarınızda **Node.js (v18 veya üzeri)** kurulu olmasıdır.
-
-### 1. Projeyi Klonlayın veya Açın
-```bash
-git clone https://github.com/kullanici-adi/last-breath.git
+│   ├── main.js                  # Engine entrypoint & bootstrap
+│   └── pwa.js                   # PWA registration and install workflow
+├── build.mjs                    # Native Node bundle script
+├── index.html                   # HTML entrypoint
+├── manifest.webmanifest         # PWA web manifest configuration
+├── server.mjs                   # Native development HTTP server
+├── sw.js                        # Offline caching Service Worker
+└── world.svg                    # Vector sector world map
+🚀 Installation & SetupRunning the project requires zero package manager dependencies (no npm install needed). The only prerequisite is an installed environment of Node.js (v18 or higher).1. Clone or Open the RepositoryBashgit clone https://github.com/username/last-breath.git
 cd last-breath
-```
-*(Veya projenin bulunduğu yerel dizine geçiş yapın)*
-
-### 2. Oyun Paketini Derleyin
-Yapılan herhangi bir JavaScript veya CSS değişikliğini pakete yansıtmak için:
-```bash
-node build.mjs
-```
-*Çıktı:* `Built dist\app.bundle.js (55 modules).`
-
-### 3. Yerel Sunucuyu Başlatın
-```bash
-node server.mjs
-```
-*Çıktı:* `Last Breath server listening on http://localhost:4173`
-
-### 4. Oyuna Giriş Yapın
-Tarayıcınızdan aşağıdaki adresi açın:
-```
-http://localhost:4173
-```
-
----
-
-## 📱 Mobilde Deneyimleme & Telefona İndirme
-
-1. Bilgisayarınız ve telefonunuz aynı Wi-Fi ağına bağlıysa, bilgisayarınızın yerel IP adresini öğrenin (örneğin: `192.168.1.35`).
-2. Telefonunuzun tarayıcısından (Chrome veya Safari) `http://192.168.1.35:4173` adresine girin.
-3. **Android'de:** Ekranın üst çubuğundaki **`📲 YÜKLE`** butonuna veya tarayıcı menüsündeki *"Uygulamayı Yükle"* seçeneğine dokunun.
-4. **iOS'ta:** Safari alt çubuğundaki **Paylaş** simgesine dokunun ve listeden **"Ana Ekrana Ekle"**yi seçin.
-5. Oyun telefonunuzun ana ekranında bağımsız bir simge olarak yer alacak ve çevrimdışı oynanabilecektir.
-
----
-
-## 📜 Lisans & Bilgi
-
-Bu proje [MIT Lisansı](./LICENSE) kapsamında açık kaynaklıdır. Ayrıntılar için `LICENSE` dosyasına göz atabilirsiniz.
-
-*Son Güncelleme: Kasım 2026 // Last Breath Field Terminal Rev 0.2*
-
+(Or switch directly into your local project directory)2. Build the Application BundleTo apply any updates made to JavaScript or CSS source files into the runtime bundle:Bashnode build.mjs
+Expected Output: Built dist\app.bundle.js (55 modules).3. Launch the Local Development ServerBashnode server.mjs
+Expected Output: Last Breath server listening on http://localhost:41734. Open the GameNavigate to the following address in your web browser:http://localhost:4173
+📱 Mobile Testing & InstallationEnsure your host computer and mobile device share the same local Wi-Fi network. Check your host computer's local IPv4 address (e.g., 192.168.1.35).Open your mobile browser (Chrome or Safari) and navigate to [http://192.168.1.35:4173](http://192.168.1.35:4173).On Android: Tap the 📲 INSTALL button in the top HUD or choose "Install App" from your browser's menu.On iOS: Tap the Share button in Safari's lower toolbar and select "Add to Home Screen".Launch the game directly from your device home screen as an offline-capable, standalone fullscreen application.📜 Contributing & LicenseThis project is licensed as open source under the terms of the MIT License. For full terms and copyright details, refer to the LICENSE file.Last Updated: November 2026 // Last Breath Field Terminal Rev 0.2
