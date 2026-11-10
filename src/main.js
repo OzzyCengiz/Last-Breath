@@ -21,6 +21,8 @@ import { factionModule, FactionManager } from './modules/factions/index.js';
 import { environmentModule, WeatherEngine } from './modules/environment/index.js';
 import { economyModule } from './modules/economy/index.js';
 import { vehiclesModule, VehicleEngine } from './modules/vehicles/index.js';
+import { radioModule } from './modules/radio/index.js';
+import { RadioEngine } from './modules/radio/radioEngine.js';
 import { ARCHETYPES } from './data/archetypes.js';
 import { ARCHETYPE_HOOKS } from './data/narratives.js';
 import { VITALS, vitalBand } from './modules/status/statusSelectors.js';
@@ -33,7 +35,11 @@ import { MenuView } from './ui/menuView.js';
 import { LootModalView } from './ui/lootModalView.js';
 import { BarterModalView } from './ui/barterModalView.js';
 import { VehicleModalView } from './ui/vehicleModalView.js';
+import { VehicleDiscoveryModalView } from './ui/vehicleDiscoveryModalView.js';
 import { CodexModalView } from './ui/codexModalView.js';
+import { RadioModalView } from './ui/radioModalView.js';
+import { TravelModalView } from './ui/travelModalView.js';
+import { initPanelResizers } from './ui/panelResizer.js';
 import { codexManager } from './core/codexManager.js';
 import { adManager } from './core/adManager.js';
 import { pwaManager } from './pwa.js';
@@ -91,6 +97,7 @@ function createNewRunState({
   fresh.environment = WeatherEngine.getInitialState();
   fresh.economy = { activeSession: null };
   fresh.vehicles = VehicleEngine.getInitialState();
+  fresh.radio = RadioEngine.getInitialState();
 
   return fresh;
 }
@@ -125,7 +132,8 @@ async function bootstrap() {
     .register(factionModule)
     .register(environmentModule)
     .register(economyModule)
-    .register(vehiclesModule);
+    .register(vehiclesModule)
+    .register(radioModule);
 
   const saveManager = new SaveManager({ store, rng });
   adManager.init({ saveManager, bus });
@@ -152,8 +160,12 @@ async function bootstrap() {
   await mapView.mount(globalThis.__LAST_BREATH_WORLD_SVG__ ?? null);
 
   const inventoryView = new InventoryView(document.getElementById('inventory-root'), engine);
-  const craftBaseView = new CraftBaseView(document.getElementById('craft-root'), engine);
-  const statusView = new StatusView(document.getElementById('status-root'));
+  const craftBaseView = new CraftBaseView(
+    document.getElementById('craft-root'),
+    document.getElementById('base-root'),
+    engine,
+  );
+  const statusView = new StatusView(document.getElementById('status-root'), engine);
   const logView = new LogView({
     listEl: document.getElementById('log-list'),
     toastEl: document.getElementById('toast-banner'),
@@ -161,7 +173,33 @@ async function bootstrap() {
   const lootModalView = new LootModalView(document.getElementById('action-modal'), engine);
   const barterModalView = new BarterModalView(document.getElementById('barter-modal'), engine);
   const vehicleModalView = new VehicleModalView(document.getElementById('vehicle-modal'), engine);
+  const vehicleDiscoveryModalView = new VehicleDiscoveryModalView(document.getElementById('vehicle-discovery-modal'), engine);
   const codexModalView = new CodexModalView(document.getElementById('codex-modal'), engine);
+  const radioModalView = new RadioModalView(document.getElementById('radio-modal'), engine);
+  const travelModalView = new TravelModalView(document.getElementById('travel-modal'), engine);
+
+  const btnOpenRadio = document.getElementById('btn-open-radio');
+  if (btnOpenRadio) {
+    btnOpenRadio.addEventListener('click', () => {
+      barterModalView.close();
+      vehicleModalView.close();
+      codexModalView.close();
+      radioModalView.open();
+    });
+  }
+
+  engine.registerAction('radio/openModal', () => {
+    barterModalView.close();
+    vehicleModalView.close();
+    codexModalView.close();
+    radioModalView.open();
+    return { ok: true };
+  });
+
+  engine.registerAction('radio/closeModal', () => {
+    radioModalView.close();
+    return { ok: true };
+  });
 
   const menuView = new MenuView({
     root: document.getElementById('main-menu'),
@@ -172,7 +210,10 @@ async function bootstrap() {
       menuView.close();
       barterModalView.close();
       vehicleModalView.close();
+      vehicleDiscoveryModalView.close();
       codexModalView.close();
+      radioModalView.close();
+      travelModalView.close();
       mapView.centerOnNode(store.state.world.currentNodeId, 3.2);
     },
     onStartNew: ({ name, age, bloodType, trait, archetypeId, locationId }) => {
@@ -181,7 +222,10 @@ async function bootstrap() {
         lootModalView.close();
         barterModalView.close();
         vehicleModalView.close();
+        vehicleDiscoveryModalView.close();
         codexModalView.close();
+        radioModalView.close();
+        travelModalView.close();
 
         const newSeed = randomSeed();
         rng.reseed(newSeed);
@@ -226,7 +270,9 @@ async function bootstrap() {
         lootModalView.close();
         barterModalView.close();
         vehicleModalView.close();
+        vehicleDiscoveryModalView.close();
         codexModalView.close();
+        radioModalView.close();
         barterModalView.close();
         menuView.close();
         engine.log('log.boot.awakened', {
@@ -262,6 +308,7 @@ async function bootstrap() {
   bindTopControls({ engine, store, rng, saveManager, mapView, menuView, codexModalView });
   bindMapControls(mapView, store);
   bindNavigationTabs();
+  initPanelResizers();
   pwaManager.init();
 
   // Global tactile mechanical switch click on interactive UI elements
@@ -280,6 +327,7 @@ async function bootstrap() {
     craftBaseView.render(state);
     statusView.render(state);
     logView.render(state);
+    radioModalView.updateHeaderBadge(state);
     renderDeathModal(state, menuView);
     const indicator = document.getElementById('locale-indicator');
     if (indicator) indicator.textContent = (i18n.locale || 'en').toUpperCase();
@@ -297,8 +345,27 @@ async function bootstrap() {
     if (barterModalView.isOpen) {
       barterModalView.render();
     }
+    if (vehicleModalView.isOpen) {
+      vehicleModalView.render(state);
+    }
+    if (radioModalView.isOpen) {
+      radioModalView.render(state);
+    }
+    if (travelModalView.isOpen) {
+      travelModalView.render();
+    }
   };
 
+  bus.on('vehicles:modal', ({ vehicleId }) => {
+    if (vehicleId) {
+      barterModalView.close();
+      codexModalView.close();
+      radioModalView.close();
+      lootModalView.close();
+      vehicleDiscoveryModalView.close();
+      travelModalView.close();
+    }
+  });
   bus.on('loot:modal', (payload) => lootModalView.open(payload));
   bus.on('state:changed', renderAll);
   bus.on('action:rejected', ({ reason, params }) => logView.flashRejection(reason, params));
@@ -453,9 +520,18 @@ function bindNavigationTabs() {
     }
     const invPane = document.querySelector('[data-tab-panel="inventory"]');
     const craftPane = document.querySelector('[data-tab-panel="craft"]');
-    if (invPane && craftPane) {
-      invPane.classList.toggle('is-desktop-right-hidden', target !== 'inventory');
-      craftPane.classList.toggle('is-desktop-right-hidden', target !== 'craft');
+    const basePane = document.querySelector('[data-tab-panel="base"]');
+    if (invPane) invPane.classList.toggle('is-desktop-right-hidden', target !== 'inventory');
+    if (craftPane) craftPane.classList.toggle('is-desktop-right-hidden', target !== 'craft');
+    if (basePane) basePane.classList.toggle('is-desktop-right-hidden', target !== 'base');
+
+    if (window.innerWidth < 900) {
+      for (const btn of tabButtons) {
+        btn.classList.toggle('is-active', btn.dataset.tabTarget === target);
+      }
+      for (const panel of panels) {
+        panel.classList.toggle('is-active-panel', panel.dataset.tabPanel === target);
+      }
     }
   };
 
@@ -470,7 +546,7 @@ function bindNavigationTabs() {
       for (const panel of panels) {
         panel.classList.toggle('is-active-panel', panel.dataset.tabPanel === target);
       }
-      if (target === 'inventory' || target === 'craft') {
+      if (target === 'inventory' || target === 'craft' || target === 'base') {
         activateRightPane(target);
       }
     });

@@ -7,6 +7,8 @@
 import { VehicleEngine, VEHICLE_CATALOG } from './vehicleEngine.js';
 import { audioEngine } from '../../core/audioEngine.js';
 import { codexManager } from '../../core/codexManager.js';
+import { addItem } from '../inventory/inventoryModel.js';
+import { t } from '../../i18n/i18n.js';
 
 export const vehiclesModule = {
   id: 'vehicles',
@@ -21,7 +23,43 @@ export const vehiclesModule = {
     // Register vehicle state mutations
     store.registerMutations('vehicles', {
       init(state, payload) {
-        state.vehicles = payload || VehicleEngine.getInitialState();
+        const initial = VehicleEngine.getInitialState();
+        if (!payload) {
+          state.vehicles = initial;
+        } else {
+          const mergedFleet = { ...initial.fleet };
+          if (payload.fleet) {
+            for (const [k, v] of Object.entries(payload.fleet)) {
+              if (mergedFleet[k]) {
+                mergedFleet[k] = {
+                  ...mergedFleet[k],
+                  ...v,
+                  discovered: v.discovered ?? Boolean(v.restored || payload.mountedVehicleId === k),
+                  claimed: v.claimed ?? Boolean(v.restored || payload.mountedVehicleId === k),
+                };
+              }
+            }
+          }
+          state.vehicles = {
+            ...initial,
+            ...payload,
+            fleet: mergedFleet,
+          };
+        }
+      },
+      claim(state, vehicleId) {
+        const v = state.vehicles?.fleet?.[vehicleId];
+        if (v) {
+          v.claimed = true;
+          v.discovered = true;
+        }
+      },
+      discover(state, { vehicleId, nodeId }) {
+        const v = state.vehicles?.fleet?.[vehicleId];
+        if (v) {
+          v.discovered = true;
+          v.nodeId = nodeId;
+        }
       },
       mount(state, vehicleId) {
         state.vehicles.mountedVehicleId = vehicleId;
@@ -58,22 +96,37 @@ export const vehiclesModule = {
     engine.registerAction('vehicles/openModal', ({ vehicleId }) => {
       store.commit('vehicles/openModal', vehicleId);
       audioEngine.playTerminalClick();
+      engine.bus.emit('vehicles:modal', { vehicleId });
       return { ok: true };
     });
 
     engine.registerAction('vehicles/closeModal', () => {
       store.commit('vehicles/closeModal');
       audioEngine.playTerminalClick();
+      engine.bus.emit('vehicles:modal', { vehicleId: null });
+      return { ok: true };
+    });
+
+    engine.registerAction('vehicles/claim', ({ vehicleId }) => {
+      const vehicle = VehicleEngine.getVehicle(store.state, vehicleId);
+      const def = VEHICLE_CATALOG[vehicleId];
+      if (!vehicle || !def) return { ok: false, reason: 'invalid_vehicle' };
+      store.commit('vehicles/claim', vehicleId);
+      const res = addItem(store.state.inventory, 'vehicle_ignition_key', 1);
+      if (res?.inventory) store.state.inventory = res.inventory;
+      try { audioEngine.playEngineRev(); } catch {}
+      engine.log('vehicle.log.claimed', { vehicle: t(def.nameKey) }, 'good');
       return { ok: true };
     });
 
     engine.registerAction('vehicles/mount', ({ vehicleId }) => {
       const vehicle = VehicleEngine.getVehicle(store.state, vehicleId);
+      const def = VEHICLE_CATALOG[vehicleId];
       if (!vehicle || !vehicle.restored) {
         engine.log('vehicle.log.not_ready', {}, 'warn');
         return { ok: false, reason: 'not_ready' };
       }
-      if (vehicle.fuelLiters <= 0) {
+      if (!def?.musclePowered && def?.fuelType !== 'muscle' && vehicle.fuelLiters <= 0) {
         engine.log('vehicle.log.no_fuel', {}, 'warn');
         return { ok: false, reason: 'no_fuel' };
       }
@@ -162,6 +215,36 @@ export const vehiclesModule = {
       codexManager.trackCareer('totalFuelSiphoned', res.siphonedLiters);
       codexManager.unlockAchievement('fuel_siphoner');
       engine.log('vehicle.log.siphoned', { siphoned: res.siphonedLiters, total: res.currentFuel }, 'good');
+      return res;
+    });
+
+    engine.registerAction('vehicles/installUpgrade', ({ vehicleId, upgradeId }) => {
+      const res = VehicleEngine.installUpgrade(store.state, vehicleId, upgradeId);
+      if (!res.ok) {
+        engine.log(`vehicle.reject.${res.reason}`, {}, 'warn');
+        return res;
+      }
+      audioEngine.playEngineRev();
+      try { audioEngine.playTerminalClick(); } catch {}
+      engine.log('vehicle.log.upgrade_installed', {
+        upgrade: `vehicle.upgrade.${upgradeId}.name`,
+        vehicle: vehicleId,
+      }, 'good');
+      return res;
+    });
+
+    engine.registerAction('vehicles/camp', ({ vehicleId, hours = 4 }) => {
+      const res = VehicleEngine.campInVehicle(store.state, vehicleId, hours);
+      if (!res.ok) {
+        engine.log(`vehicle.reject.${res.reason}`, {}, 'warn');
+        return res;
+      }
+      engine.advanceTime(hours * 60, 'rest');
+      if (store.state.vitals?.energy) {
+        store.state.vitals.energy = Math.min(100, store.state.vitals.energy + 25);
+      }
+      audioEngine.playTerminalClick();
+      engine.log('vehicle.log.camped', { hours }, 'good');
       return res;
     });
   },

@@ -9,26 +9,114 @@ import { el } from './dom.js';
 
 export class StatusView {
   #root;
+  #engine;
+  #activeTab = 'vitals';
+  #lastState = null;
 
-  constructor(root) {
+  constructor(root, engine = null) {
     this.#root = root;
+    this.#engine = engine;
   }
 
   render(state) {
+    this.#lastState = state;
     const { player } = state;
-    this.#root.replaceChildren(
-      this.#renderDossier(player),
-      this.#renderVitals(player),
-      this.#renderBodyTrauma(player),
-      this.#renderAilments(player),
-      this.#renderReadout(state),
-      this.#renderSkills(state),
+
+    const nav = el(
+      'div',
+      { class: 'status-page-nav' },
+      el(
+        'button',
+        {
+          type: 'button',
+          class: ['status-page-btn', this.#activeTab === 'vitals' && 'is-active'],
+          onClick: () => {
+            this.#activeTab = 'vitals';
+            this.render(this.#lastState);
+          },
+        },
+        t('status.tabs.vitals'),
+      ),
+      el(
+        'button',
+        {
+          type: 'button',
+          class: ['status-page-btn', this.#activeTab === 'body' && 'is-active'],
+          onClick: () => {
+            this.#activeTab = 'body';
+            this.render(this.#lastState);
+          },
+        },
+        t('status.tabs.body'),
+      ),
+      el(
+        'button',
+        {
+          type: 'button',
+          class: ['status-page-btn', this.#activeTab === 'skills' && 'is-active'],
+          onClick: () => {
+            this.#activeTab = 'skills';
+            this.render(this.#lastState);
+          },
+        },
+        t('status.tabs.skills'),
+      ),
     );
+
+    let content = [];
+    if (this.#activeTab === 'vitals') {
+      content = [
+        this.#renderDossier(player),
+        this.#renderVitals(player),
+        this.#renderReadout(state),
+      ];
+    } else if (this.#activeTab === 'body') {
+      content = [
+        this.#renderBodyTrauma(player, state),
+        this.#renderAilments(player),
+      ];
+    } else {
+      content = [
+        this.#renderSkills(state),
+      ];
+    }
+
+    this.#root.replaceChildren(...[nav, ...content].filter(Boolean));
   }
 
-  #renderBodyTrauma(player) {
+  #findBestTreatment(partId, part, stacks = []) {
+    if (!stacks || stacks.length === 0) return null;
+    const hasItem = (predicate) => stacks.find((s) => predicate(s.itemId))?.itemId || null;
+
+    if (part.bleeding === 'arterial') {
+      return hasItem((id) => id.includes('tourniquet')) ||
+        hasItem((id) => id.includes('quikclot') || id.includes('hemostatic') || id.includes('israeli') || id.includes('stapler') || id.includes('suture'));
+    }
+    if (part.bleeding === 'minor') {
+      return hasItem((id) => id.includes('quikclot') || id.includes('bandage') || id.includes('gauze') || id.includes('plaster') || id.includes('suture') || id.includes('stapler') || id.includes('adhesive'));
+    }
+    if (part.punctured) {
+      return hasItem((id) => id.includes('chest_seal') || id.includes('decompression_needle') || id.includes('airway'));
+    }
+    if (part.fractures) {
+      return hasItem((id) => id.includes('splint') || id.includes('sling') || id.includes('collar') || id.includes('vet_wrap'));
+    }
+    if (part.burns) {
+      return hasItem((id) => id.includes('burn') || id.includes('sulfadiazine') || id.includes('calamine') || id.includes('hydrocortisone'));
+    }
+    if (part.infectionRisk >= 25) {
+      return hasItem((id) => id.includes('antiseptic') || id.includes('iodine') || id.includes('chlorhexidine') || id.includes('antibiotic') || id.includes('amoxicillin') || id.includes('ciprofloxacin') || id.includes('alcohol') || id.includes('peroxide'));
+    }
+    if (part.health < 80) {
+      return hasItem((id) => id.includes('first_aid') || id.includes('ifak') || id.includes('bandage') || id.includes('gauze') || id.includes('saline'));
+    }
+    return null;
+  }
+
+  #renderBodyTrauma(player, state) {
     const body = player.body;
     if (!body) return el('div');
+    const stacks = state?.inventory?.stacks || [];
 
     const cards = BODY_PARTS.map((partId) => {
       const part = body[partId];
@@ -60,6 +148,32 @@ export class StatusView {
 
       const meterTone = hp > 65 ? 'good' : (hp > 30 ? 'warn' : 'bad');
 
+      // Direct treatment action if damaged
+      let actionEl = null;
+      if (isDamaged && this.#engine) {
+        const bestItem = this.#findBestTreatment(partId, part, stacks);
+        if (bestItem) {
+          actionEl = el(
+            'button',
+            {
+              type: 'button',
+              class: 'btn btn-accent btn-xs body-part-treat-btn',
+              style: 'margin-top: 6px; width: 100%; font-size: 0.72rem; padding: 4px 6px;',
+              onClick: () => {
+                this.#engine.dispatch('inventory/use', { itemId: bestItem });
+              },
+            },
+            `💊 ${t('inventory.action.treat') || 'TEDAVİ ET'} (${t(`item.${bestItem}.name`) || bestItem})`
+          );
+        } else {
+          actionEl = el(
+            'span',
+            { class: 'muted-note', style: 'font-size: 0.68rem; margin-top: 4px; display: block; opacity: 0.75;' },
+            `⚠️ ${t('status.body.no_supplies') || 'Gereken tıbbi malzeme yok'}`
+          );
+        }
+      }
+
       return el(
         'div',
         { class: ['body-part-card', isDamaged ? 'part-damaged' : 'part-healthy'] },
@@ -75,6 +189,7 @@ export class StatusView {
           el('div', { class: ['meter-fill', `fill-${meterTone}`], style: `width: ${Math.max(0, Math.min(100, hp))}%` }),
         ),
         el('div', { class: 'body-part-badges' }, badges),
+        actionEl,
       );
     });
 
@@ -143,8 +258,12 @@ export class StatusView {
           'div',
           { class: 'vital-head' },
           el('span', { class: 'vital-label' }, t(`status.vital.${vital}`)),
-          el('span', { class: 'vital-band-tag' }, t(`status.band.${band}`)),
-          el('span', { class: 'vital-value' }, `${value}%`),
+          el(
+            'div',
+            { class: 'vital-meta' },
+            el('span', { class: 'vital-band-tag' }, t(`status.band.${band}`)),
+            el('span', { class: 'vital-value' }, `${value}%`),
+          ),
         ),
         el(
           'div',
@@ -205,6 +324,8 @@ export class StatusView {
     if (id === 'bleeding') return t('ailment.bleeding.severity', { severity: data.severity });
     if (id === 'infection') return `${Math.round(data.progress)}%`;
     if (id === 'sprain') return t('ailment.sprain.remaining', { hours: Math.ceil(data.hours) });
+    if (id === 'pain') return `${t('status.label.severity') || 'Şiddet'}: ${Math.round(data.severity || 1)}`;
+    if (id === 'poison') return `${Math.round(data.severity || 10)}%`;
     return '';
   }
 

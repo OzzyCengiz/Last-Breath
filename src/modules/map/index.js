@@ -5,12 +5,15 @@ import { i18n, ref } from '../../i18n/i18n.js';
 import { rollRange } from '../../core/rng.js';
 import { grantItems } from '../inventory/index.js';
 import { rollLoot } from '../inventory/loot.js';
+import { rollScavengeLoot } from '../../data/countryLoot.js';
 import { skillMultiplier } from '../skills/skillSelectors.js';
+import { passiveBonus } from '../inventory/inventorySelectors.js';
 import {
   ALL_NODES, estimateJourney, findRoute, getNode, neighborsOf, scavengeProfile,
 } from './mapGraph.js';
 import { consumeCombatAmmo, evaluateCheckChance, pickEncounter } from './encounters.js';
 import { WeatherEngine } from '../environment/weatherEngine.js';
+import { VEHICLE_CATALOG, VehicleEngine } from '../vehicles/vehicleEngine.js';
 import { codexManager } from '../../core/codexManager.js';
 import { adManager } from '../../core/adManager.js';
 
@@ -117,7 +120,7 @@ function runTravelSegments(ctx, plan) {
     minutesLeft -= stepMinutes;
     segmentsLeft -= 1;
 
-    if (!store.state.player.alive) return;
+    if (!store.state.player.alive) return { ok: false, died: true };
 
     const perSegmentChance = 1 - (1 - risk) ** (1 / Math.max(1, plan.totalSegments));
     if (rng.chance(perSegmentChance)) {
@@ -137,11 +140,18 @@ function runTravelSegments(ctx, plan) {
           vehicleId,
         },
       });
-      if (interrupted) return;
+      if (interrupted) {
+        return {
+          ok: true,
+          interrupted: true,
+          segmentsTraveled: plan.totalSegments - segmentsLeft,
+          totalSegments: plan.totalSegments,
+        };
+      }
     }
   }
 
-  if (!store.state.player.alive) return;
+  if (!store.state.player.alive) return { ok: false, died: true };
   const firstVisit = store.commit('world/visitNode', toId);
   codexManager.trackCareer('totalKmTraveled', km);
   const visitedCount = Object.values(store.state.world.nodes).filter((node) => node.visited).length;
@@ -153,9 +163,28 @@ function runTravelSegments(ctx, plan) {
     { destination: locName(toId) },
     firstVisit ? 'good' : 'plain',
   );
+  if (isDriving && vehicleId) {
+    const vDef = VEHICLE_CATALOG[vehicleId];
+    if (vDef?.fieldClinic && store.state.player && store.state.player.health < 100) {
+      store.commit('player/changeVital', { vital: 'health', delta: 15 });
+      engine.log('vehicle.log.field_clinic_healed', {}, 'good');
+    }
+  }
   if (firstVisit) {
     ctx.effects.apply([{ type: 'xp', skill: 'foraging', amount: 8 }], ctx);
   }
+
+  // Check for derelict vehicle discovery upon arriving in sector
+  const vehicleDiscoveredOnTravel = VehicleEngine.checkRandomDiscovery(store.state, rng, { nodeId: toId, source: 'travel' });
+  if (vehicleDiscoveredOnTravel) {
+    engine.bus.emit('vehicles:discovered', vehicleDiscoveredOnTravel);
+  }
+
+  return {
+    ok: true,
+    arrived: true,
+    firstVisit,
+  };
 }
 
 function registerMapActions(engine, ctx) {
@@ -167,7 +196,8 @@ function registerMapActions(engine, ctx) {
     return { ok: true };
   }, { allowDuringEncounter: true });
 
-  engine.registerAction('map/travel', ({ toId }) => {
+  engine.registerAction('map/travel', (payload) => {
+    const toId = payload?.toId;
     const fromId = store.state.world.currentNodeId;
     if (fromId === toId) return { ok: false, reason: 'reject.already_here' };
     if (!findRoute(fromId, toId)) return { ok: false, reason: 'reject.no_route' };
@@ -191,7 +221,7 @@ function registerMapActions(engine, ctx) {
       km: plan.km,
     });
 
-    runTravelSegments(ctx, {
+    const travelResult = runTravelSegments(ctx, {
       fromId,
       toId,
       mode: plan.mode,
@@ -204,15 +234,25 @@ function registerMapActions(engine, ctx) {
       fuelNeeded: plan.fuelNeeded,
       km: plan.km,
     });
-    return { ok: true };
+
+    engine.bus.emit('travel:journey', {
+      fromId,
+      toId,
+      plan,
+      result: travelResult,
+      skipAnimation: Boolean(payload?.skipAnimation),
+    });
+
+    return { ok: true, travelResult };
   });
 
   engine.registerAction('map/scavenge', () => {
     const nodeId = store.state.world.currentNodeId;
     const profile = scavengeProfile(store.state, nodeId);
+    const country = profile.node?.country || '';
     const minutes = rollRange(rng, BALANCE.scavenge.minutes);
 
-    engine.log('log.scavenge.started', { location: locName(nodeId) });
+    engine.log('log.scavenge.started', { location: locName(nodeId), country });
     engine.advanceTime(minutes, 'scavenge');
     if (!store.state.player.alive) return { ok: true };
 
@@ -221,11 +261,23 @@ function registerMapActions(engine, ctx) {
     const envMods = WeatherEngine.getStealthAndVisibilityModifiers(store.state);
 
     if (rng.chance(profile.chance)) {
-      const bonus = skillMultiplier(store.state, 'foraging');
-      const baseRolls = rollRange(rng, profile.biome.yield);
-      const rolls = Math.max(1, Math.round(baseRolls * bonus * envMods.scavengeEfficiency));
-      const items = rollLoot(rng, profile.biome.lootTable, rolls);
+      const foragingBonus = skillMultiplier(store.state, 'foraging');
+      const scavBonus = passiveBonus(store.state, 'scavengeBonus') || 0;
+      const items = rollScavengeLoot(rng, {
+        node: profile.node,
+        depletion: profile.depletion,
+        foragingBonus,
+        scavengeBonus: scavBonus,
+        envEfficiency: envMods.scavengeEfficiency,
+      });
       effects.apply([{ type: 'xp', skill: 'foraging', amount: 5 }], ctx);
+
+      engine.log('log.scavenge.found', {
+        location: locName(nodeId),
+        country,
+        count: items.reduce((acc, it) => acc + (it.qty || 1), 0),
+      }, 'good');
+
       if (rng.chance(0.25)) {
         const dispatch = getRandomFieldLog(rng);
         const text = i18n.locale === 'tr' ? dispatch.text_tr : dispatch.text_en;
@@ -235,7 +287,7 @@ function registerMapActions(engine, ctx) {
         type: 'scavenge',
         titleKey: 'loot.title.scavenge_found',
         descKey: 'loot.desc.scavenge_found',
-        descParams: { location: locName(nodeId) },
+        descParams: { location: locName(nodeId), country },
         items,
         nodeId,
         onConfirm: (taken, left) => {
@@ -246,13 +298,13 @@ function registerMapActions(engine, ctx) {
         },
       });
     } else {
-      engine.log('log.scavenge.empty', { location: locName(nodeId) }, 'warn');
+      engine.log('log.scavenge.empty', { location: locName(nodeId), country }, 'warn');
       effects.apply([{ type: 'xp', skill: 'foraging', amount: 2 }], ctx);
       engine.bus.emit('loot:modal', {
         type: 'scavenge_empty',
         titleKey: 'loot.title.scavenge_empty',
         descKey: 'loot.desc.scavenge_empty',
-        descParams: { location: locName(nodeId) },
+        descParams: { location: locName(nodeId), country },
         items: [],
         nodeId,
         onConfirm: () => {},
@@ -262,6 +314,13 @@ function registerMapActions(engine, ctx) {
     if (store.state.player.alive && rng.chance(profile.hazardRisk * envMods.encounterRiskMultiplier)) {
       startEncounter(ctx, { context: 'scavenge', nodeId });
     }
+
+    // Check for derelict vehicle discovery while scavenging
+    const vehicleDiscoveredOnScavenge = VehicleEngine.checkRandomDiscovery(store.state, rng, { nodeId, source: 'scavenge' });
+    if (vehicleDiscoveredOnScavenge) {
+      engine.bus.emit('vehicles:discovered', vehicleDiscoveredOnScavenge);
+    }
+
     return { ok: true };
   });
 
@@ -304,6 +363,13 @@ function registerMapActions(engine, ctx) {
         onConfirm: () => {},
       });
     }
+
+    // Check for derelict vehicle discovery while surveying the area
+    const vehicleDiscoveredOnSurvey = VehicleEngine.checkRandomDiscovery(store.state, rng, { nodeId, source: 'survey' });
+    if (vehicleDiscoveredOnSurvey) {
+      engine.bus.emit('vehicles:discovered', vehicleDiscoveredOnSurvey);
+    }
+
     return { ok: true };
   });
 

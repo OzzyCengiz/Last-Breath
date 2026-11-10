@@ -14,6 +14,7 @@ import {
   TARGET_ZONES,
   getWeaponRangeProfile,
   initTacticalState,
+  determineEnemyIntent,
   calculateTacticalHitChance,
   calculateTacticalDamage,
   checkWeaponJam,
@@ -48,24 +49,123 @@ function resolveEnemyTurn(ctx, enemyId) {
 
   const enemy = getEnemy(enemyId);
 
+  // --- OVERWATCH REACTION CHECK ---
+  if (active.stance === 'overwatch') {
+    active.stance = null;
+    const weapon = weaponProfile(store.state);
+    const hitChance = calculateTacticalHitChance({
+      state: store.state,
+      weaponProfile: weapon,
+      range: active.range,
+      targetZone: TARGET_ZONES.TORSO,
+      defenderCover: active.enemyCover,
+      enemy,
+      bonusAccuracy: 0.20,
+    });
+
+    if (rng.chance(hitChance)) {
+      const dmgCalc = calculateTacticalDamage({
+        baseRating: combatRating(store.state),
+        weaponId: weapon.itemId,
+        range: active.range,
+        targetZone: TARGET_ZONES.TORSO,
+        defenderCover: active.enemyCover,
+        rng,
+      });
+
+      const remHp = store.commit('combat/damageEnemy', dmgCalc.damage);
+      if (weapon.ammoId && weapon.loaded) {
+        store.commit('inventory/remove', { itemId: weapon.ammoId, qty: 1 });
+        const prof = getWeaponRangeProfile(weapon.itemId);
+        audioEngine.playGunshot(prof.caliber || '9mm');
+      } else {
+        audioEngine.playGearRustle(0.6);
+      }
+
+      engine.log('combat.overwatch_triggered', {
+        name: enemyName(enemyId),
+        dmg: dmgCalc.damage,
+      }, 'good');
+
+      if (remHp <= 0) {
+        audioEngine.playCombatVictory();
+        store.commit('combat/end', { won: true });
+        codexManager.trackCareer('totalEnemiesSlain', 1);
+        codexManager.trackEnemyKill(active.enemyId);
+        effects.apply([{ type: 'xp', skill: 'marksmanship', amount: enemy.xp }], ctx);
+        const drops = rollLoot(rng, enemy.lootTable, 2);
+        const nodeId = store.state.world.currentNodeId;
+        engine.bus.emit('loot:modal', {
+          type: 'combat_victory',
+          titleKey: 'loot.title.combat_victory',
+          descKey: 'loot.desc.combat_victory',
+          descParams: { enemy: enemyName(active.enemyId), xp: enemy.xp },
+          items: drops,
+          nodeId,
+          onConfirm: (taken, left) => {
+            for (const { itemId, qty } of taken) grantItems(ctx, itemId, qty);
+            for (const { itemId, qty } of left) {
+              store.commit('inventory/toGround', { nodeId, itemId, qty });
+            }
+          },
+        });
+        return;
+      }
+    } else {
+      engine.log('combat.overwatch_missed', { name: enemyName(enemyId) }, 'warn');
+    }
+  }
+
+  // --- SUPPRESSION CHECK ---
+  if (active.enemyStatus?.suppressed) {
+    active.enemyStatus.suppressed = false;
+    active.lastEnemyAction = { type: 'suppressed' };
+    engine.log('combat.enemy_suppressed_turn', { name: enemyName(enemyId) }, 'good');
+    active.enemyIntent = determineEnemyIntent({
+      enemy,
+      range: active.range,
+      enemyCover: active.enemyCover,
+      enemyStatus: active.enemyStatus,
+      rng,
+    });
+    return;
+  }
+
   // 1. Tactical AI Repositioning
   // Melee-only enemies MUST close distance if player is at medium, long, or extreme
   if (!enemy.ranged && active.range !== 'melee') {
     if (active.enemyStatus?.fracturedLeg) {
+      active.lastEnemyAction = { type: 'crippled' };
       engine.log('combat.enemy_crippled_cannot_advance', { name: enemyName(enemyId) }, 'good');
     } else {
       active.range = shiftRange(active.range, 'closer');
+      active.lastEnemyAction = { type: 'advance', range: active.range };
       engine.log('combat.enemy_advanced', { name: enemyName(enemyId), range: ref(`combat.range.${active.range}`) }, 'warn');
       audioEngine.playGearRustle(0.4);
     }
+    active.enemyIntent = determineEnemyIntent({
+      enemy,
+      range: active.range,
+      enemyCover: active.enemyCover,
+      enemyStatus: active.enemyStatus,
+      rng,
+    });
     return;
   }
 
   // Ranged enemy: 30% chance to seek light cover if taking fire in the open
   if (enemy.ranged && active.enemyCover === COVER_LEVELS.NONE && rng.chance(0.30)) {
     active.enemyCover = COVER_LEVELS.LIGHT;
+    active.lastEnemyAction = { type: 'cover', cover: active.enemyCover };
     engine.log('combat.enemy_took_cover', { name: enemyName(enemyId) }, 'warn');
     audioEngine.playGearRustle(0.4);
+    active.enemyIntent = determineEnemyIntent({
+      enemy,
+      range: active.range,
+      enemyCover: active.enemyCover,
+      enemyStatus: active.enemyStatus,
+      rng,
+    });
     return;
   }
 
@@ -85,7 +185,15 @@ function resolveEnemyTurn(ctx, enemyId) {
   const hitChance = Math.max(0.10, Math.min(0.90, enemy.accuracy - dodgeBonus - accuracyPenalty));
 
   if (!rng.chance(hitChance)) {
+    active.lastEnemyAction = { type: 'miss' };
     engine.log('combat.enemy_missed', { name: enemyName(enemyId) }, 'good');
+    active.enemyIntent = determineEnemyIntent({
+      enemy,
+      range: active.range,
+      enemyCover: active.enemyCover,
+      enemyStatus: active.enemyStatus,
+      rng,
+    });
     return;
   }
 
@@ -97,6 +205,7 @@ function resolveEnemyTurn(ctx, enemyId) {
   if (active.playerCover === COVER_LEVELS.LIGHT) dmg = Math.max(1, Math.round(dmg * 0.70));
   else if (active.playerCover === COVER_LEVELS.HEAVY) dmg = Math.max(1, Math.round(dmg * 0.40));
 
+  active.lastEnemyAction = { type: 'hit', dmg, absorbed: active.playerCover !== COVER_LEVELS.NONE };
   engine.log('combat.enemy_hit', { name: enemyName(enemyId), dmg }, 'bad');
 
   if (enemy.ranged) {
@@ -105,17 +214,12 @@ function resolveEnemyTurn(ctx, enemyId) {
     audioEngine.playGearRustle(0.4);
   }
 
-  // Apply targeted anatomical trauma to player's body status
-  if (store.state.player?.body) {
-    applyBodyDamage(store.state.player.body, {
-      amount: dmg,
-      damageType: enemy.ranged ? 'ballistic' : (enemy.bleedChance ? 'slashing' : 'blunt'),
-      rng,
-      bus: engine.bus,
-    });
-  }
-
-  const combatEffects = [{ type: 'damage', amount: dmg, cause: 'wounds' }];
+  const combatEffects = [{
+    type: 'damage',
+    amount: dmg,
+    cause: 'wounds',
+    damageType: enemy.ranged ? 'ballistic' : (enemy.bleedChance ? 'slashing' : 'blunt'),
+  }];
   if (enemy.bleedChance && rng.chance(enemy.bleedChance)) {
     combatEffects.push({ type: 'ailment', id: 'bleeding' });
   }
@@ -128,6 +232,14 @@ function resolveEnemyTurn(ctx, enemyId) {
   if (store.state.player?.health < 25) {
     audioEngine.setCriticalHeartbeat(true, 85);
   }
+
+  active.enemyIntent = determineEnemyIntent({
+    enemy,
+    range: active.range,
+    enemyCover: active.enemyCover,
+    enemyStatus: active.enemyStatus,
+    rng,
+  });
 }
 
 export const combatModule = {
@@ -155,6 +267,11 @@ export const combatModule = {
           maxEnemyMorale: tactical.maxEnemyMorale,
           weaponJammed: tactical.weaponJammed,
           enemyStatus: { ...tactical.enemyStatus },
+          stance: tactical.stance || null,
+          aimBonus: tactical.aimBonus || false,
+          enemyIntent: tactical.enemyIntent || null,
+          lastPlayerAction: null,
+          lastEnemyAction: null,
         };
       },
       damageEnemy(state, amount) {
@@ -191,6 +308,21 @@ export const combatModule = {
       setEnemyStatusFlag(state, { flag, value }) {
         if (state.combat.activeEngagement?.enemyStatus) {
           state.combat.activeEngagement.enemyStatus[flag] = value;
+        }
+      },
+      setStance(state, stance) {
+        if (state.combat.activeEngagement) {
+          state.combat.activeEngagement.stance = stance;
+        }
+      },
+      setAimBonus(state, aimBonus) {
+        if (state.combat.activeEngagement) {
+          state.combat.activeEngagement.aimBonus = aimBonus;
+        }
+      },
+      setEnemyIntent(state, intent) {
+        if (state.combat.activeEngagement) {
+          state.combat.activeEngagement.enemyIntent = intent;
         }
       },
       markScavenged(state) {
@@ -302,8 +434,9 @@ export const combatModule = {
       if (move === 'advance') {
         const nextRange = shiftRange(active.range, 'closer');
         if (nextRange === active.range) return { ok: false, reason: 'reject.already_melee' };
-        effects.apply([{ type: 'vital', vital: 'energy', amount: -4 }], ctx);
+        effects.apply([{ type: 'vital', vital: 'energy', amount: -2 }], ctx);
         store.commit('combat/setRange', nextRange);
+        active.lastPlayerAction = { type: 'advance', range: nextRange };
         engine.log('combat.player_advanced', { range: ref(`combat.range.${nextRange}`) }, 'warn');
         audioEngine.playGearRustle(0.5);
         resolveEnemyTurn(ctx, active.enemyId);
@@ -313,8 +446,9 @@ export const combatModule = {
       if (move === 'retreat') {
         const nextRange = shiftRange(active.range, 'farther');
         if (nextRange === active.range) return { ok: false, reason: 'reject.max_range' };
-        effects.apply([{ type: 'vital', vital: 'energy', amount: -5 }], ctx);
+        effects.apply([{ type: 'vital', vital: 'energy', amount: -2 }], ctx);
         store.commit('combat/setRange', nextRange);
+        active.lastPlayerAction = { type: 'retreat', range: nextRange };
         engine.log('combat.player_retreated', { range: ref(`combat.range.${nextRange}`) }, 'warn');
         audioEngine.playGearRustle(0.5);
         resolveEnemyTurn(ctx, active.enemyId);
@@ -322,9 +456,10 @@ export const combatModule = {
       }
 
       if (move === 'take_cover') {
-        effects.apply([{ type: 'vital', vital: 'energy', amount: -3 }], ctx);
+        effects.apply([{ type: 'vital', vital: 'energy', amount: -1 }], ctx);
         const nextCover = active.playerCover === COVER_LEVELS.NONE ? COVER_LEVELS.LIGHT : COVER_LEVELS.HEAVY;
         store.commit('combat/setPlayerCover', nextCover);
+        active.lastPlayerAction = { type: 'cover', cover: nextCover };
         engine.log('combat.player_took_cover', { cover: ref(`combat.cover.${nextCover}`) }, 'good');
         audioEngine.playGearRustle(0.6);
         resolveEnemyTurn(ctx, active.enemyId);
@@ -333,10 +468,64 @@ export const combatModule = {
 
       if (move === 'clear_jam') {
         if (!active.weaponJammed) return { ok: false, reason: 'reject.not_jammed' };
-        effects.apply([{ type: 'vital', vital: 'energy', amount: -3 }], ctx);
+        effects.apply([{ type: 'vital', vital: 'energy', amount: -1 }], ctx);
         store.commit('combat/setWeaponJammed', false);
+        active.lastPlayerAction = { type: 'clear_jam' };
         audioEngine.playTerminalClick(1.2, 0.6);
         engine.log('combat.jam_cleared', {}, 'good');
+        store.commit('combat/nextRound');
+        resolveEnemyTurn(ctx, active.enemyId);
+        return { ok: true };
+      }
+
+      // --- STANCES & ADVANCED MANEUVERS (OPTION B) ---
+      if (move === 'overwatch') {
+        effects.apply([{ type: 'vital', vital: 'energy', amount: -2 }], ctx);
+        store.commit('combat/setStance', 'overwatch');
+        active.lastPlayerAction = { type: 'overwatch' };
+        audioEngine.playTerminalClick(1.2, 0.5);
+        engine.log('combat.player_overwatch_set', {}, 'good');
+        store.commit('combat/nextRound');
+        resolveEnemyTurn(ctx, active.enemyId);
+        return { ok: true };
+      }
+
+      if (move === 'take_aim') {
+        effects.apply([{ type: 'vital', vital: 'energy', amount: -1 }], ctx);
+        store.commit('combat/setAimBonus', true);
+        active.lastPlayerAction = { type: 'aim' };
+        audioEngine.playGearRustle(0.5);
+        engine.log('combat.player_aim_set', {}, 'good');
+        store.commit('combat/nextRound');
+        resolveEnemyTurn(ctx, active.enemyId);
+        return { ok: true };
+      }
+
+      if (move === 'suppress') {
+        if (!weapon.ammoId) {
+          return { ok: false, reason: 'reject.no_ammo' };
+        }
+        effects.apply([{ type: 'vital', vital: 'energy', amount: -3 }], ctx);
+        const availableAmmo = store.state.inventory.stacks.find(s => s.itemId === weapon.ammoId)?.qty || 1;
+        const ammoSpent = Math.min(2, availableAmmo);
+        store.commit('inventory/remove', { itemId: weapon.ammoId, qty: ammoSpent });
+
+        store.commit('combat/setEnemyStatusFlag', { flag: 'suppressed', value: true });
+        const remainingMorale = store.commit('combat/reduceMorale', 25);
+        active.lastPlayerAction = { type: 'suppress' };
+
+        const rangeProf = getWeaponRangeProfile(weapon.itemId);
+        audioEngine.playGunshot(rangeProf.caliber || '9mm', 0.85);
+
+        engine.log('combat.player_suppression', { name: enemyName(active.enemyId) }, 'good');
+
+        if (remainingMorale <= 20 && enemy.canSurrender) {
+          store.commit('combat/setEnemyStatusFlag', { flag: 'surrendered', value: true });
+          audioEngine.playWarningAlarm(440, 0.25, 0.5);
+          engine.log('combat.enemy_surrendered', { name: enemyName(active.enemyId) }, 'warn');
+          return { ok: true };
+        }
+
         store.commit('combat/nextRound');
         resolveEnemyTurn(ctx, active.enemyId);
         return { ok: true };
@@ -351,7 +540,7 @@ export const combatModule = {
         if (active.range === 'extreme' || active.range === 'long') coverBonus += 0.20;
 
         const escapeChance = Math.min(0.95, 0.50 + skillLevel(store.state, 'foraging') * 0.05 + coverBonus);
-        effects.apply([{ type: 'vital', vital: 'energy', amount: -6 }], ctx);
+        effects.apply([{ type: 'vital', vital: 'energy', amount: -3 }], ctx);
 
         if (rng.chance(escapeChance)) {
           store.commit('combat/end', { won: false });
@@ -364,13 +553,69 @@ export const combatModule = {
         return { ok: true };
       }
 
+      // --- ACTION D: VEHICLE RAMMING & SPEED AWAY ---
+      if (move === 'vehicle_ram') {
+        const vId = store.state.vehicles?.mountedVehicleId;
+        const v = vId ? store.state.vehicles?.fleet?.[vId] : null;
+        if (!v || !v.restored || v.fuelLiters < 0.8) {
+          return { ok: false, reason: 'reject.no_fuel' };
+        }
+        store.commit('vehicles/consumeFuel', { vehicleId: vId, liters: 0.8 });
+        store.commit('vehicles/degradeCondition', { vehicleId: vId, amount: 4 });
+        audioEngine.playEngineRev();
+
+        const ramDmg = rng.range(50, 85);
+        const remHp = store.commit('combat/damageEnemy', ramDmg);
+        engine.log('vehicle.log.ram_impact', { enemy: enemyName(active.enemyId), damage: ramDmg }, 'good');
+
+        if (remHp <= 0) {
+          audioEngine.playCombatVictory();
+          store.commit('combat/end', { won: true });
+          codexManager.trackCareer('totalEnemiesSlain', 1);
+          codexManager.trackEnemyKill(active.enemyId);
+          effects.apply([{ type: 'xp', skill: 'marksmanship', amount: enemy.xp }], ctx);
+          const drops = rollLoot(rng, enemy.lootTable, 2);
+          const nodeId = store.state.world.currentNodeId;
+          engine.bus.emit('loot:modal', {
+            type: 'combat_victory',
+            titleKey: 'loot.title.combat_victory',
+            descKey: 'loot.desc.combat_victory',
+            descParams: { enemy: enemyName(active.enemyId), xp: enemy.xp },
+            items: drops,
+            nodeId,
+            onConfirm: (taken, left) => {
+              for (const { itemId, qty } of taken) grantItems(ctx, itemId, qty);
+              for (const { itemId, qty } of left) {
+                store.commit('inventory/toGround', { nodeId, itemId, qty });
+              }
+            },
+          });
+          return { ok: true, ramDmg };
+        }
+        resolveEnemyTurn(ctx, active.enemyId);
+        return { ok: true, ramDmg };
+      }
+
+      if (move === 'vehicle_escape') {
+        const vId = store.state.vehicles?.mountedVehicleId;
+        const v = vId ? store.state.vehicles?.fleet?.[vId] : null;
+        if (!v || !v.restored || v.fuelLiters < 1.0) {
+          return { ok: false, reason: 'reject.no_fuel' };
+        }
+        store.commit('vehicles/consumeFuel', { vehicleId: vId, liters: 1.0 });
+        audioEngine.playEngineRev();
+        store.commit('combat/end', { won: false });
+        engine.log('vehicle.log.escaped_in_vehicle', { name: enemyName(active.enemyId) }, 'good');
+        return { ok: true };
+      }
+
       if (move === 'scavenge') {
         if (active.scavenged) return { ok: false, reason: 'reject.already_scavenged' };
         store.commit('combat/markScavenged');
         const loot = rollLoot(rng, enemy.lootTable, 1);
         effects.apply([
           { type: 'xp', skill: 'foraging', amount: 6 },
-          { type: 'vital', vital: 'energy', amount: -4 },
+          { type: 'vital', vital: 'energy', amount: -2 },
         ], ctx);
         const nodeId = store.state.world.currentNodeId;
         engine.bus.emit('loot:modal', {
@@ -416,7 +661,7 @@ export const combatModule = {
       }
 
       // Stamina expenditure
-      effects.apply([{ type: 'vital', vital: 'energy', amount: targetZone === TARGET_ZONES.HEAD ? -5 : -3 }], ctx);
+      effects.apply([{ type: 'vital', vital: 'energy', amount: targetZone === TARGET_ZONES.HEAD ? -2 : -1 }], ctx);
 
       // Audio feedback
       if (weapon.ammoId) {
@@ -435,7 +680,12 @@ export const combatModule = {
         defenderCover: active.enemyCover,
         enemy,
         weather,
+        aimBonus: active.aimBonus,
       });
+
+      const usedAimBonus = active.aimBonus;
+      store.commit('combat/setAimBonus', false);
+      store.commit('combat/setStance', null);
 
       if (rng.chance(hitChance)) {
         const { damage, isCritical, statusEffect } = calculateTacticalDamage({
@@ -444,10 +694,12 @@ export const combatModule = {
           range: active.range,
           targetZone,
           defenderCover: active.enemyCover,
+          aimBonus: usedAimBonus,
           rng,
         });
 
         const remainingHp = store.commit('combat/damageEnemy', damage);
+        active.lastPlayerAction = { type: 'attack', hit: true, dmg: damage, isCritical, zone: targetZone };
 
         // Targeted zone notifications
         if (isCritical) {
@@ -516,6 +768,7 @@ export const combatModule = {
           return { ok: true };
         }
       } else {
+        active.lastPlayerAction = { type: 'attack', hit: false, zone: targetZone };
         store.commit('combat/nextRound');
         engine.log('combat.player_missed', { name: enemyName(active.enemyId) }, 'warn');
       }

@@ -7,6 +7,7 @@ import {
 } from './inventoryModel.js';
 import { rollLoot } from './loot.js';
 import { codexManager } from '../../core/codexManager.js';
+import { getRecommendedTargetPart, applyMedicalTreatment } from '../status/bodyStatus.js';
 
 const EQUIP_MINUTES = 5;
 const itemName = (itemId) => ref(`item.${itemId}.name`);
@@ -18,11 +19,77 @@ function createStartingInventory() {
 }
 
 /** Treatment items are refused when they would do nothing, instead of silently wasting them. */
-function wouldBeWasted(item, player) {
+function wouldBeWasted(item, player, itemId = '') {
+  if (!item.use || !item.use.effects) return true;
   const effects = item.use.effects;
-  const cures = effects.filter((effect) => effect.type === 'cure');
-  const onlyTreats = effects.every((effect) => effect.type === 'cure' || effect.type === 'xp');
-  return onlyTreats && cures.length > 0 && cures.every((effect) => !player.ailments[effect.id]);
+  const body = player.body || {};
+  const parts = Object.values(body);
+
+  let hasTreatableCondition = false;
+
+  for (const eff of effects) {
+    if (eff.type === 'heal') {
+      if (player.health < 100 || parts.some((p) => p.health < 100)) {
+        hasTreatableCondition = true;
+      }
+    } else if (eff.type === 'vital') {
+      const current = player[eff.vital];
+      if (current != null && current < 100) {
+        hasTreatableCondition = true;
+      }
+    } else if (eff.type === 'cure') {
+      const id = eff.id;
+      if (player.ailments && player.ailments[id]) {
+        hasTreatableCondition = true;
+      }
+      if (id === 'bleeding' && (player.ailments?.bleeding || parts.some((p) => p.bleeding && p.bleeding !== 'none'))) {
+        hasTreatableCondition = true;
+      }
+      if (id === 'infection' && (player.ailments?.infection || parts.some((p) => (p.infectionRisk || 0) > 0))) {
+        hasTreatableCondition = true;
+      }
+      if (id === 'infectionRisk' && parts.some((p) => (p.infectionRisk || 0) > 0)) {
+        hasTreatableCondition = true;
+      }
+      if ((id === 'sprain' || id === 'fracture') && (player.ailments?.sprain || parts.some((p) => p.fractures))) {
+        hasTreatableCondition = true;
+      }
+      if (id === 'burn' && parts.some((p) => p.burns)) {
+        hasTreatableCondition = true;
+      }
+      if ((id === 'puncture' || id === 'pneumothorax') && body.torso?.punctured) {
+        hasTreatableCondition = true;
+      }
+      if (id === 'pain' && (player.ailments?.pain || parts.some((p) => p.health < 80 || p.fractures || p.burns))) {
+        hasTreatableCondition = true;
+      }
+      if (id === 'poison' && player.ailments?.poison) {
+        hasTreatableCondition = true;
+      }
+      if (id === 'fever' && (player.ailments?.fever || player.ailments?.infection)) {
+        hasTreatableCondition = true;
+      }
+      if (id === 'parasites' || id === 'malaria') {
+        hasTreatableCondition = true;
+      }
+    } else if (eff.type === 'stat') {
+      hasTreatableCondition = true;
+    }
+  }
+
+  if (item.category === 'medical') {
+    if (hasTreatableCondition) return false;
+    const target = getRecommendedTargetPart(body, itemId);
+    const probe = applyMedicalTreatment(JSON.parse(JSON.stringify(body)), itemId, target);
+    if (probe.success) return false;
+
+    return true;
+  }
+
+  const onlyCures = effects.every((eff) => eff.type === 'cure');
+  if (onlyCures && !hasTreatableCondition) return true;
+
+  return false;
 }
 
 /** Puts items in the pack; whatever does not fit is dropped where the player stands. */
@@ -71,7 +138,7 @@ function registerInventoryActions(engine) {
     const item = getItem(itemId);
     if (!item.use) return { ok: false, reason: 'reject.not_usable' };
     if (countItem(store.state.inventory, itemId) < 1) return { ok: false, reason: 'reject.missing_item' };
-    if (wouldBeWasted(item, store.state.player)) return { ok: false, reason: 'reject.nothing_to_treat' };
+    if (wouldBeWasted(item, store.state.player, itemId)) return { ok: false, reason: 'reject.nothing_to_treat' };
 
     store.commit('inventory/remove', { itemId, qty: 1 });
     engine.log('log.inventory.used', { item: itemName(itemId) });
@@ -80,6 +147,13 @@ function registerInventoryActions(engine) {
       codexManager.trackCareer('totalMedicalTreatments', 1);
       if (itemId.includes('tourniquet') || itemId.includes('splint') || itemId.includes('chest_seal') || itemId.includes('ciprofloxacin')) {
         codexManager.unlockAchievement('trauma_surgeon');
+      }
+      if (store.state.player.body) {
+        const target = getRecommendedTargetPart(store.state.player.body, itemId);
+        const res = applyMedicalTreatment(store.state.player.body, itemId, target, { bus: ctx.bus });
+        if (res.actionDesc) {
+          engine.log(res.actionDesc, {}, 'good');
+        }
       }
     }
 

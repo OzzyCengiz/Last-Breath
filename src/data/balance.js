@@ -4,32 +4,32 @@
 export const BALANCE = Object.freeze({
   vitals: {
     max: 100,
-    start: { health: 100, satiety: 70, hydration: 65, energy: 85 },
+    start: { health: 100, satiety: 85, hydration: 90, energy: 100 },
     bands: { fine: 60, low: 30, critical: 1 },
   },
 
   /** Per-hour vital drift by what the player is doing. */
   activities: {
-    idle:     { satiety: -2.5, hydration: -3.5, energy: -2 },
-    travel:   { satiety: -3.5, hydration: -5,   energy: -4.5 },
-    scavenge: { satiety: -3,   hydration: -4.5, energy: -4 },
-    rest:     { satiety: -1.5, hydration: -2.5, energy: 9 },
+    idle:     { satiety: -1.2, hydration: -1.4, energy: -0.8 },
+    travel:   { satiety: -1.8, hydration: -2.2, energy: -2.0 },
+    scavenge: { satiety: -1.5, hydration: -2.0, energy: -1.8 },
+    rest:     { satiety: -0.6, hydration: -0.8, energy: 15 },
   },
 
-  deprivationDamage: { satiety: 3.5, hydration: 6, energy: 1.5 },
+  deprivationDamage: { satiety: 1.5, hydration: 2.2, energy: 0.8 },
 
   regeneration: {
-    requires: { satiety: 50, hydration: 50 },
-    idle: 0.6,
-    rest: 2.5,
+    requires: { satiety: 25, hydration: 25 },
+    idle: 1.5,
+    rest: 6.0,
   },
 
   inventory: {
     baseCapacityKg: 16,
     baseSlots: 10,
     hardLimitRatio: 1.5,
-    overloadTravelPenalty: 1.3,
-    overloadEnergyDrain: 1.35,
+    overloadTravelPenalty: 1.15,
+    overloadEnergyDrain: 1.15,
     armorDamageReduction: 0.08,
   },
 
@@ -47,11 +47,11 @@ export const BALANCE = Object.freeze({
   },
 
   scavenge: {
-    minutes: [60, 90],
-    findChance: 0.72,
-    depletionPerSearch: 0.2,
-    depletionRecoveryPerHour: 0.002,
-    nightPenalty: 0.2,
+    minutes: [50, 75],
+    findChance: 0.85,
+    depletionPerSearch: 0.15,
+    depletionRecoveryPerHour: 0.003,
+    nightPenalty: 0.15,
     hazardChancePerDanger: 0.05,
   },
 
@@ -63,7 +63,7 @@ export const BALANCE = Object.freeze({
 
   startingNode: 'istanbul',
   startingKit: [
-    { itemId: 'bottled_water', qty: 2 },
+    { itemId: 'bottled_water', qty: 3 },
     { itemId: 'canned_beans', qty: 1 },
     { itemId: 'bandage', qty: 1 },
     { itemId: 'cloth_rags', qty: 2 },

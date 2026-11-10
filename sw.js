@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lastbreath-pwa-v3';
+const CACHE_NAME = 'lastbreath-pwa-v37';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -62,4 +62,3 @@ self.addEventListener('fetch', (event) => {
     );
   }
 });
-

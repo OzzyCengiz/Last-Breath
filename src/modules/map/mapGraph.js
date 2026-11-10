@@ -92,9 +92,9 @@ export function estimateJourney(state, fromId, toId) {
   const isDriving = Boolean(
     mountedVehicle &&
     mountedVehicle.restored &&
-    mountedVehicle.fuelLiters > 0 &&
+    (vehicleDef?.musclePowered || mountedVehicle.fuelLiters > 0) &&
     mountedVehicle.condition > 0 &&
-    route.mode !== 'sea'
+    (route.mode !== 'sea' || vehicleDef?.amphibious)
   );
 
   let hours = (baseHours + route.km / kmPerHour) * biome.travelTime;
@@ -104,6 +104,9 @@ export function estimateJourney(state, fromId, toId) {
 
   if (isDriving && vehicleDef) {
     hours *= vehicleDef.speedMultiplier;
+    if (mountedVehicle.upgrades?.includes('all_terrain_tires') || vehicleDef.arcticTracked) {
+      hours *= 0.9; // 10% faster over rough/arctic terrain
+    }
   } else {
     if (isOverloaded(state)) hours *= BALANCE.inventory.overloadTravelPenalty;
     hours *= statusTravelMultiplier(state);
@@ -118,7 +121,9 @@ export function estimateJourney(state, fromId, toId) {
 
   let risk = biome.encounterRate + (destination.danger - 1) * 0.06;
   if (route.mode === 'sea') risk += seaRiskBonus;
-  if (isNight(state.time.minutes) && passiveBonus(state, 'nightVision') <= 0) {
+  
+  const hasFloodlights = isDriving && mountedVehicle.upgrades?.includes('halogen_floodlights');
+  if (isNight(state.time.minutes) && !hasFloodlights && passiveBonus(state, 'nightVision') <= 0) {
     risk *= nightRiskMultiplier;
   }
   const envMods = WeatherEngine.getStealthAndVisibilityModifiers(state);
@@ -126,12 +131,15 @@ export function estimateJourney(state, fromId, toId) {
 
   if (isDriving && vehicleDef) {
     risk *= vehicleDef.noiseRiskMultiplier;
+    if (mountedVehicle.upgrades?.includes('halogen_floodlights')) {
+      risk *= 0.85; // Better situational awareness reduces surprise ambushes
+    }
   }
 
   risk = Math.min(maxEncounterChance, Math.max(0.05, risk));
 
   const fuelNeeded = isDriving && vehicleDef
-    ? VehicleEngine.calculateJourneyFuel(vehicleDef, route.km)
+    ? VehicleEngine.calculateJourneyFuel(mountedVehicle, vehicleDef, route.km)
     : 0;
 
   return {

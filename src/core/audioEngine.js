@@ -718,6 +718,126 @@ class AudioEngine {
       osc.stop(noteTime + 0.35);
     });
   }
+
+  /**
+   * Synthesizes mechanical frequency dial tick.
+   */
+  playRadioDialTick(volume = 0.22) {
+    const ctx = this.#getContext();
+    if (!ctx || this.#isMuted || !this.#noiseBuffer) return;
+
+    const t = ctx.currentTime;
+    const noise = ctx.createBufferSource();
+    noise.buffer = this.#noiseBuffer;
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(2400 + Math.random() * 400, t);
+    filter.Q.value = 4.0;
+
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(volume * 0.4, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.012);
+
+    noise.connect(filter);
+    filter.connect(gain);
+    gain.connect(this.#crtFilter);
+
+    noise.start(t);
+    noise.stop(t + 0.015);
+  }
+
+  /**
+   * Synthesizes radio static hiss modulated by signal reception clarity.
+   * @param {number} clarity - 0.0 (pure static) to 1.0 (crystal clear signal)
+   */
+  playRadioStatic(clarity = 0.0, volume = 0.2) {
+    const ctx = this.#getContext();
+    if (!ctx || this.#isMuted || !this.#noiseBuffer) return;
+
+    const t = ctx.currentTime;
+    const staticIntensity = Math.max(0.05, 1.0 - clarity);
+
+    const noise = ctx.createBufferSource();
+    noise.buffer = this.#noiseBuffer;
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    // Frequency shifts slightly with tuning
+    filter.frequency.setValueAtTime(1200 + clarity * 1800, t);
+    filter.Q.value = 1.8 + clarity * 3.0;
+
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(volume * staticIntensity * 0.5, t);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.16);
+
+    noise.connect(filter);
+    filter.connect(gain);
+    gain.connect(this.#crtFilter);
+
+    noise.start(t);
+    noise.stop(t + 0.18);
+  }
+
+  /**
+   * Synthesizes high-frequency Morse telemetry chirps.
+   */
+  playRadioMorseChirp(volume = 0.22) {
+    const ctx = this.#getContext();
+    if (!ctx || this.#isMuted) return;
+
+    const t = ctx.currentTime;
+    const beeps = [0, 0.07, 0.14, 0.25];
+
+    beeps.forEach((offset, idx) => {
+      const noteTime = t + offset;
+      const osc = ctx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(idx % 2 === 0 ? 800 : 1200, noteTime);
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.001, noteTime);
+      gain.gain.linearRampToValueAtTime(volume * 0.35, noteTime + 0.008);
+      gain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 0.045);
+
+      osc.connect(gain);
+      gain.connect(this.#crtFilter);
+
+      osc.start(noteTime);
+      osc.stop(noteTime + 0.05);
+    });
+  }
+
+  /**
+   * Synthesizes dynamo hand-crank winding gear ratcheting sound.
+   */
+  playRadioDynamoCrank(volume = 0.3) {
+    const ctx = this.#getContext();
+    if (!ctx || this.#isMuted) return;
+
+    const t = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(140, t);
+    osc.frequency.linearRampToValueAtTime(420, t + 0.18);
+    osc.frequency.exponentialRampToValueAtTime(80, t + 0.32);
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(900, t);
+
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.01, t);
+    gain.gain.linearRampToValueAtTime(volume * 0.4, t + 0.04);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.34);
+
+    osc.connect(filter);
+    filter.connect(gain);
+    gain.connect(this.#crtFilter);
+
+    osc.start(t);
+    osc.stop(t + 0.35);
+  }
 }
 
 // Export singleton instance as default and class for custom instances

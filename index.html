@@ -12,10 +12,10 @@
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
   <link rel="icon" type="image/svg+xml" href="./icons/icon.svg" />
-  <link rel="stylesheet" href="./css/main.css" />
-  <link rel="stylesheet" href="./css/layout.css" />
-  <link rel="stylesheet" href="./css/components/map.css" />
-  <link rel="stylesheet" href="./css/components/panels.css" />
+  <link rel="stylesheet" href="./css/main.css?v=38" />
+  <link rel="stylesheet" href="./css/layout.css?v=38" />
+  <link rel="stylesheet" href="./css/components/map.css?v=38" />
+  <link rel="stylesheet" href="./css/components/panels.css?v=38" />
 
   <!-- Google AdSense for Games / H5 Ads -->
   <script async
@@ -65,6 +65,9 @@
             </svg>
             <span id="locale-indicator" class="locale-indicator">TR</span>
           </button>
+          <button id="btn-open-radio" type="button" class="btn btn-ghost btn-xs btn-radio" title="Radio Transceiver / Telsiz">
+            📻 <span class="radio-label" data-i18n="hud.radio">RADIO</span><span id="radio-signal-badge" class="radio-signal-badge" hidden>●</span>
+          </button>
           <button id="btn-open-codex" type="button" class="btn btn-ghost btn-xs" data-i18n="hud.codex">
             📖 CODEX
           </button>
@@ -106,6 +109,9 @@
         <div id="status-root" class="pane-scroll"></div>
       </section>
 
+      <!-- Left Resizer Handle (Desktop) -->
+      <div id="resizer-left" class="deck-resizer resizer-col resizer-left" role="separator" aria-orientation="vertical" title="Sütun Genişliği (Çift tık: Sıfırla)"></div>
+
       <!-- Center Top (Desktop) / Tab 1 (Mobile): World Map & Local Sector Operations -->
       <section class="deck-pane pane-map is-active-panel" data-tab-panel="map">
         <header class="pane-header">
@@ -139,41 +145,52 @@
             >🌐</button>
           </div>
         </div>
+        <div id="resizer-map-dossier" class="map-dossier-resizer" role="separator" title="Harita / Bilgi Boyutu (Çift tık: Sıfırla)"></div>
         <div id="map-dossier" class="pane-scroll"></div>
       </section>
 
-      <!-- Center Bottom (Desktop) / Tab 5 (Mobile): Chronological Field Log -->
-      <section class="deck-pane pane-log" data-tab-panel="log">
-        <header class="pane-header">
-          <span data-i18n="hud.tab.log">FIELD LOG</span>
-        </header>
-        <div class="pane-scroll">
-          <ul id="log-list" class="log-stream"></ul>
-        </div>
-      </section>
+
+
+      <!-- Right Resizer Handle (Desktop) -->
+      <div id="resizer-right" class="deck-resizer resizer-col resizer-right" role="separator" aria-orientation="vertical" title="Sütun Genişliği (Çift tık: Sıfırla)"></div>
 
       <!-- Right Column Tab 1 (Desktop) / Tab 2 (Mobile): Inventory & Equipment -->
       <section class="deck-pane pane-inventory" data-tab-panel="inventory">
         <header class="pane-header">
           <span data-i18n="hud.tab.inventory">PACK &amp; GEAR</span>
           <div class="pane-tab-switcher">
-            <button type="button" class="pane-switch-btn is-active" data-right-tab="inventory" data-i18n="hud.tab.inventory">PACK &amp; GEAR</button>
-            <button type="button" class="pane-switch-btn" data-right-tab="craft" data-i18n="hud.tab.craft">CRAFT &amp; BASE</button>
+            <button type="button" class="pane-switch-btn is-active" data-right-tab="inventory" data-i18n="hud.tab.inventory_short">PACK</button>
+            <button type="button" class="pane-switch-btn" data-right-tab="craft" data-i18n="hud.tab.craft_short">CRAFT</button>
+            <button type="button" class="pane-switch-btn" data-right-tab="base" data-i18n="hud.tab.base_short">BASE</button>
           </div>
         </header>
         <div id="inventory-root" class="pane-scroll"></div>
       </section>
 
-      <!-- Right Column Tab 2 (Desktop) / Tab 3 (Mobile): Crafting & Base Outpost -->
+      <!-- Right Column Tab 2 (Desktop) / Tab 3 (Mobile): Crafting -->
       <section class="deck-pane pane-craft is-desktop-right-hidden" data-tab-panel="craft">
         <header class="pane-header">
-          <span data-i18n="hud.tab.craft">CRAFT &amp; BASE</span>
+          <span data-i18n="hud.tab.craft">CRAFTING</span>
           <div class="pane-tab-switcher">
-            <button type="button" class="pane-switch-btn" data-right-tab="inventory" data-i18n="hud.tab.inventory">PACK &amp; GEAR</button>
-            <button type="button" class="pane-switch-btn is-active" data-right-tab="craft" data-i18n="hud.tab.craft">CRAFT &amp; BASE</button>
+            <button type="button" class="pane-switch-btn" data-right-tab="inventory" data-i18n="hud.tab.inventory_short">PACK</button>
+            <button type="button" class="pane-switch-btn is-active" data-right-tab="craft" data-i18n="hud.tab.craft_short">CRAFT</button>
+            <button type="button" class="pane-switch-btn" data-right-tab="base" data-i18n="hud.tab.base_short">BASE</button>
           </div>
         </header>
         <div id="craft-root" class="pane-scroll"></div>
+      </section>
+
+      <!-- Right Column Tab 3 (Desktop) / Tab 4 (Mobile): Outpost & Base -->
+      <section class="deck-pane pane-base is-desktop-right-hidden" data-tab-panel="base">
+        <header class="pane-header">
+          <span data-i18n="hud.tab.base">OUTPOST</span>
+          <div class="pane-tab-switcher">
+            <button type="button" class="pane-switch-btn" data-right-tab="inventory" data-i18n="hud.tab.inventory_short">PACK</button>
+            <button type="button" class="pane-switch-btn" data-right-tab="craft" data-i18n="hud.tab.craft_short">CRAFT</button>
+            <button type="button" class="pane-switch-btn is-active" data-right-tab="base" data-i18n="hud.tab.base_short">BASE</button>
+          </div>
+        </header>
+        <div id="base-root" class="pane-scroll"></div>
       </section>
     </main>
 
@@ -190,13 +207,13 @@
         <span class="tab-glyph">⚒</span>
         <span class="tab-label" data-i18n="hud.tab.craft_short">CRAFT</span>
       </button>
+      <button type="button" class="mobile-tab-btn" data-tab-target="base">
+        <span class="tab-glyph">🏛</span>
+        <span class="tab-label" data-i18n="hud.tab.base_short">BASE</span>
+      </button>
       <button type="button" class="mobile-tab-btn" data-tab-target="status">
         <span class="tab-glyph">✚</span>
         <span class="tab-label" data-i18n="hud.tab.status_short">BIO</span>
-      </button>
-      <button type="button" class="mobile-tab-btn" data-tab-target="log">
-        <span class="tab-glyph">📜</span>
-        <span class="tab-label" data-i18n="hud.tab.log_short">LOG</span>
       </button>
     </nav>
   </div>
@@ -209,7 +226,13 @@
 
   <div id="vehicle-modal" class="action-modal-overlay" hidden></div>
 
+  <div id="vehicle-discovery-modal" class="action-modal-overlay" hidden></div>
+
   <div id="codex-modal" class="action-modal-overlay" hidden></div>
+
+  <div id="radio-modal" class="action-modal-overlay" hidden></div>
+
+  <div id="travel-modal" class="action-modal-overlay" hidden></div>
 
   <div id="encounter-host" class="encounter-overlay" hidden></div>
 
@@ -231,6 +254,6 @@
     </div>
   </div>
 
-  <script defer src="./dist/app.bundle.js?v=7"></script>
+  <script defer src="./dist/app.bundle.js?v=42"></script>
 </body>
 </html>

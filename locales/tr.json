@@ -194,8 +194,8 @@
       "rest_result": "SAHA İSTİRAHATİ // DURUM RAPORU"
     },
     "desc": {
-      "scavenge_found": "{location} sektöründeki arama sonucunda aşağıdaki kaynaklar bulundu. Çantanıza almak istediklerinizi seçin:",
-      "scavenge_empty": "{location} sektöründe yapılan detaylı aramada işe yarar bir şey bulunamadı. Bölgedeki hurda ve erzak tükenmiş olabilir.",
+      "scavenge_found": "{location} ({country}) sektöründeki arama sonucunda aşağıdaki kaynaklar bulundu. Çantanıza almak istediklerinizi seçin:",
+      "scavenge_empty": "{location} ({country}) sektöründe yapılan detaylı aramada işe yarar bir şey bulunamadı. Bölgedeki hurda ve erzak tükenmiş olabilir.",
       "combat_victory": "{enemy} etkisiz hale getirildi (+{xp} XP). Hedefin üzerinden aşağıdaki ganimetler ele geçirildi:",
       "combat_scavenge": "Çatışma sırasında düşmanın dikkatinden kaçarak şu ganimet ele geçirildi:",
       "survey": "Yüksek bir gözetleme noktasından yapılan taramada {count} yeni komşu koridor ve sektör haritalandı.",
@@ -210,6 +210,17 @@
       "take_selected": "SEÇİLENLERİ AL ({count})",
       "leave_all": "YERDE BIRAK",
       "close": "ANLADIM // DEVAM ET"
+    },
+    "scanner": {
+      "searching": "SEKTÖR TARANIYOR...",
+      "completed": "TARAMA TAMAMLANDI",
+      "empty_status": "SEKTÖR BOŞ",
+      "items_detected": "{revealed} / {total} kaynak tespit edildi",
+      "completed_desc": "Toplam {count} adet kaynak tespit edildi.",
+      "empty_desc": "Bu sektörde kullanılabilir bir eşya veya hurda bulunamadı.",
+      "telemetry_searching": "Molozlar, dolaplar ve enkaz taranıyor...",
+      "speedup": "HIZLANDIR ⏩",
+      "searching_wait": "ARANIYOR... (%{percent})"
     }
   },
   "hud": {
@@ -224,8 +235,10 @@
       "map_short": "HARİTA",
       "inventory": "ÇANTA & EKİPMAN",
       "inventory_short": "ÇANTA",
-      "craft": "ÜRETİM & ÜS",
+      "craft": "ÜRETİM & ŞEMA",
       "craft_short": "ÜRETİM",
+      "base": "SIĞINAK & ALTYAPI",
+      "base_short": "SIĞINAK",
       "status": "BİYOTARAMA",
       "status_short": "BİYO",
       "log": "SAHA KAYDI",
@@ -238,9 +251,28 @@
       "energy": "DAY"
     },
     "codex": "KODEKS",
-    "install_app": "YÜKLE"
+    "install_app": "YÜKLE",
+    "radio": "TELSİZ"
+  },
+  "ui": {
+    "page": "Sayfa {current} / {total}",
+    "prev_page": "◀ Önceki",
+    "next_page": "Sonraki ▶",
+    "slot_range": "{from}-{to} / {total}",
+    "close": "KAPAT"
+  },
+  "rarity": {
+    "common": "YAYGIN",
+    "rare": "NADİR",
+    "epic": "EPİK",
+    "legendary": "EFSANEVİ"
   },
   "status": {
+    "tabs": {
+      "vitals": "1. BİYOMETRİK",
+      "body": "2. TRAVMA",
+      "skills": "3. UZMANLIK"
+    },
     "section": {
       "vitals": "BİYOMETRİK DEĞERLER",
       "body": "ANATOMİK TRAVMA ŞEMASI",
@@ -265,7 +297,8 @@
         "pneumothorax": "PNÖMOTORAKS",
         "burn": "YANIK",
         "infection": "ENFEKTE"
-      }
+      },
+      "no_supplies": "Gereken tıbbi malzeme çantada yok"
     },
     "vital": {
       "health": "BÜTÜNLÜK",
@@ -302,6 +335,14 @@
       "name": "Bağ Burkulması",
       "desc": "İyileşene kadar bölgeler arası yürüyüş hızını düşürür.",
       "remaining": "{hours}sa kaldı"
+    },
+    "pain": {
+      "name": "Şiddetli Ağrı & Şok",
+      "desc": "Akut travma ve doku hasarı kaynaklı yoğun acı. Enerji tükenmesini hızlandırır ve hareket kabiliyetini kısıtlar."
+    },
+    "poison": {
+      "name": "Toksik Zehirlenme",
+      "desc": "Dolaşım sistemine karışan kimyasal veya biyolojik toksin. Zamanla doku nekrozuna ve organ hasarına yol açar."
     }
   },
   "skill": {
@@ -325,9 +366,14 @@
     }
   },
   "inventory": {
+    "tabs": {
+      "pack": "1. SIRT ÇANTASI",
+      "equipped": "2. KUŞANILAN DONANIM",
+      "vehicles": "Araçlar & Filo"
+    },
     "weight": "YÜK",
     "slots": "SLOT",
-    "overloaded_notice": "AŞIRI YÜK — Seyahat %30 yavaşlar ve dayanıklılık tüketimi %35 artar.",
+    "overloaded_notice": "AŞIRI YÜK — Seyahat %15 yavaşlar ve dayanıklılık tüketimi %15 artar.",
     "unarmed": "Silahsız",
     "no_ammo": "Mermisiz",
     "slot_empty": "— BOŞ —",
@@ -355,14 +401,38 @@
       "use": "KULLAN",
       "equip": "KUŞAN",
       "unequip": "ÇIKAR",
-      "drop": "BIRAK",
-      "take": "AL"
+      "drop": "BIRAK (1)",
+      "drop_all": "TÜMÜNÜ BIRAK",
+      "take": "AL",
+      "take_all": "HEPSİNİ AL",
+      "close_inspect": "KAPAT",
+      "take_one": "AL (×1)",
+      "take_all_item": "HEPSİNİ AL (×{count})",
+      "treat": "TEDAVİ ET"
+    },
+    "grid": {
+      "inspect_prompt": "İncelemek ve işlem yapmak için bir yuvaya dokunun.",
+      "slot_num": "Yuva {num}",
+      "empty_slot": "BOŞ",
+      "total_weight": "Toplam Yük",
+      "unit_kg": "kg"
+    },
+    "vehicles": {
+      "list_title": "SAHİPLENİLEN ARAÇ ENVANTERİ",
+      "empty_title": "HENÜZ BİR ARAÇ KEŞFEDİLMEDİ",
+      "empty_desc": "Dünyanın herhangi bir sektöründe keşif (survey), arama (scavenge) veya intikal yaparak terkedilmiş araçlar keşfedebilir ve filonuza katabilirsiniz.",
+      "action_go_map": "Keşif İçin Haritaya Git"
     }
   },
   "map": {
+    "tabs": {
+      "anchor": "1. MEVCUT MEVKİ",
+      "corridors": "2. BAĞLANTILI KORİDORLAR"
+    },
     "current_sector": "MEVCUT SEKTÖR",
     "selected_sector": "SEÇİLİ HEDEF SEKTÖR",
     "no_direct_corridor": "Mevcut sektörden doğrudan geçiş koridoru yok",
+    "country": "ÜLKE / BÖLGE",
     "coords": "WGS84 KONUM",
     "threat_level": "TEHLİKE DÜZEYİ",
     "scavenge_yield": "SEKTÖR REZERVİ",
@@ -377,7 +447,7 @@
       "sea": "DENİZ YOLU"
     },
     "action": {
-      "scavenge": "BÖLGEYİ YAĞMALA (1–1.5sa)",
+      "scavenge": "BÖLGEDE KEŞİF YAP (50–75dk)",
       "patrol": "DÜŞMAN ARA / ÇATIŞ (15dk)",
       "survey": "ÇEVREYİ KEŞFET (45dk)",
       "rest_hours": "DİNLEN {hours}sa",
@@ -505,8 +575,8 @@
     "player_cover": "Siper Durumu",
     "enemy_cover": "Düşman Siperi",
     "scavenge_tag": "Çatışma başı 1×",
-    "tag_immobilize": "Hareketsiz Bırak · -3 DAY",
-    "tag_disarm": "Silahsızlandır · -3 DAY",
+    "tag_immobilize": "Hareketsiz Bırak · -2 DAY",
+    "tag_disarm": "Silahsızlandır · -2 DAY",
     "spare_tag": "Ganimeti Al · +Karma",
     "execute_tag": "İnfaz Et · Acımasız",
     "targeted_fire": "Hedefli Balistik Atışlar",
@@ -537,6 +607,31 @@
     "enemy_advanced": "{name} hızla hücuma geçerek aradaki mesafeyi kapattı: {range}!",
     "enemy_crippled_cannot_advance": "{name} hücum etmeye çalıştı ancak kırık bacağının üzerine çöktü!",
     "enemy_took_cover": "{name} taktiksel siper arkasına daldı!",
+    "player_overwatch_set": "Silahınızı hazır tutup pusuya yattınız. Düşman hareket ettiği an tetik çekilecek!",
+    "player_aim_set": "Nefesinizi tutup hedefe odaklandınız. Bir sonraki vuruşunuz daha isabetli ve ölümcül olacak!",
+    "player_suppression": "Seri baskı ateşi açtınız! {name} siperine gömüldü ve morali ağır darbe aldı.",
+    "overwatch_triggered": "Pusu tetiklendi! {name} yaklaşırken refleks atışıyla {dmg} hasar verdiniz!",
+    "overwatch_missed": "Pusu ateşi açtınız ancak {name} hızla sıyrıldı!",
+    "enemy_suppressed_turn": "{name} yoğun baskı ateşi altında sindiği için bu tur hamle yapamadı!",
+    "enemy_intent_label": "Düşman Niyeti",
+    "intent": {
+      "surrendered": "Teslim oldu, eylem yapmıyor.",
+      "suppressed": "Baskı altında siperine sindi, başını kaldıramıyor!",
+      "crippled": "Kırık bacağı yüzünden hücum edemiyor!",
+      "advance": "Üzerinize doğru koşarak mesafeyi kapatmaya hazırlanıyor!",
+      "take_cover": "Siper aramak için etrafı kolaçan ediyor.",
+      "heavy_shot": "Ölümcül ağır atış için nişan alıyor!",
+      "shoot": "Silahını doğrultup ateş açmaya hazırlanıyor.",
+      "vicious_strike": "Vahşi bir atılımla yakın saldırı yapacak!",
+      "attack": "Doğrudan saldırıya geçmeye hazırlanıyor."
+    },
+    "range_short": {
+      "melee": "YAKIN",
+      "close": "KISA",
+      "medium": "ORTA",
+      "long": "UZAK",
+      "extreme": "AŞIRI"
+    },
     "range": {
       "melee": "Göğüs Göğüse (<5m)",
       "close": "Yakın Mesafe (15m)",
@@ -557,7 +652,10 @@
     },
     "status": {
       "leg_crippled": "Hareketsiz",
-      "disarmed": "Silahsız"
+      "disarmed": "Silahsız",
+      "overwatch": "PUSUDASINIZ (OVERWATCH)",
+      "aimed": "NİŞAN ALINDI (+%25)",
+      "suppressed": "DÜŞMAN BASKI ALTINDA"
     },
     "action": {
       "strike": "Gövdeye Saldırı",
@@ -565,11 +663,35 @@
       "scavenge": "Çatışma Ortasında Yağmala",
       "flee": "Teması Kes & Kaç",
       "take_cover": "Siper Al",
+      "take_aim": "Nişan Al",
+      "overwatch": "Pusuya Yat",
+      "suppress": "Baskı Ateşi",
       "advance": "Yaklaş",
       "retreat": "Geri Çekil",
       "clear_jam": "Tutukluğu Gider",
       "spare": "Affet & Silahsızlandır",
       "execute": "İnfaz Et"
+    },
+    "ui": {
+      "player_role": "HAYATTA KALAN",
+      "enemy_role": "DÜŞMAN TEHDİDİ",
+      "btn_attack": "ATEŞ ET / SALDIR",
+      "btn_strike": "DARBE İNDİR",
+      "zone_torso": "Gövde",
+      "zone_head": "Kafa",
+      "zone_legs": "Bacak",
+      "zone_arms": "Kol",
+      "clash_round_start": "⚔️ Düşman silahına davranıyor! Hamleni belirle.",
+      "clash_player_hit": "💥 SİZ: {zone} isabeti! {dmg} hasar verdiniz.",
+      "clash_player_crit": "⚡ SİZ: 💀 KRİTİK KAFA VURUŞU! {dmg} hasar verdiniz!",
+      "clash_player_miss": "💨 SİZ: Atışınız hedefi ıskaladı!",
+      "clash_enemy_hit": "🩸 DÜŞMAN: {name} vurdu! -{dmg} Can kaybettiniz.",
+      "clash_enemy_absorbed": "🛡️ DÜŞMAN: {name} vurdu ama siper hasarı azalttı (-{dmg} Can).",
+      "clash_enemy_miss": "💨 DÜŞMAN: {name} saldırdı fakat hamlesi boşa çıktı!",
+      "clash_enemy_advance": "👟 DÜŞMAN: {name} hızla yaklaştı ({range})!",
+      "clash_enemy_cover": "🧱 DÜŞMAN: {name} siper arkasına mevzilendi!",
+      "clash_enemy_suppressed": "💥 DÜŞMAN: Yoğun ateş yüzünden kafasını kaldıramadı!",
+      "clash_enemy_crippled": "🦵 DÜŞMAN: Sakat bacağı yüzünden ilerleyemedi!"
     }
   },
   "crafting": {
@@ -583,8 +705,22 @@
       "2": "TORNA II"
     },
     "action": {
-      "craft": "ÜRET"
-    }
+      "craft": "ÜRET",
+      "craft_one": "ÜRET ×1",
+      "craft_max": "TÜMÜNÜ ÜRET (×{count})"
+    },
+    "category": {
+      "all": "TÜMÜ",
+      "survival": "HAYATTA KALMA",
+      "medical": "TIBBİ",
+      "weapons": "SİLAHLAR",
+      "gear": "EKİPMAN"
+    },
+    "no_recipes_in_cat": "Bu kategoride henüz üretilebilir şema bulunamadı.",
+    "select_prompt": "Malzemeleri görmek ve üretmek için yukarıdaki şemalardan birine dokunun.",
+    "ingredients_needed": "GEREKLİ MALZEMELER",
+    "station_missing_warn": "Bu şema için {tier} gereklidir. Sığınağınızda Saha Tezgahı inşa edin veya geliştirin.",
+    "craftable_count": "{count} Adet Üretilebilir"
   },
   "base": {
     "location_label": "KURULU SIĞINAK",
@@ -599,8 +735,33 @@
       "establish": "{location} BÖLGESİNDE SIĞINAK KUR",
       "relocate": "SIĞINAĞI {location} BÖLGESİNE TAŞI",
       "upgrade": "İNŞA ET / GELİŞTİR",
-      "repair": "ÇEVREYİ ONAR (1× Çelik Plaka)"
-    }
+      "repair": "ÇEVREYİ ONAR (1× Çelik Plaka)",
+      "collect_all": "HASADI ÇANTAYA AL",
+      "stash_all_materials": "📦 TÜM MALZEMELERİ DEPOLA",
+      "take_all": "DEPOYU BOŞALT",
+      "toggle_generator": "⚡ GÜCÜ AÇ / KAPAT",
+      "refuel_generator": "⛽ YAKIT DOLDUR (+12s)",
+      "inspect_facility": "TESİSİ İNCELE"
+    },
+    "facility_inspect_prompt": "Detayları görmek ve inşa/geliştirme yapmak için bir tesise dokunun.",
+    "production_ready": "SIĞINAK ÜRETİMİ HAZIR",
+    "subtab": {
+      "facilities": "🏛️ TESİSLER",
+      "storage": "📦 DEPO",
+      "defense": "🛡️ SAVUNMA"
+    },
+    "power_label": "GÜÇ ŞEBEKESİ",
+    "power_active": "AKTİF ⚡",
+    "power_offline": "KAPALI",
+    "generator_fuel": "YAKIT: {hours}s ({mins} dk)",
+    "threat_label": "TEHDİT SEVİYESİ",
+    "threat_low": "DÜŞÜK",
+    "threat_medium": "ORTA",
+    "threat_high": "YÜKSEK",
+    "defense_power": "SAVUNMA GÜCÜ",
+    "no_defense_logs": "Henüz kayıtlı bir gece baskını veya güvenlik olayı yok.",
+    "raid_won_title": "Baskın Püskürtüldü",
+    "raid_lost_title": "Savunma Aşıldı"
   },
   "structure": {
     "workbench": {
@@ -618,6 +779,22 @@
     "med_cot": {
       "name": "Steril Revir Yatağı",
       "desc": "Sığınakta dinlenirken can yenilenmesini hızlandırır."
+    },
+    "greenhouse": {
+      "name": "Hidroponik Sera",
+      "desc": "Zamanla sığınak deposuna otomatik konserve gıda hasat eder."
+    },
+    "radio_relay": {
+      "name": "Telsiz Röle Kulesi",
+      "desc": "Sığınakta dinlenirken telsiz bataryasını otomatik şarj eder ve sinyal gücünü artırır."
+    },
+    "vehicle_depot": {
+      "name": "Araç Bakım Hangarı",
+      "desc": "Sığınakta bekleyen aracın gövde kondisyonunu zamanla otomatik onarır."
+    },
+    "generator": {
+      "name": "Dizel & Benzin Jeneratörü",
+      "desc": "Sığınağa elektrik gücü sağlar. Üretim sürelerini yarıya indirir, serayı hızlandırır ve gece savunmasını aydınlatır."
     }
   },
   "item": {
@@ -2752,6 +2929,18 @@
     "leather_sheath_folding_pocket_knife": {
       "name": "Kilitli Çakı ve Deri Kılıfı",
       "desc": "Pirinç perçinli, odun yontmak ve ip kesmek için pratik kilit mekanizmalı cep çakısı."
+    },
+    "military_ifak_complete": {
+      "name": "Tam Donanımlı Askeri Travma Kiti (IFAK)",
+      "desc": "Taktik operasyonlar için tasarlanmış kapsamlı ilk yardım kiti. Atardamar turnikesi, hemostatik kaolin gazlı bez, valfli göğüs mührü ve dekompresyon ekipmanı içerir."
+    },
+    "morphine_auto_injector": {
+      "name": "Morfin Oto-Enjektörü",
+      "desc": "Acil saha travmalarında ve şok durumlarında kullanılan yay mekanizmalı askeri ağrı kesici oto-enjektör. Ağrıyı anında keser ve morali toparlar."
+    },
+    "vehicle_ignition_key": {
+      "name": "Araç Kontak Anahtarı & Ruhsatı",
+      "desc": "Keşfedilen ve sahiplenilen araca ait mekanik kontak anahtarı ve tescil dosyası. Filo yönetiminde kullanılır."
     }
   },
   "faction": {
@@ -2895,9 +3084,44 @@
       "awakened": "Soğuk cızırtı dağılıyor. {location} harabelerinde teçhizat kayışlarını sıkıyorsun."
     },
     "scavenge": {
-      "started": "{location} harabelerinde erzak ve hurda aranıyor...",
-      "empty": "{location} içindeki yıkıntılar tarandı ancak işe yarar bir şey bulunamadı.",
+      "started": "{location} ({country}) harabelerinde detaylı keşif & arama yapılıyor...",
+      "empty": "{location} ({country}) içindeki yıkıntılar tarandı ancak işe yarar kaynak bulunamadı.",
+      "found": "{location} ({country}) bölgesinde {count} parça yerel kaynak ve teçhizat ele geçirildi.",
+      "rare_discovery": "⭐ {location} ({country}) bölgesinde değerli bir kaynak keşfedildi!",
       "field_log": "[ELE GEÇİRİLEN SAHA KAYDI] {text}"
+    },
+    "crafting": {
+      "crafted": "Üretildi: {count}× {item}."
+    },
+    "base": {
+      "established": "{location} bölgesinde sığınak kuruldu.",
+      "upgraded": "{structure} seviye {level} olarak geliştirildi.",
+      "repaired": "Sığınak tahkimatı ve barikatlar onarıldı.",
+      "stored": "Sığınak deposuna aktarıldı: {count}× {item}.",
+      "water_collected": "Su Yoğuşturucu: {count} şişe temiz su depolandı.",
+      "food_collected": "Hidroponik Sera: {count} adet konserve gıda depolandı.",
+      "vehicle_repaired": "Araç Hangarı: Araç kondisyonu +%{amount} onarıldı.",
+      "materials_stashed": "Tüm hurda ve üretim malzemeleri ({count} parça) depoya aktarıldı.",
+      "generator_started": "Sığınak jeneratörü çalıştırıldı. Elektrik şebekesi aktif.",
+      "generator_stopped": "Sığınak jeneratörü kapatıldı.",
+      "generator_refueled": "Jeneratöre yakıt ikmali yapıldı (+{hours} saat).",
+      "generator_depleted": "Jeneratörün yakıtı tükendi! Güç şebekesi kapandı.",
+      "raid_defended": "Gece Baskını: Barikatlar yağmacıları püskürttü! (+{loot} hurda metal ele geçirildi).",
+      "raid_breached": "Gece Baskını: Yağmacılar barikatı aştı! Sığınak çevre savunması %{damage} hasar aldı."
+    },
+    "effect": {
+      "morale_boost": "Moral ve odaklanma toparlandı (+{amount}).",
+      "rad_resistance": "Radyasyon koruma dozu etki gösterdi (+{amount})."
+    },
+    "ailment": {
+      "pain": {
+        "healed": "Ağrı hafifledi ve vücut sakinleşti.",
+        "cured": "Ağrı kesici etkisini gösterdi, acı tamamen dindi."
+      },
+      "poison": {
+        "healed": "Toksik zehirlenme vücuttan temizlendi.",
+        "cured": "Antidot toksinleri nötralize etti, zehirlenme sona erdi."
+      }
     }
   },
   "vehicle": {
@@ -2908,13 +3132,20 @@
       "pack_inventory": "Hayatta Kalan Çantası",
       "trunk_inventory": "Taşıt Bagajı",
       "pack_empty": "Çantada eşya yok.",
-      "trunk_empty": "Taşıt bagajı boş."
+      "trunk_empty": "Taşıt bagajı boş.",
+      "mounted_vehicle": "Aktif Araç"
     },
     "status": {
       "operational": "ÇALIŞIR DURUMDA",
       "abandoned": "TERKEDİLMİŞ ENKAZ",
       "driving": "SÜRÜLÜYOR",
-      "missing": "EKSİK"
+      "missing": "EKSİK",
+      "installed": "TAKILDI",
+      "missing_materials": "EKSİK MALZEME",
+      "ready": "SÜRÜŞE HAZIR",
+      "needs_repair": "PARÇA EKSİK / ONARILMALI",
+      "here": "Bu Sektörde",
+      "unknown_location": "Bilinmeyen Konum"
     },
     "action": {
       "mount": "Kontağı Çalıştır (Bin)",
@@ -2924,12 +3155,24 @@
       "repair_scrap": "Gövdeyi Onar (Hurda)",
       "repair_oil": "Yağ Seviyesini Tamamla (Motor Yağı)",
       "to_trunk": "Bagaja Koy",
-      "to_pack": "Çantaya Al"
+      "to_pack": "Çantaya Al",
+      "install_upgrade": "Yükseltmeyi Tak",
+      "camp_4h": "Araçta Dinlen (4s)",
+      "camp_8h": "Araçta Uyu (8s)",
+      "ram_enemy": "Araçla Çarpıp Ez",
+      "speed_away": "Gazı Kökleyip Kaç"
     },
     "spec": {
-      "speed": "İntikal Hızı",
+      "speed": "Hız",
       "noise": "Motor Gürültüsü",
-      "shelter": "Kabini Korunaklı"
+      "shelter": "Kabini Korunaklı",
+      "armor": "Zırh Koruması",
+      "amphibious": "Amfibi (Suya Girer)",
+      "solar_electric": "Güneş & Elektrik",
+      "field_clinic": "Sahra Kliniği (Tedavi)",
+      "arctic_tracked": "Kutup Paleti (Buz Aşar)",
+      "muscle_powered": "Kas Gücü (Sıfır Yakıt)",
+      "cabin": "Kapalı Kabin"
     },
     "gauge": {
       "fuel": "Yakıt Deposu",
@@ -2938,7 +3181,8 @@
     "section": {
       "restoration": "Parça Montajı ve Restorasyon",
       "maintenance": "Saha Bakımı ve İkmal",
-      "cargo_bay": "Bagaj Yükleme ve Çanta Yönetimi"
+      "cargo_bay": "Bagaj Yükleme ve Çanta Yönetimi",
+      "upgrades": "Modüler Yükseltmeler & Eklentiler"
     },
     "enduro": {
       "name": "Enduro 250cc Keşif Motosikleti",
@@ -2962,13 +3206,94 @@
       "siphoned": "Yol kenarındaki enkazdan depoya +{siphoned}L yakıt sifonlandı!",
       "no_fuel": "Motor yakıtsızlıktan tekleme yapıp durdu! Yakıt deposu boş.",
       "not_ready": "Taşıtın kritik parçaları eksik, çalıştırılamıyor.",
-      "cannot_cross_water": "Tekerlekli kara taşıtları deniz yolunu aşamaz!"
+      "cannot_cross_water": "Tekerlekli kara taşıtları deniz yolunu aşamaz!",
+      "upgrade_installed": "{vehicle} üzerine modüler eklenti monte edildi: {upgrade}.",
+      "camped": "Motor durduruldu ve araç kabininde {hours} saat güvenle dinlenildi.",
+      "ram_impact": "Tam gaz ileri! Araç {enemy} üzerine sürülerek {damage} kinetik ezme hasarı vuruldu!",
+      "escaped_in_vehicle": "Gaza sonuna kadar basarak {enemy} geride bırakılıp hızla uzaklaşıldı!",
+      "field_clinic_healed": "Ambulans sahra kliniği seyahat esnasında yaralarınızı tedavi etti (+15 Can).",
+      "discovered": "🚨 {location} sektöründe terkedilmiş bir {vehicle} keşfettiniz!",
+      "claimed": "{vehicle} başarıyla sahiplenildi ve araç envanterinize eklendi."
     },
     "reject": {
       "invalid_vehicle": "Taşıt bulunamadı.",
       "insufficient_fuel": "Yolculuk için yetersiz yakıt.",
       "trunk_full": "Taşıt bagajı azami taşıma sınırında!",
-      "part_not_in_inventory": "Gerekli parça envanterde yok."
+      "part_not_in_inventory": "Gerekli parça envanterde yok.",
+      "no_cabin_shelter": "Bu aracın kapalı bir kabini veya kamp yatağı bulunmadığından içinde güvenle uyunamaz.",
+      "upgrade_already_installed": "Bu yükseltme araca zaten monte edilmiş durumda.",
+      "missing_upgrade_materials": "Bu yükseltmeyi monte etmek için gereken malzemeler eksik.",
+      "muscle_powered_no_fuel": "Bu araç mekanik kas gücüyle çalışır, sıvı yakıt doldurulamaz."
+    },
+    "buggy": {
+      "name": "Güneş Enerjili Çöl Buggy’si",
+      "desc": "Güneş panelleriyle desteklenen ultra hafif keşif aracı. Fısıltı sessizliğinde elektrikli motor ve gündüzleri kendi şarj olan batarya."
+    },
+    "btr": {
+      "name": "BTR-80 Amfibik Zırhlı Personel Taşıyıcı",
+      "desc": "Ağır çelik gövdeli 8x8 zırhlı amfibik muharebe aracı. Ağır zırh koruması ve su jeti motoruyla nehir ve deniz geçişlerini doğrudan aşabilir."
+    },
+    "upgrade": {
+      "bullbar": {
+        "name": "Güçlendirilmiş Çelik Tampon Demiri",
+        "desc": "Çelik plakalardan kaynatılmış ağır ön tampon. Çarpışmalarda korur ve yol barikatlarını yarıp geçmeyi sağlar (+%15 zırh)."
+      },
+      "cargo_rack": {
+        "name": "Genişletilmiş Tavan Bagajı",
+        "desc": "Ağır boru profilli çatı sepeti. Araç bagaj taşıma kapasitesini +%40 artırır."
+      },
+      "tires": {
+        "name": "Arazi Tipi Çamur & Kar Lastikleri",
+        "desc": "Derin dişli güçlendirilmiş arazi lastikleri. Yakıt tüketimini %20 düşürür ve engebeli arazide sürati artırır."
+      },
+      "floodlights": {
+        "name": "Tavan Halojen Projektör Farları",
+        "desc": "Aküye bağlı yüksek lümenli tavan aydınlatma barı. Gece yolculuklarındaki görüş kısıtlamasını ve pusu riskini sıfırlar."
+      },
+      "fuel_tank": {
+        "name": "Ek Yakıt Deposu / Bidon Yuvası",
+        "desc": "Gövdeye kaynatılmış harici yakıt tankı desteği. Toplam yakıt kapasitesine +25 Litre/kWh ekler."
+      },
+      "camper_bed": {
+        "name": "Süngerli Kamp Yatağı & Çatı Çadırı",
+        "desc": "Yalıtımlı sünger yatak ve yün tulum. Haritanın her yerinde güvenli, sıcak bir şekilde dinlenme ve uyuma imkanı sağlar."
+      }
+    },
+    "ambulance": {
+      "name": "Gezici Sahra Ambulansı (Medevac)",
+      "desc": "Tam donanımlı askeri sahra ambulansı. İçerisindeki cerrahi ekipman ve oksijen desteği sayesinde yolculuk ve kamp esnasında ağır yaralanmaları, kanamaları ve kırıkları tedavi eder."
+    },
+    "snowcat": {
+      "name": "Arktik Paletli Kar Canavarı (Snowcat)",
+      "desc": "Kutup şartları ve donmuş dağ yolları için güçlendirilmiş ağır paletli kargo aracı. Tundra zemin cezalarını yok eder ve kar fırtınalarına karşı tam koruma sağlar."
+    },
+    "draisine": {
+      "name": "Terkedilmiş Demiryolu Drezini",
+      "desc": "Demiryolu hatlarında çalışan manivela dişlili demiryolu drezini. Yakıtsız çalışır ve insan gücü kullanır. Motor sesi olmadığı için pusu riskini fısıltı seviyesine (%30) indirir."
+    },
+    "rhib": {
+      "name": "Taktik Askeri Zodyak Botu (RHIB)",
+      "desc": "İkiz motorlu askeri taktik zodyak taarruz botu. Deniz ve nehir rotalarını normal sürenin dörtte birinde aşar."
+    },
+    "fuel": {
+      "muscle_label": "Kas Gücü (Yakıtsız)"
+    },
+    "action_mount": "Araca Bin ve Sür",
+    "action_dismount": "İn / Park Et",
+    "hud_title": "ARAÇ KOKPİT GÖSTERGESİ",
+    "parked_in_sector": "Bu Sektörde Park Halinde Araç",
+    "trunk_load": "Bagaj Yükü",
+    "speed_multiplier": "{speed}x İntikal Hızı",
+    "action_open_trunk": "Bagaj & Bakım",
+    "zero_fuel_consumption": "Kas Gücü (0 L Yakıt)",
+    "action_view_on_map": "Haritada Göster",
+    "discovery": {
+      "title": "TERKEDİLMİŞ ARAÇ KEŞFEDİLDİ!",
+      "tag_derelict": "TERKEDİLMİŞ ENKAZ",
+      "parts_needed_title": "RESTORASYON İÇİN GEREKLİ PARÇALAR",
+      "action_claim_inventory": "Sahiplen & Envantere Ekle",
+      "action_inspect_now": "Hemen İncele & Parça Tak",
+      "action_leave_sector": "Sektörde Bırak & Kapat"
     }
   },
   "death": {
@@ -3035,20 +3360,62 @@
       "crafts_done": "Tamamlanan Saha Üretimleri"
     },
     "ach": {
-      "first_blood": { "title": "İlk Temas", "desc": "Taktiksel çatışmada bir düşmanı etkisiz hale getir." },
-      "pacifist_mercy": { "title": "Merhamet Yasası", "desc": "Teslim olan silahlı bir yağmacıyı öldürmek yerine affedip serbest bırak." },
-      "trauma_surgeon": { "title": "Saha Cerrahı", "desc": "Arteryel kanamayı CAT turnikesi ile durdur ve kırık bir uzvu SAM ateliyle sabitle." },
-      "mechanic_maestro": { "title": "Enkaz Mühendisi", "desc": "Terkedilmiş bir askeri veya arazi taşıtını tüm parçalarını toplayarak restore et." },
-      "silk_road_tycoon": { "title": "İpek Yolu Taciri", "desc": "Tek seferde tüccarlarla 200 değer puanının üzerinde başarılı takas gerçekleştir." },
-      "nomad_ally": { "title": "Bozkır Kardeşliği", "desc": "Göçebe Loncası (Nomad Guild) ile itibarını +30 (Müttefik) seviyesine yükselt." },
-      "iron_discipline": { "title": "Demir Disiplin", "desc": "Demir Muhafızlar (Iron Guard) ile itibarını +30 seviyesine yükselt." },
-      "acid_survivor": { "title": "Kimyasal Gazisi", "desc": "Aşındırıcı asit yağmuru veya radyasyon kül fırtınasını hasar almadan atlat." },
-      "eurasian_nomad": { "title": "Avrasya Seyyahı", "desc": "Harita üzerinde 10 farklı sektörü keşfet ve ayak bas." },
-      "endurance_champion": { "title": "Demir İrade", "desc": "Acımasız kıyamet sonrasında 10 günden fazla hayatta kal." },
-      "fuel_siphoner": { "title": "Yakıt Korsanı", "desc": "Sifon hortumu kullanarak terkedilmiş araç enkazlarından yakıt çek." },
-      "outpost_pioneer": { "title": "İlk Tahkimat", "desc": "Bir sektöre ilk ileri karakol üssünü inşa et." },
-      "master_scavenger": { "title": "Usta Yağmacı", "desc": "Harabelerden toplamda 50'den fazla kaynak ve eşya topla." },
-      "sniper_doctrine": { "title": "Keskin Nişancı", "desc": "Ateşli silahla uzaktan tek vuruşta kritik kafa hasarı ver." }
+      "first_blood": {
+        "title": "İlk Temas",
+        "desc": "Taktiksel çatışmada bir düşmanı etkisiz hale getir."
+      },
+      "pacifist_mercy": {
+        "title": "Merhamet Yasası",
+        "desc": "Teslim olan silahlı bir yağmacıyı öldürmek yerine affedip serbest bırak."
+      },
+      "trauma_surgeon": {
+        "title": "Saha Cerrahı",
+        "desc": "Arteryel kanamayı CAT turnikesi ile durdur ve kırık bir uzvu SAM ateliyle sabitle."
+      },
+      "mechanic_maestro": {
+        "title": "Enkaz Mühendisi",
+        "desc": "Terkedilmiş bir askeri veya arazi taşıtını tüm parçalarını toplayarak restore et."
+      },
+      "silk_road_tycoon": {
+        "title": "İpek Yolu Taciri",
+        "desc": "Tek seferde tüccarlarla 200 değer puanının üzerinde başarılı takas gerçekleştir."
+      },
+      "nomad_ally": {
+        "title": "Bozkır Kardeşliği",
+        "desc": "Göçebe Loncası (Nomad Guild) ile itibarını +30 (Müttefik) seviyesine yükselt."
+      },
+      "iron_discipline": {
+        "title": "Demir Disiplin",
+        "desc": "Demir Muhafızlar (Iron Guard) ile itibarını +30 seviyesine yükselt."
+      },
+      "acid_survivor": {
+        "title": "Kimyasal Gazisi",
+        "desc": "Aşındırıcı asit yağmuru veya radyasyon kül fırtınasını hasar almadan atlat."
+      },
+      "eurasian_nomad": {
+        "title": "Avrasya Seyyahı",
+        "desc": "Harita üzerinde 10 farklı sektörü keşfet ve ayak bas."
+      },
+      "endurance_champion": {
+        "title": "Demir İrade",
+        "desc": "Acımasız kıyamet sonrasında 10 günden fazla hayatta kal."
+      },
+      "fuel_siphoner": {
+        "title": "Yakıt Korsanı",
+        "desc": "Sifon hortumu kullanarak terkedilmiş araç enkazlarından yakıt çek."
+      },
+      "outpost_pioneer": {
+        "title": "İlk Tahkimat",
+        "desc": "Bir sektöre ilk ileri karakol üssünü inşa et."
+      },
+      "master_scavenger": {
+        "title": "Usta Yağmacı",
+        "desc": "Harabelerden toplamda 50'den fazla kaynak ve eşya topla."
+      },
+      "sniper_doctrine": {
+        "title": "Keskin Nişancı",
+        "desc": "Ateşli silahla uzaktan tek vuruşta kritik kafa hasarı ver."
+      }
     },
     "lore_cat": {
       "factions": "Kıyamet Hizipleri",
@@ -3057,12 +3424,30 @@
     },
     "lore": {
       "cleared": "GİZLİLİK KALDIRILDI",
-      "iron_guard": { "title": "Demir Muhafız Komuta Yapısı", "desc": "Yeraltı askeri sığınaklarında mühürlenmiş kıyamet öncesi nizam ordusu kalıntıları. Katı protokoller ve yüksek teknolojili silahlarla donanmış olup harabelerde karantinayı uygular ve hurda karşılığı mühimmat sağlarlar." },
-      "nomad_guild": { "title": "Göçebe Loncası Ticaret Kervanları", "desc": "Tarihi İpek Yolu güzergahlarını su arıtma konvoyları ve deve/yük kervanlarıyla kat eden tecrübeli tüccar klanları ve gezgin hurdacılar birliği." },
-      "ash_marauders": { "title": "Kül Yağmacıları Doktrini", "desc": "Viyadükleri ve stratejik boğazları kesen, seyyahları haraç barikatlarıyla soyan ve pusu kuran acımasız harabe çeteleri." },
-      "trauma_tccc": { "title": "Taktik Muharebe Yaralı Bakımı (TCCC)", "desc": "Kıyamet şartlarında hayatta kalmak için CAT turnikelerle acil kanama durdurma, göğüs dekompresyonu ve SAM atelleriyle kırık sabitleme doktrini." },
-      "weather_extremes": { "title": "Atmosferik Toksisite Profilleri", "desc": "Sanayi enkazlarından yükselen aşındırıcı asit yağmurları teni ve kıyafetleri eritirken; radyoaktif kül fırtınaları NBC gaz maskeleri veya kapalı araç kabinleri gerektirir." },
-      "vehicle_overland": { "title": "Motorlu İntikal ve Lojistik Protokolü", "desc": "Motorlu araçlar 3x-4.5x hız avantajı ve yüzlerce kiloluk bagaj kapasitesi sunar; ancak içten yanmalı motor gürültüsü yağmacıları ve yaratıkları hızla çeker." }
+      "iron_guard": {
+        "title": "Demir Muhafız Komuta Yapısı",
+        "desc": "Yeraltı askeri sığınaklarında mühürlenmiş kıyamet öncesi nizam ordusu kalıntıları. Katı protokoller ve yüksek teknolojili silahlarla donanmış olup harabelerde karantinayı uygular ve hurda karşılığı mühimmat sağlarlar."
+      },
+      "nomad_guild": {
+        "title": "Göçebe Loncası Ticaret Kervanları",
+        "desc": "Tarihi İpek Yolu güzergahlarını su arıtma konvoyları ve deve/yük kervanlarıyla kat eden tecrübeli tüccar klanları ve gezgin hurdacılar birliği."
+      },
+      "ash_marauders": {
+        "title": "Kül Yağmacıları Doktrini",
+        "desc": "Viyadükleri ve stratejik boğazları kesen, seyyahları haraç barikatlarıyla soyan ve pusu kuran acımasız harabe çeteleri."
+      },
+      "trauma_tccc": {
+        "title": "Taktik Muharebe Yaralı Bakımı (TCCC)",
+        "desc": "Kıyamet şartlarında hayatta kalmak için CAT turnikelerle acil kanama durdurma, göğüs dekompresyonu ve SAM atelleriyle kırık sabitleme doktrini."
+      },
+      "weather_extremes": {
+        "title": "Atmosferik Toksisite Profilleri",
+        "desc": "Sanayi enkazlarından yükselen aşındırıcı asit yağmurları teni ve kıyafetleri eritirken; radyoaktif kül fırtınaları NBC gaz maskeleri veya kapalı araç kabinleri gerektirir."
+      },
+      "vehicle_overland": {
+        "title": "Motorlu İntikal ve Lojistik Protokolü",
+        "desc": "Motorlu araçlar 3x-4.5x hız avantajı ve yüzlerce kiloluk bagaj kapasitesi sunar; ancak içten yanmalı motor gürültüsü yağmacıları ve yaratıkları hızla çeker."
+      }
     }
   },
   "ad": {
@@ -3075,6 +3460,97 @@
       "reward_granted": "Acil durum yardım sandığı başarıyla ulaştı! Malzemeler envantere eklendi.",
       "reward_granted_vip": "👑 VIP ERİŞİM: Acil erzak sandığı reklamsız ve anında teslim edildi!",
       "dismissed": "Yayın yarıda kesildi. İkmal çağrısı iptal edildi."
+    }
+  },
+  "radio": {
+    "ui": {
+      "title": "AN/PRC-117F TAKTİK TELSİZ ALICISI",
+      "pwr_on": "GÜÇ AÇIK",
+      "pwr_off": "GÜÇ KAPALI",
+      "carrier_lock": "SİNYAL KİLİTLENDİ",
+      "scanning_carrier": "FREKANS ARANIYOR",
+      "tuning_hint": "Analog kadranı çevirerek veya OTO-TARA ile çorak toprakların frekanslarını (88.0 - 108.0 MHz) tarayın.",
+      "no_power_msg": "TELSİZ BATARYASI TÜKENDİ. ŞARJ ETMEK İÇİN EL DİNAMOSUNU ÇEVİRİN.",
+      "confirm_sos": "ACİL DURUM İMDAT (SOS) SİNYALİ GÖNDERİLSİN Mİ?\n\n40 dk batarya tüketir. Dost kervanları yardıma çağırabilir veya pusucu haydutları üzerinize çekebilir!",
+      "presets": "HAFIZALAR",
+      "decode_and_plot": "SİNYALİ ÇÖZ & HARİTAYA İŞLE",
+      "decoded_plotted": "ÇÖZÜLDÜ & HARİTAYA İŞLENDİ",
+      "beacon_detected": "SEKTÖRDE RADYO SİNYALİ VAR",
+      "beacon_here_hint": "Yakalanan bir telsiz yayını bu sektörde acil durum koordinatları belirledi.",
+      "tune_radio": "TELSİZİ AÇ",
+      "claim_cache": "ZULAYI ELE GEÇİR / ERZAĞI AL"
+    },
+    "signal": {
+      "dr_aris": {
+        "name": "Mayday // Acil Durum Kliniği SOS",
+        "caller": "Dr. Aris (Kuşatma Altında)",
+        "transcript": "Mayday, burası Sektör Sağlık Şubesi’nden Dr. Aris... Barikatlarımız yaratık sürüsüne fazla dayanamayacak. Bu yayını alan olursa, koordinatlar klinik bodrum sığınağına kilitlendi. Taşıyabileceğiniz tüm tıbbi erzağı alın..."
+      },
+      "numbers_station": {
+        "name": "Echo-309 İstasyonu // NATO Sayı İstasyonu",
+        "caller": "Otomatik Tekrarlayan Siren",
+        "transcript": "[PARAZİTLİ BİP] ... 7 - 4 - 1 - 9 - 2 ... [BİP] ... SOFYA SEKTÖRÜ ASKERİ SIĞINAK ERİŞİM KODU ONAYLANDI ... [TEKRAR DÖNGÜSÜ] ..."
+      },
+      "raider_ambush": {
+        "name": "Telsiz Yakalama // Çakal Çetesi",
+        "caller": "Yakalanan Haydut Frekansı",
+        "transcript": "Tüm birimler Ankara kanyon geçidinde mevzi alsın. Lastik patlatan çiviler ve yakıt tuzakları hazır. Yola yaklaşan bir çöpçü var... görüldüğü yerde vurun..."
+      },
+      "weather_beacon": {
+        "name": "NOAA Acil Durum Meteoroloji İstasyonu",
+        "caller": "Otomatik Uydu Telemetrisi",
+        "transcript": "DİKKAT: Sektör üzerinde yoğun atmosferik iyon fırtınası ve asit yağmuru cephesi ilerliyor. Derhal kapalı ve korunaklı sığınak bulunuz..."
+      },
+      "nomad_caravan": {
+        "name": "Göçebe Tüccar Kervanı Anonsu",
+        "caller": "Gezgin Tarık",
+        "transcript": "Çorak diyara selam olsun. Kızıl Yıldız Kervanı önümüzdeki 24 saat boyunca Bükreş Sektörü’nde konaklayacak. Temiz su, hurda metal ve nadir filtreler takasa açıktır. Silahsız yaklaşın."
+      },
+      "pulsar_anomaly": {
+        "name": "Bilinmeyen Frekans // Pulsar Dalgaları",
+        "caller": "Bilinmeyen Kaynak",
+        "transcript": "[RİTMİK METALİK UĞULTU] ... Gökyüzü yarıldı ama çekirdek hâlâ ayakta... 106.3 MHz Kiev’in altındaki eski reaktörle rezonansa giriyor... Radyasyonun gözlerinizi kör etmesine izin vermeyin..."
+      }
+    },
+    "cache": {
+      "medical_drop": "Tıbbi Malzeme Zulaları",
+      "nato_bunker": "NATO Acil Sığınak Kasası",
+      "ambush_thwarted": "Haydut Pususu Boşa Çıkarıldı",
+      "forecast_logged": "Atmosferik Telemetri Kaydedildi",
+      "trader_rendezvous": "Göçebe Kervan Buluşma Noktası",
+      "anomaly_analyzed": "Anomali Dalgası Analiz Edildi"
+    },
+    "log": {
+      "cranked": "El dinamosu çevrildi. Telsiz bataryası {battery} dk seviyesine şarj edildi.",
+      "decoded": "Telsiz yayını deşifre edildi: {title} ({freq}).",
+      "beacon_plotted": "Acil durum sinyal noktası haritaya işlendi: {location}.",
+      "beacon_collected": "Telsiz koordinatlarındaki acil durum erzak zulaları ele geçirildi: {title}.",
+      "sos_aid_drop": "Dost bir göçebe devriyesi SOS çağrınıza yanıt verdi! Yakına hayatta kalma erzakları bıraktı.",
+      "sos_hostile_intercept": "Düşman yağmacılar imdat çağrınızı yakaladı! Bölgedeki tehlike seviyesi arttı."
+    },
+    "reject": {
+      "low_battery": "Telsiz bataryası acil durum sinyali için çok zayıf. Şarj için el dinamosunu çevirin."
+    },
+    "sos": {
+      "aid_arrived": "Göçebe devriyesi çağrıya yetişip erzak bıraktı.",
+      "raider_alert": "Düşman yağmacılar imdat sinyalinize kilitlendi!"
+    }
+  },
+  "travel": {
+    "ui": {
+      "transit_title": "SEKTÖR İNTİKALİ",
+      "arrived_title": "HEDEFE ULAŞILDI",
+      "speed": "Hız",
+      "distance": "Toplam Yol",
+      "est_time": "Tahmini Süre",
+      "rem_distance": "Kalan Mesafe",
+      "progress": "İntikal İlerlemesi",
+      "skip": "⏩ HIZLANDIR",
+      "enter_sector": "SEKTÖRE GİRİŞ YAP",
+      "first_visit": "İLK KEŞİF"
+    },
+    "log": {
+      "ambush_alert": "⚠️ DİKKAT: YOLDA PUSUYA DÜŞÜRÜLDÜNÜZ! SİLAHLI TEHDİT TESPİT EDİLDİ!"
     }
   }
 }

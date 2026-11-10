@@ -123,6 +123,41 @@ export function getWeaponRangeProfile(weaponId) {
 }
 
 /**
+ * Determines enemy's telegraphed combat intent for the upcoming round.
+ */
+export function determineEnemyIntent({ enemy, range, enemyCover, enemyStatus, rng }) {
+  if (enemyStatus?.surrendered || enemyStatus?.routed) {
+    return { type: 'surrendered', key: 'combat.intent.surrendered' };
+  }
+  if (enemyStatus?.suppressed) {
+    return { type: 'suppressed', key: 'combat.intent.suppressed' };
+  }
+  // Melee enemy at distance MUST advance
+  if (!enemy.ranged && range !== 'melee') {
+    if (enemyStatus?.fracturedLeg) {
+      return { type: 'crippled', key: 'combat.intent.crippled' };
+    }
+    return { type: 'advance', key: 'combat.intent.advance' };
+  }
+  // Ranged enemy in open might seek cover
+  if (enemy.ranged && enemyCover === COVER_LEVELS.NONE && rng && rng.chance(0.35)) {
+    return { type: 'take_cover', key: 'combat.intent.take_cover' };
+  }
+  // Ranged enemy aiming heavy shot
+  if (enemy.ranged) {
+    if (rng && rng.chance(0.35)) {
+      return { type: 'heavy_shot', key: 'combat.intent.heavy_shot' };
+    }
+    return { type: 'shoot', key: 'combat.intent.shoot' };
+  }
+  // Melee in melee range: strike or vicious lunge
+  if (rng && rng.chance(0.35)) {
+    return { type: 'vicious_strike', key: 'combat.intent.vicious_strike' };
+  }
+  return { type: 'attack', key: 'combat.intent.attack' };
+}
+
+/**
  * Initializes a tactical engagement with range, cover, and morale parameters.
  */
 export function initTacticalState({ enemy, weather = 'clear_sky', rng }) {
@@ -142,27 +177,32 @@ export function initTacticalState({ enemy, weather = 'clear_sky', rng }) {
   }
 
   const initialMorale = enemy.morale ?? (enemy.canSurrender === false ? 100 : 70);
+  const enemyCover = rng && rng.chance(0.25) && enemy.ranged ? COVER_LEVELS.LIGHT : COVER_LEVELS.NONE;
+  const enemyStatus = {
+    fracturedLeg: false,
+    disarmed: false,
+    suppressed: false,
+    surrendered: false,
+    routed: false,
+  };
 
   return {
     range: startingRange,
     playerCover: COVER_LEVELS.NONE,
-    enemyCover: rng && rng.chance(0.25) && enemy.ranged ? COVER_LEVELS.LIGHT : COVER_LEVELS.NONE,
+    enemyCover,
     enemyMorale: initialMorale,
     maxEnemyMorale: initialMorale,
     weaponJammed: false,
-    enemyStatus: {
-      fracturedLeg: false,
-      disarmed: false,
-      suppressed: false,
-      surrendered: false,
-      routed: false,
-    },
+    enemyStatus,
+    stance: null, // 'overwatch' | null
+    aimBonus: false,
+    enemyIntent: determineEnemyIntent({ enemy, range: startingRange, enemyCover, enemyStatus, rng }),
   };
 }
 
 /**
  * Calculates hit probability accounting for weapon range efficiency, target zone penalty,
- * defender cover evasion, and environmental visibility factors.
+ * defender cover evasion, environmental visibility, and active aim bonus.
  */
 export function calculateTacticalHitChance({
   state,
@@ -172,13 +212,18 @@ export function calculateTacticalHitChance({
   defenderCover = COVER_LEVELS.NONE,
   enemy,
   weather = 'clear_sky',
+  aimBonus = false,
+  bonusAccuracy = 0,
 }) {
   const rangeProf = getWeaponRangeProfile(weaponProfile?.itemId);
   const marksmanship = skillLevel(state, 'marksmanship');
-  const debuffs = getBodyDebuffs(state.player.body);
+  const debuffs = getBodyDebuffs(state?.player?.body);
 
-  // Baseline accuracy
-  let baseAccuracy = 0.78 + marksmanship * 0.025 - debuffs.weaponAccuracyPenalty;
+  // Baseline accuracy (aim bonus grants +0.25)
+  let baseAccuracy = 0.78 + marksmanship * 0.025 - debuffs.weaponAccuracyPenalty + bonusAccuracy;
+  if (aimBonus) {
+    baseAccuracy += 0.25;
+  }
 
   // Range penalty/bonus
   if (rangeProf.optimal.includes(range)) {
@@ -237,10 +282,16 @@ export function calculateTacticalDamage({
   range,
   targetZone = TARGET_ZONES.TORSO,
   defenderCover = COVER_LEVELS.NONE,
+  aimBonus = false,
   rng,
 }) {
   const rangeProf = getWeaponRangeProfile(weaponId);
   let damage = baseRating * 2.2 + (rng ? rng.int(2, 6) : 3);
+
+  // If player took aim, apply +50% precision strike damage bonus
+  if (aimBonus) {
+    damage *= 1.5;
+  }
 
   // Range efficiency damage adjustments
   if (rangeProf.type === 'shotgun') {
@@ -252,7 +303,7 @@ export function calculateTacticalDamage({
   }
 
   // Target Zone Multipliers
-  let isCritical = false;
+  let isCritical = Boolean(aimBonus);
   let statusEffect = null;
 
   switch (targetZone) {

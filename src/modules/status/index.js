@@ -114,6 +114,31 @@ function tickSprain(ctx, sprain, hours) {
   ctx.store.commit('player/setAilment', { id: 'sprain', data: { hours: remaining } });
 }
 
+function tickPain(ctx, pain, hours) {
+  const rules = AILMENTS.pain;
+  const decay = (rules?.decayPerHour || 0.5) * hours;
+  const remaining = (pain.severity || 1) - decay;
+  if (remaining <= 0) {
+    ctx.store.commit('player/clearAilment', 'pain');
+    ctx.engine.log('log.ailment.pain.healed', {}, 'good');
+    return;
+  }
+  ctx.store.commit('player/setAilment', { id: 'pain', data: { severity: remaining } });
+}
+
+function tickPoison(ctx, poison, hours, harm) {
+  const rules = AILMENTS.poison;
+  harm.add('poison', (rules?.healthPerHour || 1.5) * hours);
+  const decay = (rules?.decayPerHour || 1.0) * hours;
+  const remaining = (poison.severity || 10) - decay;
+  if (remaining <= 0) {
+    ctx.store.commit('player/clearAilment', 'poison');
+    ctx.engine.log('log.ailment.poison.healed', {}, 'good');
+    return;
+  }
+  ctx.store.commit('player/setAilment', { id: 'poison', data: { severity: remaining } });
+}
+
 /** Accumulates damage per cause so a death can be attributed to the worst one. */
 function createHarmLedger() {
   const byCause = new Map();
@@ -151,6 +176,8 @@ function tickStatus(ctx, { hours, activity }) {
   if (ailments.bleeding) tickBleeding(ctx, ailments.bleeding, hours, harm);
   if (ailments.infection) tickInfection(ctx, ailments.infection, hours, harm);
   if (ailments.sprain) tickSprain(ctx, ailments.sprain, hours);
+  if (ailments.pain) tickPain(ctx, ailments.pain, hours);
+  if (ailments.poison) tickPoison(ctx, ailments.poison, hours, harm);
 
   if (store.state.player.body) {
     const bodyTick = tickBodyState(store.state.player.body, hours, { rng: ctx.rng, bus: ctx.bus });
@@ -192,15 +219,34 @@ function registerStatusEffects(ctx) {
     engine.log(key, { vital: ref(`status.vital.${vital}`), amount: Math.abs(Math.round(applied)) });
   });
 
-  effects.register('heal', ({ amount }, options) => {
+  effects.register('heal', ({ amount }, _context, source) => {
     const healed = adjustVital(ctx, 'health', rollRange(rng, amount) * skillMultiplier(store.state, 'medical'));
     engine.log('log.effect.healed', { amount: Math.round(healed) }, 'good');
-    if (store.state.player.body && options?.itemId) {
-      const target = getRecommendedTargetPart(store.state.player.body, options.itemId);
-      const res = applyMedicalTreatment(store.state.player.body, options.itemId, target, { bus: ctx.bus });
+    const itemId = source?.itemId;
+    if (store.state.player.body && itemId) {
+      const target = getRecommendedTargetPart(store.state.player.body, itemId);
+      const res = applyMedicalTreatment(store.state.player.body, itemId, target, { bus: ctx.bus });
       if (res.actionDesc) {
         engine.log(res.actionDesc, {}, 'good');
       }
+    }
+  });
+
+  effects.register('stat', ({ id, amount }) => {
+    if (id === 'stamina' || id === 'energy') {
+      adjustVital(ctx, 'energy', amount);
+      engine.log('log.effect.vital_up', { vital: ref('status.vital.energy'), amount: Math.round(amount) });
+    } else if (id === 'thirst' || id === 'hydration') {
+      adjustVital(ctx, 'hydration', amount);
+      engine.log('log.effect.vital_up', { vital: ref('status.vital.hydration'), amount: Math.round(amount) });
+    } else if (id === 'hunger' || id === 'satiety') {
+      adjustVital(ctx, 'satiety', amount);
+      engine.log('log.effect.vital_up', { vital: ref('status.vital.satiety'), amount: Math.round(amount) });
+    } else if (id === 'morale') {
+      adjustVital(ctx, 'energy', amount * 0.5);
+      engine.log('log.effect.morale_boost', { amount: Math.round(amount) }, 'good');
+    } else if (id === 'radResistance') {
+      engine.log('log.effect.rad_resistance', { amount: Math.round(amount) }, 'good');
     }
   });
 
@@ -224,11 +270,16 @@ function registerStatusEffects(ctx) {
   effects.register('ailment', ({ id, severity = 1 }) => {
     const current = store.state.player.ailments[id];
     const rules = AILMENTS[id];
+    if (!rules) return;
     let data;
     if (id === 'bleeding') {
       data = { severity: Math.min(rules.maxSeverity, (current?.severity ?? 0) + severity) };
     } else if (id === 'infection') {
       data = { progress: Math.min(100, (current?.progress ?? 0) + rules.initial.progress) };
+    } else if (id === 'pain') {
+      data = { severity: Math.min(rules.maxSeverity, (current?.severity ?? 0) + severity) };
+    } else if (id === 'poison') {
+      data = { severity: Math.min(rules.maxSeverity, (current?.severity ?? 0) + severity) };
     } else {
       data = { ...rules.initial };
     }
@@ -236,16 +287,46 @@ function registerStatusEffects(ctx) {
     engine.log(current ? `log.ailment.${id}.worse` : `log.ailment.${id}.gained`, {}, 'bad');
   });
 
-  effects.register('cure', ({ id, amount }, options) => {
-    if (store.state.player.body && options?.itemId) {
-      const target = getRecommendedTargetPart(store.state.player.body, options.itemId);
-      const res = applyMedicalTreatment(store.state.player.body, options.itemId, target, { bus: ctx.bus });
+  effects.register('cure', ({ id, amount }, _context, source) => {
+    const itemId = source?.itemId;
+    if (store.state.player.body && itemId) {
+      const target = getRecommendedTargetPart(store.state.player.body, itemId);
+      const res = applyMedicalTreatment(store.state.player.body, itemId, target, { bus: ctx.bus });
       if (res.actionDesc) {
         engine.log(res.actionDesc, {}, 'good');
       }
     }
+
+    // Direct trauma clearance if item cures trauma flags
+    if (store.state.player.body) {
+      const body = store.state.player.body;
+      if (id === 'bleeding') {
+        for (const p of Object.values(body)) {
+          if (p.bleeding === 'minor') p.bleeding = 'none';
+        }
+      } else if (id === 'fracture') {
+        for (const p of Object.values(body)) {
+          p.fractures = false;
+        }
+      } else if (id === 'burn') {
+        for (const p of Object.values(body)) {
+          p.burns = false;
+        }
+      } else if (id === 'puncture' || id === 'pneumothorax') {
+        if (body.torso) body.torso.punctured = false;
+      } else if (id === 'infection' || id === 'infectionRisk') {
+        for (const p of Object.values(body)) {
+          p.infectionRisk = Math.max(0, p.infectionRisk - (amount || 50));
+        }
+      }
+    }
+
     const current = store.state.player.ailments[id];
     if (!current) return;
+    if (!AILMENTS[id]) {
+      store.commit('player/clearAilment', id);
+      return;
+    }
     const field = Object.keys(AILMENTS[id].initial)[0];
     const remaining = amount == null ? 0 : current[field] - amount * skillMultiplier(store.state, 'medical');
     if (remaining <= 0) {

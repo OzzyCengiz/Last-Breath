@@ -32,6 +32,7 @@ export function statusTravelMultiplier(state) {
   let multiplier = 1;
   if (player.energy < BALANCE.travel.exhaustedThreshold) multiplier *= BALANCE.travel.exhaustedTimeMultiplier;
   if (player.ailments.sprain) multiplier *= AILMENTS.sprain.travelTimeMultiplier;
+  if (player.ailments.pain) multiplier *= (AILMENTS.pain?.travelTimeMultiplier || 1.10);
   if (player.body) {
     const debuffs = getBodyDebuffs(player.body);
     multiplier *= debuffs.travelTimeMultiplier;
@@ -45,7 +46,9 @@ export function ailmentIntensity(id, data) {
     case 'bleeding': return data.severity / AILMENTS.bleeding.maxSeverity;
     case 'infection': return data.progress / 100;
     case 'sprain': return Math.min(1, data.hours / AILMENTS.sprain.initial.hours);
-    default: return 0;
+    case 'pain': return Math.min(1, (data.severity || 1) / (AILMENTS.pain?.maxSeverity || 5));
+    case 'poison': return Math.min(1, (data.severity || 1) / (AILMENTS.poison?.maxSeverity || 100));
+    default: return 0.5;
   }
 }
 

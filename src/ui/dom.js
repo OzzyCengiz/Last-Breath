@@ -35,7 +35,7 @@ function applyAttributes(element, attrs) {
 
 function appendChildren(parent, children) {
   for (const child of children.flat(Infinity)) {
-    if (child == null || child === false) continue;
+    if (child == null || typeof child === 'boolean' || child === '') continue;
     if (typeof child === 'object' && child !== null && 'nodeType' in child) {
       parent.append(child);
     } else if (typeof Node !== 'undefined' && child instanceof Node) {

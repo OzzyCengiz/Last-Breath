@@ -194,8 +194,8 @@
       "rest_result": "FIELD REST // STATUS REPORT"
     },
     "desc": {
-      "scavenge_found": "Scavenging in {location} yielded the following resources. Select which items to pack into your inventory:",
-      "scavenge_empty": "Thorough search in {location} found nothing of immediate use. The local scrap deposits may be depleted.",
+      "scavenge_found": "Scavenging in {location} ({country}) yielded the following regional resources. Select which items to pack into your inventory:",
+      "scavenge_empty": "Searched {location} ({country}) thoroughly but found no usable salvage. The local scrap deposits may be depleted.",
       "combat_victory": "{enemy} was neutralized (+{xp} XP). The following items were recovered from the hostile:",
       "combat_scavenge": "You swiftly scavenged {enemy} while dodging. Found:",
       "survey": "High-ground observation successfully charted {count} new neighboring corridors and waypoints.",
@@ -210,6 +210,17 @@
       "take_selected": "PACK SELECTED ({count})",
       "leave_all": "LEAVE ON GROUND",
       "close": "ACKNOWLEDGE // CONTINUE"
+    },
+    "scanner": {
+      "searching": "SCANNING SECTOR...",
+      "completed": "SCAN COMPLETED",
+      "empty_status": "SECTOR EMPTY",
+      "items_detected": "{revealed} / {total} resources detected",
+      "completed_desc": "A total of {count} items were found and cataloged.",
+      "empty_desc": "No salvageable items or scrap could be found in this sector.",
+      "telemetry_searching": "Searching debris, lockers, and wreckage...",
+      "speedup": "SPEED UP ⏩",
+      "searching_wait": "SEARCHING... (%{percent})"
     }
   },
   "hud": {
@@ -224,8 +235,10 @@
       "map_short": "MAP",
       "inventory": "PACK & GEAR",
       "inventory_short": "PACK",
-      "craft": "CRAFT & BASE",
+      "craft": "CRAFTING",
       "craft_short": "CRAFT",
+      "base": "OUTPOST & BASE",
+      "base_short": "BASE",
       "status": "BIOSCAN",
       "status_short": "BIO",
       "log": "FIELD LOG",
@@ -238,9 +251,28 @@
       "energy": "STAM"
     },
     "codex": "CODEX",
-    "install_app": "INSTALL"
+    "install_app": "INSTALL",
+    "radio": "RADIO"
+  },
+  "ui": {
+    "page": "Page {current} / {total}",
+    "prev_page": "◀ Prev",
+    "next_page": "Next ▶",
+    "slot_range": "{from}-{to} / {total}",
+    "close": "CLOSE"
+  },
+  "rarity": {
+    "common": "COMMON",
+    "rare": "RARE",
+    "epic": "EPIC",
+    "legendary": "LEGENDARY"
   },
   "status": {
+    "tabs": {
+      "vitals": "1. BIOMETRIC",
+      "body": "2. TRAUMA",
+      "skills": "3. SKILLS"
+    },
     "section": {
       "vitals": "BIOMETRIC VITALS",
       "body": "ANATOMICAL TRAUMA SCHEMATIC",
@@ -265,7 +297,8 @@
         "pneumothorax": "PNEUMOTHORAX",
         "burn": "BURN",
         "infection": "INFECTED"
-      }
+      },
+      "no_supplies": "Required medical supply not in pack"
     },
     "vital": {
       "health": "INTEGRITY",
@@ -302,6 +335,14 @@
       "name": "Torn Ligament",
       "desc": "Slows overland travel significantly until splinted or rested.",
       "remaining": "{hours}h rem"
+    },
+    "pain": {
+      "name": "Severe Pain & Shock",
+      "desc": "Intense physical trauma draining stamina and slowing movement speed."
+    },
+    "poison": {
+      "name": "Toxic Poisoning",
+      "desc": "Circulating systemic toxins causing progressive biological damage."
     }
   },
   "skill": {
@@ -325,9 +366,14 @@
     }
   },
   "inventory": {
+    "tabs": {
+      "pack": "1. CARRIED INVENTORY",
+      "equipped": "2. WORN RIG & LOADOUT",
+      "vehicles": "Vehicles & Fleet"
+    },
     "weight": "LOAD",
     "slots": "SLOTS",
-    "overloaded_notice": "OVERBURDENED — Overland travel slowed by 30% and stamina drain increased by 35%.",
+    "overloaded_notice": "OVERBURDENED — Overland travel slowed by 15% and stamina drain increased by 15%.",
     "unarmed": "Unarmed",
     "no_ammo": "Dry / No Rounds",
     "slot_empty": "— EMPTY —",
@@ -355,14 +401,38 @@
       "use": "USE",
       "equip": "EQUIP",
       "unequip": "STOW",
-      "drop": "DROP",
-      "take": "TAKE"
+      "drop": "DROP (1)",
+      "drop_all": "DROP ALL",
+      "take": "TAKE",
+      "take_all": "TAKE ALL",
+      "close_inspect": "CLOSE",
+      "take_one": "TAKE (×1)",
+      "take_all_item": "TAKE ALL (×{count})",
+      "treat": "TREAT"
+    },
+    "grid": {
+      "inspect_prompt": "Tap any slot to inspect specifications and actions.",
+      "slot_num": "Slot {num}",
+      "empty_slot": "EMPTY",
+      "total_weight": "Total Load",
+      "unit_kg": "kg"
+    },
+    "vehicles": {
+      "list_title": "CLAIMED VEHICLES INVENTORY",
+      "empty_title": "NO VEHICLES DISCOVERED YET",
+      "empty_desc": "Perform survey recon, scavenge searches, or travel across any sector in the world to discover abandoned derelict vehicles and add them to your fleet.",
+      "action_go_map": "Open World Map to Scout"
     }
   },
   "map": {
+    "tabs": {
+      "anchor": "1. CURRENT ANCHOR",
+      "corridors": "2. CONNECTED CORRIDORS"
+    },
     "current_sector": "CURRENT ANCHOR",
     "selected_sector": "TARGET SECTOR",
     "no_direct_corridor": "No direct route from current anchor",
+    "country": "TERRITORY / COUNTRY",
     "coords": "WGS84 GRID",
     "threat_level": "HOSTILITY INDEX",
     "scavenge_yield": "SECTOR RESERVES",
@@ -377,7 +447,7 @@
       "sea": "MARITIME"
     },
     "action": {
-      "scavenge": "SCAVENGE SECTOR (1–1.5h)",
+      "scavenge": "RECON & SCAVENGE (50–75m)",
       "patrol": "ENGAGE HOSTILES (15m)",
       "survey": "RECON PERIMETER (45m)",
       "rest_hours": "BIVOUAC {hours}h",
@@ -2604,6 +2674,18 @@
     "leather_sheath_folding_pocket_knife": {
       "name": "Lockback Carbon Steel Pocket Knife with Leather Sheath",
       "desc": "Classic folding knife with brass bolsters; reliable for field dressing and whittling."
+    },
+    "military_ifak_complete": {
+      "name": "Complete Military IFAK Trauma Kit",
+      "desc": "Tactical individual first aid kit containing combat tourniquets, hemostatic gauze, vented chest seals, and trauma dressings."
+    },
+    "morphine_auto_injector": {
+      "name": "Morphine Auto-Injector",
+      "desc": "Spring-loaded military analgesic auto-injector for severe trauma and hemodynamic shock. Provides immediate pain suppression."
+    },
+    "vehicle_ignition_key": {
+      "name": "Vehicle Ignition Key & Dossier",
+      "desc": "Mechanical ignition key and operational dossier of a claimed vehicle. Used for fleet management."
     }
   },
   "encounter": {
@@ -2860,6 +2942,14 @@
         "healed": "The sprained ligament has stabilized.",
         "cured": "Joint pain subsides completely.",
         "treated": "Analgesics dull the sprain."
+      },
+      "pain": {
+        "healed": "Pain subsided and vitals stabilized.",
+        "cured": "Analgesic took full effect, relieving all pain."
+      },
+      "poison": {
+        "healed": "Toxic poison purged from bloodstream.",
+        "cured": "Antidote neutralized toxins successfully."
       }
     },
     "effect": {
@@ -2867,7 +2957,9 @@
       "vital_down": "{vital} -{amount}%.",
       "healed": "Restored +{amount}% physical integrity.",
       "damaged": "Sustained -{amount}% trauma.",
-      "time_lost": "Spent {minutes} minutes."
+      "time_lost": "Spent {minutes} minutes.",
+      "morale_boost": "Morale and focus stabilized (+{amount}).",
+      "rad_resistance": "Radiation prophylaxis active (+{amount})."
     },
     "skill": {
       "level_up": "{skill} proficiency advanced to level {level}."
@@ -2893,8 +2985,10 @@
       "aborted": "Retreated back to {origin}."
     },
     "scavenge": {
-      "started": "Combing the ruins of {location} for salvage...",
-      "empty": "Picked through collapsed structures in {location} and came up empty.",
+      "started": "Scouting and salvaging ruins in {location} ({country})...",
+      "empty": "Picked through collapsed structures in {location} ({country}) and came up empty.",
+      "found": "Recovered {count} items of regional supplies and salvage in {location} ({country}).",
+      "rare_discovery": "⭐ Discovered high-tier regional equipment in {location} ({country})!",
       "field_log": "[RECOVERED DISPATCH] {text}"
     },
     "survey": {
@@ -2913,14 +3007,23 @@
       "triggered": "CONTACT: {title}"
     },
     "crafting": {
-      "crafted": "Fabricated {item} (×{count})."
+      "crafted": "Crafted: {count}× {item}."
     },
     "base": {
-      "established": "Established fortified outpost at {location}.",
-      "upgraded": "Constructed {structure} (Level {level}).",
-      "repaired": "Reinforced outpost perimeter (+25% integrity).",
-      "stored": "Locked {item} (×{count}) in outpost cache.",
-      "water_collected": "Rainwater collector filtered ×{count} clean water into outpost storage."
+      "established": "Outpost established at {location}.",
+      "upgraded": "{structure} upgraded to level {level}.",
+      "repaired": "Outpost perimeter defenses repaired.",
+      "stored": "Stored into outpost locker: {count}× {item}.",
+      "water_collected": "Water Condenser: {count} bottle(s) of clean water stored.",
+      "food_collected": "Hydroponic Garden: {count} canned ration(s) harvested.",
+      "vehicle_repaired": "Vehicle Depot: Stationed vehicle condition repaired by +%{amount}.",
+      "materials_stashed": "All scrap and crafting materials ({count} items) stashed into locker.",
+      "generator_started": "Outpost generator started. Power grid online.",
+      "generator_stopped": "Outpost generator powered down.",
+      "generator_refueled": "Generator refueled (+{hours} hours).",
+      "generator_depleted": "Generator out of fuel! Power grid shut down.",
+      "raid_defended": "Night Raid: Perimeter barricades repelled the prowlers! (+{loot} scrap metal salvaged).",
+      "raid_breached": "Night Raid: Prowlers breached the perimeter! Outpost defenses took %{damage} damage."
     }
   },
   "enemy": {
@@ -2956,8 +3059,8 @@
     "player_cover": "Cover",
     "enemy_cover": "Hostile Cover",
     "scavenge_tag": "1× per fight",
-    "tag_immobilize": "Immobilize · -3 STAM",
-    "tag_disarm": "Disarm · -3 STAM",
+    "tag_immobilize": "Immobilize · -2 STAM",
+    "tag_disarm": "Disarm · -2 STAM",
     "spare_tag": "Claim Loot · +Karma",
     "execute_tag": "Loot Body · Ruthless",
     "targeted_fire": "Targeted Ballistics",
@@ -2988,6 +3091,31 @@
     "enemy_advanced": "{name} charged forward, closing distance to {range}!",
     "enemy_crippled_cannot_advance": "{name} attempts to charge but collapses on a fractured leg!",
     "enemy_took_cover": "{name} dove behind tactical cover!",
+    "player_overwatch_set": "Held weapon at the ready in overwatch stance. Ready to fire on any enemy movement!",
+    "player_aim_set": "Held breath and calibrated sights. Next attack will be significantly more accurate and lethal!",
+    "player_suppression": "Poured rapid suppression fire! {name} was pinned behind cover and suffered severe morale trauma.",
+    "overwatch_triggered": "Overwatch triggered! Fired a lethal reaction shot as {name} moved, dealing {dmg} damage!",
+    "overwatch_missed": "Fired overwatch reaction shot, but {name} dodged out of the line of fire!",
+    "enemy_suppressed_turn": "{name} is pinned down by heavy suppression fire and cannot act this turn!",
+    "enemy_intent_label": "Enemy Intent",
+    "intent": {
+      "surrendered": "Surrendered and helpless.",
+      "suppressed": "Pinned down in cover and terrified!",
+      "crippled": "Crippled leg prevents charging!",
+      "advance": "Preparing to charge forward and close distance!",
+      "take_cover": "Scanning for tactical cover to dive into.",
+      "heavy_shot": "Taking careful aim for a high-damage shot!",
+      "shoot": "Leveling weapon to open fire.",
+      "vicious_strike": "Coiling to unleash a vicious melee lunge!",
+      "attack": "Gearing up for a direct attack."
+    },
+    "range_short": {
+      "melee": "MELEE",
+      "close": "CLOSE",
+      "medium": "MED",
+      "long": "LONG",
+      "extreme": "EXT"
+    },
     "range": {
       "melee": "Melee Contact (<5m)",
       "close": "Close Quarters (15m)",
@@ -3008,7 +3136,10 @@
     },
     "status": {
       "leg_crippled": "Immobilized",
-      "disarmed": "Disarmed"
+      "disarmed": "Disarmed",
+      "overwatch": "OVERWATCH STANCE",
+      "aimed": "AIMED (+25%)",
+      "suppressed": "PINNED DOWN"
     },
     "action": {
       "strike": "Center Mass Strike",
@@ -3016,11 +3147,35 @@
       "scavenge": "Scavenge Mid-Fight",
       "flee": "Break Contact & Flee",
       "take_cover": "Take Cover",
+      "take_aim": "Take Aim",
+      "overwatch": "Overwatch",
+      "suppress": "Suppression Fire",
       "advance": "Advance",
       "retreat": "Fall Back",
       "clear_jam": "Clear Jam",
       "spare": "Spare & Disarm",
       "execute": "Execute"
+    },
+    "ui": {
+      "player_role": "SURVIVOR",
+      "enemy_role": "HOSTILE THREAT",
+      "btn_attack": "FIRE / ATTACK",
+      "btn_strike": "STRIKE / MELEE",
+      "zone_torso": "Torso",
+      "zone_head": "Head",
+      "zone_legs": "Legs",
+      "zone_arms": "Arms",
+      "clash_round_start": "⚔️ Enemy is drawing weapons! Choose your move.",
+      "clash_player_hit": "💥 YOU: Hit {zone}! Dealt {dmg} damage.",
+      "clash_player_crit": "⚡ YOU: 💀 CRITICAL HEADSHOT! Dealt {dmg} damage!",
+      "clash_player_miss": "💨 YOU: Your attack missed the target!",
+      "clash_enemy_hit": "🩸 ENEMY: {name} struck! Took -{dmg} HP.",
+      "clash_enemy_absorbed": "🛡️ ENEMY: {name} struck, but cover absorbed damage (-{dmg} HP).",
+      "clash_enemy_miss": "💨 ENEMY: {name} attacked but missed completely!",
+      "clash_enemy_advance": "👟 ENEMY: {name} charged closer ({range})!",
+      "clash_enemy_cover": "🧱 ENEMY: {name} dove behind cover!",
+      "clash_enemy_suppressed": "💥 ENEMY: Pinned down behind cover by suppressive fire!",
+      "clash_enemy_crippled": "🦵 ENEMY: Crippled leg prevented closing distance!"
     }
   },
   "crafting": {
@@ -3034,8 +3189,22 @@
       "2": "MACHINIST II"
     },
     "action": {
-      "craft": "CRAFT"
-    }
+      "craft": "CRAFT",
+      "craft_one": "CRAFT ×1",
+      "craft_max": "CRAFT ALL (×{count})"
+    },
+    "category": {
+      "all": "ALL",
+      "survival": "SURVIVAL",
+      "medical": "MEDICAL",
+      "weapons": "WEAPONS",
+      "gear": "GEAR"
+    },
+    "no_recipes_in_cat": "No craftable schematics found in this category.",
+    "select_prompt": "Tap any schematic above to inspect requirements and craft.",
+    "ingredients_needed": "REQUIRED MATERIALS",
+    "station_missing_warn": "Requires {tier}. Build or upgrade the Workbench at your outpost.",
+    "craftable_count": "{count} Craftable"
   },
   "base": {
     "location_label": "ESTABLISHED OUTPOST",
@@ -3050,8 +3219,33 @@
       "establish": "CLAIM OUTPOST AT {location}",
       "relocate": "RELOCATE OUTPOST TO {location}",
       "upgrade": "BUILD / UPGRADE",
-      "repair": "REINFORCE PERIMETER (1× Steel Plate)"
-    }
+      "repair": "REINFORCE PERIMETER (1× Steel Plate)",
+      "collect_all": "COLLECT HARVEST",
+      "stash_all_materials": "📦 STASH ALL MATERIALS",
+      "take_all": "EMPTY LOCKER",
+      "toggle_generator": "⚡ TOGGLE POWER",
+      "refuel_generator": "⛽ REFUEL (+12h)",
+      "inspect_facility": "INSPECT FACILITY"
+    },
+    "facility_inspect_prompt": "Tap any facility above to inspect requirements and upgrade.",
+    "production_ready": "OUTPOST HARVEST READY",
+    "subtab": {
+      "facilities": "🏛️ FACILITIES",
+      "storage": "📦 STORAGE",
+      "defense": "🛡️ DEFENSE"
+    },
+    "power_label": "POWER GRID",
+    "power_active": "ONLINE ⚡",
+    "power_offline": "OFFLINE",
+    "generator_fuel": "FUEL: {hours}h ({mins}m)",
+    "threat_label": "THREAT LEVEL",
+    "threat_low": "LOW",
+    "threat_medium": "MEDIUM",
+    "threat_high": "HIGH",
+    "defense_power": "DEFENSE POWER",
+    "no_defense_logs": "No security events or night raid incidents logged yet.",
+    "raid_won_title": "Raid Repelled",
+    "raid_lost_title": "Perimeter Breached"
   },
   "structure": {
     "workbench": {
@@ -3069,6 +3263,22 @@
     "med_cot": {
       "name": "Sterile Field Cot",
       "desc": "Accelerates physical integrity recovery while resting at the outpost."
+    },
+    "greenhouse": {
+      "name": "Hydroponic Garden",
+      "desc": "Passively yields preserved canned rations into outpost storage over time."
+    },
+    "radio_relay": {
+      "name": "Radio Relay Antenna",
+      "desc": "Trickle recharges transceiver battery while resting and boosts field radio clarity."
+    },
+    "vehicle_depot": {
+      "name": "Vehicle Maintenance Depot",
+      "desc": "Gradually repairs chassis condition and engine components of stationed vehicles over time."
+    },
+    "generator": {
+      "name": "Field Fuel Generator",
+      "desc": "Powers the outpost grid. Cuts crafting times in half, boosts hydroponics, and powers perimeter floodlights."
     }
   },
   "reject": {
@@ -3208,13 +3418,20 @@
       "pack_inventory": "Survivor Pack",
       "trunk_inventory": "Vehicle Trunk",
       "pack_empty": "No items in pack.",
-      "trunk_empty": "Cargo trunk is empty."
+      "trunk_empty": "Cargo trunk is empty.",
+      "mounted_vehicle": "Mounted Vehicle"
     },
     "status": {
       "operational": "OPERATIONAL",
       "abandoned": "ABANDONED WRECK",
       "driving": "DRIVING",
-      "missing": "MISSING"
+      "missing": "MISSING",
+      "installed": "INSTALLED",
+      "missing_materials": "MISSING MATERIALS",
+      "ready": "READY TO DRIVE",
+      "needs_repair": "NEEDS RESTORATION",
+      "here": "In Current Sector",
+      "unknown_location": "Unknown Location"
     },
     "action": {
       "mount": "Start Engine (Mount)",
@@ -3224,12 +3441,24 @@
       "repair_scrap": "Patch Body (Scrap Metal)",
       "repair_oil": "Top Up Lubricant (Motor Oil)",
       "to_trunk": "To Trunk",
-      "to_pack": "To Pack"
+      "to_pack": "To Pack",
+      "install_upgrade": "Install Upgrade",
+      "camp_4h": "Camp in Cabin (4h)",
+      "camp_8h": "Sleep in Cabin (8h)",
+      "ram_enemy": "Ram with Vehicle",
+      "speed_away": "Speed Away"
     },
     "spec": {
-      "speed": "Transit Speed",
+      "speed": "Speed",
       "noise": "Hazard Noise",
-      "shelter": "Cabin Shelter"
+      "shelter": "Cabin Shelter",
+      "armor": "Armor Defense",
+      "amphibious": "Amphibious",
+      "solar_electric": "Solar Electric",
+      "field_clinic": "Field Clinic",
+      "arctic_tracked": "Arctic Tracked",
+      "muscle_powered": "Manual Muscle (Fuel-Free)",
+      "cabin": "Sealed Cabin"
     },
     "gauge": {
       "fuel": "Fuel Tank",
@@ -3238,7 +3467,8 @@
     "section": {
       "restoration": "Component Salvage & Restoration",
       "maintenance": "Field Maintenance & Refueling",
-      "cargo_bay": "Cargo Hold & Pack Logistics"
+      "cargo_bay": "Cargo Hold & Pack Logistics",
+      "upgrades": "Modular Upgrades & Attachments"
     },
     "enduro": {
       "name": "Enduro 250cc Recon Motorcycle",
@@ -3262,13 +3492,94 @@
       "siphoned": "Siphoned +{siphoned}L of fuel from abandoned roadside wrecks into the tank!",
       "no_fuel": "The engine sputters dry! Tank is empty.",
       "not_ready": "The vehicle is missing critical components and cannot start.",
-      "cannot_cross_water": "Wheeled overland vehicles cannot cross open sea waters!"
+      "cannot_cross_water": "Wheeled overland vehicles cannot cross open sea waters!",
+      "upgrade_installed": "Installed modular upgrade on {vehicle}: {upgrade}.",
+      "camped": "Cooled down the engine and rested safely inside vehicle cabin for {hours} hours.",
+      "ram_impact": "Full throttle! Slammed vehicle directly into {enemy} dealing {damage} kinetic damage!",
+      "escaped_in_vehicle": "Floored the gas pedal and left {enemy} choking in exhaust fumes!",
+      "field_clinic_healed": "Field ambulance clinic treated your injuries during the journey (+15 HP).",
+      "discovered": "🚨 Abandoned {vehicle} discovered in sector {location}!",
+      "claimed": "{vehicle} has been claimed and added to your personal vehicle fleet."
     },
     "reject": {
       "invalid_vehicle": "Vehicle not found.",
       "insufficient_fuel": "Insufficient fuel for journey.",
       "trunk_full": "Vehicle trunk is overloaded!",
-      "part_not_in_inventory": "Required component not found in inventory."
+      "part_not_in_inventory": "Required component not found in inventory.",
+      "no_cabin_shelter": "This vehicle is an exposed open-frame runner and lacks a sealed cabin or camper bed for resting.",
+      "upgrade_already_installed": "This modular upgrade is already installed on the vehicle.",
+      "missing_upgrade_materials": "Missing required components or tools to fabricate this upgrade.",
+      "muscle_powered_no_fuel": "This vehicle is manually pumped and does not consume liquid fuel."
+    },
+    "buggy": {
+      "name": "Scavenger Solar Dune Buggy",
+      "desc": "Ultra-lightweight solar-assisted reconnaissance buggy. Whisper-silent electric drive with automatic daylight battery replenishment."
+    },
+    "btr": {
+      "name": "BTR-80 Armored Amphibious Carrier",
+      "desc": "Heavy 8x8 amphibious combat vehicle with ballistic steel armor plating and water-jet propulsion. Can cross sea and river routes directly."
+    },
+    "upgrade": {
+      "bullbar": {
+        "name": "Reinforced Steel Bullbar",
+        "desc": "Heavy frontal bullbar welded from steel plates. Protects against collisions and enables ramming through roadblocks (+15% Armor)."
+      },
+      "cargo_rack": {
+        "name": "Expanded Roof Cargo Rack",
+        "desc": "Heavy steel tube roof basket. Increases vehicle trunk cargo capacity by +40%."
+      },
+      "tires": {
+        "name": "All-Terrain Mud & Snow Tires",
+        "desc": "Deep-treaded reinforced off-road tires. Cuts fuel consumption by 20% and improves transit speed."
+      },
+      "floodlights": {
+        "name": "High-Intensity Roof Floodlights",
+        "desc": "High-lumen halogen light bar wired to battery. Completely eliminates night vision travel hazard penalties."
+      },
+      "fuel_tank": {
+        "name": "Auxiliary Welded Jerrycan Rack",
+        "desc": "External welded fuel tank bracket. Increases total fuel/energy capacity by +25 Liters/kWh."
+      },
+      "camper_bed": {
+        "name": "Padded Camper Sleeper Berth",
+        "desc": "Insulated foam mattress and wool bedding. Allows safe, warm camping and sleep anywhere on the overland map."
+      }
+    },
+    "ambulance": {
+      "name": "Paramedic Field Ambulance (Medevac)",
+      "desc": "Military field medevac ambulance. Equipped with sterile mobile clinic supplies that patch wounds, fractures, and trauma during transit and camp."
+    },
+    "snowcat": {
+      "name": "Arctic Tracked Snowcat",
+      "desc": "Heavy-duty tracked arctic vehicle engineered for blizzard terrain and frozen mountain passes. Eliminates tundra terrain penalties."
+    },
+    "draisine": {
+      "name": "Abandoned Railway Draisine",
+      "desc": "Manual pump-action railroad handcar operating along rail corridors. Fuel-free manual propulsion with near-silent acoustic stealth."
+    },
+    "rhib": {
+      "name": "Tactical Combat Assault RHIB",
+      "desc": "Twin-outboard rigid inflatable tactical boat capable of traversing coastal and open sea corridors at blistering speeds."
+    },
+    "fuel": {
+      "muscle_label": "Manual Muscle (No Fuel)"
+    },
+    "action_mount": "Mount & Drive",
+    "action_dismount": "Dismount",
+    "hud_title": "VEHICLE COCKPIT HUD",
+    "parked_in_sector": "Vehicle Parked in Sector",
+    "trunk_load": "Cargo Trunk",
+    "speed_multiplier": "{speed}x Transit Speed",
+    "action_open_trunk": "Trunk & Maintenance",
+    "zero_fuel_consumption": "Muscle Powered (0 L Fuel)",
+    "action_view_on_map": "View on Map",
+    "discovery": {
+      "title": "ABANDONED VEHICLE DISCOVERED!",
+      "tag_derelict": "DERELICT WRECK",
+      "parts_needed_title": "PARTS REQUIRED FOR RESTORATION",
+      "action_claim_inventory": "Claim & Add to Inventory",
+      "action_inspect_now": "Inspect & Install Parts Now",
+      "action_leave_sector": "Mark Sector & Leave"
     }
   },
   "codex": {
@@ -3320,20 +3631,62 @@
       "crafts_done": "Crafted Field Recipes"
     },
     "ach": {
-      "first_blood": { "title": "First Contact", "desc": "Neutralize an enemy in tactical combat." },
-      "pacifist_mercy": { "title": "Law of Mercy", "desc": "Spare a surrendered enemy instead of executing them." },
-      "trauma_surgeon": { "title": "Combat Medic", "desc": "Treat severe trauma using a CAT tourniquet or SAM splint." },
-      "mechanic_maestro": { "title": "Wreck Engineer", "desc": "Fully restore an abandoned expedition vehicle with all components." },
-      "silk_road_tycoon": { "title": "Silk Road Tycoon", "desc": "Execute a barter transaction valued over 200 trade points." },
-      "nomad_ally": { "title": "Nomad Kinship", "desc": "Reach +30 standing (Allied) with the Nomad Guild." },
-      "iron_discipline": { "title": "Iron Discipline", "desc": "Reach +30 standing (Allied) with the Iron Guard military." },
-      "acid_survivor": { "title": "Chemical Veteran", "desc": "Weather a corrosive acid storm or radiation ash front without taking damage." },
-      "eurasian_nomad": { "title": "Eurasian Nomad", "desc": "Chart and visit 10 different geographic sectors on the world map." },
-      "endurance_champion": { "title": "Iron Will", "desc": "Survive for more than 10 full days in the post-apocalyptic wasteland." },
-      "fuel_siphoner": { "title": "Fuel Siphoner", "desc": "Siphon vehicle fuel from roadside wrecks using a siphon hose." },
-      "outpost_pioneer": { "title": "Outpost Pioneer", "desc": "Establish a forward outpost base in a sector." },
-      "master_scavenger": { "title": "Master Scavenger", "desc": "Scavenge over 50 items and supplies from ruins." },
-      "sniper_doctrine": { "title": "Dead-Eye", "desc": "Land a lethal targeted head shot from long range with a firearm." }
+      "first_blood": {
+        "title": "First Contact",
+        "desc": "Neutralize an enemy in tactical combat."
+      },
+      "pacifist_mercy": {
+        "title": "Law of Mercy",
+        "desc": "Spare a surrendered enemy instead of executing them."
+      },
+      "trauma_surgeon": {
+        "title": "Combat Medic",
+        "desc": "Treat severe trauma using a CAT tourniquet or SAM splint."
+      },
+      "mechanic_maestro": {
+        "title": "Wreck Engineer",
+        "desc": "Fully restore an abandoned expedition vehicle with all components."
+      },
+      "silk_road_tycoon": {
+        "title": "Silk Road Tycoon",
+        "desc": "Execute a barter transaction valued over 200 trade points."
+      },
+      "nomad_ally": {
+        "title": "Nomad Kinship",
+        "desc": "Reach +30 standing (Allied) with the Nomad Guild."
+      },
+      "iron_discipline": {
+        "title": "Iron Discipline",
+        "desc": "Reach +30 standing (Allied) with the Iron Guard military."
+      },
+      "acid_survivor": {
+        "title": "Chemical Veteran",
+        "desc": "Weather a corrosive acid storm or radiation ash front without taking damage."
+      },
+      "eurasian_nomad": {
+        "title": "Eurasian Nomad",
+        "desc": "Chart and visit 10 different geographic sectors on the world map."
+      },
+      "endurance_champion": {
+        "title": "Iron Will",
+        "desc": "Survive for more than 10 full days in the post-apocalyptic wasteland."
+      },
+      "fuel_siphoner": {
+        "title": "Fuel Siphoner",
+        "desc": "Siphon vehicle fuel from roadside wrecks using a siphon hose."
+      },
+      "outpost_pioneer": {
+        "title": "Outpost Pioneer",
+        "desc": "Establish a forward outpost base in a sector."
+      },
+      "master_scavenger": {
+        "title": "Master Scavenger",
+        "desc": "Scavenge over 50 items and supplies from ruins."
+      },
+      "sniper_doctrine": {
+        "title": "Dead-Eye",
+        "desc": "Land a lethal targeted head shot from long range with a firearm."
+      }
     },
     "lore_cat": {
       "factions": "Wasteland Factions",
@@ -3342,12 +3695,30 @@
     },
     "lore": {
       "cleared": "DECLASSIFIED",
-      "iron_guard": { "title": "Iron Guard Command Structure", "desc": "Remnants of pre-collapse military forces sealed inside subterranean bunkers. Driven by rigid protocol and high-tech weaponry, they enforce quarantine and trade military ordnance for raw industrial scrap." },
-      "nomad_guild": { "title": "Nomad Guild Trade Caravans", "desc": "An expansive confederation of merchant clans and scavengers who traverse ancient Silk Road corridors with water purification convoys and camel/draft caravans." },
-      "ash_marauders": { "title": "Ash Marauder Doctrine", "desc": "Desperate raiders and scavenger renegades who claim viaduct checkpoints and choke points, extorting passing travelers with toll barriers and ambush raiding." },
-      "trauma_tccc": { "title": "Tactical Combat Casualty Care (TCCC)", "desc": "Post-collapse medical doctrine prioritizing rapid bleeding control with CAT Tourniquets, needle decompression for tension pneumothorax, and fracture stabilization using SAM splints." },
-      "weather_extremes": { "title": "Atmospheric Toxicity Profiles", "desc": "Industrial ruins emit corrosive acid rain capable of melting skin and synthetic gear, while radioactive ash fronts require sealed NBC respirators and enclosed cabin shelters." },
-      "vehicle_overland": { "title": "Expedition Motorization Protocol", "desc": "Motorized overland transit provides 3x-4.5x speed advantages and immense trunk cargo capacity, but combustion engine noise heavily attracts marauders and roving beasts." }
+      "iron_guard": {
+        "title": "Iron Guard Command Structure",
+        "desc": "Remnants of pre-collapse military forces sealed inside subterranean bunkers. Driven by rigid protocol and high-tech weaponry, they enforce quarantine and trade military ordnance for raw industrial scrap."
+      },
+      "nomad_guild": {
+        "title": "Nomad Guild Trade Caravans",
+        "desc": "An expansive confederation of merchant clans and scavengers who traverse ancient Silk Road corridors with water purification convoys and camel/draft caravans."
+      },
+      "ash_marauders": {
+        "title": "Ash Marauder Doctrine",
+        "desc": "Desperate raiders and scavenger renegades who claim viaduct checkpoints and choke points, extorting passing travelers with toll barriers and ambush raiding."
+      },
+      "trauma_tccc": {
+        "title": "Tactical Combat Casualty Care (TCCC)",
+        "desc": "Post-collapse medical doctrine prioritizing rapid bleeding control with CAT Tourniquets, needle decompression for tension pneumothorax, and fracture stabilization using SAM splints."
+      },
+      "weather_extremes": {
+        "title": "Atmospheric Toxicity Profiles",
+        "desc": "Industrial ruins emit corrosive acid rain capable of melting skin and synthetic gear, while radioactive ash fronts require sealed NBC respirators and enclosed cabin shelters."
+      },
+      "vehicle_overland": {
+        "title": "Expedition Motorization Protocol",
+        "desc": "Motorized overland transit provides 3x-4.5x speed advantages and immense trunk cargo capacity, but combustion engine noise heavily attracts marauders and roving beasts."
+      }
     }
   },
   "ad": {
@@ -3360,6 +3731,97 @@
       "reward_granted": "Emergency airdrop canister deployed! Supplies have landed at your coordinates.",
       "reward_granted_vip": "👑 VIP ACCESS: Emergency airdrop delivered instantly without commercial delay!",
       "dismissed": "Emergency broadcast interrupted. Supply drop aborted."
+    }
+  },
+  "radio": {
+    "ui": {
+      "title": "AN/PRC-117F TACTICAL TRANSCEIVER",
+      "pwr_on": "POWER ON",
+      "pwr_off": "POWER OFF",
+      "carrier_lock": "CARRIER LOCKED",
+      "scanning_carrier": "TUNING SQUELCH",
+      "tuning_hint": "Rotate the analog dial or use AUTO-SCAN to sweep the wasteland frequencies (88.0 - 108.0 MHz).",
+      "no_power_msg": "TRANSCEIVER BATTERY DEPLETED. CRANK THE HAND DYNAMO TO RECHARGE.",
+      "confirm_sos": "BROADCAST EMERGENCY SOS PING?\n\nConsumes 40m battery. May summon friendly nomad aid or attract hostile raiders!",
+      "presets": "PRESETS",
+      "decode_and_plot": "DECODE INTEL & PLOT BEACON",
+      "decoded_plotted": "DECODED & PLOTTED ON MAP",
+      "beacon_detected": "RADIO BEACON IN SECTOR",
+      "beacon_here_hint": "An intercepted transmission pinpointed coordinates in this sector.",
+      "tune_radio": "TUNE RADIO",
+      "claim_cache": "CLAIM RECOVERED CACHE"
+    },
+    "signal": {
+      "dr_aris": {
+        "name": "Mayday // Emergency Clinic SOS",
+        "caller": "Dr. Aris (Under Siege)",
+        "transcript": "Mayday, this is Dr. Aris from the Sector Medical Annex... Our barricades will not hold the swarm much longer. If anyone receives this, coordinates are locked to the clinic basement cache. Take whatever medical supplies you can carry..."
+      },
+      "numbers_station": {
+        "name": "Station Echo-309 // NATO Numbers Station",
+        "caller": "Automated Repeating Siren",
+        "transcript": "[STATIC BEEP] ... 7 - 4 - 1 - 9 - 2 ... [CHIRP] ... SECTOR SOFIA EMERGENCY BUNKER ACCESS CODE CONFIRMED ... [CYCLE REPEAT] ..."
+      },
+      "raider_ambush": {
+        "name": "Intercept // Jackal Raider Band",
+        "caller": "Intercepted Raider Comm",
+        "transcript": "All units hold perimeter at the Ankara canyon pass. Road spikes and fuel traps are armed. Scavenger spotted inbound... kill on sight..."
+      },
+      "weather_beacon": {
+        "name": "NOAA Emergency Meteorological Beacon",
+        "caller": "Automated Satellite Telemetry",
+        "transcript": "ATTENTION SURVIVORS: Atmospheric ion disturbance and acid precipitation front tracking over sector. Seek hardened indoor shelter immediately..."
+      },
+      "nomad_caravan": {
+        "name": "Nomad Merchant Caravan Broadcast",
+        "caller": "Wanderer Tariq",
+        "transcript": "Peace to the wasteland. The Red Star Caravan has made camp in Sector Bucharest for the next 24 hours. We carry clean water, scrap, and rare filters. Come unarmed or face our guards."
+      },
+      "pulsar_anomaly": {
+        "name": "Unknown Frequency // Pulsar Pulse",
+        "caller": "Unknown Origin",
+        "transcript": "[RHYTHMIC METALLIC CHANTS] ... The sky fractured, but the core endures... 106.3 MHz resonates with the old reactor beneath Kyiv... Do not let the radiation blind you..."
+      }
+    },
+    "cache": {
+      "medical_drop": "Medical Supply Drop",
+      "nato_bunker": "NATO Emergency Bunker Cache",
+      "ambush_thwarted": "Raider Ambush Disarmed",
+      "forecast_logged": "Atmospheric Telemetry Logged",
+      "trader_rendezvous": "Nomad Caravan Rendezvous Point",
+      "anomaly_analyzed": "Anomalous Pulse Analyzed"
+    },
+    "log": {
+      "cranked": "Hand-cranked emergency dynamo. Transceiver battery charged to {battery}m.",
+      "decoded": "Decoded radio transmission: {title} ({freq}).",
+      "beacon_plotted": "Plotted emergency radio beacon on Sector Map: {location}.",
+      "beacon_collected": "Recovered emergency supply cache at radio beacon coordinates: {title}.",
+      "sos_aid_drop": "Friendly nomad patrol answered your emergency SOS! Dropped survival rations nearby.",
+      "sos_hostile_intercept": "Hostile scavengers intercepted your SOS broadcast! Prepare for heightened danger."
+    },
+    "reject": {
+      "low_battery": "Transceiver battery too depleted for transmission. Crank dynamo to recharge."
+    },
+    "sos": {
+      "aid_arrived": "Nomad patrol answered SOS and dropped rations.",
+      "raider_alert": "Hostile scavengers locked onto your SOS ping!"
+    }
+  },
+  "travel": {
+    "ui": {
+      "transit_title": "SECTOR TRANSIT",
+      "arrived_title": "DESTINATION REACHED",
+      "speed": "Speed",
+      "distance": "Distance",
+      "est_time": "Est. Time",
+      "rem_distance": "Remaining Distance",
+      "progress": "Transit Progress",
+      "skip": "⏩ SKIP",
+      "enter_sector": "ENTER SECTOR",
+      "first_visit": "FIRST VISIT"
+    },
+    "log": {
+      "ambush_alert": "⚠️ ALERT: CONVOY AMBUSHED EN ROUTE! HOSTILE THREAT DETECTED!"
     }
   }
 }
