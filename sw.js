@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lastbreath-pwa-v37';
+const CACHE_NAME = 'lastbreath-pwa-v68';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -9,6 +9,7 @@ const ASSETS_TO_CACHE = [
   './css/components/map.css',
   './locales/tr.json',
   './locales/en.json',
+  './locales/th.json',
   './world.svg',
   './manifest.webmanifest',
   './icons/icon-192.png',
@@ -48,7 +49,7 @@ self.addEventListener('fetch', (event) => {
   // Stale-while-revalidate for local origin requests
   if (url.origin === self.location.origin) {
     event.respondWith(
-      caches.match(event.request).then((cachedResponse) => {
+      caches.match(event.request, { ignoreSearch: true }).then((cachedResponse) => {
         const fetchPromise = fetch(event.request).then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
             const clone = networkResponse.clone();

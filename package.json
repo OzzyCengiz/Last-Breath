@@ -1,0 +1,14 @@
+{
+  "name": "last-breath",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Last Breath — Post-Collapse Field Terminal survival RPG",
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node tests/run.mjs",
+    "start": "node server.mjs",
+    "check": "node build.mjs && node -c dist/app.bundle.js && node tests/run.mjs"
+  }
+}
+

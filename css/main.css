@@ -17,6 +17,8 @@
 
   --amber: #d99b38;
   --amber-dim: #7c581e;
+  --amber-light: #fbbf24;
+  --theme-rgb: 217, 155, 56;
   --olive: #7fa96b;
   --rust: #cc523f;
   --cyan-sig: #5da3a6;
@@ -25,6 +27,89 @@
   --font-sans: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
 
   --radius-xs: 2px;
+}
+
+/* =====================================================================
+   SEASONAL THEME OVERRIDES
+   - Spring (İlkbahar): Green
+   - Summer (Yaz):      Yellow
+   - Autumn (Sonbahar): Orange
+   - Winter (Kış):      Blue
+   ===================================================================== */
+:root[data-season="spring"] {
+  --bg-void: #060b08;
+  --bg-chassis: #0b130e;
+  --bg-panel: #101a14;
+  --bg-elevated: #16231b;
+  --bg-ocean: #070e0a;
+  --bg-land: #17241c;
+  --bg-land-charted: #203327;
+
+  --line-dim: #1e3124;
+  --line-mid: #2b4534;
+  --line-bright: #456e54;
+
+  --amber: #4ade80;
+  --amber-dim: #166534;
+  --amber-light: #86efac;
+  --theme-rgb: 74, 222, 128;
+}
+
+:root[data-season="summer"] {
+  --bg-void: #0a0905;
+  --bg-chassis: #121009;
+  --bg-panel: #19160d;
+  --bg-elevated: #221e12;
+  --bg-ocean: #0b0a06;
+  --bg-land: #221f13;
+  --bg-land-charted: #312c1a;
+
+  --line-dim: #2e2918;
+  --line-mid: #453d22;
+  --line-bright: #6e6136;
+
+  --amber: #facc15;
+  --amber-dim: #854d0e;
+  --amber-light: #fef08a;
+  --theme-rgb: 250, 204, 21;
+}
+
+:root[data-season="autumn"] {
+  --bg-void: #0b0705;
+  --bg-chassis: #140d09;
+  --bg-panel: #1b120d;
+  --bg-elevated: #241811;
+  --bg-ocean: #0d0806;
+  --bg-land: #241913;
+  --bg-land-charted: #34241a;
+
+  --line-dim: #332118;
+  --line-mid: #4a3022;
+  --line-bright: #734a35;
+
+  --amber: #f97316;
+  --amber-dim: #9a3412;
+  --amber-light: #fdba74;
+  --theme-rgb: 249, 115, 22;
+}
+
+:root[data-season="winter"] {
+  --bg-void: #05090d;
+  --bg-chassis: #091017;
+  --bg-panel: #0e1720;
+  --bg-elevated: #14202c;
+  --bg-ocean: #060b11;
+  --bg-land: #15212c;
+  --bg-land-charted: #1f3142;
+
+  --line-dim: #1b2c3b;
+  --line-mid: #284056;
+  --line-bright: #3e6485;
+
+  --amber: #38bdf8;
+  --amber-dim: #075985;
+  --amber-light: #bae6fd;
+  --theme-rgb: 56, 189, 248;
 }
 
 *,

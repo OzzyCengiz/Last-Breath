@@ -29,6 +29,7 @@ collect(ENTRY);
 
 const enJson = fs.readFileSync(path.join(ROOT, 'locales', 'en.json'), 'utf8');
 const trJson = fs.readFileSync(path.join(ROOT, 'locales', 'tr.json'), 'utf8');
+const thJson = fs.readFileSync(path.join(ROOT, 'locales', 'th.json'), 'utf8');
 const worldSvg = fs.readFileSync(path.join(ROOT, 'world.svg'), 'utf8');
 
 const chunks = [
@@ -37,6 +38,7 @@ const chunks = [
   '  "use strict";',
   `  globalThis.__LAST_BREATH_EN__ = ${enJson.trim()};`,
   `  globalThis.__LAST_BREATH_TR__ = ${trJson.trim()};`,
+  `  globalThis.__LAST_BREATH_TH__ = ${thJson.trim()};`,
   `  globalThis.__LAST_BREATH_WORLD_SVG__ = ${JSON.stringify(worldSvg)};`,
 ];
 

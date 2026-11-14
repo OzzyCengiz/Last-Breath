@@ -8,21 +8,29 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Last Breath" />
+  <meta name="description" content="Last Breath — Tactical post-apocalyptic survival RPG with global sector exploration, base building, scavenging, vehicles, and turn-based combat." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Last Breath — Post-Collapse Field Terminal" />
+  <meta property="og:description" content="Tactical post-apocalyptic survival RPG: explore 50+ global sectors, manage vitals & trauma, scavenge landmarks, build outposts, and survive." />
+  <meta property="og:image" content="./icons/icon-512.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Last Breath — Post-Collapse Field Terminal" />
+  <meta name="twitter:description" content="Tactical post-apocalyptic survival RPG: explore 50+ global sectors, manage vitals & trauma, scavenge landmarks, build outposts, and survive." />
+  <meta name="twitter:image" content="./icons/icon-512.png" />
   <title>Last Breath — Post-Collapse Field Terminal</title>
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
   <link rel="icon" type="image/svg+xml" href="./icons/icon.svg" />
-  <link rel="stylesheet" href="./css/main.css?v=38" />
-  <link rel="stylesheet" href="./css/layout.css?v=38" />
-  <link rel="stylesheet" href="./css/components/map.css?v=38" />
-  <link rel="stylesheet" href="./css/components/panels.css?v=38" />
+  <link rel="stylesheet" href="./css/main.css?v=51" />
+  <link rel="stylesheet" href="./css/layout.css?v=51" />
+  <link rel="stylesheet" href="./css/components/map.css?v=51" />
+  <link rel="stylesheet" href="./css/components/panels.css?v=51" />
 
   <!-- Google AdSense for Games / H5 Ads -->
   <script async
     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6006298574044898"
     crossorigin="anonymous"
-    data-ad-frequency-hint="30s"
-    data-adbreak-test="on">
+    data-ad-frequency-hint="30s">
   </script>
   <script>
     window.adsbygoogle = window.adsbygoogle || [];
@@ -47,8 +55,10 @@
             <span>·</span>
             <span id="hud-clock">06:00</span>
             <span id="hud-phase" class="hud-phase-badge">DAYLIGHT</span>
+            <span id="hud-season" class="hud-season-badge">🌱 İLKBAHAR</span>
             <span>·</span>
             <span id="hud-location" class="hud-sector-tag">Istanbul</span>
+            <span id="hud-save-badge" class="hud-save-badge" data-i18n="hud.saved" hidden>💾 ✓</span>
           </div>
         </div>
 
@@ -254,6 +264,21 @@
     </div>
   </div>
 
-  <script defer src="./dist/app.bundle.js?v=42"></script>
+  <div id="victory-modal" class="modal-backdrop" hidden>
+    <div class="modal-card">
+      <h2 class="modal-title tone-good" data-i18n="endgame.victory_title">SECTOR 09 BUNKER REACHED</h2>
+      <p id="victory-summary" class="muted-note"></p>
+      <div class="death-actions-row">
+        <button id="btn-victory-endless" type="button" class="btn btn-accent" data-i18n="endgame.continue_endless">
+          CONTINUE ENDLESS MODE
+        </button>
+        <button id="btn-victory-restart" type="button" class="btn btn-ghost" data-i18n="hud.new_run">
+          NEW EXPEDITION
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script defer src="./dist/app.bundle.js?v=69"></script>
 </body>
 </html>

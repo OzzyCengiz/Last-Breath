@@ -103,6 +103,21 @@
       "reset_title": "Danger Zone (Data Reset)",
       "reset_desc": "Clears all save slots, preferences, and local game state.",
       "reset_btn": "CLEAR ALL DATA",
+      "backup_title": "Save Backup (JSON)",
+      "backup_desc": "Export your expedition save file or restore from a JSON backup.",
+      "export_save": "EXPORT SAVE",
+      "import_save": "IMPORT SAVE",
+      "import_ok": "Save imported! Reloading terminal...",
+      "import_err": "Invalid save file format.",
+      "layout_title": "PANEL LAYOUT",
+      "layout_desc": "Reset dragged desktop/tablet panel dividers to default sizes.",
+      "layout_btn": "Reset Layout",
+      "layout_done": "Reset",
+      "shortcuts_title": "KEYBOARD SHORTCUTS",
+      "sc_tabs": "Switch Panels",
+      "sc_radio": "Radio Terminal",
+      "sc_map": "Zoom / Reset / Center",
+      "sc_close": "Close Active Modal",
       "reset_confirm": "WARNING: All save slots and preferences will be permanently wiped! Proceed?",
       "on": "ON",
       "off": "OFF",
@@ -221,6 +236,60 @@
       "telemetry_searching": "Searching debris, lockers, and wreckage...",
       "speedup": "SPEED UP ⏩",
       "searching_wait": "SEARCHING... (%{percent})"
+    },
+    "poi": {
+      "select_title": "SCAVENGE & SALVAGE // TARGET SITE SELECTION",
+      "select_desc": "Explorable critical search sites detected in {location} ({country}). Which area do you want to scavenge?",
+      "action_explore": "SCAVENGE HERE ➔",
+      "cancel": "CANCEL",
+      "pharmacy": {
+        "name": "Pharmacy & Medical Clinic",
+        "tag": "MEDICAL FOCUS",
+        "desc": "Medicine cabinets, first aid kits, antibiotics, and sterile dressing supplies.",
+        "telemetry": "Scanning medicine shelves and locked pharmaceutical lockers..."
+      },
+      "supermarket": {
+        "name": "Supermarket & Wholesale Food Depot",
+        "tag": "FOOD & WATER",
+        "desc": "Canned rations, bottled water, dried foods, and energy bars.",
+        "telemetry": "Scanning pantry shelves, food storage, and shipping crates..."
+      },
+      "police_military": {
+        "name": "Police Post & Military Checkpoint",
+        "tag": "WEAPONS & AMMO",
+        "desc": "Weapon lockers, pistol and rifle ammo boxes, tactical body armor.",
+        "telemetry": "Scanning armory lockers, guard posts, and secure chests..."
+      },
+      "gas_station": {
+        "name": "Gas Station & Auto Repair Shop",
+        "tag": "FUEL & VEHICLE",
+        "desc": "Gasoline/diesel canisters, car batteries, engine oil, spark plugs, and toolkits.",
+        "telemetry": "Scanning fuel pumps, underground tanks, and workshop benches..."
+      },
+      "hardware_industrial": {
+        "name": "Industrial Depot & Hardware Workshop",
+        "tag": "SCRAP & TECH",
+        "desc": "Copper wire, electronic circuitry, generator parts, batteries, and construction iron.",
+        "telemetry": "Scanning workbenches, electrical panels, and scrap piles..."
+      },
+      "residential": {
+        "name": "Abandoned Apartments & Shelters",
+        "tag": "GENERAL SURVIVAL",
+        "desc": "Clothing, leather jackets, flashlights, matches, sewing kits, and domestic rations.",
+        "telemetry": "Scanning residential flats, locked chests, and basement bunkers..."
+      },
+      "port_dock": {
+        "name": "Harbor Warehouse & Customs Docks",
+        "tag": "NAVAL & CARGO",
+        "desc": "Cargo containers, fishing equipment, canned seafood, and maritime gear.",
+        "telemetry": "Scanning cargo containers and customs warehouses..."
+      },
+      "bunker_lab": {
+        "name": "Secret Bunker & Research Laboratory",
+        "tag": "HIGH-TECH & RARE",
+        "desc": "Advanced protective gear, gas masks, military prototypes, and rare components.",
+        "telemetry": "Scanning electronic sealed doors and decontamination chambers..."
+      }
     }
   },
   "hud": {
@@ -228,6 +297,12 @@
     "day_short": "D{day}",
     "daylight": "DAYLIGHT",
     "night": "NIGHTFALL",
+    "season": {
+      "spring": "SPRING",
+      "summer": "SUMMER",
+      "autumn": "AUTUMN",
+      "winter": "WINTER"
+    },
     "new_run": "NEW EXPEDITION",
     "confirm_reset": "Abandon current survivor and start a new expedition?",
     "tab": {
@@ -252,6 +327,7 @@
     },
     "codex": "CODEX",
     "install_app": "INSTALL",
+    "saved": "💾 Saved ✓",
     "radio": "RADIO"
   },
   "ui": {
@@ -271,7 +347,61 @@
     "tabs": {
       "vitals": "1. BIOMETRIC",
       "body": "2. TRAUMA",
-      "skills": "3. SKILLS"
+      "skills": "3. LEVEL & SKILL TREE",
+      "stats": "4. RUN STATS"
+    },
+    "label": {
+      "severity": "Severity"
+    },
+    "env": {
+      "title": "ENVIRONMENTAL TELEMETRY",
+      "weather": "Weather",
+      "temp": "Ambient / Insulation",
+      "acid": "Acid Protection",
+      "ash": "Ash Protection",
+      "protected": "Protected",
+      "exposed": "Exposed"
+    },
+    "stats": {
+      "title": "SURVIVAL RUN TELEMETRY",
+      "days_survived": "Days Survived",
+      "level": "Survivor Level",
+      "nodes_visited": "Sectors Explored",
+      "distance_km": "Distance Traveled",
+      "enemies_defeated": "Threats Neutralized",
+      "scavenges": "Scavenge Runs",
+      "items_crafted": "Items Crafted",
+      "contracts": "Contracts Completed",
+      "base_upgrades": "Outpost Upgrades",
+      "vehicles": "Vehicles Claimed"
+    },
+    "milestones": {
+      "title": "RUN MILESTONES",
+      "unlocked": "COMPLETED",
+      "explorer": {
+        "title": "Sector Pathfinder",
+        "desc": "Explore 5 different sectors on the map."
+      },
+      "road_warrior": {
+        "title": "Long-Haul Nomad",
+        "desc": "Travel 100 km across the wasteland."
+      },
+      "veteran_fighter": {
+        "title": "Hardened Combatant",
+        "desc": "Defeat 10 hostile encounters."
+      },
+      "scavenger": {
+        "title": "Relentless Scavenger",
+        "desc": "Complete 10 scavenge operations."
+      },
+      "master_crafter": {
+        "title": "Field Fabricator",
+        "desc": "Craft 10 items from recipes."
+      },
+      "survivor_week": {
+        "title": "First Week Alive",
+        "desc": "Survive until Day 7."
+      }
     },
     "section": {
       "vitals": "BIOMETRIC VITALS",
@@ -318,7 +448,16 @@
       "combat_rating": "Tactical Rating",
       "armor": "Ballistic / Slash Rating",
       "scavenge_bonus": "Search Efficiency",
-      "travel_bonus": "Overland Pace"
+      "travel_bonus": "Overland Pace",
+      "season_effect": "Season Modifier",
+      "blueprints": "Blueprints",
+      "contract": "Active Contract"
+    },
+    "season_effect": {
+      "spring": "🌱 +15% Regen, +25% Farm",
+      "summer": "☀️ +25% Thirst Drain",
+      "autumn": "🍂 Balanced",
+      "winter": "❄️ +15% Hunger/Energy Drain"
     }
   },
   "ailment": {
@@ -365,6 +504,96 @@
       "desc": "Raises tactical combat rating in hostile encounters."
     }
   },
+  "skill_tree": {
+    "title": "SURVIVOR LEVEL & SKILL TREE",
+    "level_badge": "LEVEL {level}",
+    "available_points": "⚡ {points} Skill Points Available",
+    "no_points": "0 Skill Points",
+    "xp_progress": "{current} / {needed} XP",
+    "xp_max": "MAX LEVEL",
+    "total_xp": "Total: {xp} XP",
+    "tier": "TIER {tier}",
+    "status_unlocked": "✔ ACQUIRED",
+    "status_ready": "⚡ AVAILABLE",
+    "status_locked": "🔒 LOCKED",
+    "unlock_btn": "⚡ UNLOCK (1 SP)",
+    "req_level": "Requires: Level {level}",
+    "req_prereq": "Prerequisite: {name}",
+    "practice_skills_title": "PRACTICE PROFICIENCIES",
+    "practice_skills_subtitle": "Advances through active survival actions (scavenging, combat, crafting, medicine).",
+    "branch": {
+      "survival": "Survival & Scavenging",
+      "combat": "Combat & Tactics",
+      "medical": "Medicine & Biology",
+      "engineering": "Engineering & Mechanics"
+    },
+    "perk": {
+      "scavenger_eye": {
+        "name": "Scavenger's Eye",
+        "desc": "Scavenge item finding chance increased by +15%."
+      },
+      "pack_mule": {
+        "name": "Pack Mule",
+        "desc": "Carry capacity increased by +5 kg and inventory slots +2."
+      },
+      "swift_scout": {
+        "name": "Swift Scout",
+        "desc": "Overland travel duration and travel energy drain reduced by 20%."
+      },
+      "master_forager": {
+        "name": "Master Forager",
+        "desc": "Chance of finding rare and military-tier loot increased by 1.5x."
+      },
+      "quick_reflexes": {
+        "name": "Quick Reflexes",
+        "desc": "Dodge chance against enemy strikes increased by +12%."
+      },
+      "stopping_power": {
+        "name": "Stopping Power",
+        "desc": "All firearms and melee weapon damage increased by +25%."
+      },
+      "iron_skin": {
+        "name": "Iron Will",
+        "desc": "All incoming damage reduced by 15%, bleeding resistance +25%."
+      },
+      "deadly_precision": {
+        "name": "Deadly Precision",
+        "desc": "Critical strike chance increased by +20% with amplified critical impact."
+      },
+      "first_aid_instinct": {
+        "name": "First Aid Instinct",
+        "desc": "Bandage and medical supplies healing efficacy increased by +30%."
+      },
+      "triage_master": {
+        "name": "Triage Master",
+        "desc": "Arterial bleed stop and infection purge chance increased by +40%."
+      },
+      "tough_metabolism": {
+        "name": "Tough Metabolism",
+        "desc": "Hunger and thirst depletion rate slowed by 25%."
+      },
+      "field_surgeon": {
+        "name": "Field Surgeon",
+        "desc": "All damaged anatomical body parts recover naturally twice as fast during sleep and rest."
+      },
+      "tinkerer": {
+        "name": "Tinkerer",
+        "desc": "Crafting and repair material efficiency improved; vehicle repairs require 25% less scrap."
+      },
+      "grease_monkey": {
+        "name": "Grease Monkey",
+        "desc": "Vehicle fuel consumption reduced by 20% and engine breakdown risk halved."
+      },
+      "resourceful_crafter": {
+        "name": "Resourceful Crafter",
+        "desc": "20% chance to salvage back materials upon crafting any recipe."
+      },
+      "base_architect": {
+        "name": "Base Architect",
+        "desc": "Outpost structure build costs reduced by 20% and generator fuel efficiency +35%."
+      }
+    }
+  },
   "inventory": {
     "tabs": {
       "pack": "1. CARRIED INVENTORY",
@@ -372,6 +601,14 @@
       "vehicles": "Vehicles & Fleet"
     },
     "weight": "LOAD",
+    "search_placeholder": "Search pack...",
+    "sort": {
+      "label": "Sort inventory",
+      "default": "Sort: Default",
+      "weight_desc": "Sort: Heaviest",
+      "value_desc": "Sort: Value",
+      "qty_desc": "Sort: Quantity"
+    },
     "slots": "SLOTS",
     "overloaded_notice": "OVERBURDENED — Overland travel slowed by 15% and stamina drain increased by 15%.",
     "unarmed": "Unarmed",
@@ -401,8 +638,11 @@
       "use": "USE",
       "equip": "EQUIP",
       "unequip": "STOW",
+      "salvage": "SALVAGE",
       "drop": "DROP (1)",
       "drop_all": "DROP ALL",
+      "store": "STORE",
+      "store_all": "STORE ALL",
       "take": "TAKE",
       "take_all": "TAKE ALL",
       "close_inspect": "CLOSE",
@@ -435,10 +675,12 @@
     "country": "TERRITORY / COUNTRY",
     "coords": "WGS84 GRID",
     "threat_level": "HOSTILITY INDEX",
+    "enemy_level": "ENEMY LEVEL",
     "scavenge_yield": "SECTOR RESERVES",
     "find_chance": "hit",
     "risk": "RISK",
     "visited_badge": "CHARTED",
+    "outpost_beacon": "Outpost: {location}",
     "section": {
       "routes": "CONNECTED CORRIDORS"
     },
@@ -2686,6 +2928,2118 @@
     "vehicle_ignition_key": {
       "name": "Vehicle Ignition Key & Dossier",
       "desc": "Mechanical ignition key and operational dossier of a claimed vehicle. Used for fleet management."
+    },
+    "tr_sucuk_ration": {
+      "name": "Cured Anatolian Sucuk Pack",
+      "desc": "Hearty regional ration exclusive to Turkey. Restores substantial satiety and stamina."
+    },
+    "tr_pestil_bars": {
+      "name": "Mulberry Pestil Energy Roll",
+      "desc": "Lightweight regional trail snack exclusive to Turkey. Quick energy and hunger relief."
+    },
+    "tr_salgam_bottle": {
+      "name": "Fermented Black Carrot Salgam",
+      "desc": "Regional beverage exclusive to Turkey. Rehydrates and refreshes on the road."
+    },
+    "tr_kantaron_oil": {
+      "name": "Anatolian St. John’s Wort Balm",
+      "desc": "Traditional regional trauma remedy exclusive to Turkey. Restores integrity and slows bleeding."
+    },
+    "tr_kekik_antiseptic": {
+      "name": "Wild Oregano Antiseptic Tincture",
+      "desc": "Regional clinical antiseptic exclusive to Turkey. Purges wound infection."
+    },
+    "tr_yatagan_blade": {
+      "name": "Forged Anatolian Yatagan",
+      "desc": "Signature close-quarters blade exclusive to Turkey. High bleeding chance without ammo."
+    },
+    "tr_sarsilmaz_9mm": {
+      "name": "Sarsilmaz K12 Tactical 9mm",
+      "desc": "Regional service firearm exclusive to Turkey. Accurate long-range stopping power."
+    },
+    "tr_kepenek_coat": {
+      "name": "Felt Shepherd Kepenek Greatcoat",
+      "desc": "Regional protective outerwear exclusive to Turkey. Balances ballistic armor and weather insulation."
+    },
+    "tr_toros_pack": {
+      "name": "Taurus Mountain Canvas Rucksack",
+      "desc": "Regional expedition pack exclusive to Turkey. Expands inventory slots and carry weight."
+    },
+    "tr_boron_cell": {
+      "name": "Eti Boron High-Density Cell",
+      "desc": "High-grade regional electronics salvage exclusive to Turkey. Valuable for crafting and barter."
+    },
+    "tr_iznik_insulator": {
+      "name": "Glazed Ceramic Fuse Insulator",
+      "desc": "Refined regional alloy and hardware exclusive to Turkey. Useful for repairs and fabrication."
+    },
+    "gr_paximadi_rusk": {
+      "name": "Cretan Barley Paximadi Rusks",
+      "desc": "Hearty regional ration exclusive to Greece. Restores substantial satiety and stamina."
+    },
+    "gr_pasteli_bar": {
+      "name": "Sesame & Honey Pasteli Bar",
+      "desc": "Lightweight regional trail snack exclusive to Greece. Quick energy and hunger relief."
+    },
+    "gr_mountain_tea": {
+      "name": "Olympus Ironwort Herbal Brew",
+      "desc": "Regional beverage exclusive to Greece. Rehydrates and refreshes on the road."
+    },
+    "gr_mastic_salve": {
+      "name": "Chios Mastic Wound Resin",
+      "desc": "Traditional regional trauma remedy exclusive to Greece. Restores integrity and slows bleeding."
+    },
+    "gr_olive_iodine": {
+      "name": "Aegean Sea-Salt Antiseptic",
+      "desc": "Regional clinical antiseptic exclusive to Greece. Purges wound infection."
+    },
+    "gr_kopis_machete": {
+      "name": "Curved Kopis Utility Blade",
+      "desc": "Signature close-quarters blade exclusive to Greece. High bleeding chance without ammo."
+    },
+    "gr_hellenic_g3": {
+      "name": "Hellenic Arms G3A3 Marksman",
+      "desc": "Regional service firearm exclusive to Greece. Accurate long-range stopping power."
+    },
+    "gr_epirus_cloak": {
+      "name": "Epirus Waxed Wool Cloak",
+      "desc": "Regional protective outerwear exclusive to Greece. Balances ballistic armor and weather insulation."
+    },
+    "gr_aegean_drybag": {
+      "name": "Aegean Maritime Dry-Pack",
+      "desc": "Regional expedition pack exclusive to Greece. Expands inventory slots and carry weight."
+    },
+    "gr_piraeus_relay": {
+      "name": "Piraeus Marine Radar Coil",
+      "desc": "High-grade regional electronics salvage exclusive to Greece. Valuable for crafting and barter."
+    },
+    "gr_pentelic_flux": {
+      "name": "Crushed Marble Brazing Flux",
+      "desc": "Refined regional alloy and hardware exclusive to Greece. Useful for repairs and fabrication."
+    },
+    "bg_lukanka_pack": {
+      "name": "Dry-Cured Balkan Lukanka",
+      "desc": "Hearty regional ration exclusive to Bulgaria. Restores substantial satiety and stamina."
+    },
+    "bg_halva_tin": {
+      "name": "Sunflowerseed Halva Ration",
+      "desc": "Lightweight regional trail snack exclusive to Bulgaria. Quick energy and hunger relief."
+    },
+    "bg_boza_flask": {
+      "name": "Fermented Millet Boza Flask",
+      "desc": "Regional beverage exclusive to Bulgaria. Rehydrates and refreshes on the road."
+    },
+    "bg_rose_oil_balm": {
+      "name": "Kazanlak Rosehip Burn Gel",
+      "desc": "Traditional regional trauma remedy exclusive to Bulgaria. Restores integrity and slows bleeding."
+    },
+    "bg_balkan_propolis": {
+      "name": "Balkan Propolis Tincture",
+      "desc": "Regional clinical antiseptic exclusive to Bulgaria. Purges wound infection."
+    },
+    "bg_haiduk_knife": {
+      "name": "Balkan Haiduk Fighting Knife",
+      "desc": "Signature close-quarters blade exclusive to Bulgaria. High bleeding chance without ammo."
+    },
+    "bg_arsenal_ak": {
+      "name": "Arsenal AR-M1 5.56 Carbine",
+      "desc": "Regional service firearm exclusive to Bulgaria. Accurate long-range stopping power."
+    },
+    "bg_rodopi_parka": {
+      "name": "Rhodope Insulated Mountain Jacket",
+      "desc": "Regional protective outerwear exclusive to Bulgaria. Balances ballistic armor and weather insulation."
+    },
+    "bg_rila_pack": {
+      "name": "Rila Alpine Expedition Pack",
+      "desc": "Regional expedition pack exclusive to Bulgaria. Expands inventory slots and carry weight."
+    },
+    "bg_sofiya_capacitor": {
+      "name": "Balkan Grid HV Capacitor",
+      "desc": "High-grade regional electronics salvage exclusive to Bulgaria. Valuable for crafting and barter."
+    },
+    "bg_kremikovtzi_steel": {
+      "name": "Tempered Kremikovtzi Alloy",
+      "desc": "Refined regional alloy and hardware exclusive to Bulgaria. Useful for repairs and fabrication."
+    },
+    "ro_tochitura_tin": {
+      "name": "Canned Moldavian Pork Stew",
+      "desc": "Hearty regional ration exclusive to Romania. Restores substantial satiety and stamina."
+    },
+    "ro_covrigi_pack": {
+      "name": "Salted Pretzel Covrigi Bag",
+      "desc": "Lightweight regional trail snack exclusive to Romania. Quick energy and hunger relief."
+    },
+    "ro_borsec_water": {
+      "name": "Carpathian Mineral Spring",
+      "desc": "Regional beverage exclusive to Romania. Rehydrates and refreshes on the road."
+    },
+    "ro_comfrey_salve": {
+      "name": "Carpathian Comfrey Bone Salve",
+      "desc": "Traditional regional trauma remedy exclusive to Romania. Restores integrity and slows bleeding."
+    },
+    "ro_silver_colloid": {
+      "name": "Danube Antiseptic Solution",
+      "desc": "Regional clinical antiseptic exclusive to Romania. Purges wound infection."
+    },
+    "ro_dacian_falx": {
+      "name": "Reforged Falx Brush Cleaver",
+      "desc": "Signature close-quarters blade exclusive to Romania. High bleeding chance without ammo."
+    },
+    "ro_cugir_wasr": {
+      "name": "Cugir PM md. 63 Carbine",
+      "desc": "Regional service firearm exclusive to Romania. Accurate long-range stopping power."
+    },
+    "ro_carpathian_coat": {
+      "name": "Carpathian Sheepskin Cojoc",
+      "desc": "Regional protective outerwear exclusive to Romania. Balances ballistic armor and weather insulation."
+    },
+    "ro_bucegi_pack": {
+      "name": "Bucegi Ranger Field Pack",
+      "desc": "Regional expedition pack exclusive to Romania. Expands inventory slots and carry weight."
+    },
+    "ro_ploiesti_valve": {
+      "name": "Ploiești Refinery Pressure Valve",
+      "desc": "High-grade regional electronics salvage exclusive to Romania. Valuable for crafting and barter."
+    },
+    "ro_danube_cable": {
+      "name": "Armored Danube Copper Cable",
+      "desc": "Refined regional alloy and hardware exclusive to Romania. Useful for repairs and fabrication."
+    },
+    "ua_salo_ration": {
+      "name": "Salted Carpathian Salo Tin",
+      "desc": "Hearty regional ration exclusive to Ukraine. Restores substantial satiety and stamina."
+    },
+    "ua_buckwheat_bar": {
+      "name": "Compressed Buckwheat Ration",
+      "desc": "Lightweight regional trail snack exclusive to Ukraine. Quick energy and hunger relief."
+    },
+    "ua_uzvar_canteen": {
+      "name": "Smoked Fruit Uzvar Canteen",
+      "desc": "Regional beverage exclusive to Ukraine. Rehydrates and refreshes on the road."
+    },
+    "ua_chernozem_gel": {
+      "name": "Kyiv Military Hemostatic Gel",
+      "desc": "Traditional regional trauma remedy exclusive to Ukraine. Restores integrity and slows bleeding."
+    },
+    "ua_iodine_tablets": {
+      "name": "Pripyat Potassium Iodide Pack",
+      "desc": "Regional clinical antiseptic exclusive to Ukraine. Purges wound infection."
+    },
+    "ua_cossack_shashka": {
+      "name": "Cossack Utility Sabre",
+      "desc": "Signature close-quarters blade exclusive to Ukraine. High bleeding chance without ammo."
+    },
+    "ua_fort221_rifle": {
+      "name": "Fort-221 Bullpup 5.56 Rifle",
+      "desc": "Regional service firearm exclusive to Ukraine. Accurate long-range stopping power."
+    },
+    "ua_korsar_vest": {
+      "name": "Korsar-M3 Ballistic Vest",
+      "desc": "Regional protective outerwear exclusive to Ukraine. Balances ballistic armor and weather insulation."
+    },
+    "ua_dnipro_pack": {
+      "name": "Dnipro Recon Assault Pack",
+      "desc": "Regional expedition pack exclusive to Ukraine. Expands inventory slots and carry weight."
+    },
+    "ua_antonov_servo": {
+      "name": "Antonov Avionics Actuator",
+      "desc": "High-grade regional electronics salvage exclusive to Ukraine. Valuable for crafting and barter."
+    },
+    "ua_kryvyi_plate": {
+      "name": "Kryvyi Rih Rolled Armor Steel",
+      "desc": "Refined regional alloy and hardware exclusive to Ukraine. Useful for repairs and fabrication."
+    },
+    "at_gulasch_tin": {
+      "name": "Canned Viennese Beef Goulash",
+      "desc": "Hearty regional ration exclusive to Austria. Restores substantial satiety and stamina."
+    },
+    "at_manner_wafer": {
+      "name": "Hazelnut Wafer Energy Pack",
+      "desc": "Lightweight regional trail snack exclusive to Austria. Quick energy and hunger relief."
+    },
+    "at_almdudler_flask": {
+      "name": "Alpine Herb Tonic Bottle",
+      "desc": "Regional beverage exclusive to Austria. Rehydrates and refreshes on the road."
+    },
+    "at_tyrol_arnica": {
+      "name": "Tyrolean Arnica Trauma Cream",
+      "desc": "Traditional regional trauma remedy exclusive to Austria. Restores integrity and slows bleeding."
+    },
+    "at_vienna_antiseptic": {
+      "name": "AKH Sterile Chlorhexidine",
+      "desc": "Regional clinical antiseptic exclusive to Austria. Purges wound infection."
+    },
+    "at_glock_fm78": {
+      "name": "Glock FM 78 Field Knife",
+      "desc": "Signature close-quarters blade exclusive to Austria. High bleeding chance without ammo."
+    },
+    "at_steyr_aug": {
+      "name": "Steyr AUG A3 Bullpup Rifle",
+      "desc": "Regional service firearm exclusive to Austria. Accurate long-range stopping power."
+    },
+    "at_alpen_goretex": {
+      "name": "Austrian Alpine Storm Parka",
+      "desc": "Regional protective outerwear exclusive to Austria. Balances ballistic armor and weather insulation."
+    },
+    "at_innsbruck_pack": {
+      "name": "Innsbruck Mountaineer Frame Pack",
+      "desc": "Regional expedition pack exclusive to Austria. Expands inventory slots and carry weight."
+    },
+    "at_voestalpine_chip": {
+      "name": "Alpine Precision Sensor Module",
+      "desc": "High-grade regional electronics salvage exclusive to Austria. Valuable for crafting and barter."
+    },
+    "at_styrian_spring": {
+      "name": "Styrian High-Tension Leaf Spring",
+      "desc": "Refined regional alloy and hardware exclusive to Austria. Useful for repairs and fabrication."
+    },
+    "de_epas_ration": {
+      "name": "Bundeswehr EPa Field Ration",
+      "desc": "Hearty regional ration exclusive to Germany. Restores substantial satiety and stamina."
+    },
+    "de_pumpernickel": {
+      "name": "Vacuum-Sealed Rye Pumpernickel",
+      "desc": "Lightweight regional trail snack exclusive to Germany. Quick energy and hunger relief."
+    },
+    "de_apfelschorle": {
+      "name": "Electrolyte Apple Spritzer",
+      "desc": "Regional beverage exclusive to Germany. Rehydrates and refreshes on the road."
+    },
+    "de_bayer_gel": {
+      "name": "Leverkusen Burn & Wound Hydrogel",
+      "desc": "Traditional regional trauma remedy exclusive to Germany. Restores integrity and slows bleeding."
+    },
+    "de_charite_kit": {
+      "name": "Charité Sterile IV Ampoule",
+      "desc": "Regional clinical antiseptic exclusive to Germany. Purges wound infection."
+    },
+    "de_solingen_bowie": {
+      "name": "Solingen Forged Survival Blade",
+      "desc": "Signature close-quarters blade exclusive to Germany. High bleeding chance without ammo."
+    },
+    "de_hk_g36c": {
+      "name": "HK G36C Compact 5.56 Carbine",
+      "desc": "Regional service firearm exclusive to Germany. Accurate long-range stopping power."
+    },
+    "de_flecktarn_smock": {
+      "name": "Flecktarn Heavy Field Smock",
+      "desc": "Regional protective outerwear exclusive to Germany. Balances ballistic armor and weather insulation."
+    },
+    "de_ruhr_pack": {
+      "name": "Ruhr Heavy Utility Rucksack",
+      "desc": "Regional expedition pack exclusive to Germany. Expands inventory slots and carry weight."
+    },
+    "de_siemens_plc": {
+      "name": "Industrial PLC Control Board",
+      "desc": "High-grade regional electronics salvage exclusive to Germany. Valuable for crafting and barter."
+    },
+    "de_krupp_bearing": {
+      "name": "Krupp Precision Roller Bearing",
+      "desc": "Refined regional alloy and hardware exclusive to Germany. Useful for repairs and fabrication."
+    },
+    "fr_rcir_ration": {
+      "name": "French RCIR Combat Ration",
+      "desc": "Hearty regional ration exclusive to France. Restores substantial satiety and stamina."
+    },
+    "fr_biscotte_pack": {
+      "name": "Salted Breton Biscuit Tin",
+      "desc": "Lightweight regional trail snack exclusive to France. Quick energy and hunger relief."
+    },
+    "fr_evian_canteen": {
+      "name": "Alps Mineral Filter Canteen",
+      "desc": "Regional beverage exclusive to France. Rehydrates and refreshes on the road."
+    },
+    "fr_pasteur_serum": {
+      "name": "Pasteur Institute Antitoxin",
+      "desc": "Traditional regional trauma remedy exclusive to France. Restores integrity and slows bleeding."
+    },
+    "fr_lavande_tincture": {
+      "name": "Provence Lavender Antiseptic",
+      "desc": "Regional clinical antiseptic exclusive to France. Purges wound infection."
+    },
+    "fr_laguiole_folder": {
+      "name": "Laguiole Heavy Lockblade",
+      "desc": "Signature close-quarters blade exclusive to France. High bleeding chance without ammo."
+    },
+    "fr_famas_f1": {
+      "name": "FAMAS F1 5.56 Bullpup Rifle",
+      "desc": "Regional service firearm exclusive to France. Accurate long-range stopping power."
+    },
+    "fr_chasseur_cape": {
+      "name": "Chasseurs Alpins Wool Anorak",
+      "desc": "Regional protective outerwear exclusive to France. Balances ballistic armor and weather insulation."
+    },
+    "fr_legion_pack": {
+      "name": "Foreign Legion 60L Field Pack",
+      "desc": "Regional expedition pack exclusive to France. Expands inventory slots and carry weight."
+    },
+    "fr_areva_cell": {
+      "name": "Areva Shielded Micro-Battery",
+      "desc": "High-grade regional electronics salvage exclusive to France. Valuable for crafting and barter."
+    },
+    "fr_lyon_wire": {
+      "name": "Lyon Braided Copper Harness",
+      "desc": "Refined regional alloy and hardware exclusive to France. Useful for repairs and fabrication."
+    },
+    "uk_orp_ration": {
+      "name": "British 24h ORP Ration Pack",
+      "desc": "Hearty regional ration exclusive to United Kingdom. Restores substantial satiety and stamina."
+    },
+    "uk_shortbread_tin": {
+      "name": "Scottish Butter Shortbread Tin",
+      "desc": "Lightweight regional trail snack exclusive to United Kingdom. Quick energy and hunger relief."
+    },
+    "uk_earl_grey_flask": {
+      "name": "Vacuum-Sealed Earl Grey Flask",
+      "desc": "Regional beverage exclusive to United Kingdom. Rehydrates and refreshes on the road."
+    },
+    "uk_nhs_trauma": {
+      "name": "NHS Field Trauma Dressing",
+      "desc": "Traditional regional trauma remedy exclusive to United Kingdom. Restores integrity and slows bleeding."
+    },
+    "uk_tcp_antiseptic": {
+      "name": "British Phenol Antiseptic Bottle",
+      "desc": "Regional clinical antiseptic exclusive to United Kingdom. Purges wound infection."
+    },
+    "uk_fairbairn_dagger": {
+      "name": "Fairbairn–Sykes Commando Dagger",
+      "desc": "Signature close-quarters blade exclusive to United Kingdom. High bleeding chance without ammo."
+    },
+    "uk_sa80_l85a2": {
+      "name": "L85A2 SA80 5.56 Assault Rifle",
+      "desc": "Regional service firearm exclusive to United Kingdom. Accurate long-range stopping power."
+    },
+    "uk_waxed_barbour": {
+      "name": "Heavy Waxed Moorland Coat",
+      "desc": "Regional protective outerwear exclusive to United Kingdom. Balances ballistic armor and weather insulation."
+    },
+    "uk_bergen_pack": {
+      "name": "SAS Bergen 70L Patrol Pack",
+      "desc": "Regional expedition pack exclusive to United Kingdom. Expands inventory slots and carry weight."
+    },
+    "uk_sheffield_blade": {
+      "name": "Sheffield Carbide Tool Bit",
+      "desc": "High-grade regional electronics salvage exclusive to United Kingdom. Valuable for crafting and barter."
+    },
+    "uk_thames_brass": {
+      "name": "Thames Marine Brass Fitting",
+      "desc": "Refined regional alloy and hardware exclusive to United Kingdom. Useful for repairs and fabrication."
+    },
+    "es_fabada_tin": {
+      "name": "Canned Asturian Fabada Stew",
+      "desc": "Hearty regional ration exclusive to Spain. Restores substantial satiety and stamina."
+    },
+    "es_turron_bar": {
+      "name": "Almond & Honey Turrón Bar",
+      "desc": "Lightweight regional trail snack exclusive to Spain. Quick energy and hunger relief."
+    },
+    "es_horchata_flask": {
+      "name": "Chilled Tiger-Nut Horchata",
+      "desc": "Regional beverage exclusive to Spain. Rehydrates and refreshes on the road."
+    },
+    "es_olive_salve": {
+      "name": "Andalusian Olive Wound Salve",
+      "desc": "Traditional regional trauma remedy exclusive to Spain. Restores integrity and slows bleeding."
+    },
+    "es_madrid_iodine": {
+      "name": "Iberian Povidone Solution",
+      "desc": "Regional clinical antiseptic exclusive to Spain. Purges wound infection."
+    },
+    "es_navaja_knife": {
+      "name": "Albacete Clasp Navaja Knife",
+      "desc": "Signature close-quarters blade exclusive to Spain. High bleeding chance without ammo."
+    },
+    "es_cetme_c": {
+      "name": "CETME Model C 7.62 Rifle",
+      "desc": "Regional service firearm exclusive to Spain. Accurate long-range stopping power."
+    },
+    "es_pyrenees_jacket": {
+      "name": "Pyrenees Windproof Shell",
+      "desc": "Regional protective outerwear exclusive to Spain. Balances ballistic armor and weather insulation."
+    },
+    "es_camino_pack": {
+      "name": "Camino Endurance Trail Pack",
+      "desc": "Regional expedition pack exclusive to Spain. Expands inventory slots and carry weight."
+    },
+    "es_bilbao_inverter": {
+      "name": "Bilbao Solar Micro-Inverter",
+      "desc": "High-grade regional electronics salvage exclusive to Spain. Valuable for crafting and barter."
+    },
+    "es_toledo_spring": {
+      "name": "Toledo Tempered Steel Strip",
+      "desc": "Refined regional alloy and hardware exclusive to Spain. Useful for repairs and fabrication."
+    },
+    "pt_bacalhau_tin": {
+      "name": "Tinned Atlantic Cod & Olive Oil",
+      "desc": "Hearty regional ration exclusive to Portugal. Restores substantial satiety and stamina."
+    },
+    "pt_pastel_ration": {
+      "name": "Vacuum-Packed Custard Ration",
+      "desc": "Lightweight regional trail snack exclusive to Portugal. Quick energy and hunger relief."
+    },
+    "pt_agua_pedras": {
+      "name": "Sparkling Mineral Spring Bottle",
+      "desc": "Regional beverage exclusive to Portugal. Rehydrates and refreshes on the road."
+    },
+    "pt_eucalyptus_balm": {
+      "name": "Coimbra Eucalyptus Chest Balm",
+      "desc": "Traditional regional trauma remedy exclusive to Portugal. Restores integrity and slows bleeding."
+    },
+    "pt_atlantic_saline": {
+      "name": "Sterile Atlantic Saline Wash",
+      "desc": "Regional clinical antiseptic exclusive to Portugal. Purges wound infection."
+    },
+    "pt_maritime_rigging": {
+      "name": "Lisbon Sailor Rigging Knife",
+      "desc": "Signature close-quarters blade exclusive to Portugal. High bleeding chance without ammo."
+    },
+    "pt_fmp_g3": {
+      "name": "FMP G3 Portuguese Battle Rifle",
+      "desc": "Regional service firearm exclusive to Portugal. Accurate long-range stopping power."
+    },
+    "pt_atlantic_oilskin": {
+      "name": "Atlantic Storm Oilskin Coat",
+      "desc": "Regional protective outerwear exclusive to Portugal. Balances ballistic armor and weather insulation."
+    },
+    "pt_algarve_pack": {
+      "name": "Algarve Coastal Dry-Rucksack",
+      "desc": "Regional expedition pack exclusive to Portugal. Expands inventory slots and carry weight."
+    },
+    "pt_cork_insulator": {
+      "name": "Alentejo Compressed Cork Gasket",
+      "desc": "High-grade regional electronics salvage exclusive to Portugal. Valuable for crafting and barter."
+    },
+    "pt_porto_bronze": {
+      "name": "Porto Maritime Bronze Shackle",
+      "desc": "Refined regional alloy and hardware exclusive to Portugal. Useful for repairs and fabrication."
+    },
+    "is_harðfiskur_pack": {
+      "name": "Wind-Dried Arctic Cod Jerky",
+      "desc": "Hearty regional ration exclusive to Iceland. Restores substantial satiety and stamina."
+    },
+    "is_skyr_powder": {
+      "name": "Freeze-Dried Skyr Protein Pack",
+      "desc": "Lightweight regional trail snack exclusive to Iceland. Quick energy and hunger relief."
+    },
+    "is_glacial_water": {
+      "name": "Vatnajökull Glacial Melt Flask",
+      "desc": "Regional beverage exclusive to Iceland. Rehydrates and refreshes on the road."
+    },
+    "is_iceland_moss": {
+      "name": "Arctic Moss Lung & Wound Salve",
+      "desc": "Traditional regional trauma remedy exclusive to Iceland. Restores integrity and slows bleeding."
+    },
+    "is_sulfur_wash": {
+      "name": "Geothermal Sulfur Skin Wash",
+      "desc": "Regional clinical antiseptic exclusive to Iceland. Purges wound infection."
+    },
+    "is_whaler_flensing": {
+      "name": "Nordic Heavy Utility Cleaver",
+      "desc": "Signature close-quarters blade exclusive to Iceland. High bleeding chance without ammo."
+    },
+    "is_coastguard_rifle": {
+      "name": "Keflavík 7.62 Patrol Carbine",
+      "desc": "Regional service firearm exclusive to Iceland. Accurate long-range stopping power."
+    },
+    "is_lopapeysa_parka": {
+      "name": "66°North Wool & Down Parka",
+      "desc": "Regional protective outerwear exclusive to Iceland. Balances ballistic armor and weather insulation."
+    },
+    "is_highland_pack": {
+      "name": "Icelandic Highland Expedition Pack",
+      "desc": "Regional expedition pack exclusive to Iceland. Expands inventory slots and carry weight."
+    },
+    "is_geothermal_thermo": {
+      "name": "Geothermal Thermocouple Probe",
+      "desc": "High-grade regional electronics salvage exclusive to Iceland. Valuable for crafting and barter."
+    },
+    "is_basalt_fiber": {
+      "name": "Spun Volcanic Basalt Cloth",
+      "desc": "Refined regional alloy and hardware exclusive to Iceland. Useful for repairs and fabrication."
+    },
+    "ru_tushonka_tin": {
+      "name": "Soviet-Spec Beef Tushonka",
+      "desc": "Hearty regional ration exclusive to Russian Federation. Restores substantial satiety and stamina."
+    },
+    "ru_suhari_bag": {
+      "name": "Toasted Rye Sukhari Ration",
+      "desc": "Lightweight regional trail snack exclusive to Russian Federation. Quick energy and hunger relief."
+    },
+    "ru_baikal_canteen": {
+      "name": "Lake Baikal Pure Water Flask",
+      "desc": "Regional beverage exclusive to Russian Federation. Rehydrates and refreshes on the road."
+    },
+    "ru_ai2_medkit": {
+      "name": "AI-2 Orange Field Medkit",
+      "desc": "Traditional regional trauma remedy exclusive to Russian Federation. Restores integrity and slows bleeding."
+    },
+    "ru_vishnevsky_salve": {
+      "name": "Vishnevsky Antiseptic Liniment",
+      "desc": "Regional clinical antiseptic exclusive to Russian Federation. Purges wound infection."
+    },
+    "ru_nr40_knife": {
+      "name": "NR-40 Scout Combat Knife",
+      "desc": "Signature close-quarters blade exclusive to Russian Federation. High bleeding chance without ammo."
+    },
+    "ru_vss_vintorez": {
+      "name": "VSS Vintorez 9x39 Marksman",
+      "desc": "Regional service firearm exclusive to Russian Federation. Accurate long-range stopping power."
+    },
+    "ru_gorka3_suit": {
+      "name": "Gorka-3 Mountain Storm Suit",
+      "desc": "Regional protective outerwear exclusive to Russian Federation. Balances ballistic armor and weather insulation."
+    },
+    "ru_smerch_rig": {
+      "name": "Siberian 65L Taiga Rucksack",
+      "desc": "Regional expedition pack exclusive to Russian Federation. Expands inventory slots and carry weight."
+    },
+    "ru_ural_magneto": {
+      "name": "Ural Heavy-Duty Magneto Coil",
+      "desc": "High-grade regional electronics salvage exclusive to Russian Federation. Valuable for crafting and barter."
+    },
+    "ru_siberian_titanium": {
+      "name": "Salvaged Titanium Bulkhead Plate",
+      "desc": "Refined regional alloy and hardware exclusive to Russian Federation. Useful for repairs and fabrication."
+    },
+    "ge_khachapuri_pack": {
+      "name": "Baked Cheese & Bean Ration",
+      "desc": "Hearty regional ration exclusive to Georgia. Restores substantial satiety and stamina."
+    },
+    "ge_churchkhela": {
+      "name": "Walnut & Grape Churchkhela",
+      "desc": "Lightweight regional trail snack exclusive to Georgia. Quick energy and hunger relief."
+    },
+    "ge_borjomi_bottle": {
+      "name": "Borjomi Volcanic Mineral Water",
+      "desc": "Regional beverage exclusive to Georgia. Rehydrates and refreshes on the road."
+    },
+    "ge_caucasus_propolis": {
+      "name": "Caucasus Alpine Honey Balm",
+      "desc": "Traditional regional trauma remedy exclusive to Georgia. Restores integrity and slows bleeding."
+    },
+    "ge_tbilisi_antiseptic": {
+      "name": "Georgian Herbal Antiseptic",
+      "desc": "Regional clinical antiseptic exclusive to Georgia. Purges wound infection."
+    },
+    "ge_khevsur_kindjal": {
+      "name": "Khevsur Double-Edged Kindjal",
+      "desc": "Signature close-quarters blade exclusive to Georgia. High bleeding chance without ammo."
+    },
+    "ge_gtc_carbine": {
+      "name": "Tbilisi G5 5.56 Tactical Rifle",
+      "desc": "Regional service firearm exclusive to Georgia. Accurate long-range stopping power."
+    },
+    "ge_svaneti_cloak": {
+      "name": "Svaneti Felted Wool Nabadi",
+      "desc": "Regional protective outerwear exclusive to Georgia. Balances ballistic armor and weather insulation."
+    },
+    "ge_kazbegi_pack": {
+      "name": "Kazbegi High-Pass Pack",
+      "desc": "Regional expedition pack exclusive to Georgia. Expands inventory slots and carry weight."
+    },
+    "ge_rustavi_motor": {
+      "name": "Rustavi Electric Servo Motor",
+      "desc": "High-grade regional electronics salvage exclusive to Georgia. Valuable for crafting and barter."
+    },
+    "ge_caucasus_copper": {
+      "name": "Caucasus Smelted Copper Ingot",
+      "desc": "Refined regional alloy and hardware exclusive to Georgia. Useful for repairs and fabrication."
+    },
+    "ir_abgoosht_tin": {
+      "name": "Canned Lamb & Chickpea Stew",
+      "desc": "Hearty regional ration exclusive to Iran. Restores substantial satiety and stamina."
+    },
+    "ir_gaz_nougat": {
+      "name": "Pistachio & Saffron Gaz Ration",
+      "desc": "Lightweight regional trail snack exclusive to Iran. Quick energy and hunger relief."
+    },
+    "ir_doogh_flask": {
+      "name": "Salted Mint Doogh Canteen",
+      "desc": "Regional beverage exclusive to Iran. Rehydrates and refreshes on the road."
+    },
+    "ir_shiraz_rosewater": {
+      "name": "Shiraz Rose & Alum Compress",
+      "desc": "Traditional regional trauma remedy exclusive to Iran. Restores integrity and slows bleeding."
+    },
+    "ir_alborz_antiseptic": {
+      "name": "Alborz Mountain Thyme Wash",
+      "desc": "Regional clinical antiseptic exclusive to Iran. Purges wound infection."
+    },
+    "ir_shamshir_blade": {
+      "name": "Forged Persian Utility Sabre",
+      "desc": "Signature close-quarters blade exclusive to Iran. High bleeding chance without ammo."
+    },
+    "ir_khaybar_rifle": {
+      "name": "KH-2002 Bullpup 5.56 Rifle",
+      "desc": "Regional service firearm exclusive to Iran. Accurate long-range stopping power."
+    },
+    "ir_zagros_coat": {
+      "name": "Zagros Insulated Patrol Coat",
+      "desc": "Regional protective outerwear exclusive to Iran. Balances ballistic armor and weather insulation."
+    },
+    "ir_damavand_pack": {
+      "name": "Damavand Summit Pack",
+      "desc": "Regional expedition pack exclusive to Iran. Expands inventory slots and carry weight."
+    },
+    "ir_isfahan_optics": {
+      "name": "Isfahan Precision Lens Assembly",
+      "desc": "High-grade regional electronics salvage exclusive to Iran. Valuable for crafting and barter."
+    },
+    "ir_kerman_brass": {
+      "name": "Kerman Hand-Spun Brass Sheet",
+      "desc": "Refined regional alloy and hardware exclusive to Iran. Useful for repairs and fabrication."
+    },
+    "lb_hummus_tin": {
+      "name": "Tinned Tahini Chickpea Paste",
+      "desc": "Hearty regional ration exclusive to Lebanon. Restores substantial satiety and stamina."
+    },
+    "lb_zaatar_flatbread": {
+      "name": "Dried Zaatar & Olive Bread",
+      "desc": "Lightweight regional trail snack exclusive to Lebanon. Quick energy and hunger relief."
+    },
+    "lb_jallab_bottle": {
+      "name": "Date & Pine-Nut Jallab Flask",
+      "desc": "Regional beverage exclusive to Lebanon. Rehydrates and refreshes on the road."
+    },
+    "lb_cedar_resin": {
+      "name": "Mount Lebanon Cedar Wound Balm",
+      "desc": "Traditional regional trauma remedy exclusive to Lebanon. Restores integrity and slows bleeding."
+    },
+    "lb_beirut_kit": {
+      "name": "Beirut Field Clinic Antiseptic",
+      "desc": "Regional clinical antiseptic exclusive to Lebanon. Purges wound infection."
+    },
+    "lb_levant_dagger": {
+      "name": "Levantine Engraved Utility Knife",
+      "desc": "Signature close-quarters blade exclusive to Lebanon. High bleeding chance without ammo."
+    },
+    "lb_cedar_carbine": {
+      "name": "Beirut Guard 5.56 Carbine",
+      "desc": "Regional service firearm exclusive to Lebanon. Accurate long-range stopping power."
+    },
+    "lb_chouf_jacket": {
+      "name": "Chouf Cedar-Line Field Jacket",
+      "desc": "Regional protective outerwear exclusive to Lebanon. Balances ballistic armor and weather insulation."
+    },
+    "lb_bekaa_pack": {
+      "name": "Bekaa Valley Courier Pack",
+      "desc": "Regional expedition pack exclusive to Lebanon. Expands inventory slots and carry weight."
+    },
+    "lb_byblos_transceiver": {
+      "name": "Byblos Marine Radio Board",
+      "desc": "High-grade regional electronics salvage exclusive to Lebanon. Valuable for crafting and barter."
+    },
+    "lb_tripoli_cable": {
+      "name": "Tripoli Braided Steel Cable",
+      "desc": "Refined regional alloy and hardware exclusive to Lebanon. Useful for repairs and fabrication."
+    },
+    "ma_tagine_tin": {
+      "name": "Canned Spiced Lamb Tagine",
+      "desc": "Hearty regional ration exclusive to Morocco. Restores substantial satiety and stamina."
+    },
+    "ma_amlou_pack": {
+      "name": "Almond & Argan Amlou Energy Pack",
+      "desc": "Lightweight regional trail snack exclusive to Morocco. Quick energy and hunger relief."
+    },
+    "ma_mint_tea_flask": {
+      "name": "Maghreb Gunpowder Mint Tea",
+      "desc": "Regional beverage exclusive to Morocco. Rehydrates and refreshes on the road."
+    },
+    "ma_argan_salve": {
+      "name": "Atlas Argan Burn & Skin Balm",
+      "desc": "Traditional regional trauma remedy exclusive to Morocco. Restores integrity and slows bleeding."
+    },
+    "ma_atlas_antiseptic": {
+      "name": "Atlas Rosemary Antiseptic",
+      "desc": "Regional clinical antiseptic exclusive to Morocco. Purges wound infection."
+    },
+    "ma_koummya_dagger": {
+      "name": "Berber Koummya Curved Dagger",
+      "desc": "Signature close-quarters blade exclusive to Morocco. High bleeding chance without ammo."
+    },
+    "ma_strait_rifle": {
+      "name": "Tangier Coastal 7.62 Carbine",
+      "desc": "Regional service firearm exclusive to Morocco. Accurate long-range stopping power."
+    },
+    "ma_djellaba_coat": {
+      "name": "Heavy Wool Atlas Djellaba",
+      "desc": "Regional protective outerwear exclusive to Morocco. Balances ballistic armor and weather insulation."
+    },
+    "ma_rif_pack": {
+      "name": "Rif Mountain Saddle Pack",
+      "desc": "Regional expedition pack exclusive to Morocco. Expands inventory slots and carry weight."
+    },
+    "ma_tangier_radar": {
+      "name": "Strait Radar Magnetron Tube",
+      "desc": "High-grade regional electronics salvage exclusive to Morocco. Valuable for crafting and barter."
+    },
+    "ma_fez_leather": {
+      "name": "Fez Vegetable-Tanned Hide",
+      "desc": "Refined regional alloy and hardware exclusive to Morocco. Useful for repairs and fabrication."
+    },
+    "eg_ful_tin": {
+      "name": "Canned Spiced Fava Ful Medames",
+      "desc": "Hearty regional ration exclusive to Egypt. Restores substantial satiety and stamina."
+    },
+    "eg_halawa_bar": {
+      "name": "Nile Sesame Halawa Block",
+      "desc": "Lightweight regional trail snack exclusive to Egypt. Quick energy and hunger relief."
+    },
+    "eg_karkadeh_flask": {
+      "name": "Hibiscus Karkadeh Hydration Flask",
+      "desc": "Regional beverage exclusive to Egypt. Rehydrates and refreshes on the road."
+    },
+    "eg_black_seed_oil": {
+      "name": "Nile Black-Seed Recovery Balm",
+      "desc": "Traditional regional trauma remedy exclusive to Egypt. Restores integrity and slows bleeding."
+    },
+    "eg_cairo_antiseptic": {
+      "name": "Cairo Clinical Antiseptic",
+      "desc": "Regional clinical antiseptic exclusive to Egypt. Purges wound infection."
+    },
+    "eg_khopesh_cleaver": {
+      "name": "Reforged Khopesh Heavy Blade",
+      "desc": "Signature close-quarters blade exclusive to Egypt. High bleeding chance without ammo."
+    },
+    "eg_maadi_akm": {
+      "name": "Maadi Misr 7.62x39 Rifle",
+      "desc": "Regional service firearm exclusive to Egypt. Accurate long-range stopping power."
+    },
+    "eg_sinai_rig": {
+      "name": "Sinai Desert Sun-Shield Rig",
+      "desc": "Regional protective outerwear exclusive to Egypt. Balances ballistic armor and weather insulation."
+    },
+    "eg_nile_pack": {
+      "name": "Nile Delta Canvas Pack",
+      "desc": "Regional expedition pack exclusive to Egypt. Expands inventory slots and carry weight."
+    },
+    "eg_suez_alternator": {
+      "name": "Suez Tugboat Alternator",
+      "desc": "High-grade regional electronics salvage exclusive to Egypt. Valuable for crafting and barter."
+    },
+    "eg_aswan_copper": {
+      "name": "Aswan Dam Copper Busbar",
+      "desc": "Refined regional alloy and hardware exclusive to Egypt. Useful for repairs and fabrication."
+    },
+    "sd_kisra_pack": {
+      "name": "Dried Sorghum Kisra Sheets",
+      "desc": "Hearty regional ration exclusive to Sudan. Restores substantial satiety and stamina."
+    },
+    "sd_peanut_paste": {
+      "name": "Kordofan Roasted Peanut Paste",
+      "desc": "Lightweight regional trail snack exclusive to Sudan. Quick energy and hunger relief."
+    },
+    "sd_baobab_drink": {
+      "name": "Baobab Gongolez Electrolyte",
+      "desc": "Regional beverage exclusive to Sudan. Rehydrates and refreshes on the road."
+    },
+    "sd_acacia_gum": {
+      "name": "Acacia Gum Wound Sealant",
+      "desc": "Traditional regional trauma remedy exclusive to Sudan. Restores integrity and slows bleeding."
+    },
+    "sd_khartoum_quinine": {
+      "name": "Blue Nile Antimalarial Drops",
+      "desc": "Regional clinical antiseptic exclusive to Sudan. Purges wound infection."
+    },
+    "sd_kaskara_blade": {
+      "name": "Sudanese Kaskara Broad Blade",
+      "desc": "Signature close-quarters blade exclusive to Sudan. High bleeding chance without ammo."
+    },
+    "sd_nile_fal": {
+      "name": "Nile Guard 7.62 Battle Rifle",
+      "desc": "Regional service firearm exclusive to Sudan. Accurate long-range stopping power."
+    },
+    "sd_nubian_duster": {
+      "name": "Nubian Dust-Sealed Duster",
+      "desc": "Regional protective outerwear exclusive to Sudan. Balances ballistic armor and weather insulation."
+    },
+    "sd_savanna_pack": {
+      "name": "Savanna Water-Bladder Pack",
+      "desc": "Regional expedition pack exclusive to Sudan. Expands inventory slots and carry weight."
+    },
+    "sd_merowe_relay": {
+      "name": "Merowe Turbine Control Relay",
+      "desc": "High-grade regional electronics salvage exclusive to Sudan. Valuable for crafting and barter."
+    },
+    "sd_omdurman_iron": {
+      "name": "Omdurman Forged Iron Bracket",
+      "desc": "Refined regional alloy and hardware exclusive to Sudan. Useful for repairs and fabrication."
+    },
+    "et_injera_dried": {
+      "name": "Dried Teff Injera & Berbere",
+      "desc": "Hearty regional ration exclusive to Ethiopia. Restores substantial satiety and stamina."
+    },
+    "et_kolo_pouch": {
+      "name": "Roasted Barley Kolo Pouch",
+      "desc": "Lightweight regional trail snack exclusive to Ethiopia. Quick energy and hunger relief."
+    },
+    "et_sidamo_coffee": {
+      "name": "Concentrated Sidamo Coffee Flask",
+      "desc": "Regional beverage exclusive to Ethiopia. Rehydrates and refreshes on the road."
+    },
+    "et_kosso_remedy": {
+      "name": "Highland Kosso Herbal Extract",
+      "desc": "Traditional regional trauma remedy exclusive to Ethiopia. Restores integrity and slows bleeding."
+    },
+    "et_addis_saline": {
+      "name": "Addis Sterile Antiseptic Ampoule",
+      "desc": "Regional clinical antiseptic exclusive to Ethiopia. Purges wound infection."
+    },
+    "et_shotel_blade": {
+      "name": "Ethiopian Shotel Curved Blade",
+      "desc": "Signature close-quarters blade exclusive to Ethiopia. High bleeding chance without ammo."
+    },
+    "et_abyssinia_ak": {
+      "name": "Abyssinian 7.62 Folding Carbine",
+      "desc": "Regional service firearm exclusive to Ethiopia. Accurate long-range stopping power."
+    },
+    "et_bale_cloak": {
+      "name": "Bale Highland Rain Cloak",
+      "desc": "Regional protective outerwear exclusive to Ethiopia. Balances ballistic armor and weather insulation."
+    },
+    "et_rift_pack": {
+      "name": "Great Rift Valley Trek Pack",
+      "desc": "Regional expedition pack exclusive to Ethiopia. Expands inventory slots and carry weight."
+    },
+    "et_entoto_solar": {
+      "name": "Entoto Highland Solar Regulator",
+      "desc": "High-grade regional electronics salvage exclusive to Ethiopia. Valuable for crafting and barter."
+    },
+    "et_axum_bronze": {
+      "name": "Axum Heavy Bronze Coupling",
+      "desc": "Refined regional alloy and hardware exclusive to Ethiopia. Useful for repairs and fabrication."
+    },
+    "ke_nyama_jerky": {
+      "name": "Spiced Savanna Beef Biltong",
+      "desc": "Hearty regional ration exclusive to Kenya. Restores substantial satiety and stamina."
+    },
+    "ke_ugali_biscuit": {
+      "name": "Compressed Maize Energy Cake",
+      "desc": "Lightweight regional trail snack exclusive to Kenya. Quick energy and hunger relief."
+    },
+    "ke_kericho_tea": {
+      "name": "Kericho Highland Black Tea",
+      "desc": "Regional beverage exclusive to Kenya. Rehydrates and refreshes on the road."
+    },
+    "ke_aloe_gel": {
+      "name": "Turkana Wild Aloe Burn Gel",
+      "desc": "Traditional regional trauma remedy exclusive to Kenya. Restores integrity and slows bleeding."
+    },
+    "ke_nairobi_kit": {
+      "name": "Nairobi Field Antimalarial",
+      "desc": "Regional clinical antiseptic exclusive to Kenya. Purges wound infection."
+    },
+    "ke_simi_sword": {
+      "name": "Maasai Seme Leaf-Shaped Blade",
+      "desc": "Signature close-quarters blade exclusive to Kenya. High bleeding chance without ammo."
+    },
+    "ke_scar_patrol": {
+      "name": "Nairobi Ranger 5.56 Rifle",
+      "desc": "Regional service firearm exclusive to Kenya. Accurate long-range stopping power."
+    },
+    "ke_safari_jacket": {
+      "name": "Canvas Bush Safari Jacket",
+      "desc": "Regional protective outerwear exclusive to Kenya. Balances ballistic armor and weather insulation."
+    },
+    "ke_tsavo_pack": {
+      "name": "Tsavo Warden Utility Pack",
+      "desc": "Regional expedition pack exclusive to Kenya. Expands inventory slots and carry weight."
+    },
+    "ke_olkaria_valve": {
+      "name": "Olkaria Geothermal Steam Valve",
+      "desc": "High-grade regional electronics salvage exclusive to Kenya. Valuable for crafting and barter."
+    },
+    "ke_mombasa_rope": {
+      "name": "Mombasa Sisal Heavy Cordage",
+      "desc": "Refined regional alloy and hardware exclusive to Kenya. Useful for repairs and fabrication."
+    },
+    "ml_millet_ration": {
+      "name": "Toasted Millet & Tamarind Mix",
+      "desc": "Hearty regional ration exclusive to Mali. Restores substantial satiety and stamina."
+    },
+    "ml_date_cake": {
+      "name": "Sahara Pressed Date Block",
+      "desc": "Lightweight regional trail snack exclusive to Mali. Quick energy and hunger relief."
+    },
+    "ml_touareg_tea": {
+      "name": "Touareg Strong Green Tea Flask",
+      "desc": "Regional beverage exclusive to Mali. Rehydrates and refreshes on the road."
+    },
+    "ml_shea_salve": {
+      "name": "West African Shea Wound Salve",
+      "desc": "Traditional regional trauma remedy exclusive to Mali. Restores integrity and slows bleeding."
+    },
+    "ml_neem_tincture": {
+      "name": "Sahel Neem Antiseptic Drops",
+      "desc": "Regional clinical antiseptic exclusive to Mali. Purges wound infection."
+    },
+    "ml_takouba_blade": {
+      "name": "Tuareg Takouba Straight Blade",
+      "desc": "Signature close-quarters blade exclusive to Mali. High bleeding chance without ammo."
+    },
+    "ml_sahel_carbine": {
+      "name": "Sahara Recon 7.62 Carbine",
+      "desc": "Regional service firearm exclusive to Mali. Accurate long-range stopping power."
+    },
+    "ml_indigo_tagelmust": {
+      "name": "Indigo Dust-Shield Desert Robe",
+      "desc": "Regional protective outerwear exclusive to Mali. Balances ballistic armor and weather insulation."
+    },
+    "ml_timbuktu_pack": {
+      "name": "Timbuktu Camel Saddle Pack",
+      "desc": "Regional expedition pack exclusive to Mali. Expands inventory slots and carry weight."
+    },
+    "ml_niger_pump": {
+      "name": "Niger Solar Borehole Impeller",
+      "desc": "High-grade regional electronics salvage exclusive to Mali. Valuable for crafting and barter."
+    },
+    "ml_sankore_leather": {
+      "name": "Sankoré Rawhide Lacing Strip",
+      "desc": "Refined regional alloy and hardware exclusive to Mali. Useful for repairs and fabrication."
+    },
+    "sn_thieb_tin": {
+      "name": "Canned Spiced Fish & Rice",
+      "desc": "Hearty regional ration exclusive to Senegal. Restores substantial satiety and stamina."
+    },
+    "sn_mango_strips": {
+      "name": "Casamance Dried Mango Strips",
+      "desc": "Lightweight regional trail snack exclusive to Senegal. Quick energy and hunger relief."
+    },
+    "sn_bissap_flask": {
+      "name": "Chilled Bissap Hibiscus Bottle",
+      "desc": "Regional beverage exclusive to Senegal. Rehydrates and refreshes on the road."
+    },
+    "sn_moringa_balm": {
+      "name": "Moringa Leaf Recovery Paste",
+      "desc": "Traditional regional trauma remedy exclusive to Senegal. Restores integrity and slows bleeding."
+    },
+    "sn_dakar_antiseptic": {
+      "name": "Dakar Pasteur Sterile Wash",
+      "desc": "Regional clinical antiseptic exclusive to Senegal. Purges wound infection."
+    },
+    "sn_atlantic_harpoon": {
+      "name": "Dakar Steel Utility Gaff",
+      "desc": "Signature close-quarters blade exclusive to Senegal. High bleeding chance without ammo."
+    },
+    "sn_capvert_smg": {
+      "name": "Cap-Vert 9mm Patrol Subgun",
+      "desc": "Regional service firearm exclusive to Senegal. Accurate long-range stopping power."
+    },
+    "sn_atlantic_raincoat": {
+      "name": "West Coast Monsoon Poncho",
+      "desc": "Regional protective outerwear exclusive to Senegal. Balances ballistic armor and weather insulation."
+    },
+    "sn_dakar_pack": {
+      "name": "Port de Dakar Waterproof Bag",
+      "desc": "Regional expedition pack exclusive to Senegal. Expands inventory slots and carry weight."
+    },
+    "sn_goree_dynamo": {
+      "name": "Gorée Marine Hand Dynamo",
+      "desc": "High-grade regional electronics salvage exclusive to Senegal. Valuable for crafting and barter."
+    },
+    "sn_saloum_salt": {
+      "name": "Saloum Salt-Curing Flux",
+      "desc": "Refined regional alloy and hardware exclusive to Senegal. Useful for repairs and fabrication."
+    },
+    "ng_jollof_tin": {
+      "name": "Canned Smoky Jollof & Beef",
+      "desc": "Hearty regional ration exclusive to Nigeria. Restores substantial satiety and stamina."
+    },
+    "ng_kilishi_pack": {
+      "name": "Spiced Kilishi Sun-Dried Beef",
+      "desc": "Lightweight regional trail snack exclusive to Nigeria. Quick energy and hunger relief."
+    },
+    "ng_zobo_flask": {
+      "name": "Ginger & Clove Zobo Canteen",
+      "desc": "Regional beverage exclusive to Nigeria. Rehydrates and refreshes on the road."
+    },
+    "ng_bitter_leaf": {
+      "name": "Bitter-Leaf Antiseptic Poultice",
+      "desc": "Traditional regional trauma remedy exclusive to Nigeria. Restores integrity and slows bleeding."
+    },
+    "ng_lagos_antibiotic": {
+      "name": "Lagos Broad-Spectrum Capsule",
+      "desc": "Regional clinical antiseptic exclusive to Nigeria. Purges wound infection."
+    },
+    "ng_benin_cleaver": {
+      "name": "Forged Heavy Bush Machete",
+      "desc": "Signature close-quarters blade exclusive to Nigeria. High bleeding chance without ammo."
+    },
+    "ng_ikeja_carbine": {
+      "name": "Ikeja Tactical 5.56 Carbine",
+      "desc": "Regional service firearm exclusive to Nigeria. Accurate long-range stopping power."
+    },
+    "ng_delta_vest": {
+      "name": "Niger Delta Tactical Rig",
+      "desc": "Regional protective outerwear exclusive to Nigeria. Balances ballistic armor and weather insulation."
+    },
+    "ng_abuja_pack": {
+      "name": "Abuja Patrol 55L Rucksack",
+      "desc": "Regional expedition pack exclusive to Nigeria. Expands inventory slots and carry weight."
+    },
+    "ng_apapa_transformer": {
+      "name": "Apapa Port Step-Down Coil",
+      "desc": "High-grade regional electronics salvage exclusive to Nigeria. Valuable for crafting and barter."
+    },
+    "ng_kano_leather": {
+      "name": "Kano Red-Dyed Goat Leather",
+      "desc": "Refined regional alloy and hardware exclusive to Nigeria. Useful for repairs and fabrication."
+    },
+    "cd_cassava_pack": {
+      "name": "Pressed Cassava Chickwangue",
+      "desc": "Hearty regional ration exclusive to Democratic Republic of the Congo. Restores substantial satiety and stamina."
+    },
+    "cd_plantain_chips": {
+      "name": "Salted Fried Plantain Ration",
+      "desc": "Lightweight regional trail snack exclusive to Democratic Republic of the Congo. Quick energy and hunger relief."
+    },
+    "cd_tangawisi_flask": {
+      "name": "Ginger & Pineapple Tangawisi",
+      "desc": "Regional beverage exclusive to Democratic Republic of the Congo. Rehydrates and refreshes on the road."
+    },
+    "cd_cinchona_bark": {
+      "name": "Kivu Quinine Fever Extract",
+      "desc": "Traditional regional trauma remedy exclusive to Democratic Republic of the Congo. Restores integrity and slows bleeding."
+    },
+    "cd_kinshasa_kit": {
+      "name": "Kinshasa Tropical Sterile Kit",
+      "desc": "Regional clinical antiseptic exclusive to Democratic Republic of the Congo. Purges wound infection."
+    },
+    "cd_ngombe_blade": {
+      "name": "Congo Basin Heavy Hook-Blade",
+      "desc": "Signature close-quarters blade exclusive to Democratic Republic of the Congo. High bleeding chance without ammo."
+    },
+    "cd_katanga_rifle": {
+      "name": "Katanga 7.62 Mercenary Rifle",
+      "desc": "Regional service firearm exclusive to Democratic Republic of the Congo. Accurate long-range stopping power."
+    },
+    "cd_rainforest_poncho": {
+      "name": "Equatorial Jungle Camo Poncho",
+      "desc": "Regional protective outerwear exclusive to Democratic Republic of the Congo. Balances ballistic armor and weather insulation."
+    },
+    "cd_congo_pack": {
+      "name": "Congo River Waterproof Pack",
+      "desc": "Regional expedition pack exclusive to Democratic Republic of the Congo. Expands inventory slots and carry weight."
+    },
+    "cd_katanga_cobalt": {
+      "name": "Katanga Refined Cobalt Cell",
+      "desc": "High-grade regional electronics salvage exclusive to Democratic Republic of the Congo. Valuable for crafting and barter."
+    },
+    "cd_lubumbashi_ore": {
+      "name": "Lubumbashi Smelted Copper Bar",
+      "desc": "Refined regional alloy and hardware exclusive to Democratic Republic of the Congo. Useful for repairs and fabrication."
+    },
+    "za_biltong_pack": {
+      "name": "Kalahari Spiced Beef Biltong",
+      "desc": "Hearty regional ration exclusive to South Africa. Restores substantial satiety and stamina."
+    },
+    "za_rusk_tin": {
+      "name": "Buttermilk Ouma Beskuit Tin",
+      "desc": "Lightweight regional trail snack exclusive to South Africa. Quick energy and hunger relief."
+    },
+    "za_rooibos_flask": {
+      "name": "Cederberg Rooibos Antioxidant Tea",
+      "desc": "Regional beverage exclusive to South Africa. Rehydrates and refreshes on the road."
+    },
+    "za_buchu_salve": {
+      "name": "Cape Buchu Anti-Inflammatory Gel",
+      "desc": "Traditional regional trauma remedy exclusive to South Africa. Restores integrity and slows bleeding."
+    },
+    "za_joburg_kit": {
+      "name": "Johannesburg Trauma Antiseptic",
+      "desc": "Regional clinical antiseptic exclusive to South Africa. Purges wound infection."
+    },
+    "za_assegai_spear": {
+      "name": "Shortened Steel Assegai Blade",
+      "desc": "Signature close-quarters blade exclusive to South Africa. High bleeding chance without ammo."
+    },
+    "za_r4_vektor": {
+      "name": "Vektor R4 5.56 Bush Rifle",
+      "desc": "Regional service firearm exclusive to South Africa. Accurate long-range stopping power."
+    },
+    "za_karoo_jacket": {
+      "name": "Karoo Heavy Bushman Jacket",
+      "desc": "Regional protective outerwear exclusive to South Africa. Balances ballistic armor and weather insulation."
+    },
+    "za_drakensberg_pack": {
+      "name": "Drakensberg 65L Trail Pack",
+      "desc": "Regional expedition pack exclusive to South Africa. Expands inventory slots and carry weight."
+    },
+    "za_witwatersrand_cell": {
+      "name": "Deep-Mine Lithium Emergency Pack",
+      "desc": "High-grade regional electronics salvage exclusive to South Africa. Valuable for crafting and barter."
+    },
+    "za_sasol_polymer": {
+      "name": "High-Impact Industrial Polymer",
+      "desc": "Refined regional alloy and hardware exclusive to South Africa. Useful for repairs and fabrication."
+    },
+    "pk_nihari_tin": {
+      "name": "Canned Spiced Beef Nihari",
+      "desc": "Hearty regional ration exclusive to Pakistan. Restores substantial satiety and stamina."
+    },
+    "pk_sohan_halwa": {
+      "name": "Multan Walnut Sohan Halwa",
+      "desc": "Lightweight regional trail snack exclusive to Pakistan. Quick energy and hunger relief."
+    },
+    "pk_lassi_canteen": {
+      "name": "Salted Cardamom Lassi Flask",
+      "desc": "Regional beverage exclusive to Pakistan. Rehydrates and refreshes on the road."
+    },
+    "pk_himalayan_salve": {
+      "name": "Khewra Mineral Salt Poultice",
+      "desc": "Traditional regional trauma remedy exclusive to Pakistan. Restores integrity and slows bleeding."
+    },
+    "pk_karachi_kit": {
+      "name": "Karachi Sterile Field Wash",
+      "desc": "Regional clinical antiseptic exclusive to Pakistan. Purges wound infection."
+    },
+    "pk_peshawari_choora": {
+      "name": "Peshawari Khyber Utility Knife",
+      "desc": "Signature close-quarters blade exclusive to Pakistan. High bleeding chance without ammo."
+    },
+    "pk_pof_g3p4": {
+      "name": "POF G3P4 7.62 Battle Rifle",
+      "desc": "Regional service firearm exclusive to Pakistan. Accurate long-range stopping power."
+    },
+    "pk_karakoram_parka": {
+      "name": "Karakoram High-Altitude Parka",
+      "desc": "Regional protective outerwear exclusive to Pakistan. Balances ballistic armor and weather insulation."
+    },
+    "pk_hindukush_pack": {
+      "name": "Hindu Kush Alpine Pack",
+      "desc": "Regional expedition pack exclusive to Pakistan. Expands inventory slots and carry weight."
+    },
+    "pk_sindh_regulator": {
+      "name": "Sindh Solar Grid Controller",
+      "desc": "High-grade regional electronics salvage exclusive to Pakistan. Valuable for crafting and barter."
+    },
+    "pk_sialkot_steel": {
+      "name": "Sialkot Surgical Stainless Steel",
+      "desc": "Refined regional alloy and hardware exclusive to Pakistan. Useful for repairs and fabrication."
+    },
+    "in_dal_mre": {
+      "name": "Indian Army Masala Dal MRE",
+      "desc": "Hearty regional ration exclusive to India. Restores substantial satiety and stamina."
+    },
+    "in_chikki_bar": {
+      "name": "Peanut & Jaggery Chikki Bar",
+      "desc": "Lightweight regional trail snack exclusive to India. Quick energy and hunger relief."
+    },
+    "in_nimbu_pani": {
+      "name": "Black-Salt Nimbu Electrolyte",
+      "desc": "Regional beverage exclusive to India. Rehydrates and refreshes on the road."
+    },
+    "in_turmeric_paste": {
+      "name": "Ayurvedic Turmeric Wound Paste",
+      "desc": "Traditional regional trauma remedy exclusive to India. Restores integrity and slows bleeding."
+    },
+    "in_mumbai_antibiotic": {
+      "name": "Mumbai Generic Antibiotic Pack",
+      "desc": "Regional clinical antiseptic exclusive to India. Purges wound infection."
+    },
+    "in_gurkha_kukri": {
+      "name": "Forged Steel Gurkha Kukri",
+      "desc": "Signature close-quarters blade exclusive to India. High bleeding chance without ammo."
+    },
+    "in_insas_556": {
+      "name": "INSAS 5.56 Standard Rifle",
+      "desc": "Regional service firearm exclusive to India. Accurate long-range stopping power."
+    },
+    "in_ladakh_parka": {
+      "name": "Ladakh Cold-Desert Down Coat",
+      "desc": "Regional protective outerwear exclusive to India. Balances ballistic armor and weather insulation."
+    },
+    "in_western_ghats_pack": {
+      "name": "Monsoon-Sealed Trekking Pack",
+      "desc": "Regional expedition pack exclusive to India. Expands inventory slots and carry weight."
+    },
+    "in_bengaluru_board": {
+      "name": "Bengaluru Embedded Controller",
+      "desc": "High-grade regional electronics salvage exclusive to India. Valuable for crafting and barter."
+    },
+    "in_jamshedpur_plate": {
+      "name": "Tata Rolled Structural Steel",
+      "desc": "Refined regional alloy and hardware exclusive to India. Useful for repairs and fabrication."
+    },
+    "kz_kazy_tin": {
+      "name": "Canned Smoked Steppe Sausage",
+      "desc": "Hearty regional ration exclusive to Kazakhstan. Restores substantial satiety and stamina."
+    },
+    "kz_kurt_balls": {
+      "name": "Salted Dried Kurt Cheese Balls",
+      "desc": "Lightweight regional trail snack exclusive to Kazakhstan. Quick energy and hunger relief."
+    },
+    "kz_shubat_flask": {
+      "name": "Fermented Steppe Shubat Flask",
+      "desc": "Regional beverage exclusive to Kazakhstan. Rehydrates and refreshes on the road."
+    },
+    "kz_altai_mumijo": {
+      "name": "Altai Shilajit Recovery Resin",
+      "desc": "Traditional regional trauma remedy exclusive to Kazakhstan. Restores integrity and slows bleeding."
+    },
+    "kz_almaty_iodine": {
+      "name": "Steppe Radiation & Wound Wash",
+      "desc": "Regional clinical antiseptic exclusive to Kazakhstan. Purges wound infection."
+    },
+    "kz_steppe_kinjal": {
+      "name": "Kazakh Heavy Hunting Knife",
+      "desc": "Signature close-quarters blade exclusive to Kazakhstan. High bleeding chance without ammo."
+    },
+    "kz_baikonur_ak74": {
+      "name": "Baikonur Guard AK-74M Carbine",
+      "desc": "Regional service firearm exclusive to Kazakhstan. Accurate long-range stopping power."
+    },
+    "kz_shapan_coat": {
+      "name": "Insulated Steppe Shapan Coat",
+      "desc": "Regional protective outerwear exclusive to Kazakhstan. Balances ballistic armor and weather insulation."
+    },
+    "kz_tian_shan_pack": {
+      "name": "Tian Shan Alpine Rucksack",
+      "desc": "Regional expedition pack exclusive to Kazakhstan. Expands inventory slots and carry weight."
+    },
+    "kz_baikonur_gyro": {
+      "name": "Baikonur Telemetry Gyroscope",
+      "desc": "High-grade regional electronics salvage exclusive to Kazakhstan. Valuable for crafting and barter."
+    },
+    "kz_karaganda_alloy": {
+      "name": "Karaganda Forged Alloy Bar",
+      "desc": "Refined regional alloy and hardware exclusive to Kazakhstan. Useful for repairs and fabrication."
+    },
+    "mn_borts_pack": {
+      "name": "Air-Dried Steppe Borts Beef",
+      "desc": "Hearty regional ration exclusive to Mongolia. Restores substantial satiety and stamina."
+    },
+    "mn_aaruul_bag": {
+      "name": "Sun-Dried Aaruul Curd Blocks",
+      "desc": "Lightweight regional trail snack exclusive to Mongolia. Quick energy and hunger relief."
+    },
+    "mn_suutei_tsai": {
+      "name": "Salted Milk Tea Suutei Flask",
+      "desc": "Regional beverage exclusive to Mongolia. Rehydrates and refreshes on the road."
+    },
+    "mn_seabuckthorn_oil": {
+      "name": "Gobi Sea-Buckthorn Burn Oil",
+      "desc": "Traditional regional trauma remedy exclusive to Mongolia. Restores integrity and slows bleeding."
+    },
+    "mn_ub_antiseptic": {
+      "name": "Ulaanbaatar Cold-Climate Wash",
+      "desc": "Regional clinical antiseptic exclusive to Mongolia. Purges wound infection."
+    },
+    "mn_mongol_utga": {
+      "name": "Traditional Mongolian Belt Knife",
+      "desc": "Signature close-quarters blade exclusive to Mongolia. High bleeding chance without ammo."
+    },
+    "mn_gobi_sks": {
+      "name": "Gobi Border 7.62 Carbine",
+      "desc": "Regional service firearm exclusive to Mongolia. Accurate long-range stopping power."
+    },
+    "mn_deel_parka": {
+      "name": "Wool-Lined Winter Deel Coat",
+      "desc": "Regional protective outerwear exclusive to Mongolia. Balances ballistic armor and weather insulation."
+    },
+    "mn_nomad_pack": {
+      "name": "Steppe Nomad Saddle-Pack",
+      "desc": "Regional expedition pack exclusive to Mongolia. Expands inventory slots and carry weight."
+    },
+    "mn_gobi_wind_coil": {
+      "name": "Steppe Wind-Turbine Stator",
+      "desc": "High-grade regional electronics salvage exclusive to Mongolia. Valuable for crafting and barter."
+    },
+    "mn_tavan_copper": {
+      "name": "Tavan Tolgoi Heavy Copper Strap",
+      "desc": "Refined regional alloy and hardware exclusive to Mongolia. Useful for repairs and fabrication."
+    },
+    "cn_pla_mre": {
+      "name": "Type-13 Self-Heating Field Ration",
+      "desc": "Hearty regional ration exclusive to China. Restores substantial satiety and stamina."
+    },
+    "cn_compressed_biscuit": {
+      "name": "900-Type Compressed Ration Bar",
+      "desc": "Lightweight regional trail snack exclusive to China. Quick energy and hunger relief."
+    },
+    "cn_oolong_flask": {
+      "name": "Roasted Wuyi Oolong Canteen",
+      "desc": "Regional beverage exclusive to China. Rehydrates and refreshes on the road."
+    },
+    "cn_yunnan_baiyao": {
+      "name": "Yunnan Baiyao Hemostatic Powder",
+      "desc": "Traditional regional trauma remedy exclusive to China. Restores integrity and slows bleeding."
+    },
+    "cn_shanghai_ampoule": {
+      "name": "Shanghai Sterile Antiseptic Vial",
+      "desc": "Regional clinical antiseptic exclusive to China. Purges wound infection."
+    },
+    "cn_tang_dao": {
+      "name": "Forged Tang-Style Utility Blade",
+      "desc": "Signature close-quarters blade exclusive to China. High bleeding chance without ammo."
+    },
+    "cn_qbz95_rifle": {
+      "name": "QBZ-95 5.8mm Bullpup Rifle",
+      "desc": "Regional service firearm exclusive to China. Accurate long-range stopping power."
+    },
+    "cn_alpine_shell": {
+      "name": "Qinghai Cold-Weather Shell",
+      "desc": "Regional protective outerwear exclusive to China. Balances ballistic armor and weather insulation."
+    },
+    "cn_shenzhen_pack": {
+      "name": "Type-07 Modular Assault Pack",
+      "desc": "Regional expedition pack exclusive to China. Expands inventory slots and carry weight."
+    },
+    "cn_shenzhen_lithium": {
+      "name": "Shenzhen High-Drain LiFePO4 Cell",
+      "desc": "High-grade regional electronics salvage exclusive to China. Valuable for crafting and barter."
+    },
+    "cn_baoshan_steel": {
+      "name": "Baoshan Cold-Rolled Steel Sheet",
+      "desc": "Refined regional alloy and hardware exclusive to China. Useful for repairs and fabrication."
+    },
+    "kr_kimchi_mre": {
+      "name": "ROK Combat Bibimbap Ration",
+      "desc": "Hearty regional ration exclusive to Republic of Korea. Restores substantial satiety and stamina."
+    },
+    "kr_yakgwa_pack": {
+      "name": "Honey-Ginger Yakgwa Energy Pack",
+      "desc": "Lightweight regional trail snack exclusive to Republic of Korea. Quick energy and hunger relief."
+    },
+    "kr_ginseng_tonic": {
+      "name": "Red Ginseng Recovery Tonic",
+      "desc": "Regional beverage exclusive to Republic of Korea. Rehydrates and refreshes on the road."
+    },
+    "kr_jeju_centella": {
+      "name": "Jeju Centella Wound Cream",
+      "desc": "Traditional regional trauma remedy exclusive to Republic of Korea. Restores integrity and slows bleeding."
+    },
+    "kr_seoul_antiseptic": {
+      "name": "Seoul Medical Antiseptic Swab",
+      "desc": "Regional clinical antiseptic exclusive to Republic of Korea. Purges wound infection."
+    },
+    "kr_udt_knife": {
+      "name": "ROK UDT/SEAL Tactical Dagger",
+      "desc": "Signature close-quarters blade exclusive to Republic of Korea. High bleeding chance without ammo."
+    },
+    "kr_daewoo_k2": {
+      "name": "Daewoo K2 5.56 Folding Rifle",
+      "desc": "Regional service firearm exclusive to Republic of Korea. Accurate long-range stopping power."
+    },
+    "kr_taebaek_parka": {
+      "name": "Taebaek Insulated Gore Parka",
+      "desc": "Regional protective outerwear exclusive to Republic of Korea. Balances ballistic armor and weather insulation."
+    },
+    "kr_seoul_pack": {
+      "name": "ROK Granite-B Patrol Pack",
+      "desc": "Regional expedition pack exclusive to Republic of Korea. Expands inventory slots and carry weight."
+    },
+    "kr_suwon_ic": {
+      "name": "Suwon Ruggedized Power IC",
+      "desc": "High-grade regional electronics salvage exclusive to Republic of Korea. Valuable for crafting and barter."
+    },
+    "kr_posco_alloy": {
+      "name": "Pohang High-Tensile Steel Strip",
+      "desc": "Refined regional alloy and hardware exclusive to Republic of Korea. Useful for repairs and fabrication."
+    },
+    "jp_onigiri_mre": {
+      "name": "JSDF Vacuum-Packed Rice Ration",
+      "desc": "Hearty regional ration exclusive to Japan. Restores substantial satiety and stamina."
+    },
+    "jp_yokan_bar": {
+      "name": "Emergency Red-Bean Yokan Bar",
+      "desc": "Lightweight regional trail snack exclusive to Japan. Quick energy and hunger relief."
+    },
+    "jp_pocari_flask": {
+      "name": "Ion-Supply Electrolyte Canteen",
+      "desc": "Regional beverage exclusive to Japan. Rehydrates and refreshes on the road."
+    },
+    "jp_kyoto_plaster": {
+      "name": "Kyoto Herbal Medicated Plaster",
+      "desc": "Traditional regional trauma remedy exclusive to Japan. Restores integrity and slows bleeding."
+    },
+    "jp_tokyo_antiseptic": {
+      "name": "Tokyo Sterile Povidone Mist",
+      "desc": "Regional clinical antiseptic exclusive to Japan. Purges wound infection."
+    },
+    "jp_wakizashi_blade": {
+      "name": "Forged Carbon-Steel Wakizashi",
+      "desc": "Signature close-quarters blade exclusive to Japan. High bleeding chance without ammo."
+    },
+    "jp_howa_type89": {
+      "name": "Howa Type 89 5.56 Rifle",
+      "desc": "Regional service firearm exclusive to Japan. Accurate long-range stopping power."
+    },
+    "jp_hokkaido_parka": {
+      "name": "Hokkaido Subzero Technical Parka",
+      "desc": "Regional protective outerwear exclusive to Japan. Balances ballistic armor and weather insulation."
+    },
+    "jp_osaka_pack": {
+      "name": "Tokyo Urban-Bunker 50L Pack",
+      "desc": "Regional expedition pack exclusive to Japan. Expands inventory slots and carry weight."
+    },
+    "jp_akihabara_cap": {
+      "name": "Akihabara Solid-State Capacitor",
+      "desc": "High-grade regional electronics salvage exclusive to Japan. Valuable for crafting and barter."
+    },
+    "jp_seki_steel": {
+      "name": "Seki Forged Carbon Tool Steel",
+      "desc": "Refined regional alloy and hardware exclusive to Japan. Useful for repairs and fabrication."
+    },
+    "th_khao_pad_tin": {
+      "name": "Canned Basil Chili Rice Ration",
+      "desc": "Hearty regional ration exclusive to Thailand. Restores substantial satiety and stamina."
+    },
+    "th_mango_sticky_bar": {
+      "name": "Dried Mango & Coconut Energy Bar",
+      "desc": "Lightweight regional trail snack exclusive to Thailand. Quick energy and hunger relief."
+    },
+    "th_cha_yen_flask": {
+      "name": "Condensed Thai Tea Energy Flask",
+      "desc": "Regional beverage exclusive to Thailand. Rehydrates and refreshes on the road."
+    },
+    "th_tiger_balm": {
+      "name": "Bangkok Camphor & Menthol Balm",
+      "desc": "Traditional regional trauma remedy exclusive to Thailand. Restores integrity and slows bleeding."
+    },
+    "th_fah_talai_jone": {
+      "name": "Andrographis Herbal Antiviral",
+      "desc": "Regional clinical antiseptic exclusive to Thailand. Purges wound infection."
+    },
+    "th_enep_machete": {
+      "name": "Traditional Thai E-Nep Cleaver",
+      "desc": "Signature close-quarters blade exclusive to Thailand. High bleeding chance without ammo."
+    },
+    "th_bangkok_m16": {
+      "name": "Royal Guard 5.56 Tactical Carbine",
+      "desc": "Regional service firearm exclusive to Thailand. Accurate long-range stopping power."
+    },
+    "th_monsoon_poncho": {
+      "name": "Chao Phraya Monsoon Raincoat",
+      "desc": "Regional protective outerwear exclusive to Thailand. Balances ballistic armor and weather insulation."
+    },
+    "th_chiangmai_pack": {
+      "name": "Northern Jungle Trekker Pack",
+      "desc": "Regional expedition pack exclusive to Thailand. Expands inventory slots and carry weight."
+    },
+    "th_rayong_relay": {
+      "name": "Rayong Petrochemical Relay",
+      "desc": "High-grade regional electronics salvage exclusive to Thailand. Valuable for crafting and barter."
+    },
+    "th_ayutthaya_brass": {
+      "name": "Ayutthaya Cast Brass Fitting",
+      "desc": "Refined regional alloy and hardware exclusive to Thailand. Useful for repairs and fabrication."
+    },
+    "my_rendang_tin": {
+      "name": "Canned Spiced Beef Rendang",
+      "desc": "Hearty regional ration exclusive to Malaysia. Restores substantial satiety and stamina."
+    },
+    "my_kaya_pack": {
+      "name": "Coconut Kaya Energy Tube",
+      "desc": "Lightweight regional trail snack exclusive to Malaysia. Quick energy and hunger relief."
+    },
+    "my_teh_tarik_flask": {
+      "name": "Spiced Teh Tarik Milk Tea",
+      "desc": "Regional beverage exclusive to Malaysia. Rehydrates and refreshes on the road."
+    },
+    "my_gamat_balm": {
+      "name": "Langkawi Sea-Cucumber Gel",
+      "desc": "Traditional regional trauma remedy exclusive to Malaysia. Restores integrity and slows bleeding."
+    },
+    "my_kl_antiseptic": {
+      "name": "Kuala Lumpur Tropical Wash",
+      "desc": "Regional clinical antiseptic exclusive to Malaysia. Purges wound infection."
+    },
+    "my_parang_blade": {
+      "name": "Borneo Heavy Parang Chopper",
+      "desc": "Signature close-quarters blade exclusive to Malaysia. High bleeding chance without ammo."
+    },
+    "my_vita_carbine": {
+      "name": "Malaysian Steyr 5.56 Carbine",
+      "desc": "Regional service firearm exclusive to Malaysia. Accurate long-range stopping power."
+    },
+    "my_taman_poncho": {
+      "name": "Taman Negara Canopy Poncho",
+      "desc": "Regional protective outerwear exclusive to Malaysia. Balances ballistic armor and weather insulation."
+    },
+    "my_malacca_pack": {
+      "name": "Strait of Malacca Dry-Pack",
+      "desc": "Regional expedition pack exclusive to Malaysia. Expands inventory slots and carry weight."
+    },
+    "my_penang_chip": {
+      "name": "Penang Semiconductor Module",
+      "desc": "High-grade regional electronics salvage exclusive to Malaysia. Valuable for crafting and barter."
+    },
+    "my_ipoh_tin": {
+      "name": "Ipoh Refined Tin Solder Bar",
+      "desc": "Refined regional alloy and hardware exclusive to Malaysia. Useful for repairs and fabrication."
+    },
+    "id_nasi_goreng_tin": {
+      "name": "Canned Nasi Goreng & Chicken",
+      "desc": "Hearty regional ration exclusive to Indonesia. Restores substantial satiety and stamina."
+    },
+    "id_tempeh_chips": {
+      "name": "Spiced Crispy Tempeh Ration",
+      "desc": "Lightweight regional trail snack exclusive to Indonesia. Quick energy and hunger relief."
+    },
+    "id_jamu_tonic": {
+      "name": "Turmeric & Ginger Jamu Tonic",
+      "desc": "Regional beverage exclusive to Indonesia. Rehydrates and refreshes on the road."
+    },
+    "id_minyak_kayu": {
+      "name": "Maluku Cajeput Healing Oil",
+      "desc": "Traditional regional trauma remedy exclusive to Indonesia. Restores integrity and slows bleeding."
+    },
+    "id_jakarta_kit": {
+      "name": "Jakarta Dengue & Wound Vial",
+      "desc": "Regional clinical antiseptic exclusive to Indonesia. Purges wound infection."
+    },
+    "id_golok_machete": {
+      "name": "Sundanese Forged Golok Blade",
+      "desc": "Signature close-quarters blade exclusive to Indonesia. High bleeding chance without ammo."
+    },
+    "id_pindad_ss2": {
+      "name": "Pindad SS2-V4 5.56 Rifle",
+      "desc": "Regional service firearm exclusive to Indonesia. Accurate long-range stopping power."
+    },
+    "id_java_jacket": {
+      "name": "Archipelago Monsoon Shell",
+      "desc": "Regional protective outerwear exclusive to Indonesia. Balances ballistic armor and weather insulation."
+    },
+    "id_bromo_pack": {
+      "name": "Mount Bromo Ash-Sealed Pack",
+      "desc": "Regional expedition pack exclusive to Indonesia. Expands inventory slots and carry weight."
+    },
+    "id_java_battery": {
+      "name": "Surabaya Marine Starter Cell",
+      "desc": "High-grade regional electronics salvage exclusive to Indonesia. Valuable for crafting and barter."
+    },
+    "id_java_rubber": {
+      "name": "Sumatra Vulcanized Rubber Sheet",
+      "desc": "Refined regional alloy and hardware exclusive to Indonesia. Useful for repairs and fabrication."
+    },
+    "au_beef_pie_tin": {
+      "name": "Canned Outback Steak & Pie Mix",
+      "desc": "Hearty regional ration exclusive to Australia. Restores substantial satiety and stamina."
+    },
+    "au_anzac_biscuit": {
+      "name": "Oat & Golden Syrup ANZAC Biscuits",
+      "desc": "Lightweight regional trail snack exclusive to Australia. Quick energy and hunger relief."
+    },
+    "au_electrolyte_jug": {
+      "name": "Outback Hydration Salts Jug",
+      "desc": "Regional beverage exclusive to Australia. Rehydrates and refreshes on the road."
+    },
+    "au_tea_tree_oil": {
+      "name": "Australian Tea-Tree Antiseptic",
+      "desc": "Traditional regional trauma remedy exclusive to Australia. Restores integrity and slows bleeding."
+    },
+    "au_eucalyptus_gel": {
+      "name": "Blue-Gum Sterile Burn Gel",
+      "desc": "Regional clinical antiseptic exclusive to Australia. Purges wound infection."
+    },
+    "au_bowie_outback": {
+      "name": "Crocodile Bush Bowie Knife",
+      "desc": "Signature close-quarters blade exclusive to Australia. High bleeding chance without ammo."
+    },
+    "au_ef88_austeyr": {
+      "name": "EF88 Austeyr 5.56 Bullpup Rifle",
+      "desc": "Regional service firearm exclusive to Australia. Accurate long-range stopping power."
+    },
+    "au_driza_bone": {
+      "name": "Driza-Bone Outback Oilskin Coat",
+      "desc": "Regional protective outerwear exclusive to Australia. Balances ballistic armor and weather insulation."
+    },
+    "au_alice_pack": {
+      "name": "Red Centre Dustproof 60L Pack",
+      "desc": "Regional expedition pack exclusive to Australia. Expands inventory slots and carry weight."
+    },
+    "au_pilbara_sensor": {
+      "name": "Pilbara Mining Telemetry Unit",
+      "desc": "High-grade regional electronics salvage exclusive to Australia. Valuable for crafting and barter."
+    },
+    "au_broken_hill_lead": {
+      "name": "Broken Hill Lead-Zinc Ingot",
+      "desc": "Refined regional alloy and hardware exclusive to Australia. Useful for repairs and fabrication."
+    },
+    "nz_lamb_stew_tin": {
+      "name": "Canned Canterbury Lamb Stew",
+      "desc": "Hearty regional ration exclusive to New Zealand. Restores substantial satiety and stamina."
+    },
+    "nz_hokey_bar": {
+      "name": "Honeycomb & Oat Trail Bar",
+      "desc": "Lightweight regional trail snack exclusive to New Zealand. Quick energy and hunger relief."
+    },
+    "nz_fiordland_water": {
+      "name": "Fiordland Pure Alpine Spring",
+      "desc": "Regional beverage exclusive to New Zealand. Rehydrates and refreshes on the road."
+    },
+    "nz_manuka_honey": {
+      "name": "UMF-20 Manuka Wound Dressing",
+      "desc": "Traditional regional trauma remedy exclusive to New Zealand. Restores integrity and slows bleeding."
+    },
+    "nz_kawakawa_balm": {
+      "name": "Kawakawa Leaf Antiseptic Balm",
+      "desc": "Regional clinical antiseptic exclusive to New Zealand. Purges wound infection."
+    },
+    "nz_pounamu_knife": {
+      "name": "Southern Alps Utility Knife",
+      "desc": "Signature close-quarters blade exclusive to New Zealand. High bleeding chance without ammo."
+    },
+    "nz_mars_l_rifle": {
+      "name": "NZDF MARS-L 5.56 Carbine",
+      "desc": "Regional service firearm exclusive to New Zealand. Accurate long-range stopping power."
+    },
+    "nz_swanndri_coat": {
+      "name": "Swanndri Heavy Bush Shirt",
+      "desc": "Regional protective outerwear exclusive to New Zealand. Balances ballistic armor and weather insulation."
+    },
+    "nz_milford_pack": {
+      "name": "Milford Track Waterproof Pack",
+      "desc": "Regional expedition pack exclusive to New Zealand. Expands inventory slots and carry weight."
+    },
+    "nz_wairakei_coil": {
+      "name": "Wairakei Geothermal Copper Coil",
+      "desc": "High-grade regional electronics salvage exclusive to New Zealand. Valuable for crafting and barter."
+    },
+    "nz_rotorua_sulfur": {
+      "name": "Rotorua Refined Sulfur Cake",
+      "desc": "Refined regional alloy and hardware exclusive to New Zealand. Useful for repairs and fabrication."
+    },
+    "us_first_strike": {
+      "name": "First Strike 24h Assault Ration",
+      "desc": "Hearty regional ration exclusive to United States. Restores substantial satiety and stamina."
+    },
+    "us_pemmican_bar": {
+      "name": "Prairie Bison Pemmican Bar",
+      "desc": "Lightweight regional trail snack exclusive to United States. Quick energy and hunger relief."
+    },
+    "us_electrolyte_canteen": {
+      "name": "USGI 2-Quart Hydration Canteen",
+      "desc": "Regional beverage exclusive to United States. Rehydrates and refreshes on the road."
+    },
+    "us_quikclot_combat": {
+      "name": "USMC Combat Hemostatic Sponge",
+      "desc": "Traditional regional trauma remedy exclusive to United States. Restores integrity and slows bleeding."
+    },
+    "us_betadine_swabs": {
+      "name": "Tactical Povidone Swab Pack",
+      "desc": "Regional clinical antiseptic exclusive to United States. Purges wound infection."
+    },
+    "us_kabar_usmc": {
+      "name": "KA-BAR USMC Combat Knife",
+      "desc": "Signature close-quarters blade exclusive to United States. High bleeding chance without ammo."
+    },
+    "us_m4a1_sopmod": {
+      "name": "M4A1 SOPMOD Block II 5.56",
+      "desc": "Regional service firearm exclusive to United States. Accurate long-range stopping power."
+    },
+    "us_ecwcs_parka": {
+      "name": "ECWCS Gen-III Level 7 Parka",
+      "desc": "Regional protective outerwear exclusive to United States. Balances ballistic armor and weather insulation."
+    },
+    "us_alice_large": {
+      "name": "Large ALICE Frame Field Pack",
+      "desc": "Regional expedition pack exclusive to United States. Expands inventory slots and carry weight."
+    },
+    "us_mil_spec_battery": {
+      "name": "BB-2590 Military Lithium Battery",
+      "desc": "High-grade regional electronics salvage exclusive to United States. Valuable for crafting and barter."
+    },
+    "us_detroit_steel": {
+      "name": "Detroit Forged Axle Steel",
+      "desc": "Refined regional alloy and hardware exclusive to United States. Useful for repairs and fabrication."
+    },
+    "ca_imp_ration": {
+      "name": "Canadian IMP Field Ration",
+      "desc": "Hearty regional ration exclusive to Canada. Restores substantial satiety and stamina."
+    },
+    "ca_maple_bar": {
+      "name": "Pure Maple & Oat Energy Cake",
+      "desc": "Lightweight regional trail snack exclusive to Canada. Quick energy and hunger relief."
+    },
+    "ca_yukon_flask": {
+      "name": "Yukon Glacial Insulated Flask",
+      "desc": "Regional beverage exclusive to Canada. Rehydrates and refreshes on the road."
+    },
+    "ca_spruce_pitch": {
+      "name": "Boreal Spruce Pitch Wound Salve",
+      "desc": "Traditional regional trauma remedy exclusive to Canada. Restores integrity and slows bleeding."
+    },
+    "ca_ottawa_kit": {
+      "name": "Ottawa Cold-Weather Antiseptic",
+      "desc": "Regional clinical antiseptic exclusive to Canada. Purges wound infection."
+    },
+    "ca_grohmann_knife": {
+      "name": "Grohmann Canadian Belt Knife",
+      "desc": "Signature close-quarters blade exclusive to Canada. High bleeding chance without ammo."
+    },
+    "ca_colt_c7a2": {
+      "name": "Colt Canada C7A2 5.56 Rifle",
+      "desc": "Regional service firearm exclusive to Canada. Accurate long-range stopping power."
+    },
+    "ca_hudson_parka": {
+      "name": "Hudson Bay Subarctic Parka",
+      "desc": "Regional protective outerwear exclusive to Canada. Balances ballistic armor and weather insulation."
+    },
+    "ca_banff_pack": {
+      "name": "Banff Canoe-Portage 65L Pack",
+      "desc": "Regional expedition pack exclusive to Canada. Expands inventory slots and carry weight."
+    },
+    "ca_hydro_quebec": {
+      "name": "Hydro-Québec High-Voltage Relay",
+      "desc": "High-grade regional electronics salvage exclusive to Canada. Valuable for crafting and barter."
+    },
+    "ca_sudbury_nickel": {
+      "name": "Sudbury Refined Nickel Plate",
+      "desc": "Refined regional alloy and hardware exclusive to Canada. Useful for repairs and fabrication."
+    },
+    "gl_mattak_tin": {
+      "name": "Preserved Arctic Seal & Fish Tin",
+      "desc": "Hearty regional ration exclusive to Greenland. Restores substantial satiety and stamina."
+    },
+    "gl_crowberry_bar": {
+      "name": "Dried Crowberry & Fat Pemmican",
+      "desc": "Lightweight regional trail snack exclusive to Greenland. Quick energy and hunger relief."
+    },
+    "gl_ilulissat_ice": {
+      "name": "Ilulissat Iceberg Melt Flask",
+      "desc": "Regional beverage exclusive to Greenland. Rehydrates and refreshes on the road."
+    },
+    "gl_arctic_angelica": {
+      "name": "Greenland Angelica Warming Balm",
+      "desc": "Traditional regional trauma remedy exclusive to Greenland. Restores integrity and slows bleeding."
+    },
+    "gl_nuuk_saline": {
+      "name": "Nuuk Arctic Sterile Saline",
+      "desc": "Regional clinical antiseptic exclusive to Greenland. Purges wound infection."
+    },
+    "gl_inuit_ulu": {
+      "name": "Steel-Edged Arctic Ulu Chopper",
+      "desc": "Signature close-quarters blade exclusive to Greenland. High bleeding chance without ammo."
+    },
+    "gl_sirius_enfield": {
+      "name": "Sirius Patrol .30-06 Bolt Rifle",
+      "desc": "Regional service firearm exclusive to Greenland. Accurate long-range stopping power."
+    },
+    "gl_anorak_seal": {
+      "name": "Thule Insulated Arctic Anorak",
+      "desc": "Regional protective outerwear exclusive to Greenland. Balances ballistic armor and weather insulation."
+    },
+    "gl_sled_pack": {
+      "name": "Greenland Dog-Sled Frame Pack",
+      "desc": "Regional expedition pack exclusive to Greenland. Expands inventory slots and carry weight."
+    },
+    "gl_thule_beacon": {
+      "name": "Thule Polar Radio Transponder",
+      "desc": "High-grade regional electronics salvage exclusive to Greenland. Valuable for crafting and barter."
+    },
+    "gl_ivittuut_cryolite": {
+      "name": "Ivittuut Cryolite Flux Mineral",
+      "desc": "Refined regional alloy and hardware exclusive to Greenland. Useful for repairs and fabrication."
+    },
+    "mx_birria_tin": {
+      "name": "Canned Jalisco Beef Birria",
+      "desc": "Hearty regional ration exclusive to Mexico. Restores substantial satiety and stamina."
+    },
+    "mx_pinole_bar": {
+      "name": "Toasted Maize & Cacao Pinole",
+      "desc": "Lightweight regional trail snack exclusive to Mexico. Quick energy and hunger relief."
+    },
+    "mx_jamaica_flask": {
+      "name": "Hibiscus & Lime Agua Fresca",
+      "desc": "Regional beverage exclusive to Mexico. Rehydrates and refreshes on the road."
+    },
+    "mx_tepezcohuite": {
+      "name": "Chiapas Tepezcohuite Burn Balm",
+      "desc": "Traditional regional trauma remedy exclusive to Mexico. Restores integrity and slows bleeding."
+    },
+    "mx_cdmx_antiseptic": {
+      "name": "Mexico City Sterile Antiseptic",
+      "desc": "Regional clinical antiseptic exclusive to Mexico. Purges wound infection."
+    },
+    "mx_oaxaca_machete": {
+      "name": "Oaxaca Heavy Brush Machete",
+      "desc": "Signature close-quarters blade exclusive to Mexico. High bleeding chance without ammo."
+    },
+    "mx_fx05_xiuhcoatl": {
+      "name": "FX-05 Xiuhcoatl 5.56 Rifle",
+      "desc": "Regional service firearm exclusive to Mexico. Accurate long-range stopping power."
+    },
+    "mx_sonora_duster": {
+      "name": "Sonoran Desert Canvas Duster",
+      "desc": "Regional protective outerwear exclusive to Mexico. Balances ballistic armor and weather insulation."
+    },
+    "mx_sierra_pack": {
+      "name": "Sierra Madre 55L Field Pack",
+      "desc": "Regional expedition pack exclusive to Mexico. Expands inventory slots and carry weight."
+    },
+    "mx_monterrey_motor": {
+      "name": "Monterrey Industrial Blower Motor",
+      "desc": "High-grade regional electronics salvage exclusive to Mexico. Valuable for crafting and barter."
+    },
+    "mx_zacatecas_silver": {
+      "name": "Zacatecas Silver-Solder Wire",
+      "desc": "Refined regional alloy and hardware exclusive to Mexico. Useful for repairs and fabrication."
+    },
+    "pa_sancocho_tin": {
+      "name": "Canned Tropical Chicken Sancocho",
+      "desc": "Hearty regional ration exclusive to Panama. Restores substantial satiety and stamina."
+    },
+    "pa_plantain_bar": {
+      "name": "Dried Banana & Peanut Block",
+      "desc": "Lightweight regional trail snack exclusive to Panama. Quick energy and hunger relief."
+    },
+    "pa_chicheme_flask": {
+      "name": "Sweet Corn & Cinnamon Chicheme",
+      "desc": "Regional beverage exclusive to Panama. Rehydrates and refreshes on the road."
+    },
+    "pa_darien_salve": {
+      "name": "Darien Jungle Anti-Fungal Balm",
+      "desc": "Traditional regional trauma remedy exclusive to Panama. Restores integrity and slows bleeding."
+    },
+    "pa_canal_kit": {
+      "name": "Canal Zone Antimalarial Ampoule",
+      "desc": "Regional clinical antiseptic exclusive to Panama. Purges wound infection."
+    },
+    "pa_darien_bolo": {
+      "name": "Canal Zone Jungle Bolo Knife",
+      "desc": "Signature close-quarters blade exclusive to Panama. High bleeding chance without ammo."
+    },
+    "pa_colon_carbine": {
+      "name": "Canal Guard 5.56 Patrol Carbine",
+      "desc": "Regional service firearm exclusive to Panama. Accurate long-range stopping power."
+    },
+    "pa_gamboa_poncho": {
+      "name": "Gamboa Heavy Monsoon Poncho",
+      "desc": "Regional protective outerwear exclusive to Panama. Balances ballistic armor and weather insulation."
+    },
+    "pa_gatun_pack": {
+      "name": "Gatun Lake Waterproof Pack",
+      "desc": "Regional expedition pack exclusive to Panama. Expands inventory slots and carry weight."
+    },
+    "pa_miraflores_switch": {
+      "name": "Miraflores Lock Heavy Relay",
+      "desc": "High-grade regional electronics salvage exclusive to Panama. Valuable for crafting and barter."
+    },
+    "pa_balboa_brass": {
+      "name": "Balboa Marine Bronze Valve",
+      "desc": "Refined regional alloy and hardware exclusive to Panama. Useful for repairs and fabrication."
+    },
+    "co_bandeja_tin": {
+      "name": "Canned Paisa Beans & Pork Stew",
+      "desc": "Hearty regional ration exclusive to Colombia. Restores substantial satiety and stamina."
+    },
+    "co_bocadillo_bar": {
+      "name": "Guava Paste Bocadillo Energy Bar",
+      "desc": "Lightweight regional trail snack exclusive to Colombia. Quick energy and hunger relief."
+    },
+    "co_juan_valdez": {
+      "name": "Andean Arabica Coffee Flask",
+      "desc": "Regional beverage exclusive to Colombia. Rehydrates and refreshes on the road."
+    },
+    "co_calendula_gel": {
+      "name": "Bogotá Calendula Wound Gel",
+      "desc": "Traditional regional trauma remedy exclusive to Colombia. Restores integrity and slows bleeding."
+    },
+    "co_andean_quinine": {
+      "name": "Andean Cinchona Fever Drops",
+      "desc": "Regional clinical antiseptic exclusive to Colombia. Purges wound infection."
+    },
+    "co_coffee_machete": {
+      "name": "Colombian Heavy Peinilla Machete",
+      "desc": "Signature close-quarters blade exclusive to Colombia. High bleeding chance without ammo."
+    },
+    "co_indumil_galil": {
+      "name": "Indumil Galil ACE 5.56 Rifle",
+      "desc": "Regional service firearm exclusive to Colombia. Accurate long-range stopping power."
+    },
+    "co_ruana_coat": {
+      "name": "Boyacá Heavy Wool Ruana Poncho",
+      "desc": "Regional protective outerwear exclusive to Colombia. Balances ballistic armor and weather insulation."
+    },
+    "co_andes_pack": {
+      "name": "Cordillera 55L Cloud-Forest Pack",
+      "desc": "Regional expedition pack exclusive to Colombia. Expands inventory slots and carry weight."
+    },
+    "co_medellin_board": {
+      "name": "Medellín Hydro-Grid Controller",
+      "desc": "High-grade regional electronics salvage exclusive to Colombia. Valuable for crafting and barter."
+    },
+    "co_muzom_copper": {
+      "name": "Boyacá Braided Copper Grounding",
+      "desc": "Refined regional alloy and hardware exclusive to Colombia. Useful for repairs and fabrication."
+    },
+    "pe_seco_tin": {
+      "name": "Canned Lamb & Cilantro Stew",
+      "desc": "Hearty regional ration exclusive to Peru. Restores substantial satiety and stamina."
+    },
+    "pe_canchita_maca": {
+      "name": "Toasted Corn & Maca Energy Pouch",
+      "desc": "Lightweight regional trail snack exclusive to Peru. Quick energy and hunger relief."
+    },
+    "pe_chicha_morada": {
+      "name": "Purple Corn & Clove Chicha Flask",
+      "desc": "Regional beverage exclusive to Peru. Rehydrates and refreshes on the road."
+    },
+    "pe_cats_claw": {
+      "name": "Amazonian Cat’s Claw Healing Gel",
+      "desc": "Traditional regional trauma remedy exclusive to Peru. Restores integrity and slows bleeding."
+    },
+    "pe_coca_altitude": {
+      "name": "Andean Altitude & Pain Elixir",
+      "desc": "Regional clinical antiseptic exclusive to Peru. Purges wound infection."
+    },
+    "pe_inca_tumi": {
+      "name": "Steel-Forged Tumi Utility Chopper",
+      "desc": "Signature close-quarters blade exclusive to Peru. High bleeding chance without ammo."
+    },
+    "pe_scar_peru": {
+      "name": "FAME 7.62 Andean Marksman",
+      "desc": "Regional service firearm exclusive to Peru. Accurate long-range stopping power."
+    },
+    "pe_alpaca_parka": {
+      "name": "Cusco Heavy Alpaca Thermal Coat",
+      "desc": "Regional protective outerwear exclusive to Peru. Balances ballistic armor and weather insulation."
+    },
+    "pe_huaraz_pack": {
+      "name": "Cordillera Blanca Mountaineer Pack",
+      "desc": "Regional expedition pack exclusive to Peru. Expands inventory slots and carry weight."
+    },
+    "pe_callao_inverter": {
+      "name": "Callao Harbor Marine Inverter",
+      "desc": "High-grade regional electronics salvage exclusive to Peru. Valuable for crafting and barter."
+    },
+    "pe_cerro_copper": {
+      "name": "Cerro de Pasco Copper Busbar",
+      "desc": "Refined regional alloy and hardware exclusive to Peru. Useful for repairs and fabrication."
+    },
+    "br_feijoada_tin": {
+      "name": "Canned Black-Bean Feijoada Stew",
+      "desc": "Hearty regional ration exclusive to Brazil. Restores substantial satiety and stamina."
+    },
+    "br_pacoca_bar": {
+      "name": "Pressed Peanut Paçoca Energy Bar",
+      "desc": "Lightweight regional trail snack exclusive to Brazil. Quick energy and hunger relief."
+    },
+    "br_guarana_flask": {
+      "name": "Amazonian Guaraná Energy Canteen",
+      "desc": "Regional beverage exclusive to Brazil. Rehydrates and refreshes on the road."
+    },
+    "br_copaiba_oil": {
+      "name": "Amazon Copaiba Resin Wound Balm",
+      "desc": "Traditional regional trauma remedy exclusive to Brazil. Restores integrity and slows bleeding."
+    },
+    "br_butantan_serum": {
+      "name": "Butantan Institute Antivenom Kit",
+      "desc": "Regional clinical antiseptic exclusive to Brazil. Purges wound infection."
+    },
+    "br_tramontina_machete": {
+      "name": "Tramontina Heavy Carbon Machete",
+      "desc": "Signature close-quarters blade exclusive to Brazil. High bleeding chance without ammo."
+    },
+    "br_imbel_ia2": {
+      "name": "IMBEL IA2 5.56 Assault Rifle",
+      "desc": "Regional service firearm exclusive to Brazil. Accurate long-range stopping power."
+    },
+    "br_amazon_poncho": {
+      "name": "Manaus Waterproof Jungle Poncho",
+      "desc": "Regional protective outerwear exclusive to Brazil. Balances ballistic armor and weather insulation."
+    },
+    "br_pantanal_pack": {
+      "name": "Pantanal Amphibious Field Pack",
+      "desc": "Regional expedition pack exclusive to Brazil. Expands inventory slots and carry weight."
+    },
+    "br_itaipu_relay": {
+      "name": "Itaipu Hydro-Dam Relay Module",
+      "desc": "High-grade regional electronics salvage exclusive to Brazil. Valuable for crafting and barter."
+    },
+    "br_minas_iron": {
+      "name": "Minas Gerais Forged Steel Plate",
+      "desc": "Refined regional alloy and hardware exclusive to Brazil. Useful for repairs and fabrication."
+    },
+    "ar_locro_tin": {
+      "name": "Canned Corn & Beef Locro Stew",
+      "desc": "Hearty regional ration exclusive to Argentina. Restores substantial satiety and stamina."
+    },
+    "ar_dulce_bar": {
+      "name": "Caramelized Milk Dulce Ration",
+      "desc": "Lightweight regional trail snack exclusive to Argentina. Quick energy and hunger relief."
+    },
+    "ar_yerba_mate": {
+      "name": "Patagonian Yerba Mate Thermos",
+      "desc": "Regional beverage exclusive to Argentina. Rehydrates and refreshes on the road."
+    },
+    "ar_patagonia_calafate": {
+      "name": "Patagonian Calafate Antiseptic",
+      "desc": "Traditional regional trauma remedy exclusive to Argentina. Restores integrity and slows bleeding."
+    },
+    "ar_malbran_serum": {
+      "name": "Malbrán Institute Sterile Vial",
+      "desc": "Regional clinical antiseptic exclusive to Argentina. Purges wound infection."
+    },
+    "ar_gaucho_facon": {
+      "name": "Gaucho Silver-Hilt Facón Knife",
+      "desc": "Signature close-quarters blade exclusive to Argentina. High bleeding chance without ammo."
+    },
+    "ar_fm_fal": {
+      "name": "FMAP FAL 7.62 Para Rifle",
+      "desc": "Regional service firearm exclusive to Argentina. Accurate long-range stopping power."
+    },
+    "ar_ushuaia_parka": {
+      "name": "Ushuaia Sub-Antarctic Parka",
+      "desc": "Regional protective outerwear exclusive to Argentina. Balances ballistic armor and weather insulation."
+    },
+    "ar_fitzroy_pack": {
+      "name": "Fitz Roy Alpine 65L Pack",
+      "desc": "Regional expedition pack exclusive to Argentina. Expands inventory slots and carry weight."
+    },
+    "ar_pampa_wind": {
+      "name": "Patagonia Wind-Generator Stator",
+      "desc": "High-grade regional electronics salvage exclusive to Argentina. Valuable for crafting and barter."
+    },
+    "ar_rio_negro_wire": {
+      "name": "Río Negro Heavy Copper Cable",
+      "desc": "Refined regional alloy and hardware exclusive to Argentina. Useful for repairs and fabrication."
+    },
+    "cl_curanto_tin": {
+      "name": "Canned Chiloé Seafood & Pork",
+      "desc": "Hearty regional ration exclusive to Chile. Restores substantial satiety and stamina."
+    },
+    "cl_harina_tostada": {
+      "name": "Toasted Wheat & Honey Pouch",
+      "desc": "Lightweight regional trail snack exclusive to Chile. Quick energy and hunger relief."
+    },
+    "cl_mote_huesillo": {
+      "name": "Peach & Barley Mote Canteen",
+      "desc": "Regional beverage exclusive to Chile. Rehydrates and refreshes on the road."
+    },
+    "cl_boldo_tonic": {
+      "name": "Andean Boldo Digestive & Liver Aid",
+      "desc": "Traditional regional trauma remedy exclusive to Chile. Restores integrity and slows bleeding."
+    },
+    "cl_santiago_kit": {
+      "name": "Santiago Seismic Trauma Kit",
+      "desc": "Regional clinical antiseptic exclusive to Chile. Purges wound infection."
+    },
+    "cl_corvo_knife": {
+      "name": "Chilean Curved Corvo Combat Knife",
+      "desc": "Signature close-quarters blade exclusive to Chile. High bleeding chance without ammo."
+    },
+    "cl_famae_sg540": {
+      "name": "FAMAE SG 540-1 5.56 Rifle",
+      "desc": "Regional service firearm exclusive to Chile. Accurate long-range stopping power."
+    },
+    "cl_torres_shell": {
+      "name": "Torres del Paine Storm Parka",
+      "desc": "Regional protective outerwear exclusive to Chile. Balances ballistic armor and weather insulation."
+    },
+    "cl_atacama_pack": {
+      "name": "Atacama Desert Hydration Pack",
+      "desc": "Regional expedition pack exclusive to Chile. Expands inventory slots and carry weight."
+    },
+    "cl_atacama_solar": {
+      "name": "Atacama High-Efficiency Solar Cell",
+      "desc": "High-grade regional electronics salvage exclusive to Chile. Valuable for crafting and barter."
+    },
+    "cl_chuquicamata_copper": {
+      "name": "Chuquicamata Pure Copper Ingot",
+      "desc": "Refined regional alloy and hardware exclusive to Chile. Useful for repairs and fabrication."
     }
   },
   "encounter": {
@@ -2964,6 +5318,13 @@
     "skill": {
       "level_up": "{skill} proficiency advanced to level {level}."
     },
+    "skill_tree": {
+      "level_up": "⭐ LEVEL UP! Reached Level {level}! (+{points} Skill Points)",
+      "unlocked": "⚡ NEW PERK UNLOCKED: {perk}"
+    },
+    "season": {
+      "changed": "{glyph} Season shifted: {season} has arrived!"
+    },
     "inventory": {
       "gained": {
         "one": "Recovered {item} (×{count}).",
@@ -2972,6 +5333,8 @@
       "left_behind": "Pack full — left {item} (×{count}) on the ground.",
       "used": "Used {item}.",
       "dropped": "Dropped {item} (×{count}).",
+      "salvaged": "Salvaged {item} into {scrap}× scrap metal.",
+      "upgraded": "Upgraded {item} to +{level}!",
       "picked_up": "Stowed {item} (×{count}).",
       "equipped": "Equipped {item}.",
       "unequipped": "Stowed {item} into pack.",
@@ -3007,7 +5370,16 @@
       "triggered": "CONTACT: {title}"
     },
     "crafting": {
-      "crafted": "Crafted: {count}× {item}."
+      "crafted": "Crafted: {count}× {item}.",
+      "blueprint_unlocked": "📐 Blueprint unlocked: {item}!"
+    },
+    "endgame": {
+      "evacuated": "🛡️ Sector 09 Bunker gates opened! Survivor evacuated on Day {days}."
+    },
+    "faction": {
+      "contract_accepted": "📋 Accepted field contract from {faction}.",
+      "contract_completed": "🏆 Contract completed for {faction}! (+{rep} Rep, +{xp} XP)",
+      "contract_abandoned": "Field contract abandoned."
     },
     "base": {
       "established": "Outpost established at {location}.",
@@ -3023,7 +5395,8 @@
       "generator_refueled": "Generator refueled (+{hours} hours).",
       "generator_depleted": "Generator out of fuel! Power grid shut down.",
       "raid_defended": "Night Raid: Perimeter barricades repelled the prowlers! (+{loot} scrap metal salvaged).",
-      "raid_breached": "Night Raid: Prowlers breached the perimeter! Outpost defenses took %{damage} damage."
+      "raid_breached": "Night Raid: Prowlers breached the perimeter! Outpost defenses took %{damage} damage.",
+      "patrol_done": "Perimeter patrol completed. Secured defenses for 24h and salvaged {scrap}× scrap metal."
     }
   },
   "enemy": {
@@ -3050,6 +5423,18 @@
     "iron_guard_sentinel": {
       "name": "Iron Guard Shock Sentinel",
       "desc": "Heavily armored bunker shock-trooper enforcing shoot-to-kill perimeter isolation."
+    },
+    "alpha_beast": {
+      "name": "Mutated Alpha Beast",
+      "desc": "Towering irradiated apex predator whose hide shrugs off light rounds."
+    },
+    "armored_warlord": {
+      "name": "Ash Marauder Warlord",
+      "desc": "Ruthless raider chieftain clad in welded vehicle plating and heavy weaponry."
+    },
+    "rogue_exo_commander": {
+      "name": "Rogue Exo-Commander",
+      "desc": "Ex-cordon officer in a powered military exoskeleton armed with precision optics."
     }
   },
   "combat": {
@@ -3153,6 +5538,7 @@
       "advance": "Advance",
       "retreat": "Fall Back",
       "clear_jam": "Clear Jam",
+      "quick_med": "Field Med",
       "spare": "Spare & Disarm",
       "execute": "Execute"
     },
@@ -3180,6 +5566,8 @@
   },
   "crafting": {
     "station": "WORKBENCH",
+    "search_placeholder": "Search recipes...",
+    "craftable_only": "Craftable",
     "section": {
       "recipes": "FABRICATION & SCHEMATICS"
     },
@@ -3225,7 +5613,20 @@
       "take_all": "EMPTY LOCKER",
       "toggle_generator": "⚡ TOGGLE POWER",
       "refuel_generator": "⛽ REFUEL (+12h)",
-      "inspect_facility": "INSPECT FACILITY"
+      "inspect_facility": "INSPECT FACILITY",
+      "patrol": "🛡️ PATROL PERIMETER (1h)"
+    },
+    "tier": {
+      "tier_1": "Field Camp",
+      "tier_2": "Fortified Shelter",
+      "tier_3": "Reinforced Outpost",
+      "tier_4": "Bastion Citadel"
+    },
+    "patrol_active": "PATROL ACTIVE (-15 THREAT)",
+    "posture": {
+      "fortify": "🛡️ FORTIFY (+25% DEF)",
+      "ambush": "⚔️ AMBUSH (2× LOOT)",
+      "stealth": "🌑 STEALTH (-30% RAID)"
     },
     "facility_inspect_prompt": "Tap any facility above to inspect requirements and upgrade.",
     "production_ready": "OUTPOST HARVEST READY",
@@ -3279,9 +5680,22 @@
     "generator": {
       "name": "Field Fuel Generator",
       "desc": "Powers the outpost grid. Cuts crafting times in half, boosts hydroponics, and powers perimeter floodlights."
+    },
+    "solar_panel": {
+      "name": "Photovoltaic Solar Array",
+      "desc": "Passively recharges the outpost generator during daylight hours without burning fuel."
+    },
+    "watchtower": {
+      "name": "Elevated Watchtower",
+      "desc": "Boosts defense power, reduces local threat, and reveals nearby sectors when upgraded."
     }
   },
   "reject": {
+    "not_at_sector_09": "You must reach Ankara (Sector 09 Redoubt) to evacuate.",
+    "bunker_sealed": "Day 45 has passed — Sector 09 bunker gates are permanently sealed.",
+    "blueprint_locked": "Schematic locked. Defeat Bosses or complete Contracts to unlock.",
+    "contract_active": "You already have an active field contract.",
+    "too_exhausted": "Too exhausted for this task. Rest or drink coffee first.",
     "dead": "Signal lost — survivor is deceased.",
     "in_encounter": "Resolve the active field contact first.",
     "in_combat": "Resolve the active combat engagement first.",
@@ -3324,8 +5738,26 @@
     "summary": "Survived {days} days across {nodes} charted sectors. Final transmission logged at {location}.",
     "action_memorial": "🪦 MEMORIAL LOG"
   },
+  "endgame": {
+    "victory_title": "SECTOR 09 BUNKER REACHED",
+    "victory_summary": "Evacuated safely after {days} days across {nodes} charted sectors.",
+    "continue_endless": "CONTINUE ENDLESS MODE",
+    "evacuate_btn": "ENTER SECTOR 09 BUNKER (1× Electronics, 2× Water)",
+    "goal_hint": "Goal: Reach Ankara (Sector 09) before Day 45 ({daysLeft} days left)"
+  },
   "faction": {
     "title": "WASTELAND FACTIONS & DIPLOMACY",
+    "contract": {
+      "accept": "ACCEPT FIELD CONTRACT",
+      "hunt": "Eliminate Hostiles ({current}/{total})",
+      "scavenge": "Scavenge Sectors ({current}/{total})",
+      "scout": "Scout Sector: {target}"
+    },
+    "contract_type": {
+      "hunt": "Eliminate Hostiles",
+      "scavenge": "Scavenge Sectors",
+      "scout": "Scout Sector"
+    },
     "iron_guard": {
       "name": "Iron Guard",
       "desc": "Remnants of subterranean military garrisons; technocratic, disciplined, enforcing ruthless quarantine parameters across the central corridor."
@@ -3375,6 +5807,7 @@
     "col_player": "SURVIVOR PACK (OFFER TRAY)",
     "col_merchant": "MERCHANT WARES",
     "action_haggle": "Haggle (-18% Discount)",
+    "action_match": "Auto-Match",
     "haggle_done": "Haggled",
     "action_cancel": "Cancel / Step Away",
     "action_confirm": "Execute Barter",
@@ -3686,6 +6119,18 @@
       "sniper_doctrine": {
         "title": "Dead-Eye",
         "desc": "Land a lethal targeted head shot from long range with a firearm."
+      },
+      "boss_slayer": {
+        "title": "Apex Hunter",
+        "desc": "Defeat an Elite Boss enemy in the wasteland."
+      },
+      "contract_runner": {
+        "title": "Faction Contractor",
+        "desc": "Complete a field contract for a wasteland faction."
+      },
+      "sector_09_evacuee": {
+        "title": "Sector 09 Survivor",
+        "desc": "Reach Ankara and enter the Sector 09 bunker before Day 45."
       }
     },
     "lore_cat": {
@@ -3743,6 +6188,7 @@
       "tuning_hint": "Rotate the analog dial or use AUTO-SCAN to sweep the wasteland frequencies (88.0 - 108.0 MHz).",
       "no_power_msg": "TRANSCEIVER BATTERY DEPLETED. CRANK THE HAND DYNAMO TO RECHARGE.",
       "confirm_sos": "BROADCAST EMERGENCY SOS PING?\n\nConsumes 40m battery. May summon friendly nomad aid or attract hostile raiders!",
+      "scan_intel": "INTEL (-15m)",
       "presets": "PRESETS",
       "decode_and_plot": "DECODE INTEL & PLOT BEACON",
       "decoded_plotted": "DECODED & PLOTTED ON MAP",
@@ -3796,6 +6242,7 @@
       "decoded": "Decoded radio transmission: {title} ({freq}).",
       "beacon_plotted": "Plotted emergency radio beacon on Sector Map: {location}.",
       "beacon_collected": "Recovered emergency supply cache at radio beacon coordinates: {title}.",
+      "intel_scanned": "📡 Radio intel sweep complete: {count} sector(s) charted (+15 XP).",
       "sos_aid_drop": "Friendly nomad patrol answered your emergency SOS! Dropped survival rations nearby.",
       "sos_hostile_intercept": "Hostile scavengers intercepted your SOS broadcast! Prepare for heightened danger."
     },
