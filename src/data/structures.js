@@ -152,6 +152,44 @@ export const STRUCTURES = {
     ],
     fuelCapacityHours: [24, 48],
   },
+  solar_panel: {
+    glyph: '☀️',
+    category: 'power',
+    maxLevel: 2,
+    minutes: 60,
+    costs: [
+      [
+        { itemId: 'electronics', qty: 2 },
+        { itemId: 'copper_wire', qty: 3 },
+        { itemId: 'scrap_metal', qty: 2 },
+      ],
+      [
+        { itemId: 'electronics', qty: 4 },
+        { itemId: 'copper_wire', qty: 4 },
+        { itemId: 'batteries', qty: 2 },
+      ],
+    ],
+    solarMinutesPerHour: [20, 45],
+  },
+  watchtower: {
+    glyph: '🗼',
+    category: 'defense',
+    maxLevel: 2,
+    minutes: 75,
+    costs: [
+      [
+        { itemId: 'scrap_metal', qty: 4 },
+        { itemId: 'duct_tape', qty: 2 },
+      ],
+      [
+        { itemId: 'scrap_metal', qty: 6 },
+        { itemId: 'copper_wire', qty: 3 },
+        { itemId: 'electronics', qty: 1 },
+      ],
+    ],
+    defenseBonus: [30, 60],
+    threatReduction: [10, 20],
+  },
 };
 
 export function getStructure(structureId) {

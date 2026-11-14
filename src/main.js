@@ -5,7 +5,7 @@ import { EffectRegistry } from './core/effects.js';
 import { Engine } from './core/engine.js';
 import { createBaseState, coreModule } from './core/coreModule.js';
 import { SaveManager } from './core/saveManager.js';
-import { daysElapsed, formatClock, isNight, readClock } from './core/clock.js';
+import { daysElapsed, formatClock, getSeasonInfo, isNight, readClock } from './core/clock.js';
 import { i18n, ref, t } from './i18n/i18n.js';
 import { LOCALES, readPreferredLocale, storePreferredLocale } from './i18n/locales.js';
 import { skillsModule } from './modules/skills/index.js';
@@ -32,13 +32,13 @@ import { CraftBaseView } from './ui/craftBaseView.js';
 import { StatusView } from './ui/statusView.js';
 import { LogView } from './ui/logView.js';
 import { MenuView } from './ui/menuView.js';
-import { LootModalView } from './ui/lootModalView.js';
-import { BarterModalView } from './ui/barterModalView.js';
-import { VehicleModalView } from './ui/vehicleModalView.js';
-import { VehicleDiscoveryModalView } from './ui/vehicleDiscoveryModalView.js';
-import { CodexModalView } from './ui/codexModalView.js';
-import { RadioModalView } from './ui/radioModalView.js';
-import { TravelModalView } from './ui/travelModalView.js';
+import { LootModalView } from './ui/modals/lootModalView.js';
+import { BarterModalView } from './ui/modals/barterModalView.js';
+import { VehicleModalView } from './ui/modals/vehicleModalView.js';
+import { VehicleDiscoveryModalView } from './ui/modals/vehicleDiscoveryModalView.js';
+import { CodexModalView } from './ui/modals/codexModalView.js';
+import { RadioModalView } from './ui/modals/radioModalView.js';
+import { TravelModalView } from './ui/modals/travelModalView.js';
 import { initPanelResizers } from './ui/panelResizer.js';
 import { codexManager } from './core/codexManager.js';
 import { adManager } from './core/adManager.js';
@@ -108,6 +108,9 @@ async function bootstrap() {
   }
   if (globalThis.__LAST_BREATH_TR__) {
     i18n.register('tr', globalThis.__LAST_BREATH_TR__);
+  }
+  if (globalThis.__LAST_BREATH_TH__) {
+    i18n.register('th', globalThis.__LAST_BREATH_TH__);
   }
   const preferredLocale = readPreferredLocale();
   await i18n.setLocale(preferredLocale);
@@ -273,7 +276,7 @@ async function bootstrap() {
         vehicleDiscoveryModalView.close();
         codexModalView.close();
         radioModalView.close();
-        barterModalView.close();
+        travelModalView.close();
         menuView.close();
         engine.log('log.boot.awakened', {
           location: ref(`location.${store.state.world.currentNodeId}`),
@@ -306,8 +309,24 @@ async function bootstrap() {
   });
 
   bindTopControls({ engine, store, rng, saveManager, mapView, menuView, codexModalView });
+  bindSaveIndicator();
   bindMapControls(mapView, store);
   bindNavigationTabs();
+  bindKeyboardShortcuts({
+    engine,
+    store,
+    mapView,
+    modals: {
+      travelModalView,
+      lootModalView,
+      barterModalView,
+      vehicleModalView,
+      vehicleDiscoveryModalView,
+      radioModalView,
+      codexModalView,
+      menuView,
+    },
+  });
   initPanelResizers();
   pwaManager.init();
 
@@ -367,6 +386,12 @@ async function bootstrap() {
     }
   });
   bus.on('loot:modal', (payload) => lootModalView.open(payload));
+  bus.on('game:victory', ({ days, nodes }) => {
+    const modal = document.getElementById('victory-modal');
+    const summary = document.getElementById('victory-summary');
+    if (summary) summary.textContent = t('endgame.victory_summary', { days, nodes });
+    if (modal) modal.hidden = false;
+  });
   bus.on('state:changed', renderAll);
   bus.on('action:rejected', ({ reason, params }) => logView.flashRejection(reason, params));
   bus.on('state:committed', ({ type, payload }) => {
@@ -381,13 +406,22 @@ async function bootstrap() {
   menuView.open({ hasSave: hasValidSave, state: store.state });
 }
 
+let lastRenderedSeason = null;
+
 function renderHudHeader(state) {
   const { day } = readClock(state.time.minutes);
+  const season = getSeasonInfo(state.time.minutes);
   const nameEl = document.getElementById('hud-name');
   const clockEl = document.getElementById('hud-clock');
   const dayEl = document.getElementById('hud-day');
   const phaseEl = document.getElementById('hud-phase');
+  const seasonEl = document.getElementById('hud-season');
   const locEl = document.getElementById('hud-location');
+
+  if (document.documentElement.dataset.season !== season.id) {
+    document.documentElement.dataset.season = season.id;
+  }
+  lastRenderedSeason = season.id;
 
   if (nameEl) {
     nameEl.textContent = (state.player.name || t('character.default_name')).toUpperCase();
@@ -397,6 +431,9 @@ function renderHudHeader(state) {
   const night = isNight(state.time.minutes);
   phaseEl.textContent = night ? t('hud.night') : t('hud.daylight');
   phaseEl.classList.toggle('is-night', night);
+  if (seasonEl) {
+    seasonEl.textContent = `${season.glyph} ${t(`hud.season.${season.id}`)}`;
+  }
   locEl.textContent = t(`location.${state.world.currentNodeId}`);
 
   const stripEl = document.getElementById('hud-vitals-strip');
@@ -447,7 +484,9 @@ function bindTopControls({ engine, store, rng, saveManager, mapView, menuView, c
       indicator.textContent = (i18n.locale || 'en').toUpperCase();
     }
     if (toggleBtn) {
-      toggleBtn.title = i18n.locale === 'tr' ? 'Switch Language (EN)' : 'Dili Değiştir (TR)';
+      const idx = LOCALES.findIndex((l) => l.code === i18n.locale);
+      const nextLoc = LOCALES[(idx + 1) % LOCALES.length];
+      toggleBtn.title = `${nextLoc.label} (${nextLoc.code.toUpperCase()})`;
       toggleBtn.setAttribute('aria-label', toggleBtn.title);
     }
   };
@@ -456,7 +495,8 @@ function bindTopControls({ engine, store, rng, saveManager, mapView, menuView, c
 
   if (toggleBtn) {
     toggleBtn.addEventListener('click', async () => {
-      const nextCode = i18n.locale === 'tr' ? 'en' : 'tr';
+      const idx = LOCALES.findIndex((l) => l.code === i18n.locale);
+      const nextCode = LOCALES[(idx + 1) % LOCALES.length].code;
       storePreferredLocale(nextCode);
       await i18n.setLocale(nextCode);
       updateLocaleUi();
@@ -498,6 +538,37 @@ function bindTopControls({ engine, store, rng, saveManager, mapView, menuView, c
       menuView.open({ hasSave: false, state: store.state, mode: 'create' });
     });
   }
+
+  const victoryEndlessBtn = document.getElementById('btn-victory-endless');
+  if (victoryEndlessBtn) {
+    victoryEndlessBtn.addEventListener('click', () => {
+      document.getElementById('victory-modal').hidden = true;
+      engine.dispatch('map/continueEndless');
+    });
+  }
+
+  const victoryRestartBtn = document.getElementById('btn-victory-restart');
+  if (victoryRestartBtn) {
+    victoryRestartBtn.addEventListener('click', () => {
+      document.getElementById('victory-modal').hidden = true;
+      menuView.open({ hasSave: false, state: store.state, mode: 'create' });
+    });
+  }
+}
+
+function bindSaveIndicator() {
+  const badge = document.getElementById('hud-save-badge');
+  if (!badge) return;
+  let timer = null;
+  window.addEventListener('lastbreath:saved', () => {
+    badge.hidden = false;
+    badge.classList.add('is-visible');
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      badge.classList.remove('is-visible');
+      badge.hidden = true;
+    }, 1800);
+  });
 }
 
 function bindMapControls(mapView, store) {
@@ -551,6 +622,94 @@ function bindNavigationTabs() {
       }
     });
   }
+}
+
+function bindKeyboardShortcuts({ engine, store, mapView, modals }) {
+  const activateTab = (target) => {
+    const isDesktop = window.innerWidth >= 900;
+    if (isDesktop && (target === 'inventory' || target === 'craft' || target === 'base')) {
+      document.querySelector(`[data-right-tab="${target}"]`)?.click();
+      return;
+    }
+    document.querySelector(`[data-tab-target="${target}"]`)?.click();
+  };
+
+  const hasAnyModalOpen = () =>
+    Boolean(
+      modals.travelModalView?.isOpen ||
+      modals.lootModalView?.isOpen ||
+      modals.barterModalView?.isOpen ||
+      modals.vehicleModalView?.isOpen ||
+      modals.vehicleDiscoveryModalView?.isOpen ||
+      modals.radioModalView?.isOpen ||
+      modals.menuView?.isOpen ||
+      !document.getElementById('codex-modal')?.hidden,
+    );
+
+  document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+
+    const tag = e.target?.tagName;
+    const isTyping = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || e.target?.isContentEditable;
+
+    if (e.key === 'Escape') {
+      if (isTyping) {
+        e.target.blur?.();
+        return;
+      }
+      if (modals.travelModalView?.isOpen) { modals.travelModalView.close(); return; }
+      if (modals.lootModalView?.isOpen) { modals.lootModalView.close(); return; }
+      if (modals.barterModalView?.isOpen) { modals.barterModalView.close(); return; }
+      if (modals.vehicleModalView?.isOpen) { modals.vehicleModalView.close(); return; }
+      if (modals.vehicleDiscoveryModalView?.isOpen) { modals.vehicleDiscoveryModalView.close(); return; }
+      if (modals.radioModalView?.isOpen) { modals.radioModalView.close(); return; }
+      const codexEl = document.getElementById('codex-modal');
+      if (codexEl && !codexEl.hidden) { modals.codexModalView?.close(); return; }
+      if (modals.menuView?.isOpen && store.state?.player?.alive) {
+        modals.menuView.close();
+      }
+      return;
+    }
+
+    if (isTyping || hasAnyModalOpen()) return;
+
+    const key = e.key.toLowerCase();
+    if (key === '1' || key === 'm') {
+      e.preventDefault();
+      activateTab('map');
+    } else if (key === '2' || key === 'i') {
+      e.preventDefault();
+      activateTab('inventory');
+    } else if (key === '3' || key === 'c') {
+      e.preventDefault();
+      activateTab('craft');
+    } else if (key === '4' || key === 'b') {
+      e.preventDefault();
+      activateTab('base');
+    } else if (key === '5' || key === 's') {
+      e.preventDefault();
+      activateTab('status');
+    } else if (key === '6' || key === 'l') {
+      e.preventDefault();
+      activateTab('log');
+    } else if (key === 'r') {
+      e.preventDefault();
+      engine.dispatch('radio/openModal');
+    } else if (key === '+' || key === '=') {
+      e.preventDefault();
+      mapView?.zoomBy(1.35);
+    } else if (key === '-' || key === '_') {
+      e.preventDefault();
+      mapView?.zoomBy(1 / 1.35);
+    } else if (key === '0') {
+      e.preventDefault();
+      mapView?.resetZoom();
+    } else if (key === 'g') {
+      e.preventDefault();
+      const nodeId = store.state?.world?.currentNodeId;
+      if (nodeId) mapView?.centerOnNode(nodeId, 3.2);
+    }
+  });
 }
 
 bootstrap().catch((error) => {

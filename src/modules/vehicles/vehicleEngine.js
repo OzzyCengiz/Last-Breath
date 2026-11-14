@@ -717,11 +717,15 @@ export class VehicleEngine {
     if (vehicle.condition >= 100) return { ok: false, reason: 'already_pristine' };
 
     const repairValues = {
-      scrap_metal: 10,
-      scrap_iron_plates: 20,
-      motor_oil_10w40_bottle: 25,
-      motor_oil_synthetic_10w40: 35,
-      duct_tape: 8,
+      scrap_metal: 15,
+      scrap_iron_plates: 25,
+      motor_oil_10w40_bottle: 35,
+      motor_oil_synthetic_10w40: 50,
+      duct_tape: 12,
+      wd40_penetrating_oil: 20,
+      rubber_tire_patch_vulcanizing_kit: 20,
+      tire_iron_cross_wrench: 15,
+      spark_plug_set: 20,
     };
 
     const gain = repairValues[repairItemId];

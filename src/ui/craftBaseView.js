@@ -1,15 +1,20 @@
 import { getItem } from '../data/items.js';
 import { RECIPES, getRecipe } from '../data/recipes.js';
 import { STRUCTURES, getStructure } from '../data/structures.js';
+import { SCAVENGE_POIS } from '../data/scavengePois.js';
 import { t } from '../i18n/i18n.js';
 import {
   activeWorkbenchTier,
   canAffordCost,
   calculateThreatLevel,
+  calculateDefensePower,
+  countAvailableMaterial,
+  getEffectiveStructureCost,
+  getOutpostTier,
   isAtOutpost,
   FUEL_ITEM_IDS,
 } from '../modules/base/index.js';
-import { maxCraftableCount } from '../modules/crafting/index.js';
+import { isRecipeUnlocked, maxCraftableCount } from '../modules/crafting/index.js';
 import { countItem } from '../modules/inventory/inventoryModel.js';
 import { audioEngine } from '../core/audioEngine.js';
 import { el } from './dom.js';
@@ -27,6 +32,8 @@ export class CraftBaseView {
   #baseRoot;
   #engine;
   #activeCategory = 'all';
+  #craftSearch = '';
+  #craftableOnly = false;
   #selectedRecipeId = null;
   #craftPage = 1;
   #storagePage = 1;
@@ -105,9 +112,25 @@ export class CraftBaseView {
       ),
     );
 
-    const filteredRecipes = Object.entries(RECIPES).filter(([, recipe]) => {
-      if (this.#activeCategory === 'all') return true;
-      return recipe.category === this.#activeCategory;
+    const filteredRecipes = Object.entries(RECIPES).filter(([recipeId, recipe]) => {
+      if (this.#activeCategory !== 'all' && recipe.category !== this.#activeCategory) {
+        return false;
+      }
+      if (this.#craftableOnly && maxCraftableCount(state, recipeId) < 1) {
+        return false;
+      }
+      const query = this.#craftSearch.trim().toLowerCase();
+      if (query) {
+        const itemName = t(`item.${recipe.output.itemId}.name`).toLowerCase();
+        if (
+          !itemName.includes(query) &&
+          !recipeId.toLowerCase().includes(query) &&
+          !recipe.output.itemId.toLowerCase().includes(query)
+        ) {
+          return false;
+        }
+      }
+      return true;
     });
 
     if (this.#selectedRecipeId && !filteredRecipes.some(([id]) => id === this.#selectedRecipeId)) {
@@ -127,7 +150,8 @@ export class CraftBaseView {
       const outItem = getItem(recipe.output.itemId);
       const maxCount = maxCraftableCount(state, recipeId);
       const canCraftOne = maxCount >= 1;
-      const tierLocked = stationTier < recipe.tier;
+      const blueprintLocked = !isRecipeUnlocked(state, recipeId);
+      const tierLocked = stationTier < recipe.tier || blueprintLocked;
       const isSelected = this.#selectedRecipeId === recipeId;
 
       return el(
@@ -213,6 +237,45 @@ export class CraftBaseView {
       el('span', { class: 'inv-hint-text' }, t('crafting.select_prompt')),
     );
 
+    const searchInput = el('input', {
+      type: 'search',
+      class: 'craft-search-input',
+      value: this.#craftSearch,
+      placeholder: t('crafting.search_placeholder'),
+      'aria-label': t('crafting.search_placeholder'),
+      onInput: (e) => {
+        const input = e.target;
+        const start = input.selectionStart ?? input.value.length;
+        const end = input.selectionEnd ?? start;
+        this.#craftSearch = input.value;
+        this.#craftPage = 1;
+        this.#selectedRecipeId = null;
+        if (this.#lastState) this.renderCrafting(this.#lastState);
+        const nextInput = this.#craftRoot?.querySelector('.craft-search-input');
+        if (nextInput) {
+          nextInput.focus();
+          try { nextInput.setSelectionRange(start, end); } catch {}
+        }
+      },
+    });
+
+    const craftableToggle = el(
+      'button',
+      {
+        type: 'button',
+        class: ['filter-chip', 'craft-avail-toggle', this.#craftableOnly && 'is-active'],
+        onClick: () => {
+          this.#craftableOnly = !this.#craftableOnly;
+          this.#craftPage = 1;
+          this.#selectedRecipeId = null;
+          if (this.#lastState) this.renderCrafting(this.#lastState);
+        },
+      },
+      `✓ ${t('crafting.craftable_only')}`,
+    );
+
+    const toolbar = el('div', { class: 'craft-toolbar' }, searchInput, craftableToggle);
+
     return el(
       'section',
       { class: 'panel-block craft-panel' },
@@ -223,6 +286,7 @@ export class CraftBaseView {
         el('span', { class: 'meta-label station-tag' }, `${t('crafting.station')}: ${t(`crafting.tier.${stationTier}`)}`),
       ),
       el('div', { class: 'filter-row' }, tabs),
+      toolbar,
       gridEl,
       paginationBar,
       hintBanner,
@@ -246,9 +310,19 @@ export class CraftBaseView {
       if (this.#lastState) this.renderCrafting(this.#lastState);
     };
 
+    const missingHints = [];
     const ingredients = recipe.ingredients.map(({ itemId, qty }) => {
-      const have = countItem(state.inventory, itemId);
+      const have = countAvailableMaterial(state, itemId);
       const enough = have >= qty;
+      if (!enough) {
+        const pois = Object.values(SCAVENGE_POIS)
+          .filter((p) => p.lootTable?.some((entry) => entry.itemId === itemId))
+          .slice(0, 2)
+          .map((p) => `${p.glyph} ${t(p.nameKey)}`);
+        if (pois.length > 0) {
+          missingHints.push(`${t(`item.${itemId}.name`)}: ${pois.join(', ')}`);
+        }
+      }
       return el(
         'span',
         { class: ['ing-pill', enough ? 'tone-good' : 'tone-bad'] },
@@ -348,6 +422,11 @@ export class CraftBaseView {
             { class: 'craft-req-box' },
             el('div', { class: 'craft-req-title' }, t('crafting.ingredients_needed')),
             el('div', { class: 'ing-list' }, ingredients),
+            missingHints.length > 0 && el(
+              'div',
+              { class: 'craft-source-hints' },
+              ...missingHints.map((hint) => el('div', { class: 'craft-source-hint-line' }, `📍 ${hint}`)),
+            ),
           ),
           tierLocked && el(
             'div',
@@ -490,13 +569,20 @@ export class CraftBaseView {
       content = this.#renderDefenseTab(state);
     }
 
+    const tier = getOutpostTier(state);
+
     return el(
       'section',
       { class: 'panel-block outpost-panel' },
       el(
         'div',
         { class: 'load-header' },
-        el('h3', { class: 'block-title' }, t('base.section.outpost')),
+        el(
+          'div',
+          { style: 'display:flex;align-items:center;gap:6px;flex-wrap:wrap;' },
+          el('h3', { class: 'block-title' }, t('base.section.outpost')),
+          el('span', { class: 'spec-pill spec-slots' }, `${t(`base.tier.${tier.key}`)} (LVL ${tier.level})`),
+        ),
         el('strong', { class: 'meta-val tone-good' }, t(`location.${outpostNodeId}`)),
       ),
       telemetryBar,
@@ -641,8 +727,8 @@ export class CraftBaseView {
 
     const level = state.base.structures?.[structureId] ?? 0;
     const maxed = level >= def.maxLevel;
-    const cost = maxed ? [] : def.costs[level];
-    const affordable = !maxed && canAffordCost(state, cost);
+    const cost = maxed ? [] : getEffectiveStructureCost(state, def.costs[level]);
+    const affordable = !maxed && canAffordCost(state, def.costs[level]);
 
     const closeModal = () => {
       this.#selectedFacilityId = null;
@@ -650,7 +736,7 @@ export class CraftBaseView {
     };
 
     const costPills = cost.map(({ itemId, qty }) => {
-      const have = countItem(state.inventory, itemId);
+      const have = countAvailableMaterial(state, itemId);
       return el(
         'span',
         { class: ['ing-pill', have >= qty ? 'tone-good' : 'tone-bad'] },
@@ -896,10 +982,19 @@ export class CraftBaseView {
 
   // --- SUB-TAB 3: DEFENSE & THREAT RADAR TAB ---
   #renderDefenseTab(state) {
-    const { integrity = 100, structures = {}, defenseLogs = [], generatorActive = false } = state.base;
+    const {
+      integrity = 100,
+      structures = {},
+      defenseLogs = [],
+      generatorActive = false,
+      patrolFortifyUntil = 0,
+      defensePosture = 'fortify',
+    } = state.base;
     const threat = calculateThreatLevel(state);
     const barricadeLvl = structures.barricade ?? 0;
-    const defenseScore = barricadeLvl * 35 + Math.round(integrity * 0.35) + (generatorActive ? 25 : 0);
+    const watchtowerLvl = structures.watchtower ?? 0;
+    const defenseScore = calculateDefensePower(state);
+    const patrolActive = patrolFortifyUntil > (state.time?.minutes ?? 0);
 
     const threatLabel = threat > 60
       ? t('base.threat_high')
@@ -926,8 +1021,23 @@ export class CraftBaseView {
         'div',
         { class: 'radar-factors' },
         el('span', { class: 'factor-pill' }, `🛡️ Barikat Koruması: -${barricadeLvl * 10}`),
+        watchtowerLvl > 0 && el('span', { class: 'factor-pill tone-good' }, `🗼 Gözetleme Kulesi: -${watchtowerLvl * 10}`),
         generatorActive && el('span', { class: 'factor-pill tone-good' }, '⚡ Projektör Aydınlatması: -15'),
-        el('span', { class: 'factor-pill' }, `⚔️ Toplam Savunma Gücü: ${defenseScore}`),
+        patrolActive && el('span', { class: 'factor-pill tone-good' }, `🔒 ${t('base.patrol_active')}`),
+        el('span', { class: 'factor-pill' }, `⚔️ ${t('base.defense_power')}: ${defenseScore}`),
+      ),
+      el(
+        'div',
+        { class: 'ops-actions', style: 'display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;' },
+        ...['fortify', 'ambush', 'stealth'].map((p) => el(
+          'button',
+          {
+            type: 'button',
+            class: ['btn', 'btn-xs', defensePosture === p ? 'btn-accent' : 'btn-ghost'],
+            onClick: () => this.#engine.dispatch('base/setPosture', { posture: p }),
+          },
+          t(`base.posture.${p}`),
+        )),
       ),
     );
 
@@ -940,14 +1050,27 @@ export class CraftBaseView {
         el('span', { class: 'integrity-label' }, t('base.integrity')),
         el('strong', { class: ['meta-val', integrity < 50 ? 'tone-bad' : 'tone-good'] }, `${Math.round(integrity)}%`),
       ),
-      integrity < 100 && el(
-        'button',
-        {
-          type: 'button',
-          class: 'btn btn-xs btn-outline',
-          onClick: () => this.#engine.dispatch('base/repair'),
-        },
-        t('base.action.repair'),
+      el(
+        'div',
+        { class: 'ops-actions', style: 'display:flex;gap:6px;flex-wrap:wrap;' },
+        integrity < 100 && el(
+          'button',
+          {
+            type: 'button',
+            class: 'btn btn-xs btn-outline',
+            onClick: () => this.#engine.dispatch('base/repair'),
+          },
+          t('base.action.repair'),
+        ),
+        el(
+          'button',
+          {
+            type: 'button',
+            class: 'btn btn-xs btn-accent',
+            onClick: () => this.#engine.dispatch('base/patrolPerimeter'),
+          },
+          t('base.action.patrol'),
+        ),
       ),
     );
 

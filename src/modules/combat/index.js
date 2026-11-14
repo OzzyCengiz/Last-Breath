@@ -1,11 +1,12 @@
 import { ENEMIES, getEnemy } from '../../data/enemies.js';
+import { readClock } from '../../core/clock.js';
 import { ref } from '../../i18n/i18n.js';
 import { rollRange } from '../../core/rng.js';
 import { combatRating, weaponProfile } from '../inventory/inventorySelectors.js';
 import { grantItems } from '../inventory/index.js';
 import { rollLoot } from '../inventory/loot.js';
 import { getNode } from '../map/mapGraph.js';
-import { skillLevel } from '../skills/skillSelectors.js';
+import { playerLevel, skillLevel } from '../skills/skillSelectors.js';
 import { applyBodyDamage } from '../status/bodyStatus.js';
 import { audioEngine } from '../../core/audioEngine.js';
 import { codexManager } from '../../core/codexManager.js';
@@ -23,18 +24,91 @@ import {
 
 const enemyName = (enemyId) => ref(`enemy.${enemyId}.name`);
 
-export function pickEnemyForNode(rng, nodeId) {
+/**
+ * Computes the [minLevel, maxLevel] enemy spawn range for a country/node.
+ * - Days 1-2: strictly equal to playerLevel or playerLevel + 1.
+ * - Days 3-20: max bonus scales linearly from +1 up to +15.
+ * - After day 20: up to +15 levels above playerLevel, weighted by node danger.
+ */
+export function getEnemyLevelBounds(state, nodeId) {
+  const pLevel = Math.max(1, playerLevel(state));
+  const day = readClock(state?.time?.minutes ?? 0).day;
+  const node = nodeId ? getNode(nodeId) : null;
+  const danger = Math.max(1, Math.min(5, node?.danger ?? 1));
+
+  if (day <= 2) {
+    return { minLevel: pLevel, maxLevel: pLevel + 1 };
+  }
+
+  const progress = day >= 20 ? 1 : (day - 2) / 18;
+  const maxBonus = Math.round(1 + progress * 14);
+  const dangerFactor = (danger - 1) / 4;
+  const minBonus = Math.floor(maxBonus * dangerFactor * 0.45);
+
+  return {
+    minLevel: pLevel + minBonus,
+    maxLevel: pLevel + maxBonus,
+  };
+}
+
+export function scaleEnemyForLevel(enemy, level = 1) {
+  const lvl = Math.max(1, Math.round(level || 1));
+  const delta = lvl - 1;
+  return {
+    ...enemy,
+    level: lvl,
+    hp: Math.round(enemy.hp * (1 + delta * 0.14)),
+    damage: [
+      Math.round(enemy.damage[0] * (1 + delta * 0.10)),
+      Math.round(enemy.damage[1] * (1 + delta * 0.10)),
+    ],
+    xp: Math.round(enemy.xp * (1 + delta * 0.18)),
+    accuracy: Math.min(0.96, enemy.accuracy + delta * 0.008),
+    evasion: Math.min(0.40, enemy.evasion + delta * 0.005),
+  };
+}
+
+function getActiveEnemy(active) {
+  const base = getEnemy(active.enemyId);
+  return {
+    ...base,
+    level: active.level || 1,
+    damage: active.scaledDamage || base.damage,
+    xp: active.scaledXp ?? base.xp,
+    accuracy: active.accuracy ?? base.accuracy,
+    evasion: active.evasion ?? base.evasion,
+  };
+}
+
+export function pickEnemyForNode(rng, nodeId, state = null) {
   const node = getNode(nodeId);
+  const day = readClock(state?.time?.minutes ?? 0).day;
   const pool = Object.entries(ENEMIES)
     .filter(([, def]) => {
       if (def.minDanger && node.danger < def.minDanger) return false;
+      if (def.minDay && day < def.minDay) return false;
       if (def.biomes && !def.biomes.includes(node.biome)) return false;
       return true;
     })
     .map(([id, def]) => ({ id, ...def }));
 
-  if (pool.length === 0) return { id: 'feral_hound', ...ENEMIES.feral_hound };
-  return rng.pick(pool);
+  const normalPool = pool.filter((e) => !e.isBoss);
+  const bossPool = pool.filter((e) => e.isBoss);
+
+  let base;
+  if (bossPool.length > 0 && (normalPool.length === 0 || rng.chance(0.22))) {
+    base = rng.pick(bossPool);
+  } else if (normalPool.length > 0) {
+    base = rng.pick(normalPool);
+  } else {
+    base = { id: 'feral_hound', ...ENEMIES.feral_hound };
+  }
+
+  if (!state) return scaleEnemyForLevel(base, 1);
+
+  const { minLevel, maxLevel } = getEnemyLevelBounds(state, nodeId);
+  const level = rng.int(minLevel, maxLevel);
+  return scaleEnemyForLevel(base, level);
 }
 
 function resolveEnemyTurn(ctx, enemyId) {
@@ -47,7 +121,7 @@ function resolveEnemyTurn(ctx, enemyId) {
     return;
   }
 
-  const enemy = getEnemy(enemyId);
+  const enemy = getActiveEnemy(active);
 
   // --- OVERWATCH REACTION CHECK ---
   if (active.stance === 'overwatch') {
@@ -253,11 +327,17 @@ export const combatModule = {
     const { store, rng, effects, engine } = ctx;
 
     store.registerMutations('combat', {
-      start(state, { enemyId, hp, tactical }) {
+      start(state, { enemyId, hp, tactical, level = 1, isBoss = false, scaledDamage = null, scaledXp = null, accuracy = null, evasion = null }) {
         state.combat.activeEngagement = {
           enemyId,
+          level,
+          isBoss,
           hp,
           maxHp: hp,
+          scaledDamage,
+          scaledXp,
+          accuracy,
+          evasion,
           round: 1,
           scavenged: false,
           range: tactical.range,
@@ -335,8 +415,20 @@ export const combatModule = {
         if (state.combat.activeEngagement) state.combat.activeEngagement.round += 1;
       },
       end(state, { won = false } = {}) {
+        const prev = state.combat.activeEngagement;
         state.combat.activeEngagement = null;
-        if (won) state.combat.victories = (state.combat.victories ?? 0) + 1;
+        if (won) {
+          state.combat.victories = (state.combat.victories ?? 0) + 1;
+          if (prev) {
+            if (prev.isBoss) codexManager.unlockAchievement('boss_slayer');
+            engine.bus.emit('combat:victory', {
+              enemyId: prev.enemyId,
+              isBoss: Boolean(prev.isBoss),
+              level: prev.level || 1,
+              nodeId: state.world?.currentNodeId || null,
+            });
+          }
+        }
         audioEngine.setCriticalHeartbeat(false);
       },
     });
@@ -350,14 +442,24 @@ export const combatModule = {
 
     engine.registerAction('combat/patrol', () => {
       const nodeId = store.state.world.currentNodeId;
-      const picked = pickEnemyForNode(rng, nodeId);
+      const picked = pickEnemyForNode(rng, nodeId, store.state);
       const tactical = initTacticalState({
         enemy: picked,
         weather: store.state.environment?.currentWeather || 'clear_sky',
         rng,
       });
 
-      store.commit('combat/start', { enemyId: picked.id, hp: picked.hp, tactical });
+      store.commit('combat/start', {
+        enemyId: picked.id,
+        hp: picked.hp,
+        tactical,
+        level: picked.level,
+        isBoss: Boolean(picked.isBoss),
+        scaledDamage: picked.damage,
+        scaledXp: picked.xp,
+        accuracy: picked.accuracy,
+        evasion: picked.evasion,
+      });
       engine.log('combat.enemy_appeared', { name: enemyName(picked.id) }, 'warn');
       engine.advanceTime(15, 'scavenge');
       return { ok: true };
@@ -367,7 +469,7 @@ export const combatModule = {
       const active = store.state.combat.activeEngagement;
       if (!active) return { ok: false, reason: 'reject.no_combat' };
 
-      const enemy = getEnemy(active.enemyId);
+      const enemy = getActiveEnemy(active);
       const rating = combatRating(store.state);
       const weapon = weaponProfile(store.state);
       const weather = store.state.environment?.currentWeather || 'clear_sky';
@@ -748,7 +850,7 @@ export const combatModule = {
             codexManager.unlockAchievement('sniper_doctrine');
           }
           engine.log('combat.victory', { name: enemyName(active.enemyId) }, 'good');
-          const drops = rollLoot(rng, enemy.lootTable, rng.int(1, 2));
+          const drops = rollLoot(rng, enemy.lootTable, active.isBoss ? 3 : rng.int(1, 2));
           effects.apply([{ type: 'xp', skill: 'marksmanship', amount: enemy.xp }], ctx);
           const nodeId = store.state.world.currentNodeId;
           engine.bus.emit('loot:modal', {

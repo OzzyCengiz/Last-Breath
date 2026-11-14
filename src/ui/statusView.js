@@ -1,16 +1,28 @@
 import { AILMENTS } from '../data/ailments.js';
 import { SKILLS } from '../data/skills.js';
+import { RECIPES } from '../data/recipes.js';
+import { getSeason, readClock } from '../core/clock.js';
 import { t, i18n } from '../i18n/i18n.js';
 import { armorValue, combatRating, passiveBonus, weaponProfile } from '../modules/inventory/inventorySelectors.js';
-import { SKILL_IDS, skillProgress } from '../modules/skills/skillSelectors.js';
+import {
+  SKILL_IDS,
+  SKILL_PERKS,
+  SKILL_BRANCHES,
+  skillProgress,
+  playerLevelInfo,
+  canUnlockPerk,
+  isPerkUnlocked,
+} from '../modules/skills/skillSelectors.js';
 import { VITALS, ailmentIntensity, vitalBand } from '../modules/status/statusSelectors.js';
 import { BODY_PARTS } from '../modules/status/bodyStatus.js';
+import { WeatherEngine, WEATHER_PROFILES } from '../modules/environment/weatherEngine.js';
 import { el } from './dom.js';
 
 export class StatusView {
   #root;
   #engine;
   #activeTab = 'vitals';
+  #activeSkillBranch = 'all';
   #lastState = null;
 
   constructor(root, engine = null) {
@@ -61,6 +73,21 @@ export class StatusView {
         },
         t('status.tabs.skills'),
       ),
+      el(
+        'button',
+        {
+          type: 'button',
+          class: ['status-page-btn', this.#activeTab === 'stats' && 'is-active'],
+          onClick: () => {
+            this.#activeTab = 'stats';
+            if (this.#lastState) {
+              this.render(this.#lastState);
+              this.#root.scrollTop = 0;
+            }
+          },
+        },
+        t('status.tabs.stats'),
+      ),
     );
 
     let content = [];
@@ -68,6 +95,7 @@ export class StatusView {
       content = [
         this.#renderDossier(player),
         this.#renderVitals(player),
+        this.#renderEnvironmentCard(state),
         this.#renderReadout(state),
       ];
     } else if (this.#activeTab === 'body') {
@@ -75,9 +103,13 @@ export class StatusView {
         this.#renderBodyTrauma(player, state),
         this.#renderAilments(player),
       ];
-    } else {
+    } else if (this.#activeTab === 'skills') {
       content = [
         this.#renderSkills(state),
+      ];
+    } else {
+      content = [
+        this.#renderStats(state),
       ];
     }
 
@@ -334,6 +366,12 @@ export class StatusView {
     const weaponLabel = weapon.itemId ? t(`item.${weapon.itemId}.name`) : t('inventory.unarmed');
     const scavengeBonus = Math.round(passiveBonus(state, 'scavengeBonus') * 100);
     const travelBonus = Math.round(passiveBonus(state, 'travelSpeed') * 100);
+    const season = getSeason(state.time?.minutes ?? 0);
+    const contract = state.factions?.activeContract;
+    const blueprintTotal = Object.values(RECIPES).filter((r) => r.requiresBlueprint).length;
+    const blueprintUnlocked = Object.keys(RECIPES).filter(
+      (id) => RECIPES[id].requiresBlueprint && state.crafting?.unlockedRecipes?.includes(id),
+    ).length;
 
     const stats = [
       [t('status.readout.weapon'), weapon.loaded ? weaponLabel : `${weaponLabel} (${t('inventory.no_ammo')})`],
@@ -341,6 +379,16 @@ export class StatusView {
       [t('status.readout.armor'), String(armorValue(state))],
       [t('status.readout.scavenge_bonus'), `+${scavengeBonus}%`],
       [t('status.readout.travel_bonus'), `+${travelBonus}%`],
+      [t('status.readout.season_effect'), t(`status.season_effect.${season}`)],
+      [t('status.readout.blueprints'), `${blueprintUnlocked}/${blueprintTotal}`],
+      [
+        t('status.readout.contract'),
+        contract
+          ? (contract.type === 'scout'
+            ? t('faction.contract.scout', { target: t(`location.${contract.targetNodeId}`) })
+            : t(`faction.contract.${contract.type}`, { current: contract.progress, total: contract.targetCount }))
+          : '—',
+      ],
     ];
 
     return el(
@@ -359,10 +407,209 @@ export class StatusView {
   }
 
   #renderSkills(state) {
-    const rows = SKILL_IDS.map((skillId) => {
+    const lvlInfo = playerLevelInfo(state);
+    const sp = state.player?.skillPoints ?? 0;
+    const isMax = lvlInfo.isMax;
+    const pct = Math.round(lvlInfo.ratio * 100);
+
+    // 1. Hero Card: Survivor Level, XP Progress Bar, and Available Skill Points
+    const heroCard = el(
+      'div',
+      { class: 'skill-tree-hero' },
+      el(
+        'div',
+        { class: 'hero-header-row' },
+        el(
+          'div',
+          { class: 'hero-level-badge' },
+          el('span', { class: 'level-tag' }, 'LVL'),
+          el('span', { class: 'level-num' }, String(lvlInfo.level)),
+        ),
+        el(
+          'div',
+          { class: 'hero-title-block' },
+          el('h4', { class: 'hero-title' }, t('skill_tree.title')),
+          el('span', { class: 'hero-total-xp' }, t('skill_tree.total_xp', { xp: lvlInfo.xp })),
+        ),
+        el(
+          'div',
+          { class: ['hero-sp-pill', sp > 0 && 'has-sp'] },
+          el('span', { class: 'sp-icon' }, '⚡'),
+          el(
+            'span',
+            { class: 'sp-text' },
+            sp > 0 ? t('skill_tree.available_points', { points: sp }) : t('skill_tree.no_points'),
+          ),
+        ),
+      ),
+      el(
+        'div',
+        { class: 'hero-xp-section' },
+        el(
+          'div',
+          { class: 'hero-xp-labels' },
+          el('span', { class: 'xp-label' }, 'XP GELİŞİMİ'),
+          el(
+            'span',
+            { class: 'xp-val' },
+            isMax
+              ? t('skill_tree.xp_max')
+              : `${t('skill_tree.xp_progress', { current: lvlInfo.currentLvlXp, needed: lvlInfo.neededForNext })} (%${pct})`,
+          ),
+        ),
+        el(
+          'div',
+          { class: 'meter-track meter-hero' },
+          el('div', { class: 'meter-fill meter-fill-hero', style: `width: ${pct}%` }),
+        ),
+      ),
+    );
+
+    // 2. Branch Filter Bar
+    const branches = Object.values(SKILL_BRANCHES);
+    const branchTabs = [
+      el(
+        'button',
+        {
+          type: 'button',
+          class: ['branch-tab-btn', this.#activeSkillBranch === 'all' && 'is-active'],
+          onClick: () => {
+            this.#activeSkillBranch = 'all';
+            this.render(this.#lastState);
+          },
+        },
+        i18n.locale === 'tr' ? 'TÜM DALLAR' : i18n.locale === 'th' ? 'ทุกสายทักษะ' : 'ALL BRANCHES',
+      ),
+      ...branches.map((b) =>
+        el(
+          'button',
+          {
+            type: 'button',
+            class: ['branch-tab-btn', this.#activeSkillBranch === b.id && 'is-active'],
+            onClick: () => {
+              this.#activeSkillBranch = b.id;
+              this.render(this.#lastState);
+            },
+          },
+          `${b.glyph} ${t(b.nameKey)}`,
+        ),
+      ),
+    ];
+
+    const branchNav = el('div', { class: 'branch-tabs-bar' }, ...branchTabs);
+
+    // 3. Branches & Perks Layout
+    const visibleBranches =
+      this.#activeSkillBranch === 'all'
+        ? branches
+        : branches.filter((b) => b.id === this.#activeSkillBranch);
+
+    const allPerks = Object.values(SKILL_PERKS);
+
+    const branchSections = visibleBranches.map((branch) => {
+      const branchPerks = allPerks
+        .filter((p) => p.branch === branch.id)
+        .sort((a, b) => a.tier - b.tier);
+
+      const perkCards = branchPerks.map((perk, index) => {
+        const unlocked = isPerkUnlocked(state, perk.id);
+        const check = canUnlockPerk(state, perk.id);
+        const canUnlock = check.canUnlock;
+
+        let statusElement;
+        let cardStateClass = 'is-locked';
+
+        if (unlocked) {
+          cardStateClass = 'is-unlocked';
+          statusElement = el(
+            'span',
+            { class: 'perk-status-badge perk-badge-acquired' },
+            t('skill_tree.status_unlocked'),
+          );
+        } else if (canUnlock) {
+          cardStateClass = 'is-ready';
+          statusElement = el(
+            'button',
+            {
+              type: 'button',
+              class: 'btn btn-accent btn-xs perk-unlock-action-btn',
+              onClick: (e) => {
+                e.stopPropagation();
+                if (this.#engine) {
+                  this.#engine.dispatch('skills/unlockPerk', { perkId: perk.id });
+                  this.render(this.#lastState);
+                }
+              },
+            },
+            t('skill_tree.unlock_btn'),
+          );
+        } else {
+          cardStateClass = 'is-locked';
+          let lockReason = '';
+          if (lvlInfo.level < perk.minLevel) {
+            lockReason = t('skill_tree.req_level', { level: perk.minLevel });
+          } else if (perk.requires && !isPerkUnlocked(state, perk.requires)) {
+            const reqPerk = SKILL_PERKS[perk.requires];
+            lockReason = t('skill_tree.req_prereq', { name: t(reqPerk.nameKey) });
+          } else if (sp < perk.cost) {
+            lockReason = i18n.locale === 'tr' ? '1 Yetenek Puanı Gerekli' : i18n.locale === 'th' ? 'ต้องการ 1 แต้มทักษะ' : '1 Skill Point Needed';
+          }
+          statusElement = el(
+            'span',
+            { class: 'perk-status-badge perk-badge-locked' },
+            lockReason || t('skill_tree.status_locked'),
+          );
+        }
+
+        const card = el(
+          'div',
+          { class: ['perk-card', cardStateClass] },
+          el(
+            'div',
+            { class: 'perk-card-header' },
+            el('span', { class: 'perk-glyph' }, perk.glyph),
+            el(
+              'div',
+              { class: 'perk-title-wrap' },
+              el('span', { class: 'perk-name' }, t(perk.nameKey)),
+              el('span', { class: 'perk-tier' }, t('skill_tree.tier', { tier: perk.tier })),
+            ),
+          ),
+          el('p', { class: 'perk-desc' }, t(perk.descKey)),
+          el('div', { class: 'perk-card-footer' }, statusElement),
+        );
+
+        if (index < branchPerks.length - 1) {
+          return el(
+            'div',
+            { class: 'perk-node-chain' },
+            card,
+            el('div', { class: 'perk-chain-arrow' }, '▼'),
+          );
+        }
+        return el('div', { class: 'perk-node-chain' }, card);
+      });
+
+      return el(
+        'div',
+        { class: 'skill-branch-column', style: `--branch-color: ${branch.color}` },
+        el(
+          'div',
+          { class: 'branch-header' },
+          el('span', { class: 'branch-glyph' }, branch.glyph),
+          el('h4', { class: 'branch-title' }, t(branch.nameKey)),
+        ),
+        el('div', { class: 'branch-perks-list' }, ...perkCards),
+      );
+    });
+
+    const treeContainer = el('div', { class: 'skill-tree-grid' }, ...branchSections);
+
+    // 4. Practice Skills Section (Field Proficiencies)
+    const practiceRows = SKILL_IDS.map((skillId) => {
       const def = SKILLS[skillId];
       const progress = skillProgress(state, skillId);
-      const pct = Math.round(progress.ratio * 100);
+      const prPct = Math.round(progress.ratio * 100);
       const xpNote = progress.next
         ? `${progress.xp} / ${progress.next} XP`
         : t('skill.max_level');
@@ -381,17 +628,170 @@ export class StatusView {
         el(
           'div',
           { class: 'meter-track meter-thin' },
-          el('div', { class: 'meter-fill', style: `width: ${pct}%` }),
+          el('div', { class: 'meter-fill', style: `width: ${prPct}%` }),
         ),
         el('p', { class: 'skill-desc' }, t(`skill.${skillId}.desc`)),
       );
     });
 
+    const practiceSection = el(
+      'section',
+      { class: 'panel-block practice-skills-block' },
+      el('h4', { class: 'block-title' }, t('skill_tree.practice_skills_title')),
+      el('p', { class: 'block-sub' }, t('skill_tree.practice_skills_subtitle')),
+      el('div', { class: 'skills-list' }, practiceRows),
+    );
+
     return el(
       'section',
-      { class: 'panel-block' },
-      el('h3', { class: 'block-title' }, t('status.section.skills')),
-      el('div', { class: 'skills-list' }, rows),
+      { class: 'panel-block skill-tree-root-panel' },
+      heroCard,
+      branchNav,
+      treeContainer,
+      practiceSection,
+    );
+  }
+
+  #renderStats(state) {
+    const { day } = readClock(state.time?.minutes ?? 0);
+    const { level } = playerLevelInfo(state);
+    const nodes = Object.values(state.world?.nodes ?? {});
+    const nodesVisited = nodes.filter((n) => n.visited).length;
+    const totalNodes = Math.max(1, nodes.length);
+    const nodeScavenges = nodes.reduce((sum, n) => sum + (Number(n.scavenges) || 0), 0);
+    const scavenges = Math.max(state.stats?.scavenges ?? 0, nodeScavenges);
+    const distanceKm = state.stats?.distanceKm ?? 0;
+    const victories = state.combat?.victories ?? 0;
+    const crafted = state.crafting?.craftedCount ?? 0;
+    const contracts = state.stats?.contractsCompleted ?? 0;
+    const buildingLevels = Object.values(state.base?.buildings ?? {}).reduce(
+      (sum, v) => sum + (Number(v) || 0),
+      0,
+    );
+    const vehiclesClaimed = (state.vehicles?.fleet ?? []).filter((v) => v.claimed).length;
+
+    const statItems = [
+      { glyph: '📅', label: t('status.stats.days_survived'), value: String(day) },
+      { glyph: '⭐', label: t('status.stats.level'), value: String(level) },
+      { glyph: '🧭', label: t('status.stats.nodes_visited'), value: `${nodesVisited} / ${totalNodes}` },
+      { glyph: '🛣️', label: t('status.stats.distance_km'), value: `${distanceKm} km` },
+      { glyph: '⚔️', label: t('status.stats.enemies_defeated'), value: String(victories) },
+      { glyph: '🎒', label: t('status.stats.scavenges'), value: String(scavenges) },
+      { glyph: '⚒️', label: t('status.stats.items_crafted'), value: String(crafted) },
+      { glyph: '📜', label: t('status.stats.contracts'), value: String(contracts) },
+      { glyph: '🏕️', label: t('status.stats.base_upgrades'), value: String(buildingLevels) },
+      { glyph: '🚙', label: t('status.stats.vehicles'), value: String(vehiclesClaimed) },
+    ];
+
+    const statsBlock = el(
+      'section',
+      { class: 'panel-block run-stats-block' },
+      el('h4', { class: 'block-title' }, t('status.stats.title')),
+      el(
+        'div',
+        { class: 'run-stats-grid' },
+        ...statItems.map((item) =>
+          el(
+            'div',
+            { class: 'run-stat-card' },
+            el('span', { class: 'run-stat-glyph' }, item.glyph),
+            el(
+              'div',
+              { class: 'run-stat-meta' },
+              el('span', { class: 'run-stat-label' }, item.label),
+              el('strong', { class: 'run-stat-value' }, item.value),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    const milestones = [
+      { id: 'explorer', glyph: '🧭', current: nodesVisited, target: 5 },
+      { id: 'road_warrior', glyph: '🛣️', current: distanceKm, target: 100 },
+      { id: 'veteran_fighter', glyph: '⚔️', current: victories, target: 10 },
+      { id: 'scavenger', glyph: '🎒', current: scavenges, target: 10 },
+      { id: 'master_crafter', glyph: '⚒️', current: crafted, target: 10 },
+      { id: 'survivor_week', glyph: '⏳', current: day, target: 7 },
+    ];
+
+    const milestoneRows = milestones.map((m) => {
+      const done = m.current >= m.target;
+      const clamped = Math.min(m.current, m.target);
+      const pct = Math.round((clamped / m.target) * 100);
+      return el(
+        'div',
+        { class: ['milestone-row', done && 'is-unlocked'] },
+        el(
+          'div',
+          { class: 'milestone-head' },
+          el('span', { class: 'milestone-glyph' }, m.glyph),
+          el('span', { class: 'milestone-name' }, t(`status.milestones.${m.id}.title`)),
+          el(
+            'span',
+            { class: ['milestone-badge', done && 'is-done'] },
+            done ? t('status.milestones.unlocked') : `${clamped} / ${m.target}`,
+          ),
+        ),
+        el(
+          'div',
+          { class: 'meter-track meter-thin' },
+          el('div', { class: ['meter-fill', done && 'is-good'], style: `width: ${pct}%` }),
+        ),
+        el('p', { class: 'milestone-desc' }, t(`status.milestones.${m.id}.desc`)),
+      );
+    });
+
+    const milestonesBlock = el(
+      'section',
+      { class: 'panel-block milestones-block' },
+      el('h4', { class: 'block-title' }, t('status.milestones.title')),
+      el('div', { class: 'milestones-list' }, ...milestoneRows),
+    );
+
+    return el('div', { class: 'status-stats-container' }, statsBlock, milestonesBlock);
+  }
+
+  #renderEnvironmentCard(state) {
+    const weather = state.environment?.weather ?? 'clear_sky';
+    const profile = WEATHER_PROFILES[weather] || WEATHER_PROFILES.clear_sky;
+    const ambientTemp = state.environment?.ambientTempC ?? state.environment?.temperatureC ?? 18;
+    const insulation = WeatherEngine.getThermalInsulation(state);
+    const acidProt = WeatherEngine.hasAcidProtection(state);
+    const ashProt = WeatherEngine.hasAshProtection(state);
+
+    return el(
+      'section',
+      { class: 'panel-block env-telemetry-block' },
+      el('h4', { class: 'block-title' }, t('status.env.title')),
+      el(
+        'div',
+        { class: 'env-telemetry-grid' },
+        el(
+          'div',
+          { class: 'env-chip' },
+          el('span', { class: 'env-chip-label' }, t('status.env.weather')),
+          el('strong', { class: 'env-chip-val' }, `${profile?.icon || '🌤️'} ${t(`environment.weather.${weather}`)}`),
+        ),
+        el(
+          'div',
+          { class: 'env-chip' },
+          el('span', { class: 'env-chip-label' }, t('status.env.temp')),
+          el('strong', { class: 'env-chip-val' }, `${ambientTemp}°C (+${insulation}°C)`),
+        ),
+        el(
+          'div',
+          { class: ['env-chip', acidProt ? 'is-protected' : ''] },
+          el('span', { class: 'env-chip-label' }, t('status.env.acid')),
+          el('strong', { class: 'env-chip-val' }, acidProt ? `✓ ${t('status.env.protected')}` : `✕ ${t('status.env.exposed')}`),
+        ),
+        el(
+          'div',
+          { class: ['env-chip', ashProt ? 'is-protected' : ''] },
+          el('span', { class: 'env-chip-label' }, t('status.env.ash')),
+          el('strong', { class: 'env-chip-val' }, ashProt ? `✓ ${t('status.env.protected')}` : `✕ ${t('status.env.exposed')}`),
+        ),
+      ),
     );
   }
 }

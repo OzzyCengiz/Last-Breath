@@ -2,9 +2,11 @@ import { formatClock, readClock } from '../core/clock.js';
 import { ARCHETYPES, STARTING_LOCATIONS } from '../data/archetypes.js';
 import { BLOOD_TYPES, TRAITS, getAgeBracket, getRandomName } from '../data/traits.js';
 import { i18n, t } from '../i18n/i18n.js';
+import { LOCALES } from '../i18n/locales.js';
 import { getNode } from '../modules/map/mapGraph.js';
 import { adManager } from '../core/adManager.js';
 import { el } from './dom.js';
+import { resetPanelSizes } from './panelResizer.js';
 
 export class MenuView {
   #root;
@@ -94,9 +96,10 @@ export class MenuView {
       {
         type: 'button',
         class: 'menu-locale-toggle-btn',
-        title: i18n.locale === 'tr' ? 'Switch to English' : 'Türkçe Dilini Seç',
+        title: t('menu.settings.language'),
         onClick: () => {
-          const nextLocale = i18n.locale === 'tr' ? 'en' : 'tr';
+          const idx = LOCALES.findIndex((l) => l.code === i18n.locale);
+          const nextLocale = LOCALES[(idx + 1) % LOCALES.length].code;
           this.#onLocaleChange(nextLocale);
         },
       },
@@ -777,7 +780,6 @@ export class MenuView {
     );
 
     // Language options
-    const isTr = i18n.locale === 'tr';
     const langGroup = el(
       'div',
       { class: 'settings-row' },
@@ -785,23 +787,16 @@ export class MenuView {
       el(
         'div',
         { class: 'settings-btn-group' },
-        el(
-          'button',
-          {
-            type: 'button',
-            class: ['btn btn-sm', isTr ? 'btn-accent' : 'btn-ghost'],
-            onClick: () => this.#onLocaleChange('tr'),
-          },
-          'Türkçe (TR)',
-        ),
-        el(
-          'button',
-          {
-            type: 'button',
-            class: ['btn btn-sm', !isTr ? 'btn-accent' : 'btn-ghost'],
-            onClick: () => this.#onLocaleChange('en'),
-          },
-          'English (EN)',
+        ...LOCALES.map((loc) =>
+          el(
+            'button',
+            {
+              type: 'button',
+              class: ['btn btn-sm', i18n.locale === loc.code ? 'btn-accent' : 'btn-ghost'],
+              onClick: () => this.#onLocaleChange(loc.code),
+            },
+            `${loc.label} (${loc.code.toUpperCase()})`,
+          ),
         ),
       ),
     );
@@ -899,10 +894,72 @@ export class MenuView {
       autosaveBtn,
     );
 
+    // Save Backup (Export / Import JSON)
+    const backupRow = el(
+      'div',
+      { class: 'settings-row settings-inline-row', style: 'flex-wrap:wrap;gap:8px;' },
+      el(
+        'div',
+        { class: 'settings-label-col' },
+        el('label', { class: 'settings-label' }, t('menu.settings.backup_title')),
+        el('span', { class: 'settings-sub-note' }, t('menu.settings.backup_desc')),
+      ),
+      el(
+        'div',
+        { style: 'display:flex;gap:6px;flex-wrap:wrap;' },
+        el(
+          'button',
+          {
+            type: 'button',
+            class: 'btn btn-sm btn-accent',
+            onClick: () => {
+              const res = this.#saveManager?.exportActiveSave?.();
+              if (!res?.ok) return;
+              const blob = new Blob([res.json], { type: 'application/json' });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = `last-breath-save-${new Date().toISOString().slice(0, 10)}.json`;
+              a.click();
+              URL.revokeObjectURL(url);
+            },
+          },
+          `💾 ${t('menu.settings.export_save')}`,
+        ),
+        el(
+          'button',
+          {
+            type: 'button',
+            class: 'btn btn-sm btn-ghost',
+            onClick: () => {
+              const input = document.createElement('input');
+              input.type = 'file';
+              input.accept = '.json,application/json';
+              input.onchange = async (e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+                const text = await file.text();
+                const res = this.#saveManager?.importSaveJson?.(text);
+                if (res?.ok) {
+                  window.alert(t('menu.settings.import_ok'));
+                  window.location.reload();
+                } else {
+                  window.alert(t('menu.settings.import_err'));
+                }
+              };
+              input.click();
+            },
+          },
+          `📂 ${t('menu.settings.import_save')}`,
+        ),
+      ),
+    );
+
     // Danger Zone / Clear All Data
     const dangerZone = el(
       'div',
       { class: 'settings-danger-card' },
+      backupRow,
       el('strong', { class: 'settings-danger-title' }, t('menu.settings.reset_title')),
       el('p', { class: 'settings-danger-desc' }, t('menu.settings.reset_desc')),
       el(
@@ -949,6 +1006,56 @@ export class MenuView {
       ),
     );
 
+    const layoutRow = el(
+      'div',
+      { class: 'settings-row settings-inline-row' },
+      el(
+        'div',
+        { class: 'settings-label-col' },
+        el('label', { class: 'settings-label' }, t('menu.settings.layout_title')),
+        el('span', { class: 'settings-sub-note' }, t('menu.settings.layout_desc')),
+      ),
+      el(
+        'button',
+        {
+          type: 'button',
+          class: 'btn btn-sm btn-ghost',
+          onClick: (e) => {
+            resetPanelSizes();
+            const btn = e.currentTarget;
+            const prev = btn.textContent;
+            btn.textContent = `✓ ${t('menu.settings.layout_done')}`;
+            setTimeout(() => { btn.textContent = prev; }, 1600);
+          },
+        },
+        `↺ ${t('menu.settings.layout_btn')}`,
+      ),
+    );
+
+    const shortcutEntries = [
+      { keys: '1–6 / M I C B S L', desc: t('menu.settings.sc_tabs') },
+      { keys: 'R', desc: t('menu.settings.sc_radio') },
+      { keys: '+ / − / 0 / G', desc: t('menu.settings.sc_map') },
+      { keys: 'Esc', desc: t('menu.settings.sc_close') },
+    ];
+    const shortcutsCard = el(
+      'div',
+      { class: 'settings-shortcuts-card' },
+      el('strong', { class: 'settings-label' }, `⌨️ ${t('menu.settings.shortcuts_title')}`),
+      el(
+        'div',
+        { class: 'settings-shortcuts-grid' },
+        ...shortcutEntries.map((sc) =>
+          el(
+            'div',
+            { class: 'settings-shortcut-item' },
+            el('kbd', { class: 'shortcut-kbd' }, sc.keys),
+            el('span', { class: 'shortcut-desc' }, sc.desc),
+          ),
+        ),
+      ),
+    );
+
     const settingsContainer = el(
       'section',
       { class: 'menu-section menu-settings-section' },
@@ -958,6 +1065,8 @@ export class MenuView {
       ambRow,
       crtRow,
       autosaveRow,
+      layoutRow,
+      shortcutsCard,
       dangerZone,
     );
 

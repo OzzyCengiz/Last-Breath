@@ -94,6 +94,24 @@ export const ACHIEVEMENTS_CATALOG = {
     titleKey: 'codex.ach.sniper_doctrine.title',
     descKey: 'codex.ach.sniper_doctrine.desc',
   },
+  boss_slayer: {
+    id: 'boss_slayer',
+    icon: '👑',
+    titleKey: 'codex.ach.boss_slayer.title',
+    descKey: 'codex.ach.boss_slayer.desc',
+  },
+  contract_runner: {
+    id: 'contract_runner',
+    icon: '📋',
+    titleKey: 'codex.ach.contract_runner.title',
+    descKey: 'codex.ach.contract_runner.desc',
+  },
+  sector_09_evacuee: {
+    id: 'sector_09_evacuee',
+    icon: '🛡️',
+    titleKey: 'codex.ach.sector_09_evacuee.title',
+    descKey: 'codex.ach.sector_09_evacuee.desc',
+  },
 };
 
 export const LORE_CODEX_CATALOG = {

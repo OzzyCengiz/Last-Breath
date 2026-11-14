@@ -28,3 +28,35 @@ export function daysElapsed(totalMinutes) {
   return Math.max(0, (totalMinutes - START_MINUTES) / MINUTES_PER_DAY);
 }
 
+export const DAYS_PER_SEASON = 10;
+export const SEASONS = Object.freeze(['spring', 'summer', 'autumn', 'winter']);
+export const SEASON_GLYPHS = Object.freeze({
+  spring: '🌱',
+  summer: '☀️',
+  autumn: '🍂',
+  winter: '❄️',
+});
+
+/**
+ * Returns the active season based on elapsed days.
+ * Cycles every 40 days: Spring (1-10), Summer (11-20), Autumn (21-30), Winter (31-40).
+ */
+export function getSeasonInfo(totalMinutes) {
+  const { day } = readClock(totalMinutes);
+  const zeroBasedDay = Math.max(0, day - 1);
+  const seasonIndex = Math.floor(zeroBasedDay / DAYS_PER_SEASON) % SEASONS.length;
+  const id = SEASONS[seasonIndex];
+  const dayOfSeason = (zeroBasedDay % DAYS_PER_SEASON) + 1;
+  return {
+    id,
+    index: seasonIndex,
+    dayOfSeason,
+    daysPerSeason: DAYS_PER_SEASON,
+    glyph: SEASON_GLYPHS[id],
+  };
+}
+
+export function getSeason(totalMinutes) {
+  return getSeasonInfo(totalMinutes).id;
+}
+

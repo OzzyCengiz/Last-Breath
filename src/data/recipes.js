@@ -218,6 +218,7 @@ export const RECIPES = {
   plated_rig: {
     category: 'gear',
     tier: 2,
+    requiresBlueprint: true,
     minutes: 90,
     ingredients: [
       { itemId: 'scrap_metal', qty: 3 },
@@ -230,6 +231,7 @@ export const RECIPES = {
   tactical_backpack: {
     category: 'gear',
     tier: 2,
+    requiresBlueprint: true,
     minutes: 80,
     ingredients: [
       { itemId: 'cloth_rags', qty: 6 },

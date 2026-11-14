@@ -4,6 +4,7 @@
 export const LOCALES = [
   { code: 'en', label: 'English' },
   { code: 'tr', label: 'Türkçe' },
+  { code: 'th', label: 'ไทย' },
 ];
 
 const LOCALE_STORAGE_KEY = 'lastbreath.locale';

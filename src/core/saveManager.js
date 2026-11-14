@@ -165,6 +165,9 @@ export class SaveManager {
         this.#storage?.setItem(LEGACY_SAVE_KEY, str);
       }
       this.setActiveSlot(slot);
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('lastbreath:saved', { detail: { slot } }));
+      }
       return true;
     } catch (error) {
       console.error(`[save] write failed for slot ${slot}`, error);
@@ -209,6 +212,38 @@ export class SaveManager {
 
   save() {
     return this.saveSlot(this.#activeSlot);
+  }
+
+  exportActiveSave() {
+    this.save();
+    try {
+      const raw = this.#storage?.getItem(this.#getSlotKey(this.#activeSlot));
+      if (raw) return { ok: true, json: raw };
+      const payload = {
+        version: SAVE_VERSION,
+        savedAt: Date.now(),
+        rng: this.#rng.state(),
+        state: this.#store.state,
+      };
+      return { ok: true, json: JSON.stringify(payload) };
+    } catch (err) {
+      return { ok: false, error: err?.message || 'export_failed' };
+    }
+  }
+
+  importSaveJson(jsonStr, slot = this.#activeSlot) {
+    try {
+      const parsed = JSON.parse(jsonStr);
+      if (!parsed || typeof parsed !== 'object' || !parsed.state || !parsed.state.player || !parsed.state.world) {
+        return { ok: false, error: 'invalid_save_format' };
+      }
+      const migrated = migrate({ version: parsed.version || SAVE_VERSION, ...parsed });
+      this.#storage?.setItem(this.#getSlotKey(slot), JSON.stringify(migrated));
+      this.setActiveSlot(slot);
+      return { ok: true, slot, payload: migrated };
+    } catch (err) {
+      return { ok: false, error: err?.message || 'import_failed' };
+    }
   }
 
   load() {

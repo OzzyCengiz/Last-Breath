@@ -1,17 +1,29 @@
 import { RECIPES, getRecipe } from '../../data/recipes.js';
-import { activeWorkbenchTier, canAffordCost } from '../base/index.js';
-import { countItem } from '../inventory/inventoryModel.js';
+import {
+  activeWorkbenchTier,
+  canAffordCost,
+  consumeAvailableMaterial,
+  countAvailableMaterial,
+  isAtOutpost,
+} from '../base/index.js';
 import { grantItems } from '../inventory/index.js';
 import { codexManager } from '../../core/codexManager.js';
 import { ref } from '../../i18n/i18n.js';
 import { audioEngine } from '../../core/audioEngine.js';
 
+export function isRecipeUnlocked(state, recipeId) {
+  const recipe = getRecipe(recipeId);
+  if (!recipe.requiresBlueprint) return true;
+  return Boolean(state?.crafting?.unlockedRecipes?.includes(recipeId));
+}
+
 export function maxCraftableCount(state, recipeId) {
   const recipe = getRecipe(recipeId);
+  if (!isRecipeUnlocked(state, recipeId)) return 0;
   if (activeWorkbenchTier(state) < recipe.tier) return 0;
   let max = Infinity;
   for (const { itemId, qty } of recipe.ingredients) {
-    const have = countItem(state.inventory, itemId);
+    const have = countAvailableMaterial(state, itemId);
     const possible = Math.floor(have / qty);
     if (possible < max) max = possible;
   }
@@ -20,6 +32,7 @@ export function maxCraftableCount(state, recipeId) {
 
 export function canCraftRecipe(state, recipeId, count = 1) {
   const recipe = getRecipe(recipeId);
+  if (!isRecipeUnlocked(state, recipeId)) return { ok: false, reason: 'reject.blueprint_locked' };
   if (activeWorkbenchTier(state) < recipe.tier) return { ok: false, reason: 'reject.workbench_tier' };
   const scaledCosts = recipe.ingredients.map(({ itemId, qty }) => ({ itemId, qty: qty * count }));
   if (!canAffordCost(state, scaledCosts)) return { ok: false, reason: 'reject.missing_materials' };
@@ -31,13 +44,29 @@ export const craftingModule = {
 
   createState() {
     return {
-      unlockedRecipes: Object.keys(RECIPES),
+      unlockedRecipes: Object.keys(RECIPES).filter((id) => !RECIPES[id].requiresBlueprint),
       craftedCount: 0,
     };
   },
 
   install(ctx) {
-    const { store, engine, effects } = ctx;
+    const { store, engine, effects, bus, rng } = ctx;
+
+    const unlockRandomBlueprint = () => {
+      const unlocked = store.state.crafting?.unlockedRecipes ?? [];
+      const locked = Object.keys(RECIPES).filter((id) => RECIPES[id].requiresBlueprint && !unlocked.includes(id));
+      if (locked.length === 0) return;
+      const pick = rng ? rng.pick(locked) : locked[0];
+      store.commit('crafting/unlockRecipe', pick);
+      engine.log('log.crafting.blueprint_unlocked', { item: ref(`item.${RECIPES[pick].output.itemId}.name`) }, 'good');
+    };
+
+    bus.on('combat:victory', ({ isBoss }) => {
+      if (isBoss) unlockRandomBlueprint();
+    });
+    bus.on('factions:contract_completed', () => {
+      unlockRandomBlueprint();
+    });
 
     store.registerMutations('crafting', {
       unlockRecipe(state, recipeId) {
@@ -62,7 +91,7 @@ export const craftingModule = {
       if (!check.ok) return check;
 
       for (const { itemId, qty } of recipe.ingredients) {
-        store.commit('inventory/remove', { itemId, qty: qty * batch });
+        consumeAvailableMaterial(store, itemId, qty * batch);
       }
       store.commit('crafting/recordCraft', batch);
       codexManager.trackCareer('totalCraftsDone', batch);

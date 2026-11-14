@@ -1,5 +1,6 @@
 import { rollRange } from '../core/rng.js';
 import { LOOT_TABLES } from './lootTables.js';
+import { COUNTRY_EXCLUSIVE_LOOT } from './countryExclusiveItems.js';
 
 const lootEntry = (itemId, weight, qty = 1) => ({ itemId, weight, qty });
 
@@ -869,6 +870,27 @@ export const COUNTRY_LOOT = {
   ],
 };
 
+export const CRAFT_AND_VEHICLE_REPAIR_TABLE = [
+  lootEntry('scrap_metal', 14, [3, 6]),
+  lootEntry('cloth_rags', 12, [3, 6]),
+  lootEntry('duct_tape', 12, [2, 4]),
+  lootEntry('copper_wire', 11, [2, 5]),
+  lootEntry('electronics', 9, [1, 3]),
+  lootEntry('motor_oil_10w40_bottle', 8, [1, 2]),
+  lootEntry('scrap_iron_plates', 7, [1, 3]),
+  lootEntry('car_battery_lead_acid', 6, 1),
+  lootEntry('spark_plug_set', 6, 1),
+  lootEntry('gasoline_fuel_canister_5l', 7, 1),
+  lootEntry('diesel_fuel_canister_5l', 6, 1),
+  lootEntry('rubber_tire_patch_vulcanizing_kit', 6, 1),
+  lootEntry('wd40_penetrating_oil', 6, 1),
+  lootEntry('fuel_siphon_hose', 5, 1),
+];
+
+for (const [countryKey, exclusiveEntries] of Object.entries(COUNTRY_EXCLUSIVE_LOOT)) {
+  COUNTRY_LOOT[countryKey] = [...(COUNTRY_LOOT[countryKey] || []), ...exclusiveEntries];
+}
+
 /**
  * Rolls specialized country and biome exploration loot.
  */
@@ -886,40 +908,63 @@ export function rollScavengeLoot(rng, {
   const countryTable = COUNTRY_LOOT[country] || COUNTRY_LOOT['Turkey'];
   const biomeTable = LOOT_TABLES[biome] || LOOT_TABLES['urban'];
 
-  // Base rolls scaled with danger
-  const minRolls = danger >= 5 ? 3 : 2;
-  const maxRolls = danger >= 4 ? 4 + (danger === 5 ? 1 : 0) : 3;
-  const rawBase = rng.int ? rng.int(minRolls, maxRolls) : 2;
+  // Base rolls scaled with danger - generously increased to ensure rich crafting/vehicle flow
+  const minRolls = danger >= 4 ? 4 : 3;
+  const maxRolls = danger >= 4 ? 6 : 5;
+  const rawBase = rng.int ? rng.int(minRolls, maxRolls) : 3;
 
   // Bonus multipliers
-  const totalMult = foragingBonus * (1 + scavengeBonus) * envEfficiency * Math.max(0.35, 1 - depletion * 0.5);
-  const totalRolls = Math.max(1, Math.round(rawBase * totalMult));
+  const totalMult = foragingBonus * (1 + scavengeBonus) * envEfficiency * Math.max(0.4, 1 - depletion * 0.4);
+  const totalRolls = Math.max(3, Math.round(rawBase * totalMult));
 
   const found = new Map();
 
-  for (let i = 0; i < totalRolls; i++) {
+  // Always guarantee at least 1 craft/vehicle repair item drop per scavenge!
+  const guaranteedCraft = rng.weighted(CRAFT_AND_VEHICLE_REPAIR_TABLE);
+  if (guaranteedCraft?.itemId) {
+    const qty = rollRange(rng, guaranteedCraft.qty || 1);
+    found.set(guaranteedCraft.itemId, (found.get(guaranteedCraft.itemId) ?? 0) + qty);
+  }
+
+  // Regional exclusive drop: only items native to this exact country
+  const exclusivePool = COUNTRY_EXCLUSIVE_LOOT[country];
+  if (exclusivePool?.length && rng.chance(0.8)) {
+    const exclusiveDrop = rng.weighted(exclusivePool);
+    if (exclusiveDrop?.itemId) {
+      const qty = rollRange(rng, exclusiveDrop.qty || 1);
+      found.set(exclusiveDrop.itemId, (found.get(exclusiveDrop.itemId) ?? 0) + qty);
+    }
+  }
+
+  for (let i = 1; i < totalRolls; i++) {
     let chosenTable;
     const rollType = rng.float ? rng.float(0, 1) : Math.random();
 
-    // 50% Country Signature Drop, 35% Biome Drop, 15% High-Tier Rarity Drop
-    if (rollType < 0.50) {
+    // 35% Country, 35% Craft & Vehicle Repair, 20% Biome, 10% High-Tier
+    if (rollType < 0.35) {
       chosenTable = countryTable;
-    } else if (rollType < 0.85) {
+    } else if (rollType < 0.70) {
+      chosenTable = CRAFT_AND_VEHICLE_REPAIR_TABLE;
+    } else if (rollType < 0.90) {
       chosenTable = biomeTable;
     } else {
       chosenTable = danger >= 4 ? DANGER_HIGH_TIER_TABLE : DANGER_MID_TIER_TABLE;
     }
 
     const itemEntry = rng.weighted(chosenTable);
-    const qty = rollRange(rng, itemEntry.qty || 1);
-    found.set(itemEntry.itemId, (found.get(itemEntry.itemId) ?? 0) + qty);
+    if (itemEntry?.itemId) {
+      const qty = rollRange(rng, itemEntry.qty || 1);
+      found.set(itemEntry.itemId, (found.get(itemEntry.itemId) ?? 0) + qty);
+    }
   }
 
   // Ensure high-danger nodes (danger >= 4) have a special rare/epic discovery chance
-  if (danger >= 4 && rng.chance(0.35 + danger * 0.08)) {
+  if (danger >= 4 && rng.chance(0.40 + danger * 0.08)) {
     const specialEntry = rng.weighted(DANGER_HIGH_TIER_TABLE);
-    const qty = rollRange(rng, specialEntry.qty || 1);
-    found.set(specialEntry.itemId, (found.get(specialEntry.itemId) ?? 0) + qty);
+    if (specialEntry?.itemId) {
+      const qty = rollRange(rng, specialEntry.qty || 1);
+      found.set(specialEntry.itemId, (found.get(specialEntry.itemId) ?? 0) + qty);
+    }
   }
 
   return [...found].map(([itemId, qty]) => ({ itemId, qty }));

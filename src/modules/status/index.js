@@ -1,6 +1,7 @@
 import { BALANCE } from '../../data/balance.js';
 import { AILMENTS } from '../../data/ailments.js';
 import { ref } from '../../i18n/i18n.js';
+import { getSeason } from '../../core/clock.js';
 import { rollRange } from '../../core/rng.js';
 import { skillMultiplier } from '../skills/skillSelectors.js';
 import { incomingDamageMultiplier, isOverloaded } from '../inventory/inventorySelectors.js';
@@ -28,6 +29,10 @@ function createPlayer() {
     trait: 'stoic',
     archetype: 'scavenger',
     ...BALANCE.vitals.start,
+    level: 1,
+    xp: 0,
+    skillPoints: 0,
+    unlockedPerks: [],
     body: createDefaultBodyState(),
     ailments: {},
     alive: true,
@@ -161,9 +166,15 @@ function tickStatus(ctx, { hours, activity }) {
     ? BALANCE.inventory.overloadEnergyDrain
     : 1;
 
+  const season = getSeason(store.state.time?.minutes ?? 0);
+
   for (const need of NEEDS) {
     let delta = profile[need] * hours;
     if (need === 'energy' && delta < 0) delta *= overloadDrain;
+    if (delta < 0) {
+      if (season === 'summer' && need === 'hydration') delta *= 1.25;
+      else if (season === 'winter' && (need === 'satiety' || need === 'energy')) delta *= 1.15;
+    }
     adjustVital(ctx, need, delta);
   }
 
@@ -204,6 +215,8 @@ function tickStatus(ctx, { hours, activity }) {
   if (harm.isEmpty() && canRegenerate(store.state.player)) {
     let rate = activity === 'rest' ? BALANCE.regeneration.rest : BALANCE.regeneration.idle;
     if (store.state.player.trait === 'fast_metabolism') rate *= 1.25;
+    if (season === 'spring') rate *= 1.15;
+    else if (season === 'winter') rate *= 0.85;
     adjustVital(ctx, 'health', rate * hours);
   }
   if (!harm.isEmpty()) inflictDamage(ctx, harm.total(), harm.worstCause());

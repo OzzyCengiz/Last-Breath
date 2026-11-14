@@ -1,6 +1,7 @@
 import { CATEGORIES, EQUIPMENT_SLOTS, getItem } from '../data/items.js';
 import { i18n, t } from '../i18n/i18n.js';
-import { groundHere, loadSummary } from '../modules/inventory/inventorySelectors.js';
+import { getItemUpgradeLevel, groundHere, loadSummary } from '../modules/inventory/inventorySelectors.js';
+import { isAtOutpost } from '../modules/base/index.js';
 import { getNode } from '../modules/map/mapGraph.js';
 import { VehicleEngine, VEHICLE_CATALOG } from '../modules/vehicles/vehicleEngine.js';
 import { el } from './dom.js';
@@ -10,6 +11,8 @@ export class InventoryView {
   #root;
   #engine;
   #activeCategory = 'all';
+  #searchQuery = '';
+  #sortBy = 'default';
   #selectedItemId = null;
   #packPage = 1;
   #activeInvTab = 'pack'; // 'pack' | 'equipped' | 'vehicles'
@@ -104,11 +107,6 @@ export class InventoryView {
     const weightStr = `${i18n.formatNumber(summary.weight, 2)} / ${i18n.formatNumber(summary.capacityKg, 1)} kg`;
     const slotStr = `${summary.slotsUsed} / ${summary.slotsTotal}`;
 
-    const eq = state.inventory?.equipment || {};
-    const weaponName = eq.weapon ? t(`item.${eq.weapon}.name`) : t('inventory.unarmed');
-    const armorName = eq.body ? t(`item.${eq.body}.name`) : '—';
-    const packName = eq.pack ? t(`item.${eq.pack}.name`) : '—';
-
     return el(
       'section',
       { class: ['panel-block', summary.overloaded && 'is-overloaded'] },
@@ -137,48 +135,92 @@ export class InventoryView {
         }),
       ),
       summary.overloaded && el('p', { class: 'overload-warning' }, t('inventory.overloaded_notice')),
-      this.#activeInvTab === 'pack' && el(
-        'div',
-        {
-          class: 'loadout-quick-strip',
-          title: t('inventory.tabs.equipped'),
-          onClick: () => {
-            this.#activeInvTab = 'equipped';
-            if (this.#lastState) this.render(this.#lastState);
-          },
-        },
-        el('span', { class: 'quick-strip-label' }, `🛡️ ${t('inventory.section.equipped')}:`),
-        el('span', { class: 'quick-strip-val' }, `${weaponName} · ${armorName} · ${packName}`),
-        el('span', { class: 'quick-strip-arrow' }, '→'),
-      ),
     );
+  }
+
+  #equipSlotIcon(slot) {
+    if (slot === 'weapon') return '⚔️';
+    if (slot === 'body') return '🛡️';
+    if (slot === 'pack') return '🎒';
+    return '⚙️';
+  }
+
+  #equipStatPills(item, upgradeLvl) {
+    if (!item?.equip) return [];
+    const pills = [];
+    const dmg = (item.equip.damage ?? item.damage ?? 0) + (item.equip.slot === 'weapon' ? upgradeLvl * 3 : 0);
+    const armor = (item.equip.armor ?? item.armor ?? 0) + (item.equip.slot === 'body' ? upgradeLvl * 2 : 0);
+    if (dmg > 0) pills.push(el('span', { class: 'equip-stat-pill is-dmg' }, `⚔ ${dmg}`));
+    if (item.equip.range) pills.push(el('span', { class: 'equip-stat-pill' }, `🎯 ${item.equip.range}`));
+    if (armor > 0) pills.push(el('span', { class: 'equip-stat-pill is-armor' }, `🛡 +${armor}`));
+    if (item.equip.coldRes > 0) pills.push(el('span', { class: 'equip-stat-pill' }, `❄ +${item.equip.coldRes}°C`));
+    if (item.equip.acidRes > 0) pills.push(el('span', { class: 'equip-stat-pill' }, `☣ ${Math.round(item.equip.acidRes * 100)}%`));
+    if (item.equip.ashRes > 0) pills.push(el('span', { class: 'equip-stat-pill' }, `🌫 ${Math.round(item.equip.ashRes * 100)}%`));
+    if (item.equip.slots > 0) pills.push(el('span', { class: 'equip-stat-pill is-pack' }, `🎒 +${item.equip.slots}`));
+    if (item.equip.capacityKg > 0) pills.push(el('span', { class: 'equip-stat-pill is-pack' }, `📦 +${item.equip.capacityKg} kg`));
+    return pills;
   }
 
   #renderEquipment(state) {
     const slots = EQUIPMENT_SLOTS.map((slot) => {
       const itemId = state.inventory.equipment[slot];
       const item = itemId ? getItem(itemId) : null;
+      const upgradeLvl = itemId ? getItemUpgradeLevel(state, itemId) : 0;
+      const canUpgrade = Boolean(item && (slot === 'weapon' || slot === 'body') && upgradeLvl < 3);
+      const scrapNeed = (upgradeLvl + 1) * 2;
+      const statPills = item ? this.#equipStatPills(item, upgradeLvl) : [];
+
       return el(
         'div',
         { class: ['equip-slot', itemId && 'is-filled'] },
-        el('span', { class: 'equip-slot-label' }, t(`inventory.slot.${slot}`)),
+        el(
+          'div',
+          { class: 'equip-slot-header' },
+          el('span', { class: 'equip-slot-label' }, `${this.#equipSlotIcon(slot)} ${t(`inventory.slot.${slot}`)}`),
+          upgradeLvl > 0
+            ? el('span', { class: 'equip-upgrade-badge' }, `+${upgradeLvl}`)
+            : !item && el('span', { class: 'equip-empty-tag' }, t('inventory.slot_empty')),
+        ),
         item
           ? el(
             'div',
             { class: 'equip-slot-body' },
-            el('span', { class: 'item-glyph' }, item.glyph),
-            el('span', { class: 'equip-item-name' }, t(`item.${itemId}.name`)),
             el(
-              'button',
-              {
-                type: 'button',
-                class: 'btn btn-ghost btn-xs',
-                onClick: () => this.#engine.dispatch('inventory/unequip', { slot }),
-              },
-              t('inventory.action.unequip'),
+              'div',
+              { class: 'equip-slot-main' },
+              el('span', { class: 'equip-item-glyph' }, item.glyph),
+              el(
+                'div',
+                { class: 'equip-item-info' },
+                el('div', { class: 'equip-item-name' }, t(`item.${itemId}.name`)),
+                statPills.length > 0 && el('div', { class: 'equip-item-stats' }, statPills),
+              ),
+            ),
+            el(
+              'div',
+              { class: 'equip-slot-actions' },
+              canUpgrade && el(
+                'button',
+                {
+                  type: 'button',
+                  class: 'btn btn-accent btn-xs equip-act-btn',
+                  title: `${scrapNeed}× ${t('item.scrap_metal.name')}, 1× ${t('item.duct_tape.name')}`,
+                  onClick: () => this.#engine.dispatch('inventory/upgradeGear', { slot }),
+                },
+                `⬆️ +1 (${scrapNeed}⚙)`,
+              ),
+              el(
+                'button',
+                {
+                  type: 'button',
+                  class: 'btn btn-ghost btn-xs equip-act-btn',
+                  onClick: () => this.#engine.dispatch('inventory/unequip', { slot }),
+                },
+                t('inventory.action.unequip'),
+              ),
             ),
           )
-          : el('span', { class: 'equip-empty' }, t('inventory.slot_empty')),
+          : el('div', { class: 'equip-empty' }, t('inventory.slot_empty')),
       );
     });
 
@@ -210,9 +252,34 @@ export class InventoryView {
       ),
     );
 
-    const visibleStacks = (state.inventory?.stacks || []).filter(({ itemId }) =>
-      this.#activeCategory === 'all' ? true : getItem(itemId)?.category === this.#activeCategory,
-    );
+    const query = this.#searchQuery.trim().toLowerCase();
+    const visibleStacks = (state.inventory?.stacks || [])
+      .filter(({ itemId }) => {
+        if (this.#activeCategory !== 'all' && getItem(itemId)?.category !== this.#activeCategory) {
+          return false;
+        }
+        if (query) {
+          const itemName = t(`item.${itemId}.name`).toLowerCase();
+          if (!itemName.includes(query) && !itemId.toLowerCase().includes(query)) {
+            return false;
+          }
+        }
+        return true;
+      })
+      .sort((a, b) => {
+        if (this.#sortBy === 'weight_desc') {
+          const wa = (getItem(a.itemId)?.weight ?? 0) * a.qty;
+          const wb = (getItem(b.itemId)?.weight ?? 0) * b.qty;
+          return wb - wa;
+        }
+        if (this.#sortBy === 'value_desc') {
+          return (getItem(b.itemId)?.value ?? 0) - (getItem(a.itemId)?.value ?? 0);
+        }
+        if (this.#sortBy === 'qty_desc') {
+          return b.qty - a.qty;
+        }
+        return 0;
+      });
 
     const SLOTS_PER_PAGE = 8;
     if (this.#selectedItemId) {
@@ -319,6 +386,51 @@ export class InventoryView {
       el('span', { class: 'inv-hint-text' }, t('inventory.grid.inspect_prompt')),
     );
 
+    const searchInput = el('input', {
+      type: 'search',
+      class: 'craft-search-input inv-search-input',
+      value: this.#searchQuery,
+      placeholder: t('inventory.search_placeholder'),
+      'aria-label': t('inventory.search_placeholder'),
+      onInput: (e) => {
+        const input = e.target;
+        const start = input.selectionStart ?? input.value.length;
+        const end = input.selectionEnd ?? start;
+        this.#searchQuery = input.value;
+        this.#packPage = 1;
+        this.#selectedItemId = null;
+        if (this.#lastState) this.render(this.#lastState);
+        const nextInput = this.#root?.querySelector('.inv-search-input');
+        if (nextInput) {
+          nextInput.focus();
+          try { nextInput.setSelectionRange(start, end); } catch {}
+        }
+      },
+    });
+
+    const sortOptions = ['default', 'weight_desc', 'value_desc', 'qty_desc'].map((mode) =>
+      el(
+        'option',
+        { value: mode, selected: this.#sortBy === mode },
+        t(`inventory.sort.${mode}`),
+      ),
+    );
+    const sortSelect = el(
+      'select',
+      {
+        class: 'inv-sort-select',
+        'aria-label': t('inventory.sort.label'),
+        onChange: (e) => {
+          this.#sortBy = e.target.value;
+          this.#packPage = 1;
+          if (this.#lastState) this.render(this.#lastState);
+        },
+      },
+      sortOptions,
+    );
+
+    const toolbar = el('div', { class: 'craft-toolbar inv-toolbar' }, searchInput, sortSelect);
+
     return el(
       'section',
       { class: 'panel-block' },
@@ -329,6 +441,7 @@ export class InventoryView {
         el('span', { class: 'pack-capacity-pill' }, `${visibleStacks.length} / ${slotsTotal}`),
       ),
       el('div', { class: 'filter-row' }, tabs),
+      toolbar,
       gridEl,
       paginationBar,
       hintBanner,
@@ -348,7 +461,7 @@ export class InventoryView {
     const catName = t(`inventory.category.${item.category}`).toUpperCase();
 
     // Attribute effect tags
-    const specBadges = this.#renderItemSpecs(item);
+    const specBadges = this.#renderItemSpecs(item, state, this.#selectedItemId);
 
     // Primary action buttons (Use / Equip)
     const primaryActions = [];
@@ -390,9 +503,60 @@ export class InventoryView {
         ),
       );
     }
+    if (item.equip || item.category === 'weapons' || item.category === 'gear') {
+      primaryActions.push(
+        el(
+          'button',
+          {
+            type: 'button',
+            class: 'btn btn-ghost btn-inspect-act-primary',
+            onClick: () => {
+              const id = this.#selectedItemId;
+              if (qty <= 1) this.#selectedItemId = null;
+              this.#engine.dispatch('inventory/salvage', { itemId: id });
+            },
+          },
+          `🔧 ${t('inventory.action.salvage')}`,
+        ),
+      );
+    }
 
-    // Secondary action buttons (Drop 1 / Drop All)
+    // Secondary action buttons (Store at Outpost / Drop 1 / Drop All)
     const dropActions = [];
+    if (stack && isAtOutpost(state)) {
+      dropActions.push(
+        el(
+          'button',
+          {
+            type: 'button',
+            class: 'btn btn-accent btn-xs btn-inspect-store',
+            onClick: () => {
+              const id = this.#selectedItemId;
+              if (qty <= 1) this.#selectedItemId = null;
+              this.#engine.dispatch('base/store', { itemId: id, qty: 1 });
+            },
+          },
+          `📥 ${t('inventory.action.store')}`,
+        ),
+      );
+      if (qty > 1) {
+        dropActions.push(
+          el(
+            'button',
+            {
+              type: 'button',
+              class: 'btn btn-accent btn-xs btn-inspect-store',
+              onClick: () => {
+                const id = this.#selectedItemId;
+                this.#selectedItemId = null;
+                this.#engine.dispatch('base/store', { itemId: id, qty });
+              },
+            },
+            `📥 ${t('inventory.action.store_all')} (×${qty})`,
+          ),
+        );
+      }
+    }
     if (stack) {
       dropActions.push(
         el(
@@ -510,7 +674,7 @@ export class InventoryView {
     );
   }
 
-  #renderItemSpecs(item) {
+  #renderItemSpecs(item, state = null, itemId = null) {
     const specs = [];
 
     // Food / medical / chemical effects
@@ -556,6 +720,23 @@ export class InventoryView {
       if (item.damage) specs.push(el('span', { class: 'spec-pill spec-dmg' }, `⚔ DMG ${item.damage}`));
       if (item.armor) specs.push(el('span', { class: 'spec-pill spec-armor' }, `🛡 ARMOR +${item.armor}`));
       if (item.slotsBonus) specs.push(el('span', { class: 'spec-pill spec-slots' }, `🎒 SLOTS +${item.slotsBonus}`));
+
+      const equippedId = state?.inventory?.equipment?.[item.equip.slot];
+      if (equippedId && equippedId !== itemId) {
+        const eq = getItem(equippedId);
+        if (eq) {
+          const dDmg = (item.equip.damage ?? item.damage ?? 0) - (eq.equip?.damage ?? eq.damage ?? 0);
+          const dArmor = (item.equip.armor ?? item.armor ?? 0) - (eq.equip?.armor ?? eq.armor ?? 0);
+          const dSlots = (item.equip.slots ?? item.slotsBonus ?? 0) - (eq.equip?.slots ?? eq.slotsBonus ?? 0);
+          const dKg = Number(((item.equip.capacityKg ?? 0) - (eq.equip?.capacityKg ?? 0)).toFixed(1));
+          const dWeight = Number(((item.weight ?? 0) - (eq.weight ?? 0)).toFixed(2));
+          if (dDmg !== 0) specs.push(el('span', { class: ['spec-pill', dDmg > 0 ? 'spec-good' : 'spec-bad'] }, `⚔ ${dDmg > 0 ? '+' : ''}${dDmg} DMG`));
+          if (dArmor !== 0) specs.push(el('span', { class: ['spec-pill', dArmor > 0 ? 'spec-good' : 'spec-bad'] }, `🛡 ${dArmor > 0 ? '+' : ''}${dArmor} ARMOR`));
+          if (dSlots !== 0) specs.push(el('span', { class: ['spec-pill', dSlots > 0 ? 'spec-good' : 'spec-bad'] }, `🎒 ${dSlots > 0 ? '+' : ''}${dSlots} SLOTS`));
+          if (dKg !== 0) specs.push(el('span', { class: ['spec-pill', dKg > 0 ? 'spec-good' : 'spec-bad'] }, `📦 ${dKg > 0 ? '+' : ''}${dKg} kg`));
+          if (dWeight !== 0) specs.push(el('span', { class: ['spec-pill', dWeight < 0 ? 'spec-good' : 'spec-bad'] }, `⚖ ${dWeight > 0 ? '+' : ''}${dWeight} kg`));
+        }
+      }
     }
 
     if (item.stack && item.stack > 1) {

@@ -13,7 +13,7 @@ const EQUIP_MINUTES = 5;
 const itemName = (itemId) => ref(`item.${itemId}.name`);
 
 function createStartingInventory() {
-  let inventory = { stacks: [], equipment: { ...BALANCE.startingEquipment }, ground: {} };
+  let inventory = { stacks: [], equipment: { ...BALANCE.startingEquipment }, ground: {}, upgrades: {} };
   for (const { itemId, qty } of BALANCE.startingKit) inventory = addItem(inventory, itemId, qty).inventory;
   return inventory;
 }
@@ -129,6 +129,12 @@ function registerInventoryMutations(store) {
       state.inventory = result.inventory;
       return result.removed;
     },
+    upgradeItem(state, itemId) {
+      state.inventory.upgrades ??= {};
+      const curr = state.inventory.upgrades[itemId] ?? 0;
+      if (curr < 3) state.inventory.upgrades[itemId] = curr + 1;
+      return state.inventory.upgrades[itemId];
+    },
   });
 }
 
@@ -198,6 +204,46 @@ function registerInventoryActions(engine) {
     engine.log('log.inventory.unequipped', { item: itemName(result.itemId) });
     engine.advanceTime(EQUIP_MINUTES);
     return { ok: true };
+  });
+
+  engine.registerAction('inventory/salvage', ({ itemId }, { store, rng }) => {
+    const item = getItem(itemId);
+    if (!item || (!item.equip && item.category !== 'weapons' && item.category !== 'gear')) {
+      return { ok: false, reason: 'reject.not_usable' };
+    }
+    const removed = store.commit('inventory/remove', { itemId, qty: 1 });
+    if (removed === 0) return { ok: false, reason: 'reject.missing_item' };
+
+    const scrapQty = item.rarity === 'rare' || item.rarity === 'epic' || item.rarity === 'legendary' ? 2 : 1;
+    store.commit('inventory/add', { itemId: 'scrap_metal', qty: scrapQty });
+    if (item.equip?.ammo) {
+      store.commit('inventory/add', { itemId: 'electronics', qty: 1 });
+    } else {
+      store.commit('inventory/add', { itemId: 'cloth_rags', qty: 1 });
+    }
+    engine.log('log.inventory.salvaged', { item: itemName(itemId), scrap: scrapQty }, 'good');
+    engine.advanceTime(10);
+    return { ok: true, scrapQty };
+  });
+
+  engine.registerAction('inventory/upgradeGear', ({ slot }, { store }) => {
+    if (slot !== 'weapon' && slot !== 'body') return { ok: false, reason: 'reject.not_equippable' };
+    const itemId = store.state.inventory.equipment?.[slot];
+    if (!itemId) return { ok: false, reason: 'reject.slot_empty' };
+    const curr = store.state.inventory.upgrades?.[itemId] ?? 0;
+    if (curr >= 3) return { ok: false, reason: 'reject.max_level' };
+
+    const scrapNeed = (curr + 1) * 2;
+    const tapeNeed = 1;
+    if (countItem(store.state.inventory, 'scrap_metal') < scrapNeed || countItem(store.state.inventory, 'duct_tape') < tapeNeed) {
+      return { ok: false, reason: 'reject.missing_materials' };
+    }
+    store.commit('inventory/remove', { itemId: 'scrap_metal', qty: scrapNeed });
+    store.commit('inventory/remove', { itemId: 'duct_tape', qty: tapeNeed });
+    const nextLvl = store.commit('inventory/upgradeItem', itemId);
+    engine.log('log.inventory.upgraded', { item: itemName(itemId), level: nextLvl }, 'good');
+    engine.advanceTime(20);
+    return { ok: true, level: nextLvl };
   });
 }
 

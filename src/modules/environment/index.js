@@ -4,6 +4,8 @@
 
 import { WeatherEngine, EVENT_FLASHLIGHT_TOGGLED } from './weatherEngine.js';
 import { getNode } from '../map/mapGraph.js';
+import { getSeasonInfo } from '../../core/clock.js';
+import { ref } from '../../i18n/i18n.js';
 
 export const environmentModule = {
   id: 'environment',
@@ -45,8 +47,19 @@ export const environmentModule = {
       return { ok: true, active };
     });
 
+    let lastSeasonId = null;
+
     // Listen to in-game time advancement
     bus.on('time:tick', ({ hours, activity }) => {
+      const season = getSeasonInfo(store.state.time.minutes);
+      if (lastSeasonId && lastSeasonId !== season.id) {
+        engine.log('log.season.changed', {
+          glyph: season.glyph,
+          season: ref(`hud.season.${season.id}`),
+        }, 'good');
+      }
+      lastSeasonId = season.id;
+
       const currentNodeId = store.state?.world?.currentNodeId;
       const node = currentNodeId ? getNode(currentNodeId) : null;
       const biome = node?.biome || 'urban';

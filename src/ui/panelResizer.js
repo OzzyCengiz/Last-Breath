@@ -15,6 +15,24 @@ function saveSizes(sizes) {
   } catch {}
 }
 
+export function resetPanelSizes() {
+  try {
+    localStorage.removeItem(RESIZER_STORAGE_KEY);
+  } catch {}
+  const deckGrid = document.querySelector('.deck-grid');
+  if (deckGrid) {
+    deckGrid.style.removeProperty('--deck-left-w');
+    deckGrid.style.removeProperty('--deck-right-w');
+    deckGrid.style.removeProperty('--deck-log-h');
+  }
+  const paneMap = document.querySelector('.pane-map');
+  if (paneMap) {
+    paneMap.style.removeProperty('--map-stage-h');
+    paneMap.style.removeProperty('--map-stage-w');
+  }
+  window.dispatchEvent(new Event('resize'));
+}
+
 export function initPanelResizers() {
   const deckGrid = document.querySelector('.deck-grid');
   if (!deckGrid) return;

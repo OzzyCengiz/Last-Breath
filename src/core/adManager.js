@@ -14,7 +14,6 @@ export const VALID_PROMO_CODES = [
   'VIP-SURVIVOR',
   'SON-NEFES-VIP',
   'PREMIUM2026',
-  'DEV-UNLOCK',
 ];
 
 export class AdManager {

@@ -1,6 +1,8 @@
 import { BALANCE } from '../data/balance.js';
 import { getItem } from '../data/items.js';
 import { getEnemy } from '../data/enemies.js';
+import { getEnemyLevelBounds } from '../modules/combat/index.js';
+import { readClock } from '../core/clock.js';
 import { t } from '../i18n/i18n.js';
 import { weaponProfile } from '../modules/inventory/inventorySelectors.js';
 import { describeEncounter } from '../modules/map/encounters.js';
@@ -314,6 +316,14 @@ export class MapView {
           el('dd', {}, this.#formatCoords(current)),
           el('dt', {}, t('map.threat_level')),
           el('dd', { class: `danger-${current.danger}` }, '▲'.repeat(current.danger)),
+          (() => {
+            const { minLevel, maxLevel } = getEnemyLevelBounds(state, current.id);
+            const lvlText = minLevel === maxLevel ? `Lv.${minLevel}` : `Lv.${minLevel}–${maxLevel}`;
+            return [
+              el('dt', {}, t('map.enemy_level')),
+              el('dd', { class: 'tone-amber' }, lvlText),
+            ];
+          })(),
           el('dt', {}, t('map.scavenge_yield')),
           el('dd', {}, `${yieldPct}% (${Math.round(scavenge.chance * 100)}% ${t('map.find_chance')})`),
         ),
@@ -408,6 +418,69 @@ export class MapView {
             },
             `📡 ${t('ad.action_airdrop')}`,
           ),
+          ...(() => {
+            const contract = state.factions?.activeContract;
+            if (!contract) {
+              return [
+                el(
+                  'button',
+                  {
+                    type: 'button',
+                    class: 'btn btn-ghost',
+                    onClick: () => this.#engine.dispatch('factions/acceptContract'),
+                  },
+                  `📋 ${t('faction.contract.accept')}`,
+                ),
+              ];
+            }
+            const desc = contract.type === 'scout'
+              ? t('faction.contract.scout', { target: t(`location.${contract.targetNodeId}`) })
+              : t(`faction.contract.${contract.type}`, { current: contract.progress, total: contract.targetCount });
+            return [
+              el(
+                'div',
+                { class: 'contract-status-pill', style: 'display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;padding:6px 8px;border:1px solid var(--amber-dim);background:rgba(217,155,56,0.08);font-size:11px;' },
+                el('span', { class: 'tone-amber' }, `📋 ${desc}`),
+                el(
+                  'button',
+                  {
+                    type: 'button',
+                    class: 'btn btn-xs btn-ghost',
+                    onClick: () => this.#engine.dispatch('factions/abandonContract'),
+                  },
+                  '✕',
+                ),
+              ),
+            ];
+          })(),
+          ...(() => {
+            if (state.world?.evacuated) return [];
+            const { day } = readClock(state.time?.minutes ?? 0);
+            if (current.id === 'ankara' && day <= 45) {
+              return [
+                el(
+                  'button',
+                  {
+                    type: 'button',
+                    class: 'btn btn-accent',
+                    style: 'width:100%;',
+                    onClick: () => this.#engine.dispatch('map/evacuate'),
+                  },
+                  `🛡️ ${t('endgame.evacuate_btn')}`,
+                ),
+              ];
+            }
+            if (day <= 45) {
+              return [
+                el(
+                  'div',
+                  { class: 'muted-note', style: 'width:100%;font-size:10.5px;padding:4px 6px;border:1px dashed var(--line-dim);' },
+                  `🎯 ${t('endgame.goal_hint', { daysLeft: Math.max(0, 45 - day) })}`,
+                ),
+              ];
+            }
+            return [];
+          })(),
           ...BALANCE.rest.options.map((hours) =>
             el(
               'button',
@@ -430,7 +503,68 @@ export class MapView {
       content = [selectedTargetBanner, routesSection].filter(Boolean);
     }
 
-    this.#dossierEl.replaceChildren(...[nav, ...content].filter(Boolean));
+    const activeContract = state.factions?.activeContract;
+    const contractStrip = activeContract
+      ? el(
+          'div',
+          { class: 'active-contract-strip' },
+          el(
+            'div',
+            { class: 'contract-strip-info' },
+            el(
+              'strong',
+              { class: 'contract-strip-title' },
+              `📋 ${t(`faction.${activeContract.factionId}.name`)} · ${t(`faction.contract_type.${activeContract.type}`)}`,
+            ),
+            el(
+              'span',
+              { class: 'contract-strip-meta' },
+              activeContract.targetNodeId
+                ? `${t(`location.${activeContract.targetNodeId}`)} (${activeContract.progress ?? 0}/${activeContract.targetCount})`
+                : `${activeContract.progress ?? 0}/${activeContract.targetCount}`,
+            ),
+          ),
+          activeContract.targetNodeId && el(
+            'button',
+            {
+              type: 'button',
+              class: 'btn btn-xs btn-ghost',
+              onClick: () => {
+                this.#engine.dispatch('map/select', { nodeId: activeContract.targetNodeId });
+                this.centerOnNode(activeContract.targetNodeId, 3.2);
+              },
+            },
+            '⌖',
+          ),
+        )
+      : null;
+
+    const outpostNodeId = state.base?.outpostNodeId;
+    const outpostStrip = outpostNodeId && outpostNodeId !== state.world.currentNodeId
+      ? el(
+          'div',
+          { class: 'outpost-beacon-strip' },
+          el(
+            'span',
+            { class: 'outpost-beacon-label' },
+            `⛺ ${t('map.outpost_beacon', { location: t(`location.${outpostNodeId}`) })}`,
+          ),
+          el(
+            'button',
+            {
+              type: 'button',
+              class: 'btn btn-xs btn-ghost',
+              onClick: () => {
+                this.#engine.dispatch('map/select', { nodeId: outpostNodeId });
+                this.centerOnNode(outpostNodeId, 3.2);
+              },
+            },
+            '⌖',
+          ),
+        )
+      : null;
+
+    this.#dossierEl.replaceChildren(...[nav, outpostStrip, contractStrip, ...content].filter(Boolean));
   }
 
   #renderVehicleDashboard(state) {
@@ -691,6 +825,10 @@ export class MapView {
       const hours = (plan.minutes / 60).toFixed(1);
       const riskPct = Math.round(plan.risk * 100);
       const isSelected = selected.id === edge.to;
+      const groundList = state.inventory?.ground?.[target.id] ?? [];
+      const groundCount = groundList.reduce((sum, entry) => sum + (entry.qty || 0), 0);
+      const dangerTier = Number(target.danger) || 1;
+      const dangerClass = dangerTier >= 5 ? 'tone-bad' : dangerTier >= 3 ? 'tone-warn' : '';
 
       return el(
         'li',
@@ -707,6 +845,8 @@ export class MapView {
             el('span', { class: 'route-name' }, t(`location.${target.id}`)),
             el('span', { class: 'route-mode-tag' }, t(`map.mode.${edge.mode}`)),
             vis === 'visited' && el('span', { class: 'route-visited-tag' }, t('map.visited_badge')),
+            el('span', { class: ['route-danger-tag', dangerClass] }, `☠️ T${dangerTier}`),
+            groundCount > 0 && el('span', { class: 'route-ground-tag' }, `📦 ${groundCount}`),
           ),
           el(
             'div',
@@ -799,6 +939,9 @@ export class MapView {
   }
 
   #getEnemyAvatar(enemyId, enemy) {
+    if (enemyId === 'alpha_beast') return '👹';
+    if (enemyId === 'armored_warlord') return '👑';
+    if (enemyId === 'rogue_exo_commander') return '🦾';
     if (enemyId.includes('hound') || enemyId.includes('wolf') || enemyId.includes('dog')) return '🐺';
     if (enemyId.includes('mutant') || enemyId.includes('stalker') || enemyId.includes('crawler')) return '☣️';
     if (enemyId.includes('sniper') || enemyId.includes('marksman')) return '🎯';
@@ -913,7 +1056,13 @@ export class MapView {
 
   #renderCombatCard(state, engagement) {
     this.#encounterHostEl.hidden = false;
-    const enemy = getEnemy(engagement.enemyId);
+    const baseEnemy = getEnemy(engagement.enemyId);
+    const enemy = {
+      ...baseEnemy,
+      level: engagement.level || 1,
+      accuracy: engagement.accuracy ?? baseEnemy.accuracy,
+      evasion: engagement.evasion ?? baseEnemy.evasion,
+    };
     const enemyNameStr = t(`enemy.${engagement.enemyId}.name`);
     const weapon = weaponProfile(state);
     const weaponLabel = weapon.itemId ? t(`item.${weapon.itemId}.name`) : t('inventory.unarmed');
@@ -1096,7 +1245,11 @@ export class MapView {
           el(
             'div',
             { class: 'fighter-name-cluster' },
-            el('span', { class: 'fighter-role' }, t('combat.ui.enemy_role')),
+            el(
+              'span',
+              { class: 'fighter-role' },
+              `${engagement.isBoss ? '👑 BOSS • ' : ''}${t('combat.ui.enemy_role')} • LV.${enemy.level}`,
+            ),
             el('span', { class: 'fighter-name' }, enemyNameStr),
           ),
         ),
@@ -1285,6 +1438,38 @@ export class MapView {
           },
           el('span', {}, `🎒 ${t('combat.action.scavenge')}`),
           el('span', { class: 'choice-odds' }, t('combat.scavenge_tag')),
+        ),
+      );
+    }
+
+    const stacks = state.inventory?.stacks ?? [];
+    const medCandidates = stacks
+      .filter((s) => {
+        if (s.qty <= 0) return false;
+        const def = getItem(s.itemId);
+        if (!def?.use) return false;
+        return def.category === 'medical' || def.use.effects?.some((e) => e.type === 'heal' || e.type === 'cure' || e.type === 'cure_ailment');
+      })
+      .sort((a, b) => {
+        const da = getItem(a.itemId);
+        const db = getItem(b.itemId);
+        const ha = da?.use?.effects?.some((e) => e.type === 'heal') ? 1 : 0;
+        const hb = db?.use?.effects?.some((e) => e.type === 'heal') ? 1 : 0;
+        return hb - ha;
+      });
+    const quickMed = medCandidates[0];
+    if (quickMed) {
+      secondaryActions.push(
+        el(
+          'button',
+          {
+            type: 'button',
+            class: 'btn btn-xs btn-accent encounter-choice-btn',
+            style: 'flex: 1 1 100%;',
+            onClick: () => this.#engine.dispatch('inventory/use', { itemId: quickMed.itemId }),
+          },
+          el('span', {}, `🩹 ${t('combat.action.quick_med')}: ${t(`item.${quickMed.itemId}.name`)}`),
+          el('span', { class: 'choice-odds' }, `×${quickMed.qty}`),
         ),
       );
     }

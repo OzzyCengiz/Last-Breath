@@ -189,6 +189,28 @@ export const radioModule = {
       safeAudio(() => audioEngine.playTerminalClick());
       return { ok: true };
     });
+
+    engine.registerAction('radio/scanIntel', () => {
+      const radio = store.state.radio;
+      if (!radio?.isPowered || (radio.batteryMinutes ?? 0) < 15) {
+        return { ok: false, reason: 'reject.missing_materials' };
+      }
+      store.commit('radio/consumeBattery', 15);
+      engine.advanceTime(10, 'idle');
+      const currentNodeId = store.state.world.currentNodeId;
+      let revealed = 0;
+      for (const [id, entry] of Object.entries(store.state.world.nodes || {})) {
+        if (!entry.known && revealed < 2) {
+          if (store.commit('world/revealNode', id)) revealed += 1;
+        }
+      }
+      if (store.state.skills?.foraging) {
+        store.state.skills.foraging.xp = (store.state.skills.foraging.xp || 0) + 15;
+      }
+      safeAudio(() => audioEngine.playTerminalConfirm?.());
+      engine.log('radio.log.intel_scanned', { count: revealed }, 'good');
+      return { ok: true, revealed, from: currentNodeId };
+    });
   }
 };
 

@@ -2,10 +2,13 @@ import { BALANCE } from '../../data/balance.js';
 import { ENCOUNTERS } from '../../data/encounters.js';
 import { getRandomFieldLog } from '../../data/narratives.js';
 import { i18n, ref } from '../../i18n/i18n.js';
+import { readClock } from '../../core/clock.js';
 import { rollRange } from '../../core/rng.js';
 import { grantItems } from '../inventory/index.js';
+import { countItem } from '../inventory/inventoryModel.js';
 import { rollLoot } from '../inventory/loot.js';
 import { rollScavengeLoot } from '../../data/countryLoot.js';
+import { getPoisForNode, rollScavengePoiLoot, SCAVENGE_POIS } from '../../data/scavengePois.js';
 import { skillMultiplier } from '../skills/skillSelectors.js';
 import { passiveBonus } from '../inventory/inventorySelectors.js';
 import {
@@ -31,6 +34,8 @@ function createInitialWorld() {
     selectedNodeId: startId,
     nodes,
     encounter: null,
+    evacuated: false,
+    endlessMode: false,
   };
 }
 
@@ -72,6 +77,12 @@ function registerMapMutations(store) {
     },
     setEncounter(state, encounter) {
       state.world.encounter = encounter;
+    },
+    setEvacuated(state) {
+      state.world.evacuated = true;
+    },
+    setEndlessMode(state) {
+      state.world.endlessMode = true;
     },
     clearEncounter(state) {
       state.world.encounter = null;
@@ -246,13 +257,31 @@ function registerMapActions(engine, ctx) {
     return { ok: true, travelResult };
   });
 
-  engine.registerAction('map/scavenge', () => {
+  engine.registerAction('map/scavenge', ({ poiId } = {}) => {
     const nodeId = store.state.world.currentNodeId;
+    const node = getNode(nodeId);
+
+    // If no POI selected yet, open POI selection view
+    if (!poiId) {
+      const pois = getPoisForNode(node, rng);
+      engine.bus.emit('loot:modal', {
+        type: 'scavenge_select_poi',
+        nodeId,
+        node,
+        pois,
+        locationName: locName(nodeId),
+        country: node?.country || '',
+      });
+      return { ok: true };
+    }
+
+    const poi = SCAVENGE_POIS[poiId] || SCAVENGE_POIS.supermarket;
     const profile = scavengeProfile(store.state, nodeId);
     const country = profile.node?.country || '';
     const minutes = rollRange(rng, BALANCE.scavenge.minutes);
 
-    engine.log('log.scavenge.started', { location: locName(nodeId), country });
+    const poiName = t(poi.nameKey);
+    engine.log('log.scavenge.started', { location: `${locName(nodeId)} - ${poiName}`, country });
     engine.advanceTime(minutes, 'scavenge');
     if (!store.state.player.alive) return { ok: true };
 
@@ -263,8 +292,9 @@ function registerMapActions(engine, ctx) {
     if (rng.chance(profile.chance)) {
       const foragingBonus = skillMultiplier(store.state, 'foraging');
       const scavBonus = passiveBonus(store.state, 'scavengeBonus') || 0;
-      const items = rollScavengeLoot(rng, {
+      const items = rollScavengePoiLoot(rng, {
         node: profile.node,
+        poiId,
         depletion: profile.depletion,
         foragingBonus,
         scavengeBonus: scavBonus,
@@ -273,7 +303,7 @@ function registerMapActions(engine, ctx) {
       effects.apply([{ type: 'xp', skill: 'foraging', amount: 5 }], ctx);
 
       engine.log('log.scavenge.found', {
-        location: locName(nodeId),
+        location: `${locName(nodeId)} [${poiName}]`,
         country,
         count: items.reduce((acc, it) => acc + (it.qty || 1), 0),
       }, 'good');
@@ -285,26 +315,30 @@ function registerMapActions(engine, ctx) {
       }
       engine.bus.emit('loot:modal', {
         type: 'scavenge',
+        poi,
         titleKey: 'loot.title.scavenge_found',
         descKey: 'loot.desc.scavenge_found',
-        descParams: { location: locName(nodeId), country },
+        descParams: { location: `${locName(nodeId)} - ${poiName}`, country },
         items,
         nodeId,
         onConfirm: (taken, left) => {
-          for (const { itemId, qty } of taken) grantItems(ctx, itemId, qty);
-          for (const { itemId, qty } of left) {
-            store.commit('inventory/toGround', { nodeId, itemId, qty });
-          }
+          store.batch(() => {
+            for (const { itemId, qty } of taken) grantItems(ctx, itemId, qty);
+            for (const { itemId, qty } of left) {
+              store.commit('inventory/toGround', { nodeId, itemId, qty });
+            }
+          });
         },
       });
     } else {
-      engine.log('log.scavenge.empty', { location: locName(nodeId), country }, 'warn');
+      engine.log('log.scavenge.empty', { location: `${locName(nodeId)} [${poiName}]`, country }, 'warn');
       effects.apply([{ type: 'xp', skill: 'foraging', amount: 2 }], ctx);
       engine.bus.emit('loot:modal', {
         type: 'scavenge_empty',
+        poi,
         titleKey: 'loot.title.scavenge_empty',
         descKey: 'loot.desc.scavenge_empty',
-        descParams: { location: locName(nodeId), country },
+        descParams: { location: `${locName(nodeId)} - ${poiName}`, country },
         items: [],
         nodeId,
         onConfirm: () => {},
@@ -321,6 +355,7 @@ function registerMapActions(engine, ctx) {
       engine.bus.emit('vehicles:discovered', vehicleDiscoveredOnScavenge);
     }
 
+    engine.bus.emit('map:scavenged', { nodeId });
     return { ok: true };
   });
 
@@ -495,6 +530,38 @@ function registerMapEffects(ctx) {
   });
 }
 
+function registerEndgameActions(engine, ctx) {
+  const { store, bus } = ctx;
+
+  engine.registerAction('map/evacuate', () => {
+    const state = store.state;
+    if (state.world.currentNodeId !== 'ankara') {
+      return { ok: false, reason: 'reject.not_at_sector_09' };
+    }
+    const { day } = readClock(state.time?.minutes ?? 0);
+    if (day > 45) {
+      return { ok: false, reason: 'reject.bunker_sealed' };
+    }
+    if (countItem(state.inventory, 'electronics') < 1 || countItem(state.inventory, 'bottled_water') < 2) {
+      return { ok: false, reason: 'reject.missing_materials' };
+    }
+    store.commit('inventory/remove', { itemId: 'electronics', qty: 1 });
+    store.commit('inventory/remove', { itemId: 'bottled_water', qty: 2 });
+    store.commit('world/setEvacuated');
+    codexManager.unlockAchievement('sector_09_evacuee');
+    const visitedCount = Object.values(state.world.nodes || {}).filter((n) => n.visited).length;
+    engine.log('log.endgame.evacuated', { days: day }, 'good');
+    audioEngine?.playAchievementChime?.();
+    bus.emit('game:victory', { days: day, nodes: visitedCount });
+    return { ok: true, days: day };
+  });
+
+  engine.registerAction('map/continueEndless', () => {
+    store.commit('world/setEndlessMode');
+    return { ok: true };
+  });
+}
+
 export const mapModule = {
   id: 'world',
   createState: createInitialWorld,
@@ -503,6 +570,7 @@ export const mapModule = {
     registerMapMutations(ctx.store);
     registerMapActions(ctx.engine, ctx);
     registerMapEffects(ctx);
+    registerEndgameActions(ctx.engine, ctx);
 
     ctx.engine.addGuard((type, options, state) => {
       if (state.world.encounter && !options.allowDuringEncounter) {

@@ -5,6 +5,8 @@ import { grantItems } from '../inventory/index.js';
 import { codexManager } from '../../core/codexManager.js';
 import { ref } from '../../i18n/i18n.js';
 import { audioEngine } from '../../core/audioEngine.js';
+import { getSeason, isNight } from '../../core/clock.js';
+import { getUnlockedPerkBonus } from '../../data/skillTree.js';
 
 const baseLocName = (nodeId) => ref(`location.${nodeId}`);
 const baseItemName = (itemId) => ref(`item.${itemId}.name`);
@@ -26,8 +28,60 @@ export function activeWorkbenchTier(state) {
   return state.base.structures.workbench ?? 0;
 }
 
+export function getEffectiveStructureCost(state, costs) {
+  const discount = getUnlockedPerkBonus(state, 'baseStructureDiscount') || 0;
+  if (discount <= 0) return costs;
+  return costs.map(({ itemId, qty }) => ({
+    itemId,
+    qty: Math.max(1, Math.floor(qty * (1 - discount))),
+  }));
+}
+
+export function countBaseItem(state, itemId) {
+  const entry = state.base?.storage?.find((e) => e.itemId === itemId);
+  return entry?.qty ?? 0;
+}
+
+export function countAvailableMaterial(state, itemId) {
+  const inPack = countItem(state.inventory, itemId);
+  return inPack + (isAtOutpost(state) ? countBaseItem(state, itemId) : 0);
+}
+
+export function consumeAvailableMaterial(store, itemId, qty) {
+  const removedFromPack = store.commit('inventory/remove', { itemId, qty }) || 0;
+  const remaining = qty - removedFromPack;
+  if (remaining > 0 && isAtOutpost(store.state)) {
+    store.commit('base/withdrawItem', { itemId, qty: remaining });
+  }
+}
+
 export function canAffordCost(state, costs) {
-  return costs.every(({ itemId, qty }) => countItem(state.inventory, itemId) >= qty);
+  const effective = getEffectiveStructureCost(state, costs);
+  return effective.every(({ itemId, qty }) => countAvailableMaterial(state, itemId) >= qty);
+}
+
+export function getOutpostTier(state) {
+  const structures = state.base?.structures ?? {};
+  const totalLevels = Object.values(structures).reduce((sum, lvl) => sum + (lvl || 0), 0);
+  if (totalLevels >= 12) return { level: 4, totalLevels, key: 'tier_4' };
+  if (totalLevels >= 7) return { level: 3, totalLevels, key: 'tier_3' };
+  if (totalLevels >= 3) return { level: 2, totalLevels, key: 'tier_2' };
+  return { level: 1, totalLevels, key: 'tier_1' };
+}
+
+export function calculateDefensePower(state) {
+  if (!state.base?.outpostNodeId) return 0;
+  const barricadeLvl = state.base.structures?.barricade ?? 0;
+  const watchtowerLvl = state.base.structures?.watchtower ?? 0;
+  const integrity = state.base.integrity ?? 100;
+  const isPowered = Boolean(state.base.generatorActive);
+  const watchtowerBonus = watchtowerLvl > 0 ? (STRUCTURES.watchtower?.defenseBonus?.[watchtowerLvl - 1] ?? watchtowerLvl * 30) : 0;
+  let power = barricadeLvl * 35 + watchtowerBonus + Math.round(integrity * 0.35) + (isPowered ? 25 : 0);
+  const posture = state.base.defensePosture || 'fortify';
+  if (posture === 'fortify') power = Math.round(power * 1.25);
+  else if (posture === 'ambush') power = Math.round(power * 1.1);
+  else if (posture === 'stealth') power = Math.round(power * 0.9);
+  return power;
 }
 
 export function calculateThreatLevel(state) {
@@ -51,8 +105,17 @@ export function calculateThreatLevel(state) {
   const barricadeLvl = state.base.structures?.barricade ?? 0;
   threat -= barricadeLvl * 10;
 
+  const watchtowerLvl = state.base.structures?.watchtower ?? 0;
+  if (watchtowerLvl > 0) {
+    threat -= STRUCTURES.watchtower?.threatReduction?.[watchtowerLvl - 1] ?? watchtowerLvl * 10;
+  }
+
   if (state.base.generatorActive) {
     threat -= 15; // floodlights and generator perimeter deterrent
+  }
+
+  if ((state.base.patrolFortifyUntil ?? 0) > (state.time?.minutes ?? 0)) {
+    threat -= 15;
   }
 
   return Math.max(5, Math.min(100, Math.round(threat)));
@@ -73,6 +136,8 @@ export const baseModule = {
         radio_relay: 0,
         vehicle_depot: 0,
         generator: 0,
+        solar_panel: 0,
+        watchtower: 0,
       },
       integrity: 100,
       storage: [],
@@ -81,6 +146,8 @@ export const baseModule = {
       vehicleRepairHoursAccum: 0,
       generatorFuelMinutes: 0,
       generatorActive: false,
+      patrolFortifyUntil: 0,
+      defensePosture: 'fortify',
       defenseLogs: [],
     };
   },
@@ -101,12 +168,15 @@ export const baseModule = {
           radio_relay: 0,
           vehicle_depot: 0,
           generator: 0,
+          solar_panel: 0,
+          watchtower: 0,
         };
         state.base.waterHoursAccum = 0;
         state.base.foodHoursAccum = 0;
         state.base.vehicleRepairHoursAccum = 0;
         state.base.generatorFuelMinutes = 0;
         state.base.generatorActive = false;
+        state.base.patrolFortifyUntil = 0;
         state.base.defenseLogs = [];
       },
       upgradeStructure(state, structureId) {
@@ -123,13 +193,27 @@ export const baseModule = {
         state.base.generatorActive = !state.base.generatorActive;
       },
       addGeneratorFuel(state, minutes) {
-        const level = state.base.structures?.generator ?? 1;
+        const level = Math.max(1, state.base.structures?.generator ?? 1);
         const maxCapMinutes = (STRUCTURES.generator?.fuelCapacityHours?.[level - 1] ?? 24) * 60;
         state.base.generatorFuelMinutes = Math.min(maxCapMinutes, (state.base.generatorFuelMinutes ?? 0) + minutes);
       },
       tickGenerator(state, hours) {
+        // Daytime solar array trickle recharge
+        const solarLvl = state.base.structures?.solar_panel ?? 0;
+        if (solarLvl > 0 && !isNight(state.time?.minutes ?? 0)) {
+          const solarRate = STRUCTURES.solar_panel?.solarMinutesPerHour?.[solarLvl - 1] ?? 20;
+          const genLvl = Math.max(1, state.base.structures?.generator ?? 1);
+          const maxCapMinutes = (STRUCTURES.generator?.fuelCapacityHours?.[genLvl - 1] ?? 24) * 60;
+          state.base.generatorFuelMinutes = Math.min(
+            maxCapMinutes,
+            (state.base.generatorFuelMinutes ?? 0) + Math.round(solarRate * hours),
+          );
+        }
+
         if (!state.base.generatorActive) return { wasActive: false, burned: 0 };
-        const burnNeeded = Math.round(hours * 60);
+        const effBonus = getUnlockedPerkBonus(state, 'generatorFuelEfficiency') || 0;
+        const burnRate = Math.max(0.25, 1 - effBonus);
+        const burnNeeded = Math.round(hours * 60 * burnRate);
         const available = state.base.generatorFuelMinutes ?? 0;
         const burned = Math.min(available, burnNeeded);
         state.base.generatorFuelMinutes = Math.max(0, available - burned);
@@ -138,6 +222,14 @@ export const baseModule = {
           state.base.generatorActive = false;
         }
         return { wasActive: true, burned, exhausted };
+      },
+      setPatrolFortify(state, untilMinutes) {
+        state.base.patrolFortifyUntil = untilMinutes;
+      },
+      setPosture(state, posture) {
+        if (['fortify', 'ambush', 'stealth'].includes(posture)) {
+          state.base.defensePosture = posture;
+        }
       },
       addDefenseLog(state, entry) {
         state.base.defenseLogs ??= [];
@@ -176,11 +268,13 @@ export const baseModule = {
           if (water > 0) state.base.waterHoursAccum -= water * interval;
         }
 
-        // Greenhouse (boosted by 1.3x if power grid is active!)
+        // Greenhouse (boosted by 1.3x if power grid is active, +25% in spring!)
         const foodLevel = structures.greenhouse ?? 0;
         if (foodLevel > 0) {
           const interval = STRUCTURES.greenhouse.foodEveryHours[foodLevel - 1];
-          const effectiveHours = state.base.generatorActive ? hours * 1.3 : hours;
+          const season = getSeason(state.time?.minutes ?? 0);
+          let effectiveHours = state.base.generatorActive ? hours * 1.3 : hours;
+          if (season === 'spring') effectiveHours *= 1.25;
           state.base.foodHoursAccum = (state.base.foodHoursAccum ?? 0) + effectiveHours;
           food = Math.floor(state.base.foodHoursAccum / interval);
           if (food > 0) state.base.foodHoursAccum -= food * interval;
@@ -229,11 +323,12 @@ export const baseModule = {
       const currentLevel = store.state.base.structures?.[structureId] ?? 0;
       if (currentLevel >= def.maxLevel) return { ok: false, reason: 'reject.max_level' };
 
-      const cost = def.costs[currentLevel];
-      if (!canAffordCost(store.state, cost)) return { ok: false, reason: 'reject.missing_materials' };
+      const rawCost = def.costs[currentLevel];
+      const cost = getEffectiveStructureCost(store.state, rawCost);
+      if (!canAffordCost(store.state, rawCost)) return { ok: false, reason: 'reject.missing_materials' };
 
       for (const { itemId, qty } of cost) {
-        store.commit('inventory/remove', { itemId, qty });
+        consumeAvailableMaterial(store, itemId, qty);
       }
       store.commit('base/upgradeStructure', structureId);
       const nextLevel = currentLevel + 1;
@@ -241,10 +336,33 @@ export const baseModule = {
         structure: ref(`structure.${structureId}.name`),
         level: nextLevel,
       }, 'good');
+      if (structureId === 'watchtower') {
+        effects.apply([{ type: 'reveal', count: 2 }], ctx);
+      }
       audioEngine?.playTerminalConfirm?.();
       effects.apply([{ type: 'xp', skill: 'engineering', amount: 15 * nextLevel }], ctx);
       engine.advanceTime(def.minutes, 'idle');
       return { ok: true };
+    });
+
+    engine.registerAction('base/patrolPerimeter', () => {
+      if (!isAtOutpost(store.state)) return { ok: false, reason: 'reject.not_at_outpost' };
+      if ((store.state.player?.energy ?? 0) < 8) {
+        return { ok: false, reason: 'reject.too_exhausted' };
+      }
+      store.commit('player/changeVital', { vital: 'energy', delta: -8 });
+      const until = (store.state.time?.minutes ?? 0) + 24 * 60;
+      store.commit('base/setPatrolFortify', until);
+      let foundScrap = 0;
+      if (rng && rng.chance(0.55)) {
+        foundScrap = rng.int(1, 2);
+        store.commit('base/storeItem', { itemId: 'scrap_metal', qty: foundScrap });
+      }
+      engine.log('log.base.patrol_done', { scrap: foundScrap }, 'good');
+      audioEngine?.playTerminalConfirm?.();
+      effects.apply([{ type: 'xp', skill: 'engineering', amount: 10 }], ctx);
+      engine.advanceTime(60, 'idle');
+      return { ok: true, foundScrap };
     });
 
     engine.registerAction('base/repair', () => {
@@ -381,6 +499,13 @@ export const baseModule = {
       return { ok: true, count: totalCollected };
     });
 
+    engine.registerAction('base/setPosture', ({ posture }) => {
+      if (!store.state.base.outpostNodeId) return { ok: false, reason: 'reject.not_at_outpost' };
+      store.commit('base/setPosture', posture);
+      audioEngine?.playTerminalClick?.(0.8, 0.5);
+      return { ok: true, posture };
+    });
+
     // Time Tick simulation: Generator burn, resource collection, and raid simulation
     bus.on('time:tick', ({ hours, activity }) => {
       if (!store.state.base.outpostNodeId) return;
@@ -405,8 +530,20 @@ export const baseModule = {
         engine.log('log.base.vehicle_repaired', { amount: vehicleRepaired }, 'good');
       }
 
-      // 3. Medical cot healing & Radio relay recharge during rest
+      // 3. Medical cot healing, Radio relay recharge & Outpost comfort bonus during rest
       if (activity === 'rest' && isAtOutpost(store.state)) {
+        const tier = getOutpostTier(store.state);
+        if (tier.level > 0) {
+          store.commit('player/changeVital', {
+            vital: 'morale',
+            delta: 1.5 * tier.level * hours,
+          });
+          store.commit('player/changeVital', {
+            vital: 'energy',
+            delta: 2.0 * tier.level * hours,
+          });
+        }
+
         const cotLevel = store.state.base.structures?.med_cot ?? 0;
         if (cotLevel > 0) {
           const bonus = Array.isArray(STRUCTURES.med_cot.restHealBonus)
@@ -428,19 +565,16 @@ export const baseModule = {
       // 4. Night Raids & Threat simulation (occurs mainly during rest or long intervals)
       if (hours >= 1) {
         const threat = calculateThreatLevel(store.state);
-        // Chance scales with threat (e.g. 50 threat = ~12% per hour)
-        const raidChance = (threat / 100) * 0.15;
+        const posture = store.state.base.defensePosture || 'fortify';
+        // Chance scales with threat (stealth reduces raid chance by 30%)
+        const raidChance = (threat / 100) * 0.15 * (posture === 'stealth' ? 0.7 : 1);
         if (rng && rng.chance(raidChance)) {
-          const barricadeLevel = store.state.base.structures?.barricade ?? 0;
-          const integrity = store.state.base.integrity ?? 100;
-          const isPowered = Boolean(store.state.base.generatorActive);
-
-          const defensePower = barricadeLevel * 35 + Math.round(integrity * 0.35) + (isPowered ? 25 : 0);
+          const defensePower = calculateDefensePower(store.state);
           const attackPower = rng.int(35, 80);
 
           if (defensePower >= attackPower) {
             // Repelled successfully!
-            const scrapGained = rng.int(1, 2);
+            const scrapGained = rng.int(1, 2) * (posture === 'ambush' ? 2 : 1);
             store.commit('base/storeItem', { itemId: 'scrap_metal', qty: scrapGained });
             store.commit('base/addDefenseLog', {
               won: true,
